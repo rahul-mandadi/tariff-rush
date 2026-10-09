@@ -1,0 +1,6 @@
+imports_hs2_panel.csv
+panel/raw/
+*.json.gz
+__pycache__/
+.DS_Store
+.venv/
