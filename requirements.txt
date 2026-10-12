@@ -1,5 +1,3 @@
 pandas
 numpy
 statsmodels>=0.14
-matplotlib
-scikit-learn

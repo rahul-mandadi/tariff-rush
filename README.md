@@ -5,79 +5,118 @@
 Rahul Reddy Mandadi, Raunaksingh Khalsa
 DS 5500 Data Science Capstone, Northeastern University, Fall 2026
 
-## Summary
+## The problem
 
-United States tariffs are announced with a published effective date, which creates a window in
-which importers can accelerate shipments to clear customs before the duty applies. This behavior,
-known as front-loading, is followed by an extended period of below-normal imports, and the two
-together are consequential for everyone downstream of the importer.
+When a U.S. tariff is announced with a start date, importers rush goods in before the deadline,
+and imports then fall below normal afterward. Ports, trucking and warehousing firms, lenders and
+forecasters see only total volume. They can't tell a timing effect from real growth or real
+decline, so they over-hire, overbuy capacity or misjudge demand.
 
-The difficulty is not seeing the surge. Terminals and carriers can see roughly three weeks ahead
-from vessel schedules and manifest filings. The difficulty is that they commit longshore labor,
-chassis and yard space on horizons of one to six months, and nothing in that forward view says
-whether volume returns after a surge. That turns on whether the surge was inventory borrowed from
-later months or a genuine rise in demand, which the import series does not resolve until long
-after the commitment is made.
+On the day a tariff is announced, using only information available that day, we predict for each
+product × country:
 
-This project forecasts, using only information available on the day a tariff is announced, whether
-the months following the effective date represent temporary payback of borrowed volume or a
-durable reduction in demand. Two supporting quantities feed it, since any repayment is bounded by
-what was borrowed: whether a surge occurs at all, and how large it is.
+1. **Will it rush at all?** Classification, the first step of a hurdle model.
+2. **How big is the rush, month by month until the deadline?** Multi-horizon regression with
+   prediction ranges.
+3. **What comes after the deadline?** The monthly path below normal, and whether the shortfall is
+   temporary payback (stockpiles being used up) or a lasting drop (the tariff reduced demand).
 
-Across 11,178 surge episodes detected since 2015, 52 percent give back less than twenty percent of
-the surge and are real increases, 35 percent give back more than sixty percent and were borrowed,
-and 13 percent fall between. Roughly one surge in three is repaid, and the two kinds are not
-distinguishable from the opening months of an episode.
+Every target is a deviation from a counterfactual "normal": what imports would have been without
+the tariff, forecast from pre-announcement trend and seasonality.
 
-## Data
+## Quickstart
 
-| Source | Role |
-| --- | --- |
-| U.S. Census Bureau international trade API | monthly imports by product and partner, the outcome |
-| Global Trade Alert | tariff events with announcement and effective dates |
-| WTO-IMF Tariff Tracker | cross-check on rates and start dates |
-| BTS TransBorder | truck and rail weight from Canada and Mexico, which Census omits |
-| IMF PortWatch | daily port calls, within-month timing |
-| University of Michigan Surveys of Consumers | independent corroboration of anticipatory buying |
+```bash
+python3 -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+export CENSUS_API_KEY=...        # free: https://api.census.gov/data/key_signup.html
 
-All sources are public and free for research use.
-
-## Pipeline
-
-```
-harvest.py    one Census API call per month, checkpointed to gzip per month
-assemble.py   flatten to a tidy monthly panel
-decomp.py     robust STL counterfactual, fit on pre-announcement data only
-surges.py     episode detection and repayment-ratio labels
+python src/harvest.py            # Census API -> data/raw/census_hs2/
+python src/assemble.py           # -> data/interim/imports_hs2_panel.csv
+python src/decomp.py             # -> data/interim/anomalies_kg.csv
 ```
 
-`harvest.py` reads a Census API key from the `CK` environment variable.
+`harvest.py` makes one API call per month and caches each one, so an interrupted run picks up
+where it stopped. It ends at the first month Census has not published yet.
 
-The panel is 1,035,855 rows covering 139 months (2015-01 to 2026-07), 98 HS chapters and 234
-partners. `imports_hs2_panel.csv` is about 47 MB and is not tracked here; run `harvest.py` then
-`assemble.py` to rebuild it. The derived outputs `anomalies_kg.csv` and `surge_events.csv` are
-tracked.
+## Layout
 
-Known issue: `harvest.py` and `decomp.py` currently expect a `panel/` subdirectory while the
-committed CSVs sit at the repository root. Paths are being unified.
+```
+src/
+  paths.py       repo paths shared by every step
+  harvest.py     monthly HS2 x partner imports from the Census API, 2015 onward
+  assemble.py    flatten raw months into a tidy panel, with sanity checks
+  decomp.py      provisional counterfactual baseline and anomalies
+data/
+  raw/           cached API responses (not tracked)
+  interim/       tidy tables built from raw (not tracked)
+  reference/     hand-curated tables such as the tariff event table (planned, tracked)
+```
+
+The panel has one row per month × HS2 chapter × partner country: `year`, `month`, `cty_code`,
+`cty_name`, `chapter`, `value_usd` (general imports), `air_kg`, `ves_kg` and `cnt_kg`
+(containerized, a subset of vessel). `assemble.py` keeps single-country rows only, dropping
+country groupings and the all-countries total.
+
+## Data sources
+
+| Source | Role | Level |
+| --- | --- | --- |
+| [Census international trade API](https://api.census.gov/data/timeseries/intltrade/imports/hs) | Outcome: monthly imports | HS2/4/6/10 × country |
+| [Global Trade Alert](https://globaltradealert.org) | Tariff events: announcement date, effective date, HS codes | HS codes |
+| [WTO–IMF Tariff Tracker](https://ttd.wto.org) | Cross-check of tariff changes and dates | HS chapter × partner |
+| BTS TransBorder Freight Data | Canada/Mexico truck and rail imports, with weight | HS2 only |
+| IMF PortWatch | Daily port calls, for rush timing within a month (later phase) | port × day |
+
+Notes on the Census data:
+
+- **Volume is measured in weight** (air + vessel kg), not dollars, because prices move with tariffs.
+- **Census only reports weight for air and vessel shipments.** Land shipments from Canada and
+  Mexico have none, which is what TransBorder is for.
+- **Monthly data comes out about five weeks after month end**, and later after government
+  shutdowns. That lag is why we forecast on announcement day.
+- **Census revises past months**, so the download date of each pull matters.
 
 ## Method
 
-For each product-partner series, a seasonal-trend decomposition using LOESS (STL) is fit on log
-volume using only data preceding the announcement date, and refit at every forecast origin, so a
-surge cannot contaminate the baseline it is measured against. The trend is extrapolated from its
-last 36 months and recombined with a seasonal profile averaged over three cycles, giving a
-counterfactual path and a tolerance band.
+**Baseline.** `decomp.py` fits a robust STL decomposition to log weight, using only data up to the
+cutoff. It extrapolates the trend from its slope over the last 36 months and adds a seasonal
+profile averaged over the last three cycles. The anomaly is actual ÷ counterfactual − 1. The band
+is ±1.96 standard deviations of the pre-period residuals.
 
-The aftermath label follows from an accounting argument: volume pulled forward is repaid out of
-the same inventory, so the cumulative deficit over the nine months after an episode is computed as
-a fraction of the excess during it. A ratio near one that then flattens is payback; a deficit
-running past the size of the surge means the demand level changed.
+The cutoff is currently fixed at 2024-12 for every series. Fitting each series up to its own
+event's announcement date needs the tariff event table.
 
-Because distinct tariff events number in the dozens, evaluation holds out whole events rather than
-random months, since two months from the same action are not independent.
+**Rules for the model:**
+
+- **No look-ahead.** Every feature must be known on announcement day.
+- **Rushes can start before the announcement.** Aluminum was +12% in January 2025, before the
+  February 10 announcement. Anticipation is measured, not assumed away.
+- **We don't predict whether a tariff survives.** Durability clues known on the day (legal
+  authority, pending court cases) are features, and results are reported separately for tariffs
+  that lasted and tariffs that were removed.
+- **Validation holds out whole tariff events**, because products hit by the same announcement
+  are correlated. We also train on 2018–2024 events and test on 2025–26.
 
 ## Status
 
-Panel built and validated. Counterfactual and episode labels implemented. Tariff event table,
-TransBorder integration and modeling are in progress.
+Week 1 of 10: data collection.
+
+- **Done:** the pull → panel → baseline pipeline. A full HS2 pull (2015-01 to 2026-07) was run
+  with the earlier flat-script layout. The current `src/` scripts produce identical output on
+  synthetic data but have not yet been rerun against the live API.
+- **Not yet verified:** the aluminum (HS 76) figures from the pitch. These are +12.7% in Jan 2025,
+  +45.2% in Feb and +48.8% in Mar, then eight months below normal. They come from `decomp.py` at
+  commit `e9db4d6` (`git show e9db4d6:anomalies_kg.csv`) and have not been checked independently.
+
+Next:
+
+- Pull `CON_VAL_MO`, `DUT_VAL_MO` and `CAL_DUT_MO` to get the effective duty rate
+  (`CAL_DUT_MO / CON_VAL_MO`), and check it jumps for aluminum in Mar and Jun 2025.
+- Record the download date of each month's pull.
+- Confirm `(month, chapter, cty_code)` is unique, since Census can split rows by district or rate
+  provision.
+- Add a validation script: missing months, monthly totals against the FT-900 release, and aluminum
+  against a simple same-month three-year average.
+- Build the tariff event table in `data/reference/`, with a source for every date. Then do the
+  HS4 pull and TransBorder.
