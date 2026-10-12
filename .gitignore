@@ -1,6 +1,13 @@
+# large raw caches, rebuilt by the acquisition scripts
 imports_hs2_panel.csv
 panel/raw/
+events/raw/
+data/raw/
 *.json.gz
+
+# derived, large
+anomalies_all_chapters.csv
+
 __pycache__/
 .DS_Store
 .venv/
