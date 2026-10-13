@@ -33,3 +33,7 @@ explore_data.html
 port/*.log
 .claude/launch.json
 explore_data_READ.html
+slides/preview/
+
+# PowerPoint and Word lock files
+~$*
