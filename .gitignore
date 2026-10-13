@@ -23,3 +23,10 @@ panel/hs10/
 panel/hs8/
 panel/*.log
 panel/analysis.parquet
+
+# rebuilt by events/harvest_adcvd.py (13MB index of 10,730 ITA notices)
+events/adcvd_index.json
+
+# district-level pulls, rebuilt by port_harvest.py
+port/raw/
+explore_data.html

@@ -1,115 +1,99 @@
 # What is already built
 
-Orientation for a new contributor. Written 2026-10-12.
+Orientation for a new contributor. Rewritten 2026-10-13.
 
-The project forecasts, on the day a tariff is announced, whether the months after the effective
-date are temporary payback of volume borrowed before it or a durable drop in demand. Two
-supporting quantities feed that: whether a surge happens at all, and how big it is.
+The project asks, on the day a tariff is announced, whether the months after the effective date
+are temporary payback of volume borrowed before it or a durable drop in demand. Two supporting
+quantities feed that: whether a surge happens at all, and how big it is.
 
-## The two halves
+## The shape of the thing
 
-The work so far splits into an **import panel** half (complete, on main) and a **tariff event**
-half (draft, not yet pushed). They have never been joined. Joining them is the next job and
-everything downstream waits on it.
+Three pieces, all now built and joined:
 
-## Half 1: the import panel (on main)
+1. **An import panel** at the product level tariffs are actually written at.
+2. **A tariff event table**, from two sources, with dates and product scopes.
+3. **A coverage map** connecting the two, which is what the first attempt was missing.
 
-```
-harvest.py   -> panel/raw/YYYY-MM.json.gz   one Census API call per month, checkpointed
-assemble.py  -> panel/imports_hs2_panel.csv tidy panel, 1,035,855 rows
-decomp.py    -> panel/anomalies_kg.csv      STL counterfactual, 6 chapters
-surges.py    -> panel/surge_events.csv      11,178 surge episodes with reversal ratios
-```
-
-`harvest.py` reads a Census API key from the `CK` environment variable. The panel covers 139
-months (2015-01 to 2026-07), 98 HS2 chapters, 234 partners, with value in dollars and weight
-split into air, vessel and containerized. It is about 47 MB and is not tracked; rebuild it with
-`harvest.py` then `assemble.py`. The two derived CSVs are tracked.
-
-### Important: there are two different baselines
-
-This trips people up. The project uses two distinct notions of "normal" and they are not
-interchangeable.
-
-**`decomp.py` uses a fitted counterfactual.** Robust STL on log volume, fit only on data before
-2024-12, trend extrapolated from its last 36 months, seasonal profile averaged over three cycles.
-The tolerance band is 1.96 pre-period residual standard deviations. This produced the headline
-aluminum result: +48.8 percent in March 2025 against a band of plus or minus 18 percent, eight
-consecutive months below afterwards, year closing at +0.7 percent. It also produced the
-six-chapter comparison where only aluminum and steel articles clear their bands.
-
-**`surges.py` uses a rolling trailing baseline.** Expected value at month t is a trailing
-12-month geometric mean times a month-of-year factor estimated only from months strictly before t.
-A surge episode is a contiguous run above 0.5 SD that peaks above 2.0 SD. The reversal ratio is
-the cumulative excess over the 9 months after the episode divided by the excess during it. This
-produced the 11,178 episodes across 5,007 cells and the 52 / 35 / 13 split into real growth,
-borrowed, and in between.
-
-Both are leak-free. The rolling baseline is the practical choice for scanning thousands of cells,
-the fitted counterfactual is the better choice for a single known event. **The proposal describes
-the STL procedure and then quotes the surge thresholds from `surges.py` as though they were one
-method.** They are not. Reconciling them, or stating clearly which is used where, is an open task.
-
-## Half 2: the tariff event table (built, not yet pushed)
+## 1. The import panel
 
 ```
-events/harvest_fr.py         -> events/fr_index.json   Federal Register search, 2,792 documents
-events/fetch_text.py         -> events/raw/*.txt       full text cache, 2,792 files, 454 MB
-events/build_event_table.py  -> events/tariff_events.csv and tariff_events_rejected.csv
+harvest_hs10.py      -> panel/hs10/YYYY-MM.json.gz   one Census call per month, checkpointed
+build_panel_hs8.py   -> panel/hs8/YYYY-MM.parquet    HS8 x partner x month
+analysis_panel.py    -> panel/analysis.parquet       after the inclusion rules
+eda_summary.py       -> eda/*.csv                    small views, committed, for the notebook
 ```
 
-Of 2,792 Federal Register documents from 2018 onward, 134 are kept as tariff actions and 2,658
-are rejected with a stated reason. The script asserts those add up, so nothing is dropped
-silently. The rejects are mostly trade remedy cases, proposed rules, exclusion grants and
-regulatory agendas.
+140 months, 2015-01 to 2026-08, 15.9M cells at HS8 x partner x month, 12,253 HS8 lines, 234
+partners. Every month reconciles against a total row the API returns separately, and 2017 sums
+to $2,340B against published imports of about $2.34 trillion.
 
-Of the 134, 68 are scope changes that modify an existing action rather than creating a new one.
-That leaves **66 genuine tariff actions**: 47 Section 232, 30 Section 301, 27 IEEPA, 28 with
-authority not yet resolved.
+HS10 is the pull level because tariff orders name HS8 lines and HS10 nests exactly inside HS8.
+Pulling HS6 would have made every match approximate.
 
-The 27 IEEPA events matter more than their count suggests. Those are the tariffs later struck down
-and refunded, which means a dip after one of them cannot be the duty suppressing demand. They are
-the comparison group the whole payback argument rests on.
+The raw caches are gitignored and take about an hour to rebuild. `eda/*.csv` is committed so
+the notebook runs without them.
 
-## Known problems, in priority order
+## 2. The tariff events
 
-**1. The join keys are broken. This blocks everything.**
+Two independent sources, because the first is too small on its own.
 
-`hs_chapters` is frequently just `99`. Chapter 99 is where tariff surcharges live, not where
-products live, so a code like 9903.85.03 says a surcharge exists but not what it sits on. The
-covered product codes are in the document annexes. Only 76 of 134 rows carry any chapter at all.
+```
+events/harvest_fr.py     -> events/fr_index.json      Section 232/301/IEEPA, 2,792 documents
+events/build_event_table.py -> events/tariff_events.csv   134 actions
+events/fix_effective_dates.py -> events/tariff_events_dates.csv
 
-`partners` is incoherent. A real value reads
-`Argentina;Australia;Brazil;Canada;EXCEPT:Argentina;...` because the parser collected country
-names instead of parsing an include set and an exception set separately.
+events/harvest_adcvd.py  -> events/adcvd_index.json   10,730 ITA notices, 2015-2026
+events/parse_adcvd.py    -> events/adcvd_events.csv   antidumping/countervailing cases
+```
 
-Until both are fixed there is no treatment indicator, and without a treatment indicator there is
-no supervised learning problem.
+The Section 232/301/IEEPA set gives 21 usable events with a median window of 23 days. The
+AD/CVD set gives 1,064 preliminary determinations with a median window of 150 days, which is what
+monthly data can actually resolve. The AD/CVD harvest exists because the original search used
+five Section 232/301 phrases and caught these only by accident.
 
-**2. Documents are not deduplicated into events.** One action often produces a proclamation plus
-an implementing notice. 134 documents is not 134 events, and the distinct count is what justifies
-choosing regularized models over gradient-boosted trees.
+## 3. The coverage map
 
-**3. Field coverage is thin.** `rate_pct` is filled on 26 percent of rows, `effective_date` on 69
-percent, and 41 rows are flagged low confidence.
+```
+coverage/pull_hts99.py        -> the Chapter 99 schedule and its notes
+coverage/build_coverage.py    -> which 9903 code covers what
+coverage/explode_products.py  -> coverage/product_lines.csv, the actual HS8 lines
+coverage_share.py             -> coverage/coverage_share.csv
+```
 
-**4. Path bug.** `harvest.py`, `assemble.py`, `decomp.py` and `surges.py` all expect a `panel/`
-subdirectory, but the committed CSVs sit at the repository root. Anything cloned fresh will fail
-on this.
+A tariff order points at a list of HS8 subheadings, often published in a separate note. Until
+those lists were read, the only option was to treat a whole chapter as tariffed. Measured in
+dollars the median action covers 5.4 percent of its chapter, so that approach was labelling
+mostly untreated trade as treated. This is why the first attempt at an effect found nothing.
 
-**5. The land-mode gap is open.** Census shipping weight covers air and vessel only. For aluminum
-in 2024 that leaves about 69 percent of Canadian and 97 percent of Mexican tonnage unobserved, and
-those two partners are 48 percent of aluminum import value. BTS TransBorder closes it and is not
-yet integrated.
+## The analysis
 
-## Where to start
+```
+within_product_test.py   three-bin treated vs untreated, with a placebo
+event_study.py           month-by-month version, --diff for growth
+adcvd_analysis.py        episode test on AD/CVD cases, always paired with a placebo
+adcvd_event_study.py     month-by-month path around a preliminary determination
+reversal_control.py      reversal ratio against untreated origins
+counterfactual_hs8.py    reversal ratio against a fitted baseline (retired, see below)
+```
 
-1. Resolve 9903 codes to covered product chapters. The USITC HTS API serves Chapter 99, and the
-   Federal Register annexes list coverage directly.
-2. Rewrite partner extraction as include set minus exception set.
-3. Deduplicate documents into distinct events.
-4. Build the coverage map: one row per event, chapter and partner, flagged treated or not.
-5. Measure the base rate. For covered cells, how often does a surge actually occur between
-   announcement and effective date? That number decides which evaluation metrics apply.
+Identification is within a product across origins: the control for a tariffed product from a
+tariffed country is the same product from countries that were not tariffed, in the same month.
+A price shock moves every origin together and cancels; a tariff moves one origin against the
+rest.
 
-Steps 1 and 2 are the hard dependency. Step 1 has unknown difficulty and is worth attacking first.
+**Every estimate is paired with a placebo** that shifts each event back 24 months. Three
+estimators were discarded for failing it. PHASE2_RESULTS.md records those as carefully as the
+ones that held, because the failures are why the survivor is believable.
+
+## Where it stands
+
+- The aftermath result is solid: a targeted origin loses about 27 percent against other origins
+  of the same product and does not recover within eighteen months, p < 0.0001, flat pre-trend.
+- The rush results are weaker, resting on 21 events, and differ by legal authority.
+- `explore_data.ipynb` is the EDA, 21 cells, runs clean off `eda/*.csv`.
+
+## Conventions
+
+- Raw caches gitignored, rebuilt by the acquisition scripts.
+- The Census API key is read from the `CK` environment variable and never written to a file.
+- US spelling, no em dashes.
