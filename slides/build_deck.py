@@ -150,7 +150,7 @@ s.notes_slide.notes_text_frame.text = (
 # ---------------------------------------------------------------- 2 context
 add("Every tariff comes with a date.",
     fig="01_context.png",
-    caption="A duty is announced, then starts later. That gap is a window to import before it applies.",
+    caption="Fig. 1   Copper imports. A duty is announced, then starts later.\nThat gap is a window to import before it applies.",
     notes="LAYMAN CONTEXT. Assume nobody knows what a tariff is.\n\n"
           "A tariff is a tax on imports. The government announces it, and it starts on a named "
           "date weeks or months later.\n\n"
@@ -162,7 +162,7 @@ add("Every tariff comes with a date.",
 # ---------------------------------------------------------------- 3 problem
 add("The decision comes before the data.",
     fig="02_timeline.png",
-    caption="Importers, lenders and carriers all decide here.\nCensus publishes monthly trade about five weeks after the month closes.",
+    caption="Fig. 2   Importers, lenders and carriers all decide here.\nCensus publishes monthly trade about five weeks after the month closes.",
     notes="THE DOMAIN PROBLEM. This slide says why anyone should care.\n\n"
           "Somebody has to act on announcement day. An importer with a supplier in the tariffed "
           "country has to decide whether to wait it out or qualify a new supplier somewhere "
@@ -209,7 +209,7 @@ wid5 = [max(len(hdr5[i]), max(len(r[i]) for r in rows5)) for i in range(4)]
 f5 = lambda r: "  ".join((str(v).ljust(wid5[i]) if i < 2 else str(v).rjust(wid5[i]))
                          for i, v in enumerate(r))
 tbl5 = "\n".join([f5(hdr5), "-" * (sum(wid5) + 6)] + [f5(r) for r in rows5])
-txt(s5, "One row: one product, one country, one month.", 7.70, 2.22, 4.88, 0.4, 14,
+txt(s5, "Table 1   One product, one country, one month.", 7.70, 2.22, 4.88, 0.4, 14,
     bold=True)
 txt(s5, "Copper, March 2025, biggest suppliers", 7.70, 2.60, 4.88, 0.4, 12, color=GREY)
 txt(s5, tbl5, 7.70, 3.00, 4.88, 1.9, 10, font="Courier New", spacing=1.35)
@@ -218,8 +218,8 @@ txt(s5, "140 months, Jan 2015 to Aug 2026\n15.9 million product-country-month re
     7.70, 4.72, 4.88, 1.2, 12, color=GREY, spacing=1.25)
 txt(s5, "Census trade API  +  Federal Register API\n2,792 documents, 134 real tariff actions",
     7.70, 5.62, 4.88, 0.8, 12, bold=True, spacing=1.25)
-txt(s5, "2017 adds up to 2,340 billion dollars against a published 2.34 trillion, and all 140 "
-        "months\nreconcile against a separate total the API returns on its own.",
+txt(s5, "Fig. 3   2017 adds up to 2,340 billion dollars against a published 2.34 trillion, and all\n"
+        "140 months reconcile against a separate total the API returns on its own.",
     X0, Y_TAKE, CW, 0.9, 17, color=GREY, spacing=1.12)
 s5.notes_slide.notes_text_frame.text = (
     "THE DATA. Two things on this slide, go left then right.\n\n"
@@ -239,7 +239,7 @@ s5.notes_slide.notes_text_frame.text = (
 # ---------------------------------------------------------------- 6 caveat
 add("Unusual is not the same as tariffed.",
     fig="05_chapters.png",
-    caption="Each chapter measured against its own normal range, built only from data before 2025.",
+    caption="Fig. 4   Each chapter measured against its own normal range, built only from data before 2025.",
     notes="METHOD AND ITS LIMIT. This is the slide that shows judgement, do not skip it.\n\n"
           "First explain the x-axis in one sentence: for each product we built what it would "
           "have done anyway from earlier years, drew a band for ordinary month-to-month wobble, "
@@ -259,7 +259,7 @@ add("Unusual is not the same as tariffed.",
 # ---------------------------------------------------------------- 7 finding
 add("And this is where it nearly came apart.",
     fig="07_coverage.png",
-    caption="The typical tariff action covers about 5% of its chapter's value. A third cover under 1%.",
+    caption="Fig. 5   The typical tariff action covers about 5% of its chapter's value. A third cover under 1%.",
     notes="THE KEY SLIDE. If time runs short, this is the one that must survive.\n\n"
           "A tariff order does not say 'chapter 74, copper'. It points at a list of 8-digit "
           "product codes, usually published in a separate legal notice. Until you read those "
@@ -296,6 +296,8 @@ add("Where we are.",
              "**How we will know it is real**",
              "Every estimate against a placebo. Three methods have already failed it."],
     bullet_size=17,
+    caption="Take-away for anyone working with this data: do not measure tariff effects at chapter level.\n"
+            "The typical action touches 5% of a chapter, so a real effect averages away to nothing.",
     notes="DISCUSSION AND NEXT STEPS.\n\n"
           "Be straight that this is data and limits, not results. Results come next.\n\n"
           "The one thing to claim as a finding: we measured why the obvious approach fails, and "
@@ -311,7 +313,7 @@ add("Where we are.",
 # ------------------------------------------------- 9 and 10, backup for questions
 add("Backup: the tariff actions we found.",
     fig="06_events.png",
-    caption="2,792 Federal Register documents reviewed, 134 are real tariff actions.\nMedian gap from announcement to start date is 8 days.",
+    caption="Fig. 6   2,792 Federal Register documents reviewed, 134 are real tariff actions.\nMedian gap from announcement to start date is 8 days.",
     notes="BACKUP, not part of the talk. Use if asked where the tariff dates come from or how "
           "many actions there are.\n\n"
           "Two waves: 2018-19, and a much bigger one in 2025. The legal authority turns out to "
@@ -319,7 +321,7 @@ add("Backup: the tariff actions we found.",
 
 add("Backup: what a normal range looks like.",
     fig="04_normal.png",
-    caption="Copper against its own expected range.\nThe expected line uses only data from before the tariff.",
+    caption="Fig. 7   Copper against its own expected range, built only from data before the tariff.",
     notes="BACKUP, not part of the talk. Use if asked how the normal range on slide 6 is built.\n\n"
           "Copper peaks 89% above normal against a band of 50%, so it clears.\n\n"
           "Aluminium does NOT clear: it peaks at 26% against a band of 100%, because its own "
