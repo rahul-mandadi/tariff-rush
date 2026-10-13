@@ -17,3 +17,8 @@ anomalies_all_chapters.csv
 __pycache__/
 .DS_Store
 .venv/
+
+# HS10 month checkpoints (~1GB, rebuilt by harvest_hs10.py)
+panel/hs10/
+panel/hs8/
+panel/*.log
