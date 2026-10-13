@@ -162,7 +162,7 @@ add("Every tariff comes with a date.",
 # ---------------------------------------------------------------- 3 problem
 add("The decision comes before the data.",
     fig="02_timeline.png",
-    caption="Census publishes monthly trade about five weeks after the month closes.",
+    caption="Importers, lenders and carriers all decide here.\nCensus publishes monthly trade about five weeks after the month closes.",
     notes="THE DOMAIN PROBLEM. This slide says why anyone should care.\n\n"
           "Somebody has to act on announcement day. An importer with a supplier in the tariffed "
           "country has to decide whether to wait it out or qualify a new supplier somewhere "
@@ -177,11 +177,11 @@ add("The decision comes before the data.",
 # ---------------------------------------------------------------- 4 questions
 add("So we ask three questions.",
     bullets=["**1.  Will there be a rush, and how big?**",
-             "Before the duty starts, do imports jump, and by how much?",
+             "classification, then regression",
              "**2.  What happens after the duty starts?**",
-             "Is the drop volume borrowed from later months, a real fall in demand,\nor trade moving to another country?",
+             "three-way classification: borrowed, lost, or relocated",
              "**3.  How long does it last?**",
-             "Months, or permanently?"],
+             "duration, with censoring"],
     bullet_size=20,
     caption="This presentation is about the data and what it can support. Results come next.",
     notes="THE ANALYTIC PROBLEM. Short, it is a signpost.\n\n"
@@ -216,6 +216,8 @@ txt(s5, tbl5, 7.70, 3.00, 4.88, 1.9, 10, font="Courier New", spacing=1.35)
 txt(s5, "140 months, Jan 2015 to Aug 2026\n15.9 million product-country-month records\n"
         "Pulled at 10 digits, the level tariff orders are written at",
     7.70, 4.72, 4.88, 1.2, 12, color=GREY, spacing=1.25)
+txt(s5, "Census trade API  +  Federal Register API\n2,792 documents, 134 real tariff actions",
+    7.70, 5.62, 4.88, 0.8, 12, bold=True, spacing=1.25)
 txt(s5, "2017 adds up to 2,340 billion dollars against a published 2.34 trillion, and all 140 "
         "months\nreconcile against a separate total the API returns on its own.",
     X0, Y_TAKE, CW, 0.9, 17, color=GREY, spacing=1.12)
@@ -284,13 +286,15 @@ add("And this is where it nearly came apart.",
 # ---------------------------------------------------------------- 8 status
 add("Where we are.",
     bullets=["**Built and checked**",
-             "140 months of imports at the exact level tariffs are written, reconciled\nagainst published totals.",
+             "140 months at the level tariffs are written, reconciled against published totals.",
              "**A detector, and its limits**",
-             "We can find months that are unusual for a product, and we know it cannot\ntell a tariff from a price shock on its own.",
+             "It finds unusual months. It cannot tell a tariff from a price shock.",
              "**134 tariff actions, with the products behind each one**",
-             "Corrected announcement and effective dates, and the 8-digit product lists.",
-             "**Next**",
-             "Measure the rush and what follows it, at product level, using untreated\ncountries as the comparison."],
+             "Corrected dates, and the 8-digit product lists.",
+             "**How we will measure it**",
+             "Within product, across origins.",
+             "**How we will know it is real**",
+             "Every estimate against a placebo. Three methods have already failed it."],
     bullet_size=17,
     notes="DISCUSSION AND NEXT STEPS.\n\n"
           "Be straight that this is data and limits, not results. Results come next.\n\n"
