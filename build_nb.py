@@ -28,7 +28,6 @@ plt.rcParams.update({"figure.figsize":(9,3.2), "axes.grid":True,
 cm = pd.read_csv("eda/chapter_month.csv", dtype={"chapter":str}, parse_dates=["ym"])
 cp = pd.read_csv("eda/chapter_partner.csv", dtype={"chapter":str,"cty":str})
 fs = pd.read_csv("eda/featured_series.csv", dtype={"chapter":str,"cty":str}, parse_dates=["ym"])
-print("loaded")
 """)))
 
 C.append(md(L("""
@@ -50,6 +49,19 @@ print()
 print("US goods imports per year, $ billion:")
 yr = cm.groupby(cm.ym.dt.year).value.sum()/1e9
 print(yr.round(0).to_string())
+""")))
+
+C.append(code(L("""
+# what a single row of the data actually is: one product group, one country, one month
+sample = (fs[(fs.chapter=="74") & (fs.ym=="2025-03-01")]
+          .sort_values("value", ascending=False)
+          [["chapter","cty","cty_name","ym","value","kg"]].head(6))
+print("copper imports, March 2025, biggest suppliers:")
+print()
+print(sample.to_string(index=False))
+print()
+print("value is US dollars for the month. kg is the quantity, where it is reported.")
+print(f"the panel behind this: {len(cm):,} chapter-months, {len(cp):,} chapter-partner pairs")
 """)))
 
 C.append(md(L("""
@@ -227,7 +239,9 @@ plt.tight_layout(); plt.show()
 
 C.append(md(L("""
 Two waves: 2018-2019, and a much bigger one in 2025.
+""")))
 
+C.append(md(L("""
 ## 6. The problem we had to solve first
 
 A tariff action does not say "chapter 74". It points at a list of 8-digit product codes, often

@@ -11,16 +11,24 @@ United States tariffs are announced with a published effective date, which creat
 which importers can accelerate shipments to clear customs before the duty applies. This behavior,
 known as front-loading, is followed by an extended period of below-normal imports.
 
-The difficulty is not seeing the surge. Terminals and carriers can see roughly three weeks ahead
-from security and manifest filings. The difficulty is that they commit capacity on horizons
-measured in months, and nothing in that forward view says whether volume returns after a surge.
-That turns on whether the surge was inventory borrowed from later months or a genuine rise in
-demand, which the import series does not resolve until long after the commitment is made.
+The difficulty is not seeing the surge, it is knowing what follows it. An importer with a
+supplier in the targeted country has to choose between waiting it out and qualifying a supplier
+elsewhere, which runs months and costs real money. A lender behind either side holds the same
+question as credit risk, and a carrier running that origin's service has to decide whether to
+keep it. All of them decide close to announcement day, and the import series does not resolve
+the question until long afterwards. Census publishes monthly trade about five weeks after the
+month closes, so waiting for certainty is not an option either.
 
-This project forecasts, using only information available on the day a tariff is announced, whether
-the months following the effective date represent temporary payback of borrowed volume or a
-durable reduction in demand. Two supporting quantities feed it, since any repayment is bounded by
-what was borrowed: whether a surge occurs at all, and how large it is.
+This project asks, using only information available on the day a tariff is announced, what
+happens to the affected trade afterwards: whether a surge occurs and how large, and whether the
+months after the effective date are temporary payback of borrowed volume, a durable reduction in
+demand, or trade relocating to another origin.
+
+On the stakeholder: an earlier version of this work named port and terminal operators as the
+user. That has since been tested and dropped. When volume is displaced from one country it
+arrives from another through substantially the same US customs districts, so a terminal's
+throughput barely moves. The exposure sits with whoever is tied to a particular origin rather
+than to total volume. See PHASE2_RESULTS.md.
 
 ## Status
 

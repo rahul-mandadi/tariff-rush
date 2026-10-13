@@ -9,25 +9,35 @@ Every number below is produced by `explore_data.ipynb`, which runs clean off `ed
 
 ## 1. The problem belongs to someone
 
-When a tariff is announced with a future start date, importers rush shipments in before the
-duty applies. Afterwards imports fall below normal.
+When a tariff is announced with a future start date, imports from the targeted country rush in
+before the duty applies, then fall away.
 
-The people who care are the ones who commit capacity months ahead: terminals, carriers,
-warehouses, truckers. They can see about three weeks of arrivals from manifest filings. They
-are committing crew, chassis and yard space three months out. Nothing in that forward view
-tells them whether volume comes back after a surge.
+Somebody has to decide what to do about that. An importer with a supplier in that country has
+to choose between waiting it out and qualifying a supplier somewhere else, and requalification
+runs months and costs real money. A lender financing that importer, or financing the supplier
+on the other side, holds the same question as credit risk. A carrier that runs a service from
+that origin has to decide whether to keep the string.
 
-**The beat:** this is not a forecasting puzzle for its own sake. Somebody books labour against
-the answer.
+All of them decide on announcement day, with no idea yet whether this is a disruption or a
+permanent loss of a supplier.
+
+**The beat:** the decision is where to buy next and when. It gets made before the answer is
+knowable.
 
 ## 2. Why it is hard
 
-A surge is easy to see after the fact. The hard part is that a surge and a boom look identical
-while they are happening. One is volume borrowed from later months that will be repaid. The
-other is real growth. The import series does not resolve which until long after the capacity
-commitment has been made.
+Two reasons, and the second is the one people miss.
 
-**The beat:** the difficulty is not detection, it is interpretation.
+A surge and a boom look identical while they are happening. One is volume borrowed from later
+months that will be repaid; the other is real growth. The series does not separate them until
+long after the decision has been made.
+
+And you cannot simply watch and react, because the data arrives late. Census publishes monthly
+trade about five weeks after the month closes. By the time two bad months are on the screen,
+the duty has been in force for a quarter.
+
+**The beat:** the difficulty is not detection, it is interpretation, and the clock runs against
+you while you wait for certainty.
 
 ## 3. What we have
 
@@ -124,3 +134,14 @@ silk visible, and the coverage-share bar chart. The third is the one to spend ti
 **If asked "so is there a rush?":** the honest answer is that we now have the data and the
 product-level matching to answer it, and that the chapter-level version of the question was
 unanswerable for the reason in section 6.
+
+**If asked "who exactly is the customer?":** say the decision is where to source next and when,
+and that it sits with whoever is exposed to a particular country rather than to total volume:
+the importer requalifying a supplier, the lender behind either side, the carrier running that
+origin's service. Then say you are still testing which of those the data actually serves. That
+is true, and it is a better answer than naming one confidently.
+
+Do not claim a port or terminal operator as the user. An earlier version of this project did,
+and we have since tested it: when volume is displaced from one country it arrives from another
+through substantially the same US districts, so a terminal's throughput barely changes. That
+test is not in this presentation, but the claim it killed should not be in it either.

@@ -30,3 +30,4 @@ events/adcvd_index.json
 # district-level pulls, rebuilt by port_harvest.py
 port/raw/
 explore_data.html
+port/*.log
