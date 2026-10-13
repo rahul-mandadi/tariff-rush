@@ -65,8 +65,8 @@ print(f"the panel behind this: {len(cm):,} chapter-months, {len(cp):,} chapter-p
 """)))
 
 C.append(md(L("""
-That yearly total is our main sanity check. 2017 comes to about $2,340 billion, and the
-published figure for US goods imports in 2017 is about $2.34 trillion. We also check every
+That yearly total is our main sanity check. 2017 comes to about 2,340 billion dollars, and the
+published figure for US goods imports in 2017 is about 2.34 trillion. We also check every
 single month against a total row the API returns separately, and all 140 months agree.
 
 **One thing worth knowing about the numbers.** We use two measures. Value in dollars is always
@@ -196,7 +196,7 @@ C.append(md(L("""
 Plausible ones: organic chemicals and pharmaceuticals were both under open tariff threat during
 2025, and gold and gems surged as metal was moved into US vaults ahead of expected duties.
 
-Not tariff stories: silk is a $60 million chapter, so almost any month looks extreme next to its
+Not tariff stories: silk is a 60-million-dollar chapter, so almost any month looks extreme next to its
 own history. Works of art and clocks are small and lumpy for reasons that have nothing to do
 with trade policy. Cocoa is the clearest trap of all, sitting high because cocoa prices roughly
 tripled after bad West African harvests. We measure in dollars, so a price spike reads as a
