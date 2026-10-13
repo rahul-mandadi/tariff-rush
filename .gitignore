@@ -2,11 +2,17 @@
 imports_hs2_panel.csv
 panel/raw/
 events/raw/
+coverage/raw/
 data/raw/
 *.json.gz
+*.pdf
 
 # derived, large
 anomalies_all_chapters.csv
+
+# notebook scratch
+.ipynb_checkpoints/
+.virtual_documents/
 
 __pycache__/
 .DS_Store
