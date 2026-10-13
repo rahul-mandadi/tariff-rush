@@ -438,6 +438,61 @@ the legal authority. That is what the proposal actually promised and it has not 
 
 See q3_absorbers.py, absorber_model.py, absorber_regression.py.
 
+### Q2 as a prediction problem: it fails too, and now we know why
+
+The aftermath is measurable in aggregate. The obvious next step is to predict it per case: when
+duties land on one origin, does the product's total import volume hold up or fall? 583 episodes,
+which is 28 times the 21 events the rush analysis rests on, and the drivers should be
+structural: how many alternative suppliers exist, how concentrated the market is, how large the
+targeted origin was, whether the alternatives are themselves under duty.
+
+Forward-chaining validation by year, grouped by case. Two deliberately hard benchmarks:
+predicting the training mean, and predicting that the basket simply continues its own recent
+growth.
+
+| | mean R2 | rank correlation |
+| --- | --- | --- |
+| predict the training mean | -0.898 | - |
+| predict the pre-period trend | -1.914 | - |
+| ridge | -1.123 | -0.191 |
+| gradient boosting | -0.967 | +0.013 |
+
+Everything is negative, including predicting the training mean, which is the tell. If the mean
+of the training years does not transfer to the next year, the outcome is not a stable function
+of anything measured at case level.
+
+**The cause: period effects dominate.** Variance in the target explained by the year of the case
+alone is **0.366**. Variance explained by all eleven structural features together, in sample and
+therefore optimistically, is **0.142**, and out of sample it is negative. Year means run from
++0.544 in 2021 to -0.313 in 2024, a swing far larger than anything market structure contributes.
+Post-covid restocking lifted everything; the 2024-25 tariff era pulled everything down.
+
+So the retention outcome is mostly about *when* a case happened, not *what* the affected market
+looked like. That also explains the two earlier prediction failures rather than leaving them as
+unrelated nulls.
+
+The ridge coefficients are directionally sensible even though the model is useless: a larger
+targeted origin, a more concentrated market, and a higher share of alternatives themselves under
+duty all push the total down. The economics is right. The predictive power is not there.
+
+### What this means for the project
+
+Three prediction targets have now failed, and the reason is consistent: **the level of trade
+after a duty is dominated by the macro period, which is not knowable in advance.**
+
+This is not a wasted finding, because it is exactly why the measurement works. The
+within-product across-origin design compares a tariffed origin against other origins of the
+same product *in the same month*, which differences out the period effect entirely. That is why
+the -27% aftermath estimate survives at p < 0.0001 while every level prediction collapses.
+
+The honest framing of the project is therefore: **the effect is identifiable but not
+forecastable.** We can say what a duty does to a targeted origin's trade, with placebo
+discipline behind it. We cannot say in advance how much volume a given product will keep,
+because that depends mostly on what the following year looks like for trade as a whole.
+
+That is a defensible result with evidence behind it, and it is a more useful thing to report
+than a model nobody should trust.
+
 ## What is still wrong
 
 1. **Pre-trends in levels.** Large in two of three mechanisms, which is why the differenced
