@@ -259,7 +259,8 @@ add("Unusual is not the same as tariffed.",
 # ---------------------------------------------------------------- 7 finding
 add("And this is where it nearly came apart.",
     fig="07_coverage.png",
-    caption="Fig. 5   The typical tariff action covers about 5% of its chapter's value. A third cover under 1%.",
+    caption="Fig. 5   The typical tariff action covers about 5% of its chapter's value. A third cover under 1%.\n"
+            "Published work measures these at HS-8 to HS-10 [1]. Coarser data shrinks estimates [2].",
     notes="THE KEY SLIDE. If time runs short, this is the one that must survive.\n\n"
           "A tariff order does not say 'chapter 74, copper'. It points at a list of 8-digit "
           "product codes, usually published in a separate legal notice. Until you read those "
@@ -327,6 +328,45 @@ add("Backup: what a normal range looks like.",
           "Aluminium does NOT clear: it peaks at 26% against a band of 100%, because its own "
           "history is volatile. Same tariff year, and the test says no. A test that can say no "
           "is the only kind worth having.")
+
+# ------------------------------------------------- 11, references
+sr = prs.slides.add_slide(BLANK)
+chrome(sr)
+txt(sr, "Backup: references.", X0, Y_HEAD, CW, 0.80, 38, bold=True)
+refs = [
+ "[1]  Fajgelbaum, P., Goldberg, P., Kennedy, P. and Khandelwal, A. (2020). The Return to",
+ "       Protectionism. Quarterly Journal of Economics 135(1), 1-55.",
+ "[2]  Schrammel, M. and Schreiber, S. (2023). How Does Data Aggregation Impact Elasticity of",
+ "       Substitution Estimation? USITC Economics Working Paper 2023-10-B.",
+ "[3]  Imbs, J. and Mejean, I. (2015). Elasticity Optimism. American Economic Journal:",
+ "       Macroeconomics 7(3), 43-83.",
+ "[4]  Flaaen, A. and Pierce, J. (2019). Disentangling the Effects of the 2018-2019 Tariffs on a",
+ "       Globally Connected U.S. Manufacturing Sector. Federal Reserve FEDS 2019-086.",
+ "[5]  Khan, S. Y. and Khederlarian, A. (2021). How does trade respond to anticipated tariff",
+ "       changes? Evidence from NAFTA. Journal of International Economics 133, 103538.",
+ "[6]  Cleveland, R., Cleveland, W., McRae, J. and Terpenning, I. (1990). STL: A seasonal-trend",
+ "       decomposition procedure based on LOESS. Journal of Official Statistics 6(1), 3-73.",
+]
+y = 1.95
+for ln in refs:
+    txt(sr, ln, X0, y, CW, 0.34, 13, color=INK if ln.startswith("[") else GREY)
+    y += 0.30
+txt(sr, "Data: US Census international trade API  |  Federal Register API  |  USITC Harmonized Tariff Schedule, chapter 99",
+    X0, Y_TAKE, CW, 0.5, 14, color=GREY)
+sr.notes_slide.notes_text_frame.text = (
+    "BACKUP, not part of the talk. Use if asked about prior work.\n\n"
+    "The two that matter: [1] is the frontier paper on this exact shock and it works at HS-10, "
+    "stating that the 2018 tariff increases were 'predominantly set at the 8-digit Harmonized "
+    "System level'. That is why we pull at HS10 and analyse at HS8.\n\n"
+    "[2] is USITC's own work estimating the same elasticity at HTS 2, 4, 6 and 8 digits and "
+    "finding that estimates from aggregated data are smaller, which they attribute to "
+    "heterogeneity bias. Our 5% number is the specific version of that general result.\n\n"
+    "[4] faced the same problem and solved it the way we did: a continuous value-weighted "
+    "coverage share instead of a binary tariffed/not flag.\n\n"
+    "Worth saying plainly if asked: nobody appears to have published the specific diagnostic we "
+    "ran, which is to assign treatment at chapter level when the tariff names HS8 and measure "
+    "how much of the chapter that actually covers. The general attenuation result is known; the "
+    "number for US tariff actions is ours.")
 
 out = "slides/Mandadi_Khalsa_Presentation1.pptx"
 prs.save(out)
