@@ -98,6 +98,48 @@ run the right way for Q2, the payback question: -26% at twelve months for countr
 -24% at six for Section 232. Whether that is payback or a genuine demand drop still needs
 the within-product control to be trustworthy, which it is not yet.
 
+## Q2, the payback question: the cell-level reversal ratio does not work
+
+Two counterfactuals were built and both were placebo-tested. This is the part to not
+dress up.
+
+**Extrapolated baseline (decomp.py's method, per cell).** Fit STL on the months before
+each announcement, project forward. Placebo-tested at dates with no tariff, it drifts: the
+median cell sits **0.115 log points below its own projection** after twelve months, and
+only **39.7%** sit above it against 50% if unbiased. Selecting episodes on "excess above
+the band" then preferentially picks cells whose baseline drifted low, and that error
+carries into the after period. It flagged 18.6% of cell-episodes as surges where 2.5% is
+the null. **This baseline manufactures reversal ratios. It should not be used, and it
+retires surges.py's rolling geometric mean with it.**
+
+**Control baseline (untreated origins of the same product).** Nothing is projected, so
+nothing can drift. Calibration improves a lot: 4.5% of cell-episodes clear the 95% band,
+against a 2.5% null.
+
+But it does not survive its own placebo. Shifting every event 24 months earlier:
+
+| | real events | placebo (-24 months) |
+| --- | --- | --- |
+| episodes clearing the band | 1,113 | 1,438 |
+| median reversal | -1.21 | -1.65 |
+| band: kept | 70% | 81% |
+| band: fully returned or more | **18%** | **9%** |
+
+The placebo produces *more* surges than the real events and a similar reversal
+distribution. **At cell-episode level the reversal ratio cannot tell a real tariff from a
+fake one.** The only gap that looks real is the top band, 18% against 9%, which is the
+band that actually matters for Q2 and is worth pursuing at a level with more signal.
+
+The cause is that the ratio is two noisy sums divided by each other: sd 4.35, range -24 to
++56. label_bands.py already flagged the heavy tail; banding a ratio that is mostly noise
+does not create signal, it just hides the variance.
+
+**What this means for Q2.** Payback is not measurable one cell at a time. It is visible in
+aggregate: the differenced event studies show the post-period declines clearly, and that is
+where the reversal ratio should be computed, per event across cells rather than per cell.
+The ordinal bands are not wrong, they are being asked to label a unit of analysis too small
+to carry the signal.
+
 ## What is still wrong
 
 1. **Pre-trends in levels.** Large in two of three mechanisms, which is why the differenced
@@ -115,9 +157,8 @@ the within-product control to be trustworthy, which it is not yet.
 1. Done: the differenced specification above.
 2. Build an earlier information date, so the three mechanisms can be put on one clock
    instead of three.
-3. The counterfactual at HS8, which Q2 still needs: the reversal ratio and the ordinal
-   bands are defined against a fitted baseline, and the fixed-effects design does not
-   produce one.
+3. Recompute the reversal ratio per event across cells, not per cell, and placebo-test it
+   the same way before believing it.
 
 ## What did work
 
