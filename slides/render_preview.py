@@ -14,18 +14,21 @@ from PIL import Image, ImageDraw, ImageFont
 EMU = 914400.0
 SCALE = 110          # pixels per inch
 OUT = "slides/preview"
-F_REG = "/System/Library/Fonts/Supplemental/Arial.ttf"
-F_BLD = "/System/Library/Fonts/Supplemental/Arial Bold.ttf"
-F_ITL = "/System/Library/Fonts/Supplemental/Arial Italic.ttf"
+# the deck is set in Avenir Next, so the preview has to be too: Arial is wider and made
+# every slide look more crowded here than it does in PowerPoint
+AVENIR = "/System/Library/Fonts/Avenir Next.ttc"
+IDX = {"reg": 7, "bold": 0, "ital": 4}       # faces inside the .ttc
 F_MON = "/System/Library/Fonts/Supplemental/Courier New.ttf"
 os.makedirs(OUT, exist_ok=True)
 
 
 def font(size_pt, bold=False, italic=False, mono=False):
     px = max(8, int(size_pt * SCALE / 72))
-    path = F_MON if mono else (F_BLD if bold else (F_ITL if italic else F_REG))
     try:
-        return ImageFont.truetype(path, px)
+        if mono:
+            return ImageFont.truetype(F_MON, px)
+        i = IDX["bold"] if bold else (IDX["ital"] if italic else IDX["reg"])
+        return ImageFont.truetype(AVENIR, px, index=i)
     except OSError:
         return ImageFont.load_default()
 

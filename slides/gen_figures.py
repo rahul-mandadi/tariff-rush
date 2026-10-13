@@ -173,7 +173,9 @@ ax.bar(v.index, v.values, color=[RED, RED, "#9BA1A9", GREY, INK])
 for i, n in enumerate(v.values):
     ax.text(i, n + 6, f"{n}", ha="center", fontsize=14, fontweight="600")
 ax.set_title("How much of a product chapter each tariff action actually covers")
-ax.set_ylabel("number of tariff actions")
+# the bars count (action, chapter) pairs and sum to 1,350, not the 134 actions or the
+# 162 surcharge codes, so the axis has to say which
+ax.set_ylabel("number of action-chapter pairs")
 ax.set_ylim(0, v.max() * 1.16)
 fig.savefig(f"{OUT}/07_coverage.png"); plt.close(fig)
 

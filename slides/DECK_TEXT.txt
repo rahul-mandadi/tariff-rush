@@ -43,18 +43,22 @@ SLIDE 2  [TALK]
     9.0pt    RAHUL REDDY MANDADI   +   RAUNAKSINGH KHALSA
    38.0pt B  Every tariff comes with a date.
   [FIGURE  9.1 x 4.2 in]
-   17.0pt    Fig. 1   Copper imports. A duty is announced, then starts later.
-   17.0pt    That gap is a window to import before the duty applies. Goods pulled into it are
-   17.0pt    borrowed from later months, which is the question in our title [5].
+   17.0pt    Fig. 1   Copper imports. Announced July 2025, in force from August.
+   17.0pt    Imports had been climbing since February, because the duty was expected.
+   17.0pt    Goods pulled forward are borrowed from later months, the question in our title [5].
 
   --- NOTES ---
   | LAYMAN CONTEXT. Assume nobody knows what a tariff is.
   | 
   | A tariff is a tax on imports. The government announces it, and it starts on a named date weeks or months later.
   | 
-  | That gap creates an obvious incentive: get your goods in before the tax starts. Importers rush, and you can see it in the copper line climbing before the date.
+  | That gap creates an obvious incentive: get your goods in before the tax starts.
   | 
-  | Afterwards imports usually fall below normal, because buyers already stocked up.
+  | POINT AT THE CHART AND BE ACCURATE ABOUT IT. The rush does not wait for the announcement. Copper runs 1.25 billion in February and 3.22 in July, the month it was announced, because a Section 232 copper investigation was public long before the proclamation. The announcement-to-start gap here is three weeks; the build-up is five months. So the thing that starts the rush is the tariff becoming likely, not becoming official. That is part of why question 1 is worth asking.
+  | 
+  | Then August falls to 1.74 and November to 1.06, because buyers already stocked up.
+  | 
+  | DO NOT OVERSELL THE DIP. The line comes back up from December. Eighteen months of copper is one product and one event, and it is on this slide to explain the idea, not to prove anything. The measurement is slides 6 to 8.
   | 
   | This behavior is called front-loading. That is the whole subject of the project.
   | 

@@ -73,7 +73,7 @@ def chrome(s, names=True):
 
 
 def add(headline, fig=None, caption=None, notes="", bullets=None, bullet_size=22,
-        bullet_top=2.10, bullet_step=0.50):
+        bullet_top=2.10, bullet_step=0.50, take_y=Y_TAKE, take_rule=False):
     s = prs.slides.add_slide(BLANK)
     chrome(s)
     txt(s, headline, X0, Y_HEAD, CW, 0.80, 38, bold=True)
@@ -87,7 +87,14 @@ def add(headline, fig=None, caption=None, notes="", bullets=None, bullet_size=22
         s.shapes.add_picture(p, Inches((W - wid) / 2), Inches(top),
                              width=Inches(wid), height=Inches(hei))
     if caption:
-        txt(s, caption, X0, Y_TAKE, CW, 0.75, 17, color=GREY, spacing=1.12)
+        # a text-only slide has no figure to separate the bullets from the takeaway, so it
+        # gets the same hairline the header uses
+        if take_rule:
+            r = s.shapes.add_connector(1, Inches(X0), Inches(take_y - 0.14),
+                                       Inches(X0 + CW), Inches(take_y - 0.14))
+            r.line.color.rgb = GREY
+            r.line.width = Pt(0.75)
+        txt(s, caption, X0, take_y, CW, 0.75, 17, color=GREY, spacing=1.12)
     if bullets:
         y = bullet_top
         for b in bullets:
@@ -98,10 +105,11 @@ def add(headline, fig=None, caption=None, notes="", bullets=None, bullet_size=22
             y += bullet_step + 0.32 * body.count("\n")
         # the last line must clear the takeaway band, or the two draw on top of each other
         last = y - bullet_step
-        if caption and last + bullet_size * 1.15 / 72 > Y_TAKE:
+        floor = (take_y - 0.14) if take_rule else take_y
+        if caption and last + bullet_size * 1.15 / 72 > floor:
             raise SystemExit(
-                f"'{headline}': bullets run to {last:.2f}in and the takeaway starts at "
-                f"{Y_TAKE}in. Lower bullet_top or bullet_step.")
+                f"'{headline}': bullets run to {last:.2f}in and the takeaway band starts at "
+                f"{floor:.2f}in. Lower bullet_top or bullet_step.")
     if notes:
         s.notes_slide.notes_text_frame.text = notes
     return s
@@ -162,15 +170,23 @@ s.notes_slide.notes_text_frame.text = (
 # ---------------------------------------------------------------- 2 context
 add("Every tariff comes with a date.",
     fig="01_context.png",
-    caption="Fig. 1   Copper imports. A duty is announced, then starts later.\n"
-            "That gap is a window to import before the duty applies. Goods pulled into it are\n"
-            "borrowed from later months, which is the question in our title [5].",
+    caption="Fig. 1   Copper imports. Announced July 2025, in force from August.\n"
+            "Imports had been climbing since February, because the duty was expected.\n"
+            "Goods pulled forward are borrowed from later months, the question in our title [5].",
     notes="LAYMAN CONTEXT. Assume nobody knows what a tariff is.\n\n"
           "A tariff is a tax on imports. The government announces it, and it starts on a named "
           "date weeks or months later.\n\n"
-          "That gap creates an obvious incentive: get your goods in before the tax starts. "
-          "Importers rush, and you can see it in the copper line climbing before the date.\n\n"
-          "Afterwards imports usually fall below normal, because buyers already stocked up.\n\n"
+          "That gap creates an obvious incentive: get your goods in before the tax starts.\n\n"
+          "POINT AT THE CHART AND BE ACCURATE ABOUT IT. The rush does not wait for the "
+          "announcement. Copper runs 1.25 billion in February and 3.22 in July, the month it "
+          "was announced, because a Section 232 copper investigation was public long before the "
+          "proclamation. The announcement-to-start gap here is three weeks; the build-up is "
+          "five months. So the thing that starts the rush is the tariff becoming likely, not "
+          "becoming official. That is part of why question 1 is worth asking.\n\n"
+          "Then August falls to 1.74 and November to 1.06, because buyers already stocked up.\n\n"
+          "DO NOT OVERSELL THE DIP. The line comes back up from December. Eighteen months of "
+          "copper is one product and one event, and it is on this slide to explain the idea, "
+          "not to prove anything. The measurement is slides 6 to 8.\n\n"
           "This behavior is called front-loading. That is the whole subject of the project.\n\n"
           "Define BORROWED here, out loud, because it is the title of the project: goods that "
           "would have been imported in October arrive in August instead. Nothing was created or "
@@ -331,7 +347,7 @@ add("Where we are.",
              "Every estimate against a placebo. Three methods have already failed it.",
              "**Next**",
              "Question 1 first, then questions 2 and 3 for the final report."],
-    bullet_size=16, bullet_top=1.72, bullet_step=0.40,
+    bullet_size=16, bullet_top=1.86, bullet_step=0.40, take_y=6.74, take_rule=True,
     caption="Take-away for anyone working with this data: do not measure tariff effects at chapter level.\n"
             "The typical action touches 5% of a chapter, so a real effect averages away to nothing.",
     notes="DISCUSSION AND NEXT STEPS.\n\n"
