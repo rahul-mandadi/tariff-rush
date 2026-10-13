@@ -37,3 +37,5 @@ slides/preview/
 
 # PowerPoint and Word lock files
 ~$*
+slides/view/
+slides/*.pdf

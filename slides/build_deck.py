@@ -111,7 +111,41 @@ s.notes_slide.notes_text_frame.text = (
     "SPEAKER SPLIT: slides 1-4 one of us, 5-8 the other. Both must speak.\n"
     "Eight slides for 10-15 minutes. Slides 2, 3 and 8 need the most time; 4 and 5 the least.\n"
     "Slides 9 and 10 are backup for questions, not part of the talk.\n\n"
-    "Do not read the stakeholder line aloud. It is there for the rubric and the PDF.")
+    "Do not read the stakeholder line aloud. It is there for the rubric and the PDF.\n\n"
+    "================ Q&A PREP ================\n"
+    "The deck is scoped to data, limits and next steps on purpose. These are not on the "
+    "slides, but we should be able to answer all six cold.\n\n"
+    "1. DOMAIN PROBLEM. A tariff is announced with a future start date, importers rush ahead "
+    "of it, and imports fall afterwards. Someone exposed to the targeted country has to decide "
+    "on announcement day whether to wait it out or re-source, and the data that would settle "
+    "it arrives about five weeks after each month closes. Slides 2 and 3.\n\n"
+    "2. DATA SCIENCE PROBLEM. Three, in order: a classification problem (does a surge occur), "
+    "a regression problem (how large), and a duration problem (how long does the aftermath "
+    "last, with right-censoring for episodes still running at the end of the panel). Slide 4 "
+    "states them in plain language; this is the technical framing.\n\n"
+    "3. WHO AND WHAT. Whoever carries exposure to one origin rather than to total volume: an "
+    "importer deciding whether to requalify a supplier, a lender holding that as credit risk, "
+    "a carrier running that origin's service. We are explicit that we are still testing which "
+    "of those the data serves best. An earlier version of this project named port and terminal "
+    "operators; we tested that and dropped it, because displaced volume arrives from a "
+    "different country through substantially the same US customs districts.\n\n"
+    "4. DATA SOURCES. Two, both public and free. US Census international trade API for monthly "
+    "imports, pulled at HS10 (slide 5). The Federal Register API for tariff actions, 2,792 "
+    "documents classified down to 134 real actions (backup slide 9). The product lists behind "
+    "each action come from the USITC Harmonized Tariff Schedule, chapter 99.\n\n"
+    "5. METHODOLOGY. Pull at HS10 because tariff orders are written at HS8 and HS10 nests "
+    "inside it, so matching is exact rather than approximate. Build a counterfactual per series "
+    "from pre-event data only. Then compare a tariffed product from a tariffed country against "
+    "the same product from countries that were not tariffed, in the same month. That last step "
+    "is the important one: a commodity price shock moves every origin together and cancels, "
+    "while a tariff moves one origin against the rest.\n\n"
+    "6. EVALUATION AND METRICS. Every estimate is paired with a placebo: the same calculation "
+    "with every event shifted back 24 months. If a result does not separate from its own "
+    "placebo we do not report it as a result. That discipline has already retired three "
+    "candidate methods. For the predictive questions, forward-chaining validation by year and "
+    "grouped by case, so no case appears in both folds and the model is always tested on cases "
+    "later than the ones it learned from, scored against a deliberately hard naive benchmark "
+    "rather than against zero.")
 
 # ---------------------------------------------------------------- 2 context
 add("Every tariff comes with a date.",
@@ -237,7 +271,15 @@ add("And this is where it nearly came apart.",
           "That is exactly what happened to us. Our first attempt to measure an effect found "
           "nothing, and this is why. The null was our ruler, not the world.\n\n"
           "The fix is to work at the 8-digit level, where a tariff either names a product or it "
-          "does not. Everything after this is built that way.")
+          "does not. Everything after this is built that way.\n\n"
+          "-- NARRATE IT THROUGH COPPER, which they already know from slides 2, 5 and 6 --\n"
+          "Ten separate tariff actions touch copper, chapter 74. Three of them cover more than "
+          "half the chapter: 95%, 59%, 59%. The other seven cover under 1%, and several are "
+          "civil-aircraft carve-outs that name a single product line. The median action touching "
+          "copper covers 0.1% of it.\n"
+          "So if you mark copper as tariffed whenever any action fires, seven times out of ten "
+          "you have flagged an entire chapter over something touching less than one percent of "
+          "it. That is what the chart shows, across all 1,350 action-chapter pairs.")
 
 # ---------------------------------------------------------------- 8 status
 add("Where we are.",
