@@ -24,12 +24,27 @@ import pandas as pd
 args = sys.argv
 MECH = args[args.index("--mech")+1] if "--mech" in args else None
 OUT = args[args.index("--outcome")+1] if "--outcome" in args else "lv"
+DIFF = "--diff" in args
 K_LO, K_HI, BASE = -12, 12, (-12, -7)
 REDUCING = {"REVOKE", "DECREASE", "SUSPEND"}
 
 df = pd.read_parquet("panel/analysis.parquet", columns=["hs8", "cty", "chapter", "ym", "lv", "lq"])
 df = df[df[OUT].notna()].reset_index(drop=True)
 df["ym"] = pd.to_datetime(df.ym)
+
+if DIFF:
+    # a level that is already climbing breaks parallel trends. Differencing removes the
+    # slow trend and leaves the month-to-month jump, which is what a rush actually is.
+    # Only consecutive months are differenced; a gap in the cell produces a null.
+    df = df.sort_values(["hs8", "cty", "ym"]).reset_index(drop=True)
+    g = df.groupby(["hs8", "cty"], sort=False)
+    prev_v = g[OUT].shift(1)
+    prev_m = g["ym"].shift(1)
+    consec = (df.ym - prev_m).dt.days.between(28, 31)
+    df[OUT] = np.where(consec, df[OUT] - prev_v, np.nan)
+    df = df[df[OUT].notna()].reset_index(drop=True)
+    print(f"differenced: {len(df):,} consecutive-month observations")
+
 ymv = df.ym.values
 
 ev = pd.read_csv("events_resolved.csv", dtype={"cty": str})
@@ -120,6 +135,6 @@ out = pd.DataFrame({"k": ks, "coef": beta, "se": se,
                     "sig": np.abs(beta/se) > 1.96})
 out["mechanism"] = MECH or "ALL"
 out["outcome"] = OUT
-fn = f"event_study_{(MECH or 'ALL').lower()}_{OUT}.csv"
+fn = f"event_study_{(MECH or 'ALL').lower()}_{OUT}{'_diff' if DIFF else ''}.csv"
 out.to_csv(fn, index=False)
 print(f"wrote {fn}")

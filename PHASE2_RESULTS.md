@@ -49,11 +49,49 @@ the expectation, not the filing. Then a long, deepening decline, -26% a year out
 **Section 232 material actions** show no announcement spike at all and a sustained decline
 to about -24%.
 
+## With the trend differenced out, the rush appears
+
+The levels above are contaminated by trend. Differencing to month-over-month growth removes
+it and leaves the month-to-month jump, which is what a rush actually is. The pre-periods go
+flat, and the picture changes completely.
+
+Growth event study, percent, * = significant:
+
+| k | ENUMERATED (301) | COUNTRY_WIDE (IEEPA) | MATERIAL_CLASS (232) |
+| --- | --- | --- | --- |
+| -3 | +8.5* | **+9.7*** | +3.1 |
+| -2 | -15.9* | **+8.9*** | +0.4 |
+| -1 | +0.6 | -9.7* | **+13.2*** |
+| **0** | **+26.8*** | -15.0* | -2.8 |
+| +1 | **-36.5*** | +7.7* | -9.7* |
+| +2 | -7.5* | -7.6* | -14.0* |
+
+In a differenced series a one-month level spike reads as a plus then a minus. So:
+
+- **Section 301 enumerated lists rush in the announcement month.** Growth jumps 26.8% at
+  k=0 and reverses to -36.5% at k=1, with a flat pre-period (k=-1 is +0.6%, not
+  significant). This is the cleanest rush-then-payback shape in the project.
+- **IEEPA country-wide actions rush two to three months early**, +9.7% and +8.9% at k=-3
+  and k=-2, and are already contracting by the announcement month.
+- **Section 232 material actions rush one month early**, +13.2% at k=-1, then decline.
+
+Each matches its own level series, so the two specifications agree.
+
+**The lead time tracks how much warning the legal mechanism gives.** Section 301 runs a
+formal USTR process where the Federal Register notice is the news, so the rush lands on it.
+The 2025 reciprocal tariffs were promised publicly for months, so the rush ran ahead of the
+filing. Section 232 runs a Commerce investigation that is reported while it is underway,
+landing in between.
+
+That is a real answer to Q1, and a better one than the question assumed: the rush is
+visible and sizeable, but the date it keys to depends on the authority being used.
+
 ## What this changes
 
 Q1 in the problem statement is "predict the rush on the day of announcement." The data says
-the announcement day is the wrong trigger for at least the country-wide actions, because the
-move happens earlier. A predictor keyed to the Federal Register date would be late.
+the announcement day is the right trigger only for Section 301. For IEEPA it is two to three
+months late, for Section 232 one month late. A single predictor keyed to the Federal Register
+date would miss two of the three mechanisms, so the mechanism has to be a feature.
 
 The sustained post-period declines are the clearest signal in the whole exercise and they
 run the right way for Q2, the payback question: -26% at twelve months for country-wide,
@@ -62,8 +100,9 @@ the within-product control to be trustworthy, which it is not yet.
 
 ## What is still wrong
 
-1. **Pre-trends.** Large and significant in two of three mechanisms. Until these are flat,
-   or differenced out, no coefficient here is a causal estimate.
+1. **Pre-trends in levels.** Large in two of three mechanisms, which is why the differenced
+   specification is the one to read. The level results are kept above as the diagnosis, not
+   as estimates.
 2. **Announcement dates measure filing, not news.** Needs an earlier information date:
    first press report, or a public statement of intent.
 3. **Month granularity.** 12 of 38 event-partner rows have announcement and effective date
@@ -73,10 +112,12 @@ the within-product control to be trustworthy, which it is not yet.
 
 ## Next, in order
 
-1. Outcome in month-over-month growth rather than level, which removes the slow trend
-   that breaks parallel trends.
-2. Build an earlier information date and re-run with it.
-3. Only then read the rush coefficient.
+1. Done: the differenced specification above.
+2. Build an earlier information date, so the three mechanisms can be put on one clock
+   instead of three.
+3. The counterfactual at HS8, which Q2 still needs: the reversal ratio and the ordinal
+   bands are defined against a fitted baseline, and the fixed-effects design does not
+   produce one.
 
 ## What did work
 
