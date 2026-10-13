@@ -175,7 +175,7 @@ wid5 = [max(len(hdr5[i]), max(len(r[i]) for r in rows5)) for i in range(4)]
 f5 = lambda r: "  ".join((str(v).ljust(wid5[i]) if i < 2 else str(v).rjust(wid5[i]))
                          for i, v in enumerate(r))
 tbl5 = "\n".join([f5(hdr5), "-" * (sum(wid5) + 6)] + [f5(r) for r in rows5])
-txt(s5, "One row is one product, one country, one month.", 7.70, 2.22, 4.88, 0.4, 14,
+txt(s5, "One row: one product, one country, one month.", 7.70, 2.22, 4.88, 0.4, 14,
     bold=True)
 txt(s5, "Copper, March 2025, biggest suppliers", 7.70, 2.60, 4.88, 0.4, 12, color=GREY)
 txt(s5, tbl5, 7.70, 3.00, 4.88, 1.9, 10, font="Courier New", spacing=1.35)
@@ -265,7 +265,7 @@ add("Where we are.",
 # ------------------------------------------------- 9 and 10, backup for questions
 add("Backup: the tariff actions we found.",
     fig="06_events.png",
-    caption="2,792 Federal Register documents reviewed, 134 are real tariff actions. Median gap from announcement to start date is 8 days.",
+    caption="2,792 Federal Register documents reviewed, 134 are real tariff actions.\nMedian gap from announcement to start date is 8 days.",
     notes="BACKUP, not part of the talk. Use if asked where the tariff dates come from or how "
           "many actions there are.\n\n"
           "Two waves: 2018-19, and a much bigger one in 2025. The legal authority turns out to "
@@ -273,7 +273,7 @@ add("Backup: the tariff actions we found.",
 
 add("Backup: what a normal range looks like.",
     fig="04_normal.png",
-    caption="Copper against its own expected range. The expected line uses only data from before the tariff.",
+    caption="Copper against its own expected range.\nThe expected line uses only data from before the tariff.",
     notes="BACKUP, not part of the talk. Use if asked how the normal range on slide 6 is built.\n\n"
           "Copper peaks 89% above normal against a band of 50%, so it clears.\n\n"
           "Aluminium does NOT clear: it peaks at 26% against a band of 100%, because its own "
