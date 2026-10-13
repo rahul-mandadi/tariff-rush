@@ -1,4 +1,4 @@
-DECK TEXT DUMP  —  Mandadi_Khalsa_Presentation1.pptx
+DECK TEXT DUMP  -  Mandadi_Khalsa_Presentation1.pptx
 11 slides: 8 talk, 3 backup
 Every visible word on every slide, in reading order, with font size.
 Speaker notes follow each slide, marked NOTES. Notes do not appear in the PDF.
@@ -7,264 +7,278 @@ Speaker notes follow each slide, marked NOTES. Notes do not appear in the PDF.
 ==============================================================================
 SLIDE 1  [TALK]
 ==============================================================================
-   9.0pt    RAHUL REDDY MANDADI   +   RAUNAKSINGH KHALSA
-  48.0pt B  Borrowed or Real
-  25.0pt    Forecasting import surges around U.S. tariffs
-  18.0pt B  Rahul Reddy Mandadi   +   Raunaksingh Khalsa
-  13.0pt    DS 5500 Data Science Capstone   |   Presentation 1   |   October 2026
-  13.0pt    Stakeholders: importers re-sourcing suppliers, lenders with exposure to a single
-  13.0pt    origin, carriers serving an affected trade lane
-  13.0pt B  github.com/rahul-mandadi/tariff-rush
+   48.0pt B  Borrowed or Real
+   25.0pt    Forecasting import surges around U.S. tariffs
+   18.0pt B  Rahul Reddy Mandadi   +   Raunaksingh Khalsa
+   13.0pt    DS 5500 Data Science Capstone   |   Presentation 1   |   October 2026
+   13.0pt    Stakeholders: importers looking for a new supplier, lenders exposed to a single
+   13.0pt    origin, carriers serving an affected trade lane
+   13.0pt B  github.com/rahul-mandadi/tariff-rush
 
   --- NOTES ---
   | SPEAKER SPLIT: slides 1-4 one of us, 5-8 the other. Both must speak.
-  | Eight slides for 10-15 minutes. Slides 2, 3 and 8 need the most time; 4 and 5 the least.
-  | Slides 9 and 10 are backup for questions, not part of the talk.
-  |
+  | Eight slides for 10-15 minutes. Slides 2, 3 and 7 need the most time; 4 and 5 the least.
+  | Slides 9, 10 and 11 are backup for questions, not part of the talk.
+  | 
   | Do not read the stakeholder line aloud. It is there for the rubric and the PDF.
-  |
+  | 
   | ================ Q&A PREP ================
   | The deck is scoped to data, limits and next steps on purpose. These are not on the slides, but we should be able to answer all six cold.
-  |
+  | 
   | 1. DOMAIN PROBLEM. A tariff is announced with a future start date, importers rush ahead of it, and imports fall afterwards. Someone exposed to the targeted country has to decide on announcement day whether to wait it out or re-source, and the data that would settle it arrives about five weeks after each month closes. Slides 2 and 3.
-  |
+  | 
   | 2. DATA SCIENCE PROBLEM. Three, in order: a classification problem (does a surge occur), a regression problem (how large), and a duration problem (how long does the aftermath last, with right-censoring for episodes still running at the end of the panel). Slide 4 states them in plain language; this is the technical framing.
-  |
+  | 
   | 3. WHO AND WHAT. Whoever carries exposure to one origin rather than to total volume: an importer deciding whether to requalify a supplier, a lender holding that as credit risk, a carrier running that origin's service. We are explicit that we are still testing which of those the data serves best. An earlier version of this project named port and terminal operators; we tested that and dropped it, because displaced volume arrives from a different country through substantially the same US customs districts.
-  |
+  | 
   | 4. DATA SOURCES. Two, both public and free. US Census international trade API for monthly imports, pulled at HS10 (slide 5). The Federal Register API for tariff actions, 2,792 documents classified down to 134 real actions (backup slide 9). The product lists behind each action come from the USITC Harmonized Tariff Schedule, chapter 99.
-  |
+  | 
   | 5. METHODOLOGY. Pull at HS10 because tariff orders are written at HS8 and HS10 nests inside it, so matching is exact rather than approximate. Build a counterfactual per series from pre-event data only. Then compare a tariffed product from a tariffed country against the same product from countries that were not tariffed, in the same month. That last step is the important one: a commodity price shock moves every origin together and cancels, while a tariff moves one origin against the rest.
-  |
+  | 
   | 6. EVALUATION AND METRICS. Every estimate is paired with a placebo: the same calculation with every event shifted back 24 months. If a result does not separate from its own placebo we do not report it as a result. That discipline has already retired three candidate methods. For the predictive questions, forward-chaining validation by year and grouped by case, so no case appears in both folds and the model is always tested on cases later than the ones it learned from, scored against a deliberately hard naive benchmark rather than against zero.
 
 ==============================================================================
 SLIDE 2  [TALK]
 ==============================================================================
-   9.0pt    RAHUL REDDY MANDADI   +   RAUNAKSINGH KHALSA
-  38.0pt B  Every tariff comes with a date.
+    9.0pt    RAHUL REDDY MANDADI   +   RAUNAKSINGH KHALSA
+   38.0pt B  Every tariff comes with a date.
   [FIGURE  9.1 x 4.2 in]
-  17.0pt    Fig. 1   Copper imports. A duty is announced, then starts later.
-  17.0pt    That gap is a window to import before it applies.
+   17.0pt    Fig. 1   Copper imports. A duty is announced, then starts later.
+   17.0pt    That gap is a window to import before the duty applies. Goods pulled into it are
+   17.0pt    borrowed from later months, which is the question in our title [5].
 
   --- NOTES ---
   | LAYMAN CONTEXT. Assume nobody knows what a tariff is.
-  |
+  | 
   | A tariff is a tax on imports. The government announces it, and it starts on a named date weeks or months later.
-  |
+  | 
   | That gap creates an obvious incentive: get your goods in before the tax starts. Importers rush, and you can see it in the copper line climbing before the date.
-  |
+  | 
   | Afterwards imports usually fall below normal, because buyers already stocked up.
-  |
-  | This behaviour is called front-loading. That is the whole subject of the project.
+  | 
+  | This behavior is called front-loading. That is the whole subject of the project.
+  | 
+  | Define BORROWED here, out loud, because it is the title of the project: goods that would have been imported in October arrive in August instead. Nothing was created or destroyed, it just moved. If the whole dip afterwards is that, it is borrowed. If some of it never comes back, it is real. That is what we are trying to tell apart.
 
 ==============================================================================
 SLIDE 3  [TALK]
 ==============================================================================
-   9.0pt    RAHUL REDDY MANDADI   +   RAUNAKSINGH KHALSA
-  38.0pt B  The decision comes before the data.
+    9.0pt    RAHUL REDDY MANDADI   +   RAUNAKSINGH KHALSA
+   38.0pt B  The decision comes before the data.
   [FIGURE  11.8 x 4.0 in]
-  17.0pt    Fig. 2   Importers, lenders and carriers all decide here.
-  17.0pt    Census publishes monthly trade about five weeks after the month closes.
+   17.0pt    Fig. 2   Importers, lenders and carriers all decide here.
+   17.0pt    Census publishes monthly trade about five weeks after the month closes.
 
   --- NOTES ---
   | THE DOMAIN PROBLEM. This slide says why anyone should care.
-  |
+  | 
   | Somebody has to act on announcement day. An importer with a supplier in the tariffed country has to decide whether to wait it out or qualify a new supplier somewhere else, and requalifying runs months and costs real money. A lender behind either side holds the same question as credit risk. A carrier running that origin's service has to decide whether to keep it.
-  |
+  | 
   | And you cannot just wait and watch, because the data is late. By the time two bad months show up, the duty has been in force for a quarter.
-  |
+  | 
   | So the decision is made before the answer is knowable. That is the gap we are trying to close.
 
 ==============================================================================
 SLIDE 4  [TALK]
 ==============================================================================
-   9.0pt    RAHUL REDDY MANDADI   +   RAUNAKSINGH KHALSA
-  38.0pt B  So we ask three questions.
-  20.0pt B  1.  Will there be a rush, and how big?
-  20.0pt    classification, then regression
-  20.0pt B  2.  What happens after the duty starts?
-  20.0pt    three-way classification: borrowed, lost, or relocated
-  20.0pt B  3.  How long does it last?
-  20.0pt    duration, with censoring
-  17.0pt    This presentation is about the data and what it can support. Results come next.
+    9.0pt    RAHUL REDDY MANDADI   +   RAUNAKSINGH KHALSA
+   38.0pt B  So we ask three questions.
+   20.0pt B  1.  Will there be a rush, and how big?
+   20.0pt    classification, then regression
+   20.0pt B  2.  What happens after the duty starts?
+   20.0pt    borrowed back, lost for good, or bought from somewhere else
+   20.0pt B  3.  How long does it last?
+   20.0pt    duration, counting episodes still running
+   17.0pt    This presentation is about the data and what it can support. Results come next.
 
   --- NOTES ---
   | THE ANALYTIC PROBLEM. Short, it is a signpost.
-  |
-  | Question 1 is the rush. Question 2 is what the drop afterwards actually means, which is the hard one. Question 3 is duration.
-  |
+  | 
+  | Question 1 is the rush. Question 2 is what the drop afterwards actually means, which is the hard one: borrowed means the goods arrive early and the dip is just payback, lost means that demand never comes back, and bought from somewhere else means the same goods arrive from a different country. Question 3 is how long it lasts.
+  | 
   | Say plainly that this presentation is the data and its limits, not answers yet.
 
 ==============================================================================
 SLIDE 5  [TALK]
 ==============================================================================
-   9.0pt    RAHUL REDDY MANDADI   +   RAUNAKSINGH KHALSA
-  38.0pt B  What we have.
+    9.0pt    RAHUL REDDY MANDADI   +   RAUNAKSINGH KHALSA
+   38.0pt B  What we have.
   [FIGURE  6.5 x 2.7 in]
-  14.0pt B  Table 1   One product, one country, one month.
-  12.0pt    Copper, March 2025, biggest suppliers
-  10.0pt    product  country     value, $          kg
-  10.0pt    -----------------------------------------
-  10.0pt    74       CHILE    719,291,110  74,332,392
-  10.0pt    74       CANADA   288,797,724  29,299,850
-  10.0pt    74       GERMANY  177,404,661  15,671,176
-  10.0pt    74       MEXICO    98,936,124  10,906,662
-  10.0pt    74       PERU      91,039,306   9,003,463
-  12.0pt    140 months, Jan 2015 to Aug 2026
-  12.0pt    15.9 million product-country-month records
-  12.0pt    Pulled at 10 digits, the level tariff orders are written at
-  12.0pt B  Census trade API  +  Federal Register API
-  12.0pt B  2,792 documents, 134 real tariff actions
-  17.0pt    Fig. 3   2017 adds up to 2,340 billion dollars against a published 2.34 trillion, and all
-  17.0pt    140 months reconcile against a separate total the API returns on its own.
+   14.0pt B  Table 1   One product, one country, one month.
+   12.0pt    Copper, March 2025.  Two separate 8-digit lines.
+   10.0pt    product   country     value, $          kg
+   10.0pt    ------------------------------------------
+   10.0pt    74031100  CHILE    715,897,592  73,977,447
+   10.0pt    74031100  CANADA   118,144,886  11,854,813
+   10.0pt    74031100  GERMANY   93,060,459  10,000,049
+   10.0pt    74081160  CANADA    78,104,444   7,467,535
+   10.0pt    74031100  PERU      50,457,615   5,317,013
+   12.0pt    140 months, Jan 2015 to Aug 2026
+   12.0pt    15.9 million product-country-month records
+   12.0pt    Pulled at 10 digits, which nest inside the 8 tariffs name
+   12.0pt B  Census trade API  +  Federal Register API
+   12.0pt B  2,792 documents, 134 real tariff actions
+   16.0pt    Fig. 3   Imports we cover, by year; the grey 2026 bar is eight months, not twelve.
+   16.0pt    2017 adds up to 2,340 billion dollars against a published 2.34 trillion, and all 140
+   16.0pt    months reconcile against a separate total the API returns on its own.
 
   --- NOTES ---
   | THE DATA. Two things on this slide, go left then right.
-  |
+  | 
   | Left: monthly US imports from the Census Bureau, free and public, 140 months.
-  |
-  | Right: what a row actually is. One product, one country, one month. Value is always reported. Weight in kilograms is reported for about 91% of rows and is the better measure, because it does not move when prices move, and it counts goods arriving by truck and rail which the shipping-weight columns miss entirely.
-  |
-  | The important choice: we pull at 10 digits. Tariff orders are written at 8, and 10 nests inside 8, so we can match a tariff to exactly the products it names instead of guessing. Say this slowly, it matters for slide 8.
-  |
+  | 
+  | Right: what a row actually is. One 8-digit product, one country, one month. Chapter 74 is copper; inside it are 88 separate 8-digit lines in that month alone, and a tariff names lines, not chapters. Value is always reported. Weight in kilograms is reported for about 91% of rows and is the better measure, because it does not move when prices move, and it counts goods arriving by truck and rail which the shipping-weight columns miss entirely.
+  | 
+  | The important choice: we pull at 10 digits. Tariff orders are written at 8, and 10 nests inside 8, so we can match a tariff to exactly the products it names instead of guessing. Say this slowly, it matters for slide 7.
+  | 
   | Why trust it: read the takeaway line.
-  |
+  | 
   | Then mention the tariff side in one sentence: we also searched the Federal Register, 2,792 documents, and classified 134 of them as real tariff actions, in two waves, 2018-19 and a bigger one in 2025. Backup slide 9 has the chart if anyone asks.
 
 ==============================================================================
 SLIDE 6  [TALK]
 ==============================================================================
-   9.0pt    RAHUL REDDY MANDADI   +   RAUNAKSINGH KHALSA
-  38.0pt B  Unusual is not the same as tariffed.
+    9.0pt    RAHUL REDDY MANDADI   +   RAUNAKSINGH KHALSA
+   38.0pt B  Unusual is not the same as tariffed.
   [FIGURE  9.6 x 4.2 in]
-  17.0pt    Fig. 4   Each chapter measured against its own normal range, built only from data before 2025.
+   17.0pt    Fig. 4   We built a detector for unusual months. Each product chapter is measured
+   17.0pt    against its own normal range, built only from data before 2025 [6].
 
   --- NOTES ---
   | METHOD AND ITS LIMIT. This is the slide that shows judgement, do not skip it.
-  |
+  | 
   | First explain the x-axis in one sentence: for each product we built what it would have done anyway from earlier years, drew a band for ordinary month-to-month wobble, and this is how far outside that band 2025 went. Backup slide 10 shows the band on copper if anyone wants to see it.
-  |
+  | 
   | Some of these are plausible tariff stories: organic chemicals and pharmaceuticals were under open tariff threat in 2025, and gold moved into US vaults ahead of expected duties.
-  |
-  | Some are not. Silk is a 60-million-dollar chapter, so almost any month looks extreme next to its own history. Works of art and clocks are small and lumpy.
-  |
-  | Cocoa is the one to dwell on. It sits high because cocoa prices roughly tripled after bad West African harvests. We measure in dollars, so a price spike reads as a volume surge.
-  |
+  | 
+  | Some are not. Silk is a 55-million-dollar chapter, so almost any month looks extreme next to its own history. Works of art and clocks are small and lumpy.
+  | 
+  | Cocoa is the one to dwell on. It is on the list because cocoa prices roughly tripled after bad West African harvests. We measure in dollars, so a price spike reads as a volume surge.
+  | 
   | So the detector finds unusual months. It does not know why. Something has to connect an unusual month to an actual tariff, and that is the next slide.
 
 ==============================================================================
 SLIDE 7  [TALK]
 ==============================================================================
-   9.0pt    RAHUL REDDY MANDADI   +   RAUNAKSINGH KHALSA
-  38.0pt B  And this is where it nearly came apart.
+    9.0pt    RAHUL REDDY MANDADI   +   RAUNAKSINGH KHALSA
+   38.0pt B  And this is where it nearly came apart.
   [FIGURE  9.2 x 4.2 in]
-  17.0pt    Fig. 5   The typical tariff action covers about 5% of its chapter's value. A third cover under 1%.
-  17.0pt    Published work measures these at HS-8 to HS-10 [1]. Coarser data shrinks estimates [2].
+   17.0pt    Fig. 5   The typical tariff action covers about 5% of its chapter's value. A third cover under 1%.
+   17.0pt    Published work measures these at the 8 to 10 digit level [1]. Coarser data shrinks
+   17.0pt    estimates [2][3].
 
   --- NOTES ---
   | THE KEY SLIDE. If time runs short, this is the one that must survive.
-  |
+  | 
   | A tariff order does not say 'chapter 74, copper'. It points at a list of 8-digit product codes, usually published in a separate legal notice. Until you read those lists, the only thing you can do is treat a whole chapter as tariffed whenever an action touches anything inside it.
-  |
-  | We read them: 9,083 distinct 8-digit codes across 162 actions.
-  |
+  | 
+  | We read them: 9,083 distinct 8-digit codes across 162 surcharge codes. Say 'surcharge codes' and not 'actions', because 134 is the number of Federal Register actions and the two are not the same thing.
+  | 
   | The typical action covers about 5% of its chapter's value. A third cover under 1%.
-  |
+  | 
   | So chapter-level treatment means roughly 95% of what you are measuring is trade the tariff never touched. Any real reaction in the 5% gets averaged away by the 95% that did nothing.
-  |
+  | 
   | That is exactly what happened to us. Our first attempt to measure an effect found nothing, and this is why. The null was our ruler, not the world.
-  |
+  | 
   | The fix is to work at the 8-digit level, where a tariff either names a product or it does not. Everything after this is built that way.
-  |
+  | 
   | -- NARRATE IT THROUGH COPPER, which they already know from slides 2, 5 and 6 --
-  | Ten separate tariff actions touch copper, chapter 74. Three of them cover more than half the chapter: 95%, 59%, 59%. The other seven cover under 1%, and several are civil-aircraft carve-outs that name a single product line. The median action touching copper covers 0.1% of it.
+  | Ten separate tariff actions touch copper, chapter 74. Three of them cover more than half the chapter: 95%, 59%, 59%. The other seven cover under 1%, and several are civil-aircraft carve-outs that name a single product line. The median action touching copper covers less than a tenth of one percent of it.
   | So if you mark copper as tariffed whenever any action fires, seven times out of ten you have flagged an entire chapter over something touching less than one percent of it. That is what the chart shows, across all 1,350 action-chapter pairs.
+  | 
+  | IF ASKED '5% of what exactly': the median is taken over the 1,350 action-chapter pairs. Collapse it to one number per action and the median is 1.3%, so the slide is the conservative version.
 
 ==============================================================================
 SLIDE 8  [TALK]
 ==============================================================================
-   9.0pt    RAHUL REDDY MANDADI   +   RAUNAKSINGH KHALSA
-  38.0pt B  Where we are.
-  17.0pt B  Built and checked
-  17.0pt    140 months at the level tariffs are written, reconciled against published totals.
-  17.0pt B  A detector, and its limits
-  17.0pt    It finds unusual months. It cannot tell a tariff from a price shock.
-  17.0pt B  134 tariff actions, with the products behind each one
-  17.0pt    Corrected dates, and the 8-digit product lists.
-  17.0pt B  How we will measure it
-  17.0pt    Within product, across origins.
-  17.0pt B  How we will know it is real
-  17.0pt    Take-away for anyone working with this data: do not measure tariff effects at chapter level.
-  17.0pt    The typical action touches 5% of a chapter, so a real effect averages away to nothing.
-  17.0pt    Every estimate against a placebo. Three methods have already failed it.
+    9.0pt    RAHUL REDDY MANDADI   +   RAUNAKSINGH KHALSA
+   38.0pt B  Where we are.
+   16.0pt B  Built and checked
+   16.0pt    140 months at the level tariffs are written, reconciled against published totals.
+   16.0pt B  A detector, and its limit
+   16.0pt    It finds unusual months. It cannot tell a tariff from a price shock.
+   16.0pt B  134 tariff actions, with the products behind each one
+   16.0pt    Start dates re-read from the order texts, plus the 8-digit product lists.
+   16.0pt B  How we will measure it, and fix that limit
+   16.0pt    One product across origins: a price shock moves them all, a tariff moves one.
+   16.0pt B  How we will know it is real
+   16.0pt    Every estimate against a placebo. Three methods have already failed it.
+   16.0pt B  Next
+   16.0pt    Question 1 first, then questions 2 and 3 for the final report.
+   17.0pt    Take-away for anyone working with this data: do not measure tariff effects at chapter level.
+   17.0pt    The typical action touches 5% of a chapter, so a real effect averages away to nothing.
 
   --- NOTES ---
   | DISCUSSION AND NEXT STEPS.
-  |
+  | 
   | Be straight that this is data and limits, not results. Results come next.
-  |
+  | 
+  | The fourth pair is the one to land, because it closes the problem slide 6 opened. Slide 6 said the detector cannot tell a tariff from a price shock. The answer is to stop comparing a product to its own past and start comparing it across origins in the same month: cocoa got more expensive for everyone, so every origin moves together and the comparison cancels it out. A tariff hits one origin, so it does not cancel. That one sentence is the method of the whole project.
+  | 
   | The one thing to claim as a finding: we measured why the obvious approach fails, and the number is 5%.
-  |
+  | 
   | If asked 'so is there a rush?': we now have the data and the product-level matching to answer it, and the chapter-level version of the question was unanswerable for the reason on the previous slide.
-  |
+  | 
   | If asked 'who exactly is the customer?': the decision is where to source next and when, and it sits with whoever is exposed to a particular country rather than to total volume. Say we are still testing which of those the data best serves. True, and better than naming one confidently.
 
 ==============================================================================
 SLIDE 9  [BACKUP]
 ==============================================================================
-   9.0pt    RAHUL REDDY MANDADI   +   RAUNAKSINGH KHALSA
-  38.0pt B  Backup: the tariff actions we found.
+    9.0pt    RAHUL REDDY MANDADI   +   RAUNAKSINGH KHALSA
+   38.0pt B  Backup: the tariff actions we found.
   [FIGURE  11.8 x 4.0 in]
-  17.0pt    Fig. 6   2,792 Federal Register documents reviewed, 134 are real tariff actions.
-  17.0pt    Median gap from announcement to start date is 8 days.
+   17.0pt    Fig. 6   2,792 Federal Register documents reviewed, 134 are real tariff actions.
+   17.0pt    Median gap from announcement to start date is about 9 days.
 
   --- NOTES ---
   | BACKUP, not part of the talk. Use if asked where the tariff dates come from or how many actions there are.
-  |
+  | 
   | Two waves: 2018-19, and a much bigger one in 2025. The legal authority turns out to matter, which is why they are split out here.
 
 ==============================================================================
 SLIDE 10  [BACKUP]
 ==============================================================================
-   9.0pt    RAHUL REDDY MANDADI   +   RAUNAKSINGH KHALSA
-  38.0pt B  Backup: what a normal range looks like.
+    9.0pt    RAHUL REDDY MANDADI   +   RAUNAKSINGH KHALSA
+   38.0pt B  Backup: what a normal range looks like.
   [FIGURE  9.3 x 4.2 in]
-  17.0pt    Fig. 7   Copper against its own expected range, built only from data before the tariff.
+   17.0pt    Fig. 7   Copper against its own expected range, built only from data before the
+   17.0pt    tariff. Seasonal-trend decomposition, after Cleveland et al. [6].
 
   --- NOTES ---
   | BACKUP, not part of the talk. Use if asked how the normal range on slide 6 is built.
-  |
+  | 
   | Copper peaks 89% above normal against a band of 50%, so it clears.
-  |
-  | Aluminium does NOT clear: it peaks at 26% against a band of 100%, because its own history is volatile. Same tariff year, and the test says no. A test that can say no is the only kind worth having.
+  | 
+  | Aluminum does NOT clear: it peaks at 26% against a band of 100%, because its own history is volatile. Same tariff year, and the test says no. A test that can say no is the only kind worth having.
 
 ==============================================================================
 SLIDE 11  [BACKUP]
 ==============================================================================
-   9.0pt    RAHUL REDDY MANDADI   +   RAUNAKSINGH KHALSA
-  38.0pt B  Backup: references.
-  13.0pt    [1]  Fajgelbaum, P., Goldberg, P., Kennedy, P. and Khandelwal, A. (2020). The Return to
-  13.0pt           Protectionism. Quarterly Journal of Economics 135(1), 1-55.
-  13.0pt    [2]  Schrammel, M. and Schreiber, S. (2023). How Does Data Aggregation Impact Elasticity of
-  13.0pt           Substitution Estimation? USITC Economics Working Paper 2023-10-B.
-  13.0pt    [3]  Imbs, J. and Mejean, I. (2015). Elasticity Optimism. American Economic Journal:
-  13.0pt           Macroeconomics 7(3), 43-83.
-  13.0pt    [4]  Flaaen, A. and Pierce, J. (2019). Disentangling the Effects of the 2018-2019 Tariffs on a
-  13.0pt           Globally Connected U.S. Manufacturing Sector. Federal Reserve FEDS 2019-086.
-  13.0pt    [5]  Khan, S. Y. and Khederlarian, A. (2021). How does trade respond to anticipated tariff
-  13.0pt           changes? Evidence from NAFTA. Journal of International Economics 133, 103538.
-  13.0pt    [6]  Cleveland, R., Cleveland, W., McRae, J. and Terpenning, I. (1990). STL: A seasonal-trend
-  13.0pt           decomposition procedure based on LOESS. Journal of Official Statistics 6(1), 3-73.
-  14.0pt    Data: US Census international trade API  |  Federal Register API  |  USITC Harmonized Tariff Schedule, chapter 99
+    9.0pt    RAHUL REDDY MANDADI   +   RAUNAKSINGH KHALSA
+   38.0pt B  Backup: references.
+   13.0pt    [1]  Fajgelbaum, P., Goldberg, P., Kennedy, P. and Khandelwal, A. (2020). The Return to
+   13.0pt           Protectionism. Quarterly Journal of Economics 135(1), 1-55.
+   13.0pt    [2]  Schrammel, M. and Schreiber, S. (2023). How Does Data Aggregation Impact Elasticity of
+   13.0pt           Substitution Estimation? USITC Economics Working Paper 2023-10-B.
+   13.0pt    [3]  Imbs, J. and Mejean, I. (2015). Elasticity Optimism. American Economic Journal:
+   13.0pt           Macroeconomics 7(3), 43-83.
+   13.0pt    [4]  Flaaen, A. and Pierce, J. (2019). Disentangling the Effects of the 2018-2019 Tariffs on a
+   13.0pt           Globally Connected U.S. Manufacturing Sector. Federal Reserve FEDS 2019-086.
+   13.0pt    [5]  Khan, S. Y. and Khederlarian, A. (2021). How does trade respond to anticipated tariff
+   13.0pt           changes? Evidence from NAFTA. Journal of International Economics 133, 103538.
+   13.0pt    [6]  Cleveland, R., Cleveland, W., McRae, J. and Terpenning, I. (1990). STL: A seasonal-trend
+   13.0pt           decomposition procedure based on LOESS. Journal of Official Statistics 6(1), 3-73.
+   14.0pt    Data: US Census international trade API  |  Federal Register API  |  USITC Harmonized Tariff Schedule, chapter 99
 
   --- NOTES ---
   | BACKUP, not part of the talk. Use if asked about prior work.
-  |
+  | 
   | The two that matter: [1] is the frontier paper on this exact shock and it works at HS-10, stating that the 2018 tariff increases were 'predominantly set at the 8-digit Harmonized System level'. That is why we pull at HS10 and analyse at HS8.
-  |
+  | 
   | [2] is USITC's own work estimating the same elasticity at HTS 2, 4, 6 and 8 digits and finding that estimates from aggregated data are smaller, which they attribute to heterogeneity bias. Our 5% number is the specific version of that general result.
-  |
+  | 
   | [4] faced the same problem and solved it the way we did: a continuous value-weighted coverage share instead of a binary tariffed/not flag.
-  |
+  | 
+  | [3] is the general statement of the same aggregation problem outside tariffs. [5] is the closest prior work on front-loading itself: trade responds to tariff changes that are announced in advance, which is the behaviour slide 2 shows. [6] is the decomposition behind the normal range on slide 6 and backup slide 10.
+  | 
   | Worth saying plainly if asked: nobody appears to have published the specific diagnostic we ran, which is to assign treatment at chapter level when the tariff names HS8 and measure how much of the chapter that actually covers. The general attenuation result is known; the number for US tariff actions is ours.
