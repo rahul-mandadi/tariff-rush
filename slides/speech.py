@@ -16,8 +16,7 @@ WHO = {1: "RAHUL", 2: "RAHUL", 3: "RAHUL", 4: "RAHUL",
 SPEAK = {
 1: """Hi everyone. I'm Rahul, this is Raunak, and our project is called Borrowed or Real.
 
-It's about what happens to imports when the US announces a tariff. The question is in the title.
-Imports drop after a tariff starts, and we want to know whether the goods just arrived early, or
+Imports drop after a tariff starts. We want to know whether the goods just arrived early, or
 whether the business left for good.
 
 I'll take the first four slides.""",
@@ -35,6 +34,9 @@ was public months earlier. Everyone in the industry could see it coming.
 So the rush doesn't start when a tariff becomes official. It starts when it becomes likely.
 
 Then August, and it drops hard.
+
+You'll also see it climb back up at the end. That's one product and one tariff, so we're not
+reading anything into it. The measuring comes later.
 
 That's front-loading. Goods that would have come in October came in June instead. Nothing got
 created, it just moved forward in time. We call that borrowed, because the later months pay it
