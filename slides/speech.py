@@ -28,15 +28,15 @@ later.
 Figure 1 is monthly copper imports, in dollars. Here's July 2025, when a fifty percent duty was
 announced. Here's August, when it started. Three weeks apart.
 
-But look at what the line does. It doesn't wait for July. It starts climbing in February and nearly
-triples by the announcement, because the investigation behind that tariff was public months
-earlier. Everyone in the industry could see it coming.
+But look at what the line does. It doesn't wait for July. It starts climbing in February, and
+nearly triples by the time of the announcement. Why? Because the investigation behind that tariff
+was public months earlier. Everyone in the industry could see it coming.
 
 So the rush doesn't start when a tariff becomes official. It starts when it becomes likely.
 
 Then August, and it drops hard.
 
-That's front-loading. Goods that would have arrived in October came in in June instead. Nothing got
+That's front-loading. Goods that would have come in October came in June instead. Nothing got
 created, it just moved forward in time. We call that borrowed, because the later months pay it
 back.""",
 
@@ -45,18 +45,20 @@ back.""",
 Because somebody has to make an expensive decision on announcement day, and the data they'd need
 doesn't exist yet.
 
-Figure 2 is that problem. Day zero, the tariff gets announced. If you're importing from the country
-that just got hit, you have a decision. Wait it out, or go find a new supplier? Requalifying takes
-months and real money. A lender behind that trade and a carrier running that route face the same
-question.
+Figure 2 is that problem. Day zero, the tariff gets announced. If you're importing from the
+country that just got hit, you have a decision. Wait it out, or go and find a new supplier?
+Qualifying a new supplier takes months and real money.
+
+And it isn't just importers. A bank that lent against that trade is asking the same question. So
+is the carrier running that route.
 
 Day thirty, the duty takes effect.
 
 Day sixty-five is the first time official data shows what happened, because Census publishes about
 five weeks after the month closes.
 
-So by the time you've seen two bad months, the tariff's been in force a quarter, and every one of
-those decisions is already made.
+So by the time you've seen two bad months, the tariff's been in force for a quarter, and every one
+of those decisions is already made.
 
 That's the gap we're trying to close.""",
 
@@ -64,9 +66,9 @@ That's the gap we're trying to close.""",
 
 One, will there be a rush and how big. Classification, then regression.
 
-Two, what happens after the duty starts. This is the hard one, and it's our title. Either the goods
-were borrowed and come back, or the demand was lost for good, or the same goods now come from a
-different country.
+Two, what happens after the duty starts. This is the hard one, and it's our title. Either the
+goods were borrowed and come back, or the demand was lost for good, or the same goods now come
+from a different country.
 
 Three, how long it lasts. That's a duration problem, because some are still running at the end of
 our data.
@@ -81,22 +83,26 @@ Raunak.""",
 Figure 3 on the left is US Census trade data, every month from January 2015 to August 2026. 140
 months, about 15.9 million rows. The last bar is grey because 2026 is only eight months so far.
 
-Table 1 on the right shows what one row is. One product, one country, one month. This product code,
-from Chile, March 2025, 715 million dollars and about 74 million kilograms.
+Table 1 on the right shows what one row is. One product, one country, one month. This product
+code, from Chile, March 2025, 715 million dollars and about 74 million kilograms.
 
 Now look at that first column. Those are eight digit codes, and we pull our data at ten digits.
-Here's why. A tariff order doesn't say "copper", it lists specific eight digit codes, and ten digits
-sit inside eight. So we can match a tariff to exactly the products it names instead of guessing.
+Here's why. A tariff order doesn't say "copper". It lists specific eight digit codes. And ten
+digits sit inside eight, so we can match a tariff to exactly the products it names instead of
+guessing.
 
-How do we know the data's right? 2017 adds up to 2,340 billion dollars against a published 2.34
-trillion, and all 140 months check against a separate total.
+How do we know the data's right? Add up 2017 and we get two point three four trillion dollars. The
+published figure is two point three four trillion. And all 140 months check against a separate
+total the API gives us.
 
-Second source is the Federal Register. 2,792 documents, 134 real tariff actions.""",
+Second source is the Federal Register. We went through nearly two thousand eight hundred
+documents, and a hundred and thirty four of them are real tariff actions.""",
 
 6: """The first thing we tried was to find the months that look weird.
 
-For each product group we worked out from earlier years what it would normally have done, drew a
-band for ordinary wobble, and anything outside that band counts as unusual.
+For each product group, we used the earlier years to work out what it would normally have done.
+Then we drew a band around that for ordinary month to month wobble. Anything outside the band
+counts as unusual.
 
 Figure 4 ranks the ten groups that went furthest outside their own normal range in 2025. The scale
 along the bottom is how many times outside the band, so one is right at the edge.
@@ -108,37 +114,38 @@ But look at the red ones. Silk is only about 55 million dollars a year, so almos
 extreme. And cocoa's up there because cocoa prices roughly tripled after bad harvests in West
 Africa. We measure in dollars, so a price spike looks exactly like a surge in volume.
 
-So the detector finds unusual months but has no idea why. It can't tell a tariff from a bad
-harvest. Connecting an unusual month to an actual tariff is the next slide.""",
+So the detector finds unusual months, but it has no idea why. It can't tell a tariff from a bad
+harvest. That's the next slide.""",
 
-7: """A tariff order never says "chapter 74, copper". It points at a list of specific eight digit
-codes, usually in a separate legal notice. So if you haven't read those lists, all you can do is
-mark a whole product group as tariffed whenever any action touches anything inside it.
+7: """A tariff order never says "chapter 74, copper". It points at a list of specific eight digit codes,
+usually in a separate legal notice. So if you haven't read those lists, there's only one thing you
+can do. You mark a whole product group as tariffed whenever any action touches anything inside it.
 
 That's what we did. And we got nothing.
 
-So we went and read the lists. 9,083 eight digit codes.
+So we went and read the lists. Nine thousand and eighty three eight digit codes.
 
-Figure 5 is what we found. Each bar counts a tariff action paired with a product group. The typical
-one covers about five percent of that group's value, and the red on the left is a third of them
-covering less than one percent.
+Figure 5 is what we found. Each bar counts a tariff action paired with a product group. The
+typical one covers about five percent of that group's value, and the red on the left is a third of
+them covering less than one percent.
 
 Copper again. Ten actions touch copper. Three cover more than half of it. The other seven cover
 less than one percent.
 
-And that's why we got nothing. If you label a product group tariffed when ninety-five percent of it
-wasn't, any real reaction in the five percent gets averaged away by the ninety-five percent that
-did nothing. The zero wasn't telling us about the world. It was telling us about our ruler.
+And that's why we got nothing. If you label a product group tariffed when ninety-five percent of
+it wasn't, the real reaction in that five percent gets averaged away by everything that didn't
+move. The zero wasn't telling us about the world. It was telling us about our ruler.
 
 It was one of three reasons, and it's the one that generalizes.
 
-The fix is to work at eight digits, where a tariff either names a product or it doesn't. Everything
-from here is built that way.""",
+The fix is to work at eight digits, where a tariff either names a product or it doesn't.
+Everything from here is built that way.""",
 
-8: """Built and checked: 140 months of trade at the level tariffs are actually written, reconciled
-against published totals.
+8: """Built and checked. We've got 140 months of trade at the level tariffs are actually written, and it
+reconciles against published totals.
 
-A detector that finds unusual months, and that on its own can't tell a tariff from a price shock.
+We've got a detector that finds unusual months, and we're upfront that on its own it can't tell a
+tariff from a price shock.
 
 134 tariff actions, with the real product lists behind each one.
 
@@ -146,9 +153,9 @@ How we'll measure it, and this is what fixes the detector. Instead of comparing 
 own past, we compare one product across countries in the same month. A price shock moves every
 country together so it cancels out. A tariff hits one country, so it doesn't.
 
-How we'll know it's real: every estimate gets a placebo, the identical calculation with every event
-shifted back two years. If it doesn't separate from its placebo, we don't report it. That's already
-killed three methods we built.
+How we'll know it's real. Every estimate gets paired with a placebo, which is the identical
+calculation with every event shifted back two years. If it doesn't separate from its placebo, we
+don't report it. That's already killed three methods we built.
 
 Next, question one first, then two and three for the final report.
 
