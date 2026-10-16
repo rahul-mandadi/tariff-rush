@@ -17,6 +17,9 @@ from pptx.dml.color import RGBColor
 from pptx.enum.text import PP_ALIGN
 from PIL import Image
 import os
+import sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import speech
 
 # geometry, palette and type lifted from Mandadi_Khalsa_Team_Pitch.pptx so this deck
 # is visibly the same series: names top right with a rule under them, 38pt bold headline
@@ -441,6 +444,23 @@ sr.notes_slide.notes_text_frame.text = (
     "ran, which is to assign treatment at chapter level when the tariff names HS8 and measure "
     "how much of the chapter that actually covers. The general attenuation result is known; the "
     "number for US tariff actions is ours.")
+
+BAR = "=" * 58
+
+for i, sl in enumerate(prs.slides, 1):
+    if i > 8:
+        continue
+    prep = sl.notes_slide.notes_text_frame.text if sl.has_notes_slide else ""
+    head = (f"{speech.WHO[i]}   |   this slide {speech.ms(speech.secs(i))}   |   "
+            f"clock at end {speech.ms(speech.clock(i))}")
+    block = [head, BAR, "SAY THIS:", "", speech.SPEAK[i], "", BAR,
+             "HOW TO SAY IT: " + speech.CUE[i], ""]
+    if i == 1:
+        block += [BAR, "NOT SPOKEN. Only if someone asks:", ""]
+        for q, a in speech.QA:
+            block += [f"Q: {q}", f"A: {a}", ""]
+    block += [BAR, "BACKGROUND, not for saying out loud:", "", prep]
+    sl.notes_slide.notes_text_frame.text = "\n".join(block)
 
 out = "slides/Mandadi_Khalsa_Presentation1.pptx"
 prs.save(out)
