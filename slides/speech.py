@@ -35,7 +35,7 @@ So the rush doesn't start when a tariff becomes official. It starts when it beco
 
 Then August, and it drops hard.
 
-You'll also see it climb back up at the end. That's one product and one tariff, so we're not
+You'll also see it climb back up at the end. That's one metal and one tariff, so we're not
 reading anything into it. The measuring comes later.
 
 That's front-loading. Goods that would have come in October came in June instead. Nothing got
