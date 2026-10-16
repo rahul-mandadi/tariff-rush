@@ -85,25 +85,26 @@ SLIDE 2  [TALK]
 ==============================================================================
     9.0pt    RAHUL REDDY MANDADI   +   RAUNAKSINGH KHALSA
    38.0pt B  Every tariff comes with a date.
-  [FIGURE  9.1 x 4.2 in]
-   17.0pt    Fig. 1   Copper imports. Announced July 2025, in force from August.
-   17.0pt    Imports had been climbing since February, because the duty was expected.
+  [FIGURE  9.0 x 4.2 in]
+   17.0pt    Fig. 1   Copper. Investigation ordered in February, duty announced in July, in force from August.
+   17.0pt    The climb starts at the investigation, not at the announcement.
    17.0pt    Goods pulled forward are borrowed from later months, the question in our title [5].
 
   --- NOTES ---
-  | RAHUL   |   this slide 1:18   |   clock at end 1:38
+  | RAHUL   |   this slide 1:16   |   clock at end 1:36
   | ==========================================================
   | SAY THIS:
   | 
   | So, tariffs don't happen overnight. They get announced, and they take effect on a named date
   | later.
   | 
-  | Figure 1 is monthly copper imports, in dollars. Here's July 2025, when a fifty percent duty was
-  | announced. Here's August, when it started. Three weeks apart.
+  | Figure 1 is monthly copper imports, with three marks on it. The grey one is February 2025, when
+  | the government ordered an investigation. Then July, when a fifty percent duty was announced. Then
+  | August, when it started.
   | 
-  | But look at what the line does. It doesn't wait for July. It starts climbing in February, and
-  | nearly triples by the time of the announcement. Why? Because the investigation behind that tariff
-  | was public months earlier. Everyone in the industry could see it coming.
+  | Now look at where the line turns. It doesn't wait for July. It starts climbing right after the
+  | grey line, and nearly triples before the duty is even announced. The investigation was public, so
+  | everyone could see it coming.
   | 
   | So the rush doesn't start when a tariff becomes official. It starts when it becomes likely.
   | 
@@ -112,9 +113,8 @@ SLIDE 2  [TALK]
   | You'll also see it climb back up at the end. That's one product and one tariff, so we're not
   | reading anything into it. The measuring comes later.
   | 
-  | That's front-loading. Goods that would have come in October came in June instead. Nothing got
-  | created, it just moved forward in time. We call that borrowed, because the later months pay it
-  | back.
+  | That's front-loading. Goods that would have come in October came in June instead. We call that
+  | borrowed, because the later months pay it back.
   | 
   | ==========================================================
   | HOW TO SAY IT: Point at the two red dashed lines when you name July and August, then sweep back along the
@@ -149,7 +149,7 @@ SLIDE 3  [TALK]
    17.0pt    Census publishes monthly trade about five weeks after the month closes.
 
   --- NOTES ---
-  | RAHUL   |   this slide 1:10   |   clock at end 2:48
+  | RAHUL   |   this slide 1:10   |   clock at end 2:47
   | ==========================================================
   | SAY THIS:
   | 
@@ -203,7 +203,7 @@ SLIDE 4  [TALK]
    17.0pt    This presentation is about the data and what it can support. Results come next.
 
   --- NOTES ---
-  | RAHUL   |   this slide 0:51   |   clock at end 3:40
+  | RAHUL   |   this slide 0:51   |   clock at end 3:38
   | ==========================================================
   | SAY THIS:
   | 
@@ -262,7 +262,7 @@ SLIDE 5  [TALK]
    16.0pt    months match a separate total the API returns on its own.
 
   --- NOTES ---
-  | RAUNAK   |   this slide 1:31   |   clock at end 5:12
+  | RAUNAK   |   this slide 1:31   |   clock at end 5:10
   | ==========================================================
   | SAY THIS:
   | 
@@ -314,7 +314,7 @@ SLIDE 6  [TALK]
    17.0pt    against its own normal range, built only from data before 2025 [6].
 
   --- NOTES ---
-  | RAUNAK   |   this slide 1:22   |   clock at end 6:34
+  | RAUNAK   |   this slide 1:22   |   clock at end 6:32
   | ==========================================================
   | SAY THIS:
   | 
@@ -366,7 +366,7 @@ SLIDE 7  [TALK]
    17.0pt    Published work measures these at 8 to 10 digits [1]; coarser data shrinks estimates [2][3].
 
   --- NOTES ---
-  | RAUNAK   |   this slide 1:48   |   clock at end 8:23
+  | RAUNAK   |   this slide 1:48   |   clock at end 8:21
   | ==========================================================
   | SAY THIS:
   | 
@@ -445,7 +445,7 @@ SLIDE 8  [TALK]
    17.0pt    The typical action touches 5% of a chapter, so a real effect averages away to nothing.
 
   --- NOTES ---
-  | RAUNAK   |   this slide 1:31   |   clock at end 9:54
+  | RAUNAK   |   this slide 1:31   |   clock at end 9:53
   | ==========================================================
   | SAY THIS:
   | 
