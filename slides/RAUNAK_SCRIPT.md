@@ -1,8 +1,8 @@
 # Raunak, this is your half
 
-Slides 5 to 8. Rahul takes 1 to 4 and hands over by saying your name, at about 3:51.
+Slides 5 to 8. Rahul takes 1 to 4 and hands over by saying your name, at about 3:42.
 
-**Your half is about 6:11.** The whole talk has to come in under 10 minutes, so there is not much slack. The same words are in the speaker notes in the pptx, under SAY THIS on each slide, so you can present straight off the notes.
+**Your half is about 6:07.** The whole talk has to come in under 10 minutes, so there is not much slack. The same words are in the speaker notes in the pptx, under SAY THIS on each slide, so you can present straight off the notes.
 
 You do not have to say it word for word. Say it however it comes out naturally. The one thing to keep exact is the numbers.
 
@@ -19,7 +19,7 @@ You do not have to say it word for word. Say it however it comes out naturally. 
 
 ## Slide 5. What we have
 
-*1:31*
+*1:28*
 
 **What this slide is for:** This is the data slide. You are telling them where the numbers come from, what one row is, and why we pulled it at ten digits instead of something broader. The ten digit bit is the part that matters later, so do not rush it.
 
@@ -42,8 +42,8 @@ How do we know the data's right? Add up 2017 and we get two point three four tri
 published figure is two point three four trillion. And all 140 months check against a separate
 total the API gives us.
 
-Second source is the Federal Register. We went through nearly two thousand eight hundred
-documents, and a hundred and thirty four of them are real tariff actions.
+Second source is the Federal Register. Nearly two thousand eight hundred documents, a hundred and
+thirty four real tariff actions.
 
 **While you say it:** Point left for Figure 3, then right for Table 1. Say the figure numbers out loud.
 
@@ -118,7 +118,7 @@ Everything from here is built that way.
 
 ## Slide 8. Where we are
 
-*1:31*
+*1:30*
 
 **What this slide is for:** This is the close. A list of what exists, how we will measure it, how we will check it is real, and one thing for them to take away.
 
@@ -140,7 +140,7 @@ How we'll know it's real. Every estimate gets paired with a placebo, which is th
 calculation with every event shifted back two years. If it doesn't separate from its placebo, we
 don't report it. That's already killed three methods we built.
 
-Next, question one first, then two and three for the final report.
+Next, question one, then two and three for the final report.
 
 And the takeaway, even if you never touch tariff data. Don't measure this at product group level.
 The typical action touches five percent, so a real effect averages away to nothing.

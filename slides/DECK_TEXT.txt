@@ -91,7 +91,7 @@ SLIDE 2  [TALK]
    17.0pt    Goods pulled forward are borrowed from later months, the question in our title [5].
 
   --- NOTES ---
-  | RAHUL   |   this slide 1:31   |   clock at end 1:51
+  | RAHUL   |   this slide 1:22   |   clock at end 1:42
   | ==========================================================
   | SAY THIS:
   | 
@@ -101,18 +101,18 @@ SLIDE 2  [TALK]
   | Figure 1 is monthly copper imports, in dollars. Here's July 2025, when a fifty percent duty was
   | announced. Here's August, when it started.
   | 
-  | But look at what the line does. It doesn't wait for July. It starts climbing in February, and
-  | nearly triples by the time of the announcement. Why? Because the investigation behind that tariff
-  | was public months earlier. Everyone in the industry could see it coming.
+  | But look at what the line does. It doesn't wait for July. It starts climbing in February and
+  | nearly triples by the announcement, because the investigation was public months earlier. Everyone
+  | could see it coming.
   | 
   | So the rush doesn't start when a tariff becomes official. It starts when it becomes likely.
   | 
   | Then August, and it drops hard.
   | 
-  | You'll also see it climb back up at the end, and here's why. When the tariff actually landed it
-  | covered semi-finished copper, so wire and tube and fittings, not refined cathodes, which are most
-  | of this chart. So a lot of that rush was on an expectation that didn't land. The products that did
-  | get the fifty percent are down about forty-five percent and have stayed down.
+  | You'll also see it climb back up, and here's why. The tariff landed on semi-finished copper, wire
+  | and tube, not on refined cathodes, which are most of this chart. So a lot of that rush was on an
+  | expectation that didn't land. The products that did get the fifty percent are down forty-five
+  | percent and have stayed down.
   | 
   | That's front-loading. Goods that would have come in October came in June instead. We call that
   | borrowed, because the later months pay it back.
@@ -150,7 +150,7 @@ SLIDE 3  [TALK]
    17.0pt    Census publishes monthly trade about five weeks after the month closes.
 
   --- NOTES ---
-  | RAHUL   |   this slide 1:08   |   clock at end 3:00
+  | RAHUL   |   this slide 1:08   |   clock at end 2:51
   | ==========================================================
   | SAY THIS:
   | 
@@ -204,7 +204,7 @@ SLIDE 4  [TALK]
    17.0pt    This presentation is about the data and what it can support. Results come next.
 
   --- NOTES ---
-  | RAHUL   |   this slide 0:51   |   clock at end 3:51
+  | RAHUL   |   this slide 0:51   |   clock at end 3:42
   | ==========================================================
   | SAY THIS:
   | 
@@ -263,7 +263,7 @@ SLIDE 5  [TALK]
    16.0pt    months match a separate total the API returns on its own.
 
   --- NOTES ---
-  | RAUNAK   |   this slide 1:31   |   clock at end 5:23
+  | RAUNAK   |   this slide 1:28   |   clock at end 5:11
   | ==========================================================
   | SAY THIS:
   | 
@@ -284,8 +284,8 @@ SLIDE 5  [TALK]
   | published figure is two point three four trillion. And all 140 months check against a separate
   | total the API gives us.
   | 
-  | Second source is the Federal Register. We went through nearly two thousand eight hundred
-  | documents, and a hundred and thirty four of them are real tariff actions.
+  | Second source is the Federal Register. Nearly two thousand eight hundred documents, a hundred and
+  | thirty four real tariff actions.
   | 
   | ==========================================================
   | HOW TO SAY IT: Point left for Figure 3, then right for Table 1. Say the figure numbers out loud.
@@ -315,7 +315,7 @@ SLIDE 6  [TALK]
    17.0pt    against its own normal range, built only from data before 2025 [6].
 
   --- NOTES ---
-  | RAUNAK   |   this slide 1:22   |   clock at end 6:45
+  | RAUNAK   |   this slide 1:22   |   clock at end 6:33
   | ==========================================================
   | SAY THIS:
   | 
@@ -367,7 +367,7 @@ SLIDE 7  [TALK]
    17.0pt    Published work measures these at 8 to 10 digits [1]; coarser data shrinks estimates [2][3].
 
   --- NOTES ---
-  | RAUNAK   |   this slide 1:46   |   clock at end 8:31
+  | RAUNAK   |   this slide 1:46   |   clock at end 8:19
   | ==========================================================
   | SAY THIS:
   | 
@@ -445,7 +445,7 @@ SLIDE 8  [TALK]
    17.0pt    The typical action touches 5% of a chapter, so a real effect averages away to nothing.
 
   --- NOTES ---
-  | RAUNAK   |   this slide 1:31   |   clock at end 10:03
+  | RAUNAK   |   this slide 1:30   |   clock at end 9:50
   | ==========================================================
   | SAY THIS:
   | 
@@ -465,7 +465,7 @@ SLIDE 8  [TALK]
   | calculation with every event shifted back two years. If it doesn't separate from its placebo, we
   | don't report it. That's already killed three methods we built.
   | 
-  | Next, question one first, then two and three for the final report.
+  | Next, question one, then two and three for the final report.
   | 
   | And the takeaway, even if you never touch tariff data. Don't measure this at product group level.
   | The typical action touches five percent, so a real effect averages away to nothing.

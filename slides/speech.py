@@ -27,18 +27,18 @@ later.
 Figure 1 is monthly copper imports, in dollars. Here's July 2025, when a fifty percent duty was
 announced. Here's August, when it started.
 
-But look at what the line does. It doesn't wait for July. It starts climbing in February, and
-nearly triples by the time of the announcement. Why? Because the investigation behind that tariff
-was public months earlier. Everyone in the industry could see it coming.
+But look at what the line does. It doesn't wait for July. It starts climbing in February and
+nearly triples by the announcement, because the investigation was public months earlier. Everyone
+could see it coming.
 
 So the rush doesn't start when a tariff becomes official. It starts when it becomes likely.
 
 Then August, and it drops hard.
 
-You'll also see it climb back up at the end, and here's why. When the tariff actually landed it
-covered semi-finished copper, so wire and tube and fittings, not refined cathodes, which are most
-of this chart. So a lot of that rush was on an expectation that didn't land. The products that did
-get the fifty percent are down about forty-five percent and have stayed down.
+You'll also see it climb back up, and here's why. The tariff landed on semi-finished copper, wire
+and tube, not on refined cathodes, which are most of this chart. So a lot of that rush was on an
+expectation that didn't land. The products that did get the fifty percent are down forty-five
+percent and have stayed down.
 
 That's front-loading. Goods that would have come in October came in June instead. We call that
 borrowed, because the later months pay it back.""",
@@ -98,8 +98,8 @@ How do we know the data's right? Add up 2017 and we get two point three four tri
 published figure is two point three four trillion. And all 140 months check against a separate
 total the API gives us.
 
-Second source is the Federal Register. We went through nearly two thousand eight hundred
-documents, and a hundred and thirty four of them are real tariff actions.""",
+Second source is the Federal Register. Nearly two thousand eight hundred documents, a hundred and
+thirty four real tariff actions.""",
 
 6: """The first thing we tried was to find the months that look weird.
 
@@ -160,7 +160,7 @@ How we'll know it's real. Every estimate gets paired with a placebo, which is th
 calculation with every event shifted back two years. If it doesn't separate from its placebo, we
 don't report it. That's already killed three methods we built.
 
-Next, question one first, then two and three for the final report.
+Next, question one, then two and three for the final report.
 
 And the takeaway, even if you never touch tariff data. Don't measure this at product group level.
 The typical action touches five percent, so a real effect averages away to nothing.
