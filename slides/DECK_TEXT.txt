@@ -16,9 +16,10 @@ SLIDE 1  [TALK]
    13.0pt B  github.com/rahul-mandadi/tariff-rush
 
   --- NOTES ---
-  | SPEAKER SPLIT: slides 1-4 one of us, 5-8 the other. Both must speak.
+  | SPEAKER SPLIT: RAHUL takes slides 1 to 4. RAUNAK takes slides 5 to 8.
+  | The rubric requires both of them to speak, so neither half is optional.
   | Eight slides, UNDER 10 MINUTES. Slide 7 needs the most time; 1 and 4 the least.
-  | slides/SCRIPT.md is written to 9:15 measured. Do not ad-lib past it.
+  | slides/SCRIPT.md is written to 9:03 measured, which is the whole budget. Do not ad-lib.
   | Slides 9, 10 and 11 are backup for questions, not part of the talk.
   | 
   | Do not read the stakeholder line aloud. It is there for the rubric and the PDF.
@@ -102,6 +103,8 @@ SLIDE 4  [TALK]
   | Question 1 is the rush. Question 2 is what the drop afterwards actually means, which is the hard one: borrowed means the goods arrive early and the dip is just payback, lost means that demand never comes back, and bought from somewhere else means the same goods arrive from a different country. Question 3 is how long it lasts.
   | 
   | Say plainly that this presentation is the data and its limits, not answers yet.
+  | 
+  | RAHUL HANDS OVER HERE. Say Raunak's name out loud so the switch is clean.
 
 ==============================================================================
 SLIDE 5  [TALK]
@@ -128,7 +131,7 @@ SLIDE 5  [TALK]
    16.0pt    months reconcile against a separate total the API returns on its own.
 
   --- NOTES ---
-  | THE DATA. Two things on this slide, go left then right.
+  | THE DATA. RAUNAK STARTS HERE. Two things on this slide, go left then right.
   | 
   | Left: monthly US imports from the Census Bureau, free and public, 140 months.
   | 

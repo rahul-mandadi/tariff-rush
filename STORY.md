@@ -104,7 +104,7 @@ holding those two up.
 **Timing.** Eight slides, under 10 minutes total. Slide 7 wants the most.
 Slides 4 and 5 want less. Rehearse once with a clock.
 
-**Speaker split.** Slides 1 to 4 one of us, 5 to 8 the other. The rubric requires both of us to
+**Speaker split.** Rahul takes slides 1 to 4, Raunak takes slides 5 to 8. The rubric requires both of them to
 speak. The natural break is after the three questions, because the first half is the problem
 and the second half is what we did about it.
 

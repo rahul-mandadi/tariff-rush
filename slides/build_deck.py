@@ -3,7 +3,7 @@
 Follows the course report structure as its spine (problem, data, methods, results, discussion)
 and the house style from the team pitch deck: one declarative sentence per slide, the figure
 does the work, both names in the footer. Speaker notes carry what to say, including the
-suggested split so both of us talk.
+suggested split so both Rahul and Raunak talk.
 
 Keeping it as .pptx rather than generating a PDF directly means the deck stays editable and
 Raunak can change his own slides. Export to PDF from PowerPoint or Keynote for the Canvas
@@ -128,8 +128,9 @@ txt(s, "Stakeholders: importers looking for a new supplier, lenders exposed to a
     X0, 5.52, CW, 0.9, 13, color=GREY)
 txt(s, "github.com/rahul-mandadi/tariff-rush", X0, Y_TAKE, CW, 0.4, 13, bold=True, color=RED)
 s.notes_slide.notes_text_frame.text = (
-    "SPEAKER SPLIT: slides 1-4 one of us, 5-8 the other. Both must speak.\n"
-    "Eight slides, UNDER 10 MINUTES. Slide 7 needs the most time; 1 and 4 the least.\n""slides/SCRIPT.md is written to 9:15 measured. Do not ad-lib past it.\n"
+    "SPEAKER SPLIT: RAHUL takes slides 1 to 4. RAUNAK takes slides 5 to 8.\n"
+    "The rubric requires both of them to speak, so neither half is optional.\n"
+    "Eight slides, UNDER 10 MINUTES. Slide 7 needs the most time; 1 and 4 the least.\n""slides/SCRIPT.md is written to 9:03 measured, which is the whole budget. Do not ad-lib.\n"
     "Slides 9, 10 and 11 are backup for questions, not part of the talk.\n\n"
     "Do not read the stakeholder line aloud. It is there for the rubric and the PDF.\n\n"
     "================ Q&A PREP ================\n"
@@ -223,7 +224,8 @@ add("So we ask three questions.",
           "is the hard one: borrowed means the goods arrive early and the dip is just payback, "
           "lost means that demand never comes back, and bought from somewhere else means the same "
           "goods arrive from a different country. Question 3 is how long it lasts.\n\n"
-          "Say plainly that this presentation is the data and its limits, not answers yet.")
+          "Say plainly that this presentation is the data and its limits, not answers yet.\n\n"
+          "RAHUL HANDS OVER HERE. Say Raunak's name out loud so the switch is clean.")
 
 # ---------------------------------------------------------------- 5 what we have
 s5 = prs.slides.add_slide(BLANK)
@@ -262,7 +264,7 @@ txt(s5, "Fig. 3   Imports we cover, by year; the grey 2026 bar is eight months, 
         "months reconcile against a separate total the API returns on its own.",
     X0, Y_TAKE, CW, 1.0, 16, color=GREY, spacing=1.10)
 s5.notes_slide.notes_text_frame.text = (
-    "THE DATA. Two things on this slide, go left then right.\n\n"
+    "THE DATA. RAUNAK STARTS HERE. Two things on this slide, go left then right.\n\n"
     "Left: monthly US imports from the Census Bureau, free and public, 140 months.\n\n"
     "Right: what a row actually is. One 8-digit product, one country, one month. Chapter 74 "
     "is copper; inside it are 88 separate 8-digit lines in that month alone, and a tariff "
