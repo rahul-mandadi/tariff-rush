@@ -24,13 +24,12 @@ I'll take the first four slides.""",
 2: """So, tariffs don't happen overnight. They get announced, and they take effect on a named date
 later.
 
-Figure 1 is monthly copper imports, with three marks on it. The grey one is February 2025, when
-the government ordered an investigation. Then July, when a fifty percent duty was announced. Then
-August, when it started.
+Figure 1 is monthly copper imports, in dollars. Here's July 2025, when a fifty percent duty was
+announced. Here's August, when it started. Three weeks apart.
 
-Now look at where the line turns. It doesn't wait for July. It starts climbing right after the
-grey line, and nearly triples before the duty is even announced. The investigation was public, so
-everyone could see it coming.
+But look at what the line does. It doesn't wait for July. It starts climbing in February, and
+nearly triples by the time of the announcement. Why? Because the investigation behind that tariff
+was public months earlier. Everyone in the industry could see it coming.
 
 So the rush doesn't start when a tariff becomes official. It starts when it becomes likely.
 
@@ -39,8 +38,9 @@ Then August, and it drops hard.
 You'll also see it climb back up at the end. That's one product and one tariff, so we're not
 reading anything into it. The measuring comes later.
 
-That's front-loading. Goods that would have come in October came in June instead. We call that
-borrowed, because the later months pay it back.""",
+That's front-loading. Goods that would have come in October came in June instead. Nothing got
+created, it just moved forward in time. We call that borrowed, because the later months pay it
+back.""",
 
 3: """So why does this matter?
 

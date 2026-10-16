@@ -53,22 +53,13 @@ def expected(s, cut="2024-12"):
 s = series("74") / 1e9
 fig, ax = plt.subplots(figsize=(11, 4.6))
 ax.plot(s.index, s.values, lw=2.4, color=INK)
-# Three marks, not two, because the rush starts at the first one. The Feb date is the
-# executive order launching the Section 232 investigation (FR 2025-02-25, "Addressing the
-# Threat to National Security From Imports of Copper"), which is in our index; we had
-# dropped it because it imposes no duty. It is drawn grey to say it is a process step
-# rather than a tariff. The last two are three weeks apart, so one label goes left and one
-# right or they read as belonging to the wrong line.
-# the labels live in headroom above the data, not on top of it, and are staggered because
-# the last two marks are only three weeks apart
-ax.set_ylim(s.min() * 0.75, s.max() * 1.34)
-MARKS = [("2025-02-25", "investigation ordered", 1.26, "right", -7, GREY),
-         ("2025-07-08", "50% announced",         1.13, "right", -7, WARN),
-         ("2025-08-01", "duty starts",           1.13, "left",    7, WARN)]
-for d, lab, dy, ha, off, col in MARKS:
-    ax.axvline(pd.Timestamp(d), color=col, ls="--", lw=1.6)
+# the two dates are three weeks apart, so one label goes left and one right or they read
+# as belonging to the wrong line
+for d, lab, dy, ha, off in [("2025-07-08", "announced", .99, "right", -10),
+                            ("2025-08-01", "50% duty starts", .80, "left", 10)]:
+    ax.axvline(pd.Timestamp(d), color=WARN, ls="--", lw=1.6)
     ax.annotate(lab, (pd.Timestamp(d), s.max() * dy), xytext=(off, 0),
-                textcoords="offset points", color=col, fontsize=13,
+                textcoords="offset points", color=WARN, fontsize=14,
                 fontweight="600", ha=ha, va="center")
 ax.set_xlim(pd.Timestamp("2023-01-01"), s.index.max())
 ax.xaxis.set_major_locator(matplotlib.dates.YearLocator())

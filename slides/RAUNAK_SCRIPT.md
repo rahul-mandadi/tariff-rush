@@ -1,6 +1,6 @@
 # Raunak, this is your half
 
-Slides 5 to 8. Rahul takes 1 to 4 and hands over by saying your name, at about 3:38.
+Slides 5 to 8. Rahul takes 1 to 4 and hands over by saying your name, at about 3:40.
 
 **Your half is about 6:14.** The whole talk has to come in under 10 minutes, so there is not much slack. The same words are in the speaker notes in the pptx, under SAY THIS on each slide, so you can present straight off the notes.
 

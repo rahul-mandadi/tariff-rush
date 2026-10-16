@@ -174,8 +174,8 @@ s.notes_slide.notes_text_frame.text = (
 # ---------------------------------------------------------------- 2 context
 add("Every tariff comes with a date.",
     fig="01_context.png",
-    caption="Fig. 1   Copper. Investigation ordered in February, duty announced in July, in force from August.\n"
-            "The climb starts at the investigation, not at the announcement.\n"
+    caption="Fig. 1   Copper imports. Announced July 2025, in force from August.\n"
+            "Imports had been climbing since February, because the duty was expected.\n"
             "Goods pulled forward are borrowed from later months, the question in our title [5].",
     notes="LAYMAN CONTEXT. Assume nobody knows what a tariff is.\n\n"
           "A tariff is a tax on imports. The government announces it, and it starts on a named "
