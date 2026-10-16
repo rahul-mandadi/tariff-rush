@@ -136,13 +136,14 @@ And that's why we got nothing. If you label a product group tariffed when ninety
 it wasn't, the real reaction in that five percent gets averaged away by everything that didn't
 move. The zero wasn't telling us about the world. It was telling us about our ruler.
 
-It was one of three reasons, and it's the one that generalizes.
+It was one of three reasons, and it's the one that isn't just our problem. Anyone doing this
+would hit it.
 
 The fix is to work at eight digits, where a tariff either names a product or it doesn't.
 Everything from here is built that way.""",
 
 8: """Built and checked. We've got 140 months of trade at the level tariffs are actually written, and it
-reconciles against published totals.
+adds up to the published totals.
 
 We've got a detector that finds unusual months, and we're upfront that on its own it can't tell a
 tariff from a price shock.
@@ -153,7 +154,7 @@ How we'll measure it, and this is what fixes the detector. Instead of comparing 
 own past, we compare one product across countries in the same month. A price shock moves every
 country together so it cancels out. A tariff hits one country, so it doesn't.
 
-How we'll know it's real. Every estimate gets paired with a placebo, which is the identical
+How we'll know it's real. Every estimate gets paired with a placebo, which is the exact same
 calculation with every event shifted back two years. If it doesn't separate from its placebo, we
 don't report it. That's already killed three methods we built.
 
@@ -184,19 +185,21 @@ QA = [
  "We have the data and the product level matching to answer it now. The product group version of "
  "the question was unanswerable, for the reason on slide 7."),
 ("Who exactly is the customer?",
- "Whoever is exposed to one country rather than to total volume: an importer requalifying a "
- "supplier, a lender behind either side, a carrier running that route. We are still testing which "
- "the data serves best. An earlier version of this project named port and terminal operators; we "
- "tested that and dropped it, because displaced volume arrives from a different country through "
- "much the same US customs districts."),
+ "Whoever is tied to one country rather than to overall volume: an importer looking for a new "
+ "supplier, a lender behind either side, a carrier running that route. We are still working out "
+ "which of those the data helps most. An earlier version of this project said port and terminal "
+ "operators; we tested that and dropped it, because the goods that stop coming from one country "
+ "just arrive from another, through much the same US ports."),
 ("Five percent of what, exactly?",
- "The median over 1,350 action and product group pairs. Per action the median is 1.3 percent, so "
- "the slide is the conservative version."),
+ "It is the middle value across 1,350 pairs of one tariff action and one product group. If you "
+ "work it out per action instead, the middle value is 1.3 percent, so the slide uses the safer "
+ "number."),
 ("What were the other two reasons?",
- "Our announcement dates are mostly implementing notices, so the median official window is nine "
- "days and there is almost no anticipation period left in the data. That is what the copper story "
- "answers: the rush runs on news, not on documents. And the partner dimension was collapsed, which "
- "the across-origins design fixes."),
+ "First, most of the dates we have come from notices that just put an earlier decision into "
+ "effect. So the gap between the date we hold and the start date is only about nine days, which "
+ "leaves almost no run-up to measure. The copper story answers that one: the rush runs on news, "
+ "not on paperwork. Second, we had lumped all the supplying countries together, which comparing "
+ "across countries fixes."),
 ("Your copper chart recovers, so what is the problem?",
  "Correct, and we are not claiming copper proves anything. In tonnage it goes 293 thousand tonnes "
  "in July 2025, down to 93 thousand in November, back to 245 thousand by August 2026. One product, "

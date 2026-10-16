@@ -14,16 +14,16 @@ MINE = [5, 6, 7, 8]
 TITLE = {5: "What we have", 6: "Unusual is not the same as tariffed",
          7: "And this is where it nearly came apart", 8: "Where we are"}
 
-# one plain sentence per slide so he knows what he is doing, not just what to recite
+# one plain sentence per slide so he knows what the slide is for, not just what to recite
 JOB = {
 5: "This is the data slide. You are telling them where the numbers come from, what one row is, "
-   "and why we pulled it at ten digits instead of something coarser. The ten digit bit is the "
+   "and why we pulled it at ten digits instead of something broader. The ten digit bit is the "
    "part that matters later, so do not rush it.",
 6: "This is the honest slide. You show the first thing we tried, and then you say why it is not "
-   "enough. The point you are landing is that finding a weird month is not the same as finding a "
+   "enough. The thing to get across is that finding a weird month is not the same as finding a "
    "tariff. Cocoa is the example that proves it.",
 7: "This is the most important slide in the deck. You are telling them our first attempt "
-   "returned nothing, and then telling them exactly why. If you only nail one slide, nail this.",
+   "found nothing, and then telling them exactly why. If you only nail one slide, nail this.",
 8: "This is the close. A list of what exists, how we will measure it, how we will check it is "
    "real, and one thing for them to take away.",
 }
@@ -67,7 +67,7 @@ for n in MINE:
           "",
           f"*{speech.ms(speech.secs(n))}*",
           "",
-          f"**What this slide is doing:** {JOB[n]}",
+          f"**What this slide is for:** {JOB[n]}",
           "",
           "**Say:**",
           "",
@@ -77,7 +77,7 @@ for n in MINE:
           ""]
 
 L += ["---", "", "## The numbers to get exactly right", "",
-      "Everything else you can paraphrase. These three are the argument on slide 7:", ""]
+      "Everything else you can say in your own words. These three are the argument on slide 7:", ""]
 for a, b in NUMBERS:
     L.append(f"- **{a}** : {b}")
 L += ["",
@@ -88,7 +88,7 @@ L += ["",
       "",
       "---", "", "## If someone asks you something", "",
       "These are the ones likely to land on your slides. Short answers are fine, and \"we are "
-      "still testing that\" is a real answer, not a cop-out.", ""]
+      "still testing that\" is a real answer. Nobody expects finished results.", ""]
 for q, a in speech.QA:
     L += [f"**\"{q}\"**", "", a, ""]
 L += ["---", "",

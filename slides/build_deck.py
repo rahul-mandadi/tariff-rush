@@ -264,7 +264,7 @@ txt(s5, "Census trade API  +  Federal Register API\n2,792 documents, 134 real ta
     7.70, 5.62, 4.88, 0.8, 12, bold=True, spacing=1.25)
 txt(s5, "Fig. 3   Imports we cover, by year; the grey 2026 bar is eight months, not twelve.\n"
         "2017 adds up to 2,340 billion dollars against a published 2.34 trillion, and all 140\n"
-        "months reconcile against a separate total the API returns on its own.",
+        "months match a separate total the API returns on its own.",
     X0, Y_TAKE, CW, 1.0, 16, color=GREY, spacing=1.10)
 s5.notes_slide.notes_text_frame.text = (
     "THE DATA. RAUNAK STARTS HERE. Two things on this slide, go left then right.\n\n"
@@ -351,7 +351,7 @@ add("And this is where it nearly came apart.",
 # ---------------------------------------------------------------- 8 status
 add("Where we are.",
     bullets=["**Built and checked**",
-             "140 months at the level tariffs are written, reconciled against published totals.",
+             "140 months at the level tariffs are written, and it adds up to the published totals.",
              "**A detector, and its limit**",
              "It finds unusual months. It cannot tell a tariff from a price shock.",
              "**134 tariff actions, with the products behind each one**",
