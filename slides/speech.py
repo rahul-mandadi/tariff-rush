@@ -25,7 +25,7 @@ I'll take the first four slides.""",
 later.
 
 Figure 1 is monthly copper imports, in dollars. Here's July 2025, when a fifty percent duty was
-announced. Here's August, when it started. Three weeks apart.
+announced. Here's August, when it started.
 
 But look at what the line does. It doesn't wait for July. It starts climbing in February, and
 nearly triples by the time of the announcement. Why? Because the investigation behind that tariff
@@ -35,12 +35,13 @@ So the rush doesn't start when a tariff becomes official. It starts when it beco
 
 Then August, and it drops hard.
 
-You'll also see it climb back up at the end. That's one metal and one tariff, so we're not
-reading anything into it. The measuring comes later.
+You'll also see it climb back up at the end, and here's why. When the tariff actually landed it
+covered semi-finished copper, so wire and tube and fittings, not refined cathodes, which are most
+of this chart. So a lot of that rush was on an expectation that didn't land. The products that did
+get the fifty percent are down about forty-five percent and have stayed down.
 
-That's front-loading. Goods that would have come in October came in June instead. Nothing got
-created, it just moved forward in time. We call that borrowed, because the later months pay it
-back.""",
+That's front-loading. Goods that would have come in October came in June instead. We call that
+borrowed, because the later months pay it back.""",
 
 3: """So why does this matter?
 
@@ -51,8 +52,8 @@ Figure 2 is that problem. Day zero, the tariff gets announced. If you're importi
 country that just got hit, you have a decision. Wait it out, or go and find a new supplier?
 Qualifying a new supplier takes months and real money.
 
-And it isn't just importers. A bank that lent against that trade is asking the same question. So
-is the carrier running that route.
+And it isn't just importers. A bank that lent against that trade, or the carrier running it, faces
+the same question.
 
 Day thirty, the duty takes effect.
 
@@ -109,7 +110,7 @@ counts as unusual.
 Figure 4 ranks the ten groups that went furthest outside their own normal range in 2025. The scale
 along the bottom is how many times outside the band, so one is right at the edge.
 
-Some look like tariff stories. Organic chemicals and pharmaceuticals were both under open tariff
+Some look like tariff stories, like organic chemicals and pharmaceuticals, both under tariff
 threat in 2025.
 
 But look at the red ones. Silk is only about 55 million dollars a year, so almost any month looks
@@ -138,8 +139,7 @@ And that's why we got nothing. If you label a product group tariffed when ninety
 it wasn't, the real reaction in that five percent gets averaged away by everything that didn't
 move. The zero wasn't telling us about the world. It was telling us about our ruler.
 
-It was one of three reasons, and it's the one that isn't just our problem. Anyone doing this
-would hit it.
+It was one of three reasons, and it's the one anyone doing this would hit.
 
 The fix is to work at eight digits, where a tariff either names a product or it doesn't.
 Everything from here is built that way.""",

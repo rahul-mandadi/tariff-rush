@@ -1,8 +1,8 @@
 # Raunak, this is your half
 
-Slides 5 to 8. Rahul takes 1 to 4 and hands over by saying your name, at about 3:40.
+Slides 5 to 8. Rahul takes 1 to 4 and hands over by saying your name, at about 3:51.
 
-**Your half is about 6:14.** The whole talk has to come in under 10 minutes, so there is not much slack. The same words are in the speaker notes in the pptx, under SAY THIS on each slide, so you can present straight off the notes.
+**Your half is about 6:11.** The whole talk has to come in under 10 minutes, so there is not much slack. The same words are in the speaker notes in the pptx, under SAY THIS on each slide, so you can present straight off the notes.
 
 You do not have to say it word for word. Say it however it comes out naturally. The one thing to keep exact is the numbers.
 
@@ -66,7 +66,7 @@ counts as unusual.
 Figure 4 ranks the ten groups that went furthest outside their own normal range in 2025. The scale
 along the bottom is how many times outside the band, so one is right at the edge.
 
-Some look like tariff stories. Organic chemicals and pharmaceuticals were both under open tariff
+Some look like tariff stories, like organic chemicals and pharmaceuticals, both under tariff
 threat in 2025.
 
 But look at the red ones. Silk is only about 55 million dollars a year, so almost any month looks
@@ -82,7 +82,7 @@ harvest. That's the next slide.
 
 ## Slide 7. And this is where it nearly came apart
 
-*1:48*
+*1:46*
 
 **What this slide is for:** This is the most important slide in the deck. You are telling them our first attempt found nothing, and then telling them exactly why. If you only nail one slide, nail this.
 
@@ -107,8 +107,7 @@ And that's why we got nothing. If you label a product group tariffed when ninety
 it wasn't, the real reaction in that five percent gets averaged away by everything that didn't
 move. The zero wasn't telling us about the world. It was telling us about our ruler.
 
-It was one of three reasons, and it's the one that isn't just our problem. Anyone doing this
-would hit it.
+It was one of three reasons, and it's the one anyone doing this would hit.
 
 The fix is to work at eight digits, where a tariff either names a product or it doesn't.
 Everything from here is built that way.
