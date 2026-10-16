@@ -1,7 +1,7 @@
 # Presentation 1, spoken script
 
-Eight talk slides, **under 10 minutes**. This is written to 9:12 measured, which leaves margin,
-because live delivery always runs longer than a read.
+Eight talk slides, **under 10 minutes**. This is written to 9:03 measured. That is not margin,
+it is the whole budget, so the live cut points below matter.
 
 **Split:** Rahul slides 1 to 4, Raunak slides 5 to 8. Both must speak, the rubric requires it.
 
@@ -9,10 +9,10 @@ because live delivery always runs longer than a read.
 content the rubric asks for. The long version of each point lives in the deck's speaker notes,
 for questions only.
 
-**9:12 is a measured read, not a delivered talk.** Pointing at figures, pauses and a handover add
-roughly ten percent, so expect about 10:05 on the first run. One timed rehearsal is not optional.
-If it comes in over 10:00, the honest fix is fewer slides rather than faster talking: slide 4 is
-49 seconds of signposting and could be spoken over slide 3.
+**9:03 is a measured read, not a delivered talk.** Pointing at figures, pauses and a handover add
+roughly ten percent, so expect about 9:57 on the first run. One timed rehearsal is not optional.
+Do not cut slide 4 to save time. It is the only slide that states the analytic problem, which the
+Context criterion scores explicitly, and slide 8's "question one first" dangles without it.
 
 Three sentences that must not be garbled:
 
@@ -25,15 +25,15 @@ Three sentences that must not be garbled:
 
 ---
 
-## 1. Title. RAHUL. 0:35
+## 1. Title. RAHUL. 0:31
 
 I'm Rahul, this is Raunak. Our project is Borrowed or Real.
 
-A tariff is a tax on imports. It gets announced on one day and starts on a later day. In between,
-importers rush to beat it. Afterwards imports drop.
+A tariff is a tax on imports, announced on one day and starting on a later day. Importers rush to
+beat it, then imports drop.
 
-Our question is what that drop means. If the goods just came early, it is borrowed and it comes
-back. If the business left for good, it is real.
+Our question is what that drop means. If the goods just came early, it is borrowed. If the
+business left for good, it is real.
 
 I will take the first four slides.
 
@@ -80,21 +80,21 @@ That is the gap we are trying to close.
 
 ---
 
-## 4. So we ask three questions. RAHUL. 0:49, then hand over
+## 4. So we ask three questions. RAHUL. 0:48, then hand over
 
-So, three questions.
+Three questions, and they are on the slide.
 
-One. Will there be a rush, and how big. Classification, then regression.
+One, will there be a rush and how big. Classification, then regression.
 
-Two. What happens after the duty starts. This is the hard one, and it is our title. Three
-answers: the goods were borrowed and come back, the demand was lost for good, or the same goods
-now come from a different country.
+Two, what happens after the duty starts. This is the hard one, and it is our title: the goods were
+borrowed and come back, the demand was lost for good, or the same goods now come from a different
+country.
 
-Three. How long does it last. Some are still running at the end of our data, so it is a duration
-problem.
+Three, how long it lasts, which is a duration problem because some are still running at the end of
+our data.
 
-This presentation is our data and its limits. No results today. But we did find something the hard
-way, and Raunak will take you through it.
+Today is our data and its limits, not results. But we found something the hard way, and Raunak
+will take you through it.
 
 Raunak.
 
@@ -122,7 +122,7 @@ Second source, the Federal Register. 2,792 documents, 134 real tariff actions.
 
 ---
 
-## 6. Unusual is not the same as tariffed. RAUNAK. 1:21
+## 6. Unusual is not the same as tariffed. RAUNAK. 1:18
 
 First thing we tried was to find the months that look weird.
 
@@ -132,13 +132,12 @@ band for ordinary wobble, and anything outside it is unusual.
 **[point]** Figure 4 ranks the ten groups that went furthest outside their own normal range in
 2025. The scale is how many times outside the band. One is right at the edge.
 
-Some look like tariff stories. Organic chemicals and pharmaceuticals were both under open tariff
+Some look like tariff stories: organic chemicals and pharmaceuticals were under open tariff
 threat in 2025.
 
 But look at the red ones. Silk is about 55 million dollars a year, so almost any month looks
-extreme next to its own history. And cocoa is up there because cocoa prices roughly tripled after
-bad West African harvests. We measure in dollars, so a price spike looks exactly like a surge in
-volume.
+extreme. And cocoa is there because cocoa prices roughly tripled after bad West African harvests.
+We measure in dollars, so a price spike looks exactly like a surge in volume.
 
 So the detector finds unusual months but has no idea why. It cannot tell a tariff from a bad
 harvest. Connecting an unusual month to an actual tariff is the next slide.
@@ -173,7 +172,7 @@ Everything from here is built that way.
 
 ---
 
-## 8. Where we are. RAUNAK. 1:23
+## 8. Where we are. RAUNAK. 1:21
 
 Built and checked: 140 months at the level tariffs are actually written, reconciled against
 published totals.
@@ -193,7 +192,7 @@ already killed three methods we built.
 Next, question one first, then two and three for the final report.
 
 And the takeaway: do not measure this at product group level. The typical action touches five
-percent of a group, so a real effect averages away to nothing.
+percent, so a real effect averages away to nothing.
 
 Questions?
 
@@ -203,16 +202,16 @@ Questions?
 
 | slide | who | target | cumulative |
 | --- | --- | --- | --- |
-| 1 title | Rahul | 0:35 | 0:35 |
-| 2 every tariff comes with a date | Rahul | 1:03 | 1:39 |
-| 3 the decision comes before the data | Rahul | 1:03 | 2:42 |
-| 4 so we ask three questions | Rahul | 0:49 | 3:32 |
-| 5 what we have | Raunak | 1:12 | 4:45 |
-| 6 unusual is not the same as tariffed | Raunak | 1:21 | 6:06 |
-| 7 and this is where it nearly came apart | Raunak | 1:42 | 7:48 |
-| 8 where we are | Raunak | 1:23 | 9:12 |
+| 1 title | Rahul | 0:31 | 0:31 |
+| 2 every tariff comes with a date | Rahul | 1:03 | 1:35 |
+| 3 the decision comes before the data | Rahul | 1:03 | 2:39 |
+| 4 so we ask three questions | Rahul | 0:48 | 3:28 |
+| 5 what we have | Raunak | 1:12 | 4:41 |
+| 6 unusual is not the same as tariffed | Raunak | 1:18 | 5:59 |
+| 7 and this is where it nearly came apart | Raunak | 1:42 | 7:41 |
+| 8 where we are | Raunak | 1:21 | 9:03 |
 
-**Hand over at 3:32.** If the handover is past 4:30, Raunak drops the "is the data right" sentence
+**Hand over at 3:28.** If the handover is past 4:30, Raunak drops the "is the data right" sentence
 on slide 5 and the organic chemicals sentence on slide 6. That buys about twenty seconds.
 
 If you are over 7:00 when slide 7 starts, cut the copper sentences on slide 7 and go straight from
