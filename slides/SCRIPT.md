@@ -1,12 +1,20 @@
 # Presentation 1, spoken script
 
-Eight talk slides, 10 to 15 minutes. Target 12:00 so there is room to breathe.
+Eight talk slides, **under 10 minutes**. This is written to 9:12 measured, which leaves margin,
+because live delivery always runs longer than a read.
 
 **Split:** Rahul slides 1 to 4, Raunak slides 5 to 8. Both must speak, the rubric requires it.
 
-**Lines in `[ ]` are cut-if-behind.** Everything outside them is load-bearing.
+**There is no slack. Do not ad-lib.** Everything that could be cut has been without losing
+content the rubric asks for. The long version of each point lives in the deck's speaker notes,
+for questions only.
 
-Three sentences that must not be garbled, in order of importance:
+**9:12 is a measured read, not a delivered talk.** Pointing at figures, pauses and a handover add
+roughly ten percent, so expect about 10:05 on the first run. One timed rehearsal is not optional.
+If it comes in over 10:00, the honest fix is fewer slides rather than faster talking: slide 4 is
+49 seconds of signposting and could be spoken over slide 3.
+
+Three sentences that must not be garbled:
 
 1. "If you label a product group tariffed when ninety-five percent of it was not, any real
    reaction gets averaged away." (slide 7)
@@ -17,283 +25,225 @@ Three sentences that must not be garbled, in order of importance:
 
 ---
 
-## Slide 1, title. RAHUL. 0:45
+## 1. Title. RAHUL. 0:35
 
-Hi, I'm Rahul, this is Raunak. Our project is called Borrowed or Real, and it is about what
-happens to imports when the US announces a tariff.
+I'm Rahul, this is Raunak. Our project is Borrowed or Real.
 
-Here is the one sentence version. A tariff is a tax on imports. It gets announced on one day and
-starts on a later day. In between, importers rush to get goods in before the tax applies. Then
-imports drop.
+A tariff is a tax on imports. It gets announced on one day and starts on a later day. In between,
+importers rush to beat it. Afterwards imports drop.
 
-The question in our title is what that drop actually means. If the goods just arrived early, the
-drop is borrowed, and it comes back. If the business went somewhere else and stayed there, it is
-real.
+Our question is what that drop means. If the goods just came early, it is borrowed and it comes
+back. If the business left for good, it is real.
 
-I will take the first half, Raunak takes the second.
+I will take the first four slides.
 
 ---
 
-## Slide 2, every tariff comes with a date. RAHUL. 1:50
+## 2. Every tariff comes with a date. RAHUL. 1:03
 
-Let me start with the thing that makes any of this possible.
+Tariffs do not happen overnight. They get announced, and they take effect on a named date later.
 
-When the US puts a tariff on something, it does not happen overnight. It gets announced, and it
-takes effect on a named date later.
+**[point]** Figure 1 is copper imports, by month, in dollars. Here is July 2025, when a fifty
+percent duty was announced. Here is August, when it started. Three weeks apart.
 
-**[point at the chart]** Figure 1 is copper. This line is how many dollars of copper came into the
-US each month.
+But look at the line. It does not wait for July. It starts climbing in February and nearly triples
+by the announcement. The investigation behind that tariff was public months earlier, so everyone
+saw it coming. The rush does not start when the tariff becomes official. It starts when it becomes
+likely.
 
-Here is July 2025, when a fifty percent duty on copper was announced. Here is August, when it
-started. Three weeks apart.
+Then August, and it drops hard.
 
-Now look at what the line actually does. It does not wait for July. It starts climbing in
-February. [In February copper is about one and a quarter billion dollars a month. By July it is
-three point two billion.] It nearly triples before the announcement.
-
-Why? Because the investigation behind that tariff was public months earlier. Everyone in the
-industry could see it coming. So the rush does not start when the tariff becomes official. It
-starts when the tariff becomes likely.
-
-Then here is August, and it falls off a cliff.
-
-That behaviour has a name, front-loading. Goods that would have arrived in October came in in
-June instead. Nothing new was created, it just moved forward in time. We call that borrowed,
-because the later months pay it back.
-
-One honest note on this chart. Copper does come back up at the end. This is one product and one
-tariff. It is here to show you the idea, not to prove anything. The measuring starts in a few
-slides.
+That is front-loading. Goods that would have arrived in October came in in June. Nothing new was
+created, it just moved forward. We call that borrowed, because the later months pay it back.
 
 ---
 
-## Slide 3, the decision comes before the data. RAHUL. 1:40
+## 3. The decision comes before the data. RAHUL. 1:03
 
-So why does anyone care?
+Why does this matter? Because someone has to make an expensive decision on announcement day, and
+the data they would need does not exist yet.
 
-Because somebody has to make an expensive decision on announcement day, and the information they
-would need does not exist yet.
-
-**[point]** Figure 2 is that timeline. Day zero, the tariff is announced. If you are an importer
-buying from the country that just got hit, you have a choice. Wait it out and hope it gets
-reversed? Or go find a supplier somewhere else? Qualifying a new supplier takes months and costs
-real money. Either way, getting it wrong is expensive.
-
-[And it is not only importers. A bank that lent against that trade has the same question as credit
-risk. A shipping line running that route has to decide whether to keep running it.]
+**[point]** Figure 2. Day zero, the tariff is announced. If you are importing from the country
+that just got hit, you decide: wait it out, or go find a new supplier. Requalifying a supplier
+takes months and real money. A lender behind that trade and a carrier running the route face the
+same question.
 
 Day thirty, the duty takes effect.
 
-And here, day sixty-five, is the first time you can look at official data and see what actually
-happened. Census publishes monthly trade about five weeks after the month closes.
+Day sixty-five is the first time official data shows what happened. Census publishes about five
+weeks after the month closes.
 
-So by the time you have seen two bad months, the tariff has been in force for a quarter, and all
-of those decisions are already made.
+So by the time you have seen two bad months, the tariff has been in force a quarter and the
+decisions are already made.
 
-That is the gap we are trying to close. Not to explain the past. To say something useful on day
-zero.
+That is the gap we are trying to close.
 
 ---
 
-## Slide 4, so we ask three questions. RAHUL. 1:10, then hand over
+## 4. So we ask three questions. RAHUL. 0:49, then hand over
 
-So we turned that into three questions.
+So, three questions.
 
-One. Will there be a rush, and how big? That is really two problems. First, does it happen at
-all. Then, how large. Classification, then regression.
+One. Will there be a rush, and how big. Classification, then regression.
 
-Two. What happens after the duty starts? This is the hard one, and it is the title of the
-project. Three possible answers. The goods were borrowed and they come back. The demand was lost
-for good. Or the same goods are now bought from a different country.
+Two. What happens after the duty starts. This is the hard one, and it is our title. Three
+answers: the goods were borrowed and come back, the demand was lost for good, or the same goods
+now come from a different country.
 
-Three. How long does it last? Some of these are still running at the end of our data, so it is a
-duration problem.
+Three. How long does it last. Some are still running at the end of our data, so it is a duration
+problem.
 
-One thing before I hand over. This presentation is about our data and what it can and cannot
-support. We are not showing results today. What we are showing is something we found out the hard
-way, and that is the part Raunak will take you through.
+This presentation is our data and its limits. No results today. But we did find something the hard
+way, and Raunak will take you through it.
 
 Raunak.
 
 ---
 
-## Slide 5, what we have. RAUNAK. 1:50
+## 5. What we have. RAUNAK. 1:12
 
-Thanks Rahul. I will talk about the data.
+Thanks. Two sources, both free and public.
 
-Two sources, both public and both free.
+**[point left]** Figure 3 is US Census trade data. Every month from January 2015 to August 2026.
+140 months, 15.9 million rows. The last bar is grey because 2026 is only eight months so far.
 
-**[point left]** The first is US Census trade data. Figure 3 is what we pulled. Every month from
-January 2015 to August 2026. That is 140 months, about 15.9 million rows. One note on this chart,
-the last bar is grey because 2026 is only eight months so far, not a full year.
+**[point right]** Table 1 is what one row actually is. One product, one country, one month. This
+code, from Chile, March 2025, 715 million dollars, 74 million kilograms.
 
-**[point right]** Table 1 shows what one row actually is. One product, one country, one month. So
-this product code, from Chile, in March 2025, 715 million dollars, about 74 million kilograms.
+Look at that first column. Those are eight digit product codes, and we pull the data at ten
+digits. Here is why. A tariff order does not say "copper", it lists specific eight digit codes,
+and ten sits inside eight. So we can match a tariff to exactly the products it names instead of
+guessing.
 
-The important part is that first column. Those are eight digit product codes, and we pull the data
-at ten digits.
+Is the data right? 2017 adds up to 2,340 billion dollars against a published 2.34 trillion, and
+all 140 months check against a separate total.
 
-Here is why that matters. A tariff order does not say "copper". It lists specific eight digit
-codes. Ten digits sit inside eight. So pulling at ten means we can match a tariff to exactly the
-products it names, instead of guessing.
-
-[For scale: both codes in that table are copper. Copper has 88 separate eight digit codes in
-that one month alone.]
-
-How do we know the data is right? Add up 2017 and we get 2,340 billion dollars. The published
-figure for US imports that year is 2.34 trillion. And all 140 months check against a separate
-total the API gives us on its own.
-
-The second source is the Federal Register, which is where tariffs get published. We went through
-2,792 documents and classified 134 of them as real tariff actions.
+Second source, the Federal Register. 2,792 documents, 134 real tariff actions.
 
 ---
 
-## Slide 6, unusual is not the same as tariffed. RAUNAK. 1:55
+## 6. Unusual is not the same as tariffed. RAUNAK. 1:21
 
-So we have trade data, and we have tariff dates. The first obvious thing to try is to find the
-months that look weird.
+First thing we tried was to find the months that look weird.
 
-That is what we built. For every product group we used the earlier years to work out what it
-would normally have done, then drew a band around that for ordinary month to month wobble.
-Anything outside the band is unusual.
+For each product group we worked out from earlier years what it would normally have done, drew a
+band for ordinary wobble, and anything outside it is unusual.
 
-**[point]** Figure 4 ranks the ten product groups that went furthest outside their own normal
-range in 2025. The scale along the bottom is how many times outside the band they went. One means
-right at the edge.
+**[point]** Figure 4 ranks the ten groups that went furthest outside their own normal range in
+2025. The scale is how many times outside the band. One is right at the edge.
 
-Some of these look like tariff stories. Organic chemicals and pharmaceuticals were both under open
-tariff threat during 2025. [Gold moved into US vaults ahead of expected duties.]
+Some look like tariff stories. Organic chemicals and pharmaceuticals were both under open tariff
+threat in 2025.
 
-But look at the red ones. Silk is a tiny category, about 55 million dollars a year, so almost any
-month looks extreme next to its own history. [Works of art and clocks are small and lumpy.]
+But look at the red ones. Silk is about 55 million dollars a year, so almost any month looks
+extreme next to its own history. And cocoa is up there because cocoa prices roughly tripled after
+bad West African harvests. We measure in dollars, so a price spike looks exactly like a surge in
+volume.
 
-And then cocoa. Cocoa is on this list because cocoa prices roughly tripled after bad harvests in
-West Africa. We measure in dollars. So a price spike looks exactly like a surge in volume.
-
-That is the problem with this slide. The detector finds unusual months. It has no idea why they
-are unusual. It cannot tell a tariff from a bad harvest.
-
-So we needed something that connects an unusual month to an actual tariff. That is the next slide,
-and that is where this got difficult.
+So the detector finds unusual months but has no idea why. It cannot tell a tariff from a bad
+harvest. Connecting an unusual month to an actual tariff is the next slide.
 
 ---
 
-## Slide 7, and this is where it nearly came apart. RAUNAK. 2:35
+## 7. And this is where it nearly came apart. RAUNAK. 1:42
 
-This is the slide I would keep if we only had one.
+A tariff order never says "chapter 74, copper". It points at a list of specific eight digit codes,
+usually in a separate legal notice. If you have not read those lists, all you can do is mark a
+whole product group as tariffed whenever any action touches anything inside it.
 
-Here is the problem. A tariff order never says "chapter 74, copper". It points at a list of
-specific eight digit codes, and that list is usually in a separate legal notice. So if you have
-not read those lists, the only thing you can do is mark a whole product group as tariffed whenever
-any action touches anything inside it.
+That is what we did. And we got nothing.
 
-That is what we did first. And we got nothing. No effect at all.
+So we read the lists. 9,083 eight digit codes.
 
-So we went and read the lists. 9,083 separate eight digit codes.
-
-**[point]** Figure 5 is what we found. Each bar counts a tariff action paired with a product
-group, and the height is how many land in each band of coverage. The typical one covers about five
-percent of its group's value. The red on the left is the part that matters: a third of them cover
+**[point]** Figure 5. Each bar counts a tariff action paired with a product group. The typical one
+covers about five percent of that group's value. The red on the left is a third of them covering
 less than one percent.
 
-Copper again, since you have seen it twice already. Ten tariff actions touch copper. Three of them
-cover more than half of it. The other seven cover less than one percent. [Several are carve-outs
-for civil aircraft parts that name a single product line.] The middle one covers under a tenth of
-one percent.
-
-[So if you mark copper as tariffed whenever any action fires, seven times out of ten you have
-flagged the whole thing over something that touches almost none of it.]
+Copper again. Ten actions touch copper. Three cover more than half of it. The other seven cover
+less than one percent.
 
 And that is why we got nothing. If you label a product group tariffed when ninety-five percent of
 it was not, any real reaction in the five percent gets averaged away by the ninety-five percent
 that did nothing. The zero was not telling us about the world. It was telling us about our ruler.
 
-[This is not just us. The main paper on these tariffs works at eight to ten digits for the same
-reason, and there is work from the US trade commission showing estimates get smaller the coarser
-your data is.]
+It was one of three reasons, and it is the one that generalizes.
 
 The fix is to work at eight digits, where a tariff either names a product or it does not.
 Everything from here is built that way.
 
 ---
 
-## Slide 8, where we are. RAUNAK. 1:40
+## 8. Where we are. RAUNAK. 1:23
 
-So where does that leave us.
+Built and checked: 140 months at the level tariffs are actually written, reconciled against
+published totals.
 
-Built and checked: 140 months of trade at the level tariffs are actually written, reconciled
-against published totals.
+A detector that finds unusual months, and cannot on its own tell a tariff from a price shock.
 
-A detector that finds unusual months, and we are upfront that on its own it cannot tell a tariff
-from a price shock.
-
-134 tariff actions with the real product lists behind each one. [And start dates we had to
-re-read from the order texts, because our first pass kept picking up old dates the documents were
-quoting.]
+134 tariff actions, with the real product lists behind each one.
 
 How we will measure it, and this is what fixes the detector. Instead of comparing a product to its
 own past, we compare one product across countries in the same month. A price shock moves every
-country together, so it cancels. A tariff hits one country, so it does not. That is the method.
+country together, so it cancels. A tariff hits one country, so it does not.
 
-How we will know it is real: every estimate gets paired with a placebo. We run the identical
-calculation with every event shifted back two years. If a result does not separate from its own
-placebo, we do not report it. That has already killed three methods we built.
+How we will know it is real: every estimate gets a placebo, the same calculation with every event
+shifted back two years. If it does not separate from its placebo, we do not report it. That has
+already killed three methods we built.
 
 Next, question one first, then two and three for the final report.
 
-And the one thing to take away even if you never touch tariff data: do not measure this at product
-group level. The typical action touches five percent of a group, so a real effect averages away to
-nothing.
+And the takeaway: do not measure this at product group level. The typical action touches five
+percent of a group, so a real effect averages away to nothing.
 
-Happy to take questions.
+Questions?
 
 ---
 
-## Running total
+## Clock
 
-Measured at 130 words a minute, which is a steady speaking pace. Live delivery with pointing and
-pauses runs longer, so treat these as a floor.
-
-| slide | who | full | every bracket cut |
+| slide | who | target | cumulative |
 | --- | --- | --- | --- |
-| 1 title | Rahul | 0:53 | 0:53 |
-| 2 every tariff has a date | Rahul | 1:54 | 1:43 |
-| 3 decision before data | Rahul | 1:35 | 1:19 |
-| 4 three questions | Rahul | 1:11 | 1:11 |
-| 5 what we have | Raunak | 1:56 | 1:46 |
-| 6 unusual is not tariffed | Raunak | 1:58 | 1:50 |
-| 7 nearly came apart | Raunak | 2:47 | 2:09 |
-| 8 where we are | Raunak | 1:51 | 1:40 |
-| | | **14:05** | **12:31** |
+| 1 title | Rahul | 0:35 | 0:35 |
+| 2 every tariff comes with a date | Rahul | 1:03 | 1:39 |
+| 3 the decision comes before the data | Rahul | 1:03 | 2:42 |
+| 4 so we ask three questions | Rahul | 0:49 | 3:32 |
+| 5 what we have | Raunak | 1:12 | 4:45 |
+| 6 unusual is not the same as tariffed | Raunak | 1:21 | 6:06 |
+| 7 and this is where it nearly came apart | Raunak | 1:42 | 7:48 |
+| 8 where we are | Raunak | 1:23 | 9:12 |
 
-So the brackets buy about a minute and a half, not more. If a full read comes in over 15:00,
-the cut has to come from content, not from talking faster.
+**Hand over at 3:32.** If the handover is past 4:30, Raunak drops the "is the data right" sentence
+on slide 5 and the organic chemicals sentence on slide 6. That buys about twenty seconds.
 
-**Checkpoints.** Hand over to Raunak by **5:40**. Be starting slide 7 by **9:40**. If slide 7
-starts later than 10:30, drop the bracketed lines on 7 and 8 and go straight to the takeaway.
+If you are over 7:00 when slide 7 starts, cut the copper sentences on slide 7 and go straight from
+Figure 5 to "and that is why we got nothing". Slide 7's argument survives without copper; it does
+not survive without that sentence.
+
+---
 
 ## If asked
 
-**"So is there a rush?"** We now have the data and the product level matching to answer it. The
-product group version of that question was unanswerable, for the reason on slide 7.
+**"So is there a rush?"** We have the data and the product level matching to answer it now. The
+product group version of the question was unanswerable, for the reason on slide 7.
 
 **"Who exactly is the customer?"** Whoever is exposed to one country rather than to total volume:
 an importer requalifying a supplier, a lender behind either side, a carrier running that route. We
-are still testing which of those the data serves best, and that is a better answer than naming one
-confidently. An earlier version of this project named port and terminal operators. We tested it
-and dropped it, because displaced volume arrives from a different country through much the same
-US customs districts.
+are still testing which the data serves best. An earlier version of this project named port and
+terminal operators; we tested it and dropped it, because displaced volume arrives from a different
+country through much the same US customs districts.
 
-**"Five percent of what, exactly?"** The median over 1,350 action and product group pairs. Collapse
-it to one number per action and the median is 1.3 percent, so the slide is the conservative
-version.
+**"Five percent of what?"** The median over 1,350 action and product group pairs. Per action the
+median is 1.3 percent, so the slide is the conservative version.
+
+**"What were the other two reasons?"** Our announcement dates are mostly implementing notices, so
+the median official window is nine days and there is almost no anticipation period in the data.
+That is what the copper story answers: the rush runs on news, not on documents. And the partner
+dimension was collapsed, which the across-origins design fixes.
 
 **"Your copper chart recovers, so what is the problem?"** Correct, and we are not claiming copper
-proves anything. It is on slide 2 to explain front-loading. In tonnage copper goes from 293
-thousand tonnes in July 2025 down to 93 thousand in November and back to 245 thousand by August
-2026. That is one product and one event. The measurement is the within product across origin
-design on slide 8.
+proves anything. In tonnage it goes 293 thousand tonnes in July 2025, down to 93 thousand in
+November, back to 245 thousand by August 2026. One product, one event. It is on slide 2 to
+explain front-loading.
 
 **"Why not just watch the data and react?"** That is slide 3. The first usable data lands about
 five weeks after the month closes, and the decision is on announcement day.

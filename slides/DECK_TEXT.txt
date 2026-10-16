@@ -17,7 +17,8 @@ SLIDE 1  [TALK]
 
   --- NOTES ---
   | SPEAKER SPLIT: slides 1-4 one of us, 5-8 the other. Both must speak.
-  | Eight slides for 10-15 minutes. Slides 2, 3 and 7 need the most time; 4 and 5 the least.
+  | Eight slides, UNDER 10 MINUTES. Slide 7 needs the most time; 1 and 4 the least.
+  | slides/SCRIPT.md is written to 9:15 measured. Do not ad-lib past it.
   | Slides 9, 10 and 11 are backup for questions, not part of the talk.
   | 
   | Do not read the stakeholder line aloud. It is there for the rubric and the PDF.
@@ -182,7 +183,9 @@ SLIDE 7  [TALK]
   | 
   | So chapter-level treatment means roughly 95% of what you are measuring is trade the tariff never touched. Any real reaction in the 5% gets averaged away by the 95% that did nothing.
   | 
-  | That is exactly what happened to us. Our first attempt to measure an effect found nothing, and this is why. The null was our ruler, not the world.
+  | That is exactly what happened to us. Our first attempt to measure an effect found nothing. The null was our ruler, not the world.
+  | 
+  | SAY 'ONE OF THREE REASONS'. coverage/FINDINGS.md lists three causes of that null and ranks this one second. The first is that our announcement dates are mostly implementing notices, so the median official window is nine days and there is barely any anticipation period left in the data; the copper story on slide 2 is the answer to that, since the rush runs on news rather than on documents. The third is that the partner dimension was collapsed, which the across-origins design on slide 8 fixes. Dilution is the one that generalizes beyond us, which is why it is the one on the slide. Do not call it the reason.
   | 
   | The fix is to work at the 8-digit level, where a tariff either names a product or it does not. Everything after this is built that way.
   | 

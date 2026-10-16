@@ -101,7 +101,7 @@ behind them, and one measured reason the obvious approach fails.
 **The two moments that carry the talk** are slide 3 and slide 7. Everything else is scaffolding
 holding those two up.
 
-**Timing.** Eight slides over 10 to 15 minutes. Slides 2, 3 and 7 want more than a minute.
+**Timing.** Eight slides, under 10 minutes total. Slide 7 wants the most.
 Slides 4 and 5 want less. Rehearse once with a clock.
 
 **Speaker split.** Slides 1 to 4 one of us, 5 to 8 the other. The rubric requires both of us to
