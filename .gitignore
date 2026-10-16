@@ -2,12 +2,40 @@
 imports_hs2_panel.csv
 panel/raw/
 events/raw/
+coverage/raw/
 data/raw/
 *.json.gz
+*.pdf
 
 # derived, large
 anomalies_all_chapters.csv
 
+# notebook scratch
+.ipynb_checkpoints/
+.virtual_documents/
+
 __pycache__/
 .DS_Store
 .venv/
+
+# HS10 month checkpoints (~1GB, rebuilt by harvest_hs10.py)
+panel/hs10/
+panel/hs8/
+panel/*.log
+panel/analysis.parquet
+
+# rebuilt by events/harvest_adcvd.py (13MB index of 10,730 ITA notices)
+events/adcvd_index.json
+
+# district-level pulls, rebuilt by port_harvest.py
+port/raw/
+explore_data.html
+port/*.log
+.claude/launch.json
+explore_data_READ.html
+slides/preview/
+
+# PowerPoint and Word lock files
+~$*
+slides/view/
+slides/*.pdf

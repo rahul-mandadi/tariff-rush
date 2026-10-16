@@ -1,0 +1,638 @@
+htsno,rate_pct,rate_kind,countries,note_ref,n_products,n_chapters,scope_source
+9903.01.01,25.0,additional,Mexico,2(a),4,1,note 2(a)
+9903.01.02,,,Mexico,2(b),0,0,
+9903.01.03,,,Mexico,,0,0,
+9903.01.04,,,,,0,0,
+9903.01.05,10.0,additional,Mexico,2(c),4,1,note 2(c)
+9903.01.10,35.0,additional,Canada,2(j),4,1,note 2(j)
+9903.01.11,,,Canada,2(k),0,0,
+9903.01.12,,,Canada,,0,0,
+9903.01.13,10.0,additional,,,0,0,
+9903.01.14,,,,,0,0,
+9903.01.15,10.0,additional,Canada,,0,0,
+9903.01.16,40.0,additional,Canada,,0,0,
+9903.01.20,10.0,additional,China,2(s),4,1,note 2(s)
+9903.01.21,,,China,2(t),0,0,
+9903.01.22,,,China,,0,0,
+9903.01.23,,,China,,0,0,
+9903.01.24,10.0,additional,China,2(u),4,1,note 2(u)
+9903.01.25,10.0,additional,,,0,0,
+9903.01.26,,,Canada,,0,0,
+9903.01.27,,,Mexico,,0,0,
+9903.01.28,,,,,0,0,
+9903.01.29,,,,,0,0,
+9903.01.30,,,,,0,0,
+9903.01.31,,,,,0,0,
+9903.01.32,,,,2(a),4,1,note 2(a)
+9903.01.33,,,,,0,0,
+9903.01.34,,,,,0,0,
+9903.01.43,11.0,additional,Cameroon,,0,0,
+9903.01.44,13.0,additional,Chad,,0,0,
+9903.01.45,14.0,additional,Nigeria,,0,0,
+9903.01.46,15.0,additional,Norway,,0,0,
+9903.01.47,16.0,additional,Mozambique,,0,0,
+9903.01.48,17.0,additional,Israel,,0,0,
+9903.01.49,18.0,additional,Nicaragua,,0,0,
+9903.01.50,20.0,additional,,,0,0,
+9903.01.51,21.0,additional,,,0,0,
+9903.01.52,22.0,additional,Vanuatu,,0,0,
+9903.01.53,24.0,additional,Brunei,,0,0,
+9903.01.54,25.0,additional,South,,0,0,
+9903.01.55,26.0,additional,India,,0,0,
+9903.01.56,27.0,additional,Kazakhstan,,0,0,
+9903.01.57,28.0,additional,Tunisia,,0,0,
+9903.01.58,29.0,additional,Pakistan,,0,0,
+9903.01.59,30.0,additional,Algeria,,0,0,
+9903.01.60,31.0,additional,Libya,,0,0,
+9903.01.61,32.0,additional,Angola,,0,0,
+9903.01.62,33.0,additional,North,,0,0,
+9903.01.63,34.0,additional,China,2(w),0,0,
+9903.01.64,35.0,additional,Bosnia,,0,0,
+9903.01.65,36.0,additional,Thailand,,0,0,
+9903.01.66,37.0,additional,Bangladesh,,0,0,
+9903.01.67,38.0,additional,Guyana,,0,0,
+9903.01.68,39.0,additional,Iraq,,0,0,
+9903.01.69,40.0,additional,Mauritius,,0,0,
+9903.01.70,41.0,additional,Falkland,,0,0,
+9903.01.71,44.0,additional,Myanmar,,0,0,
+9903.01.72,46.0,additional,Vietnam,,0,0,
+9903.01.73,47.0,additional,Madagascar,,0,0,
+9903.01.74,48.0,additional,Laos,,0,0,
+9903.01.75,49.0,additional,Cambodia,,0,0,
+9903.01.76,50.0,additional,Lesotho,,0,0,
+9903.01.77,40.0,additional,Brazil,,0,0,
+9903.01.78,,,Brazil,,0,0,
+9903.01.79,,,Brazil,,0,0,
+9903.01.80,,,Brazil,,0,0,
+9903.01.81,,,Brazil,2(a),4,1,note 2(a)
+9903.01.82,,,,,0,0,
+9903.01.83,,,,,0,0,
+9903.01.84,25.0,additional,India,2(z),0,0,
+9903.01.85,,,India,,0,0,
+9903.01.86,,,India,,0,0,
+9903.01.87,,,,,0,0,
+9903.01.88,,,India,2(z);2(xiv),0,0,
+9903.01.89,,,India,,0,0,
+9903.01.90,,,Brazil,2(b),0,0,
+9903.02.01,40.0,additional,,,0,0,
+9903.02.02,15.0,additional,Afghanistan,,0,0,
+9903.02.03,30.0,additional,Algeria,,0,0,
+9903.02.04,15.0,additional,Angola,,0,0,
+9903.02.05,20.0,additional,Bangladesh,,0,0,
+9903.02.06,15.0,additional,Bolivia,,0,0,
+9903.02.07,30.0,additional,Bosnia,,0,0,
+9903.02.08,15.0,additional,Botswana,,0,0,
+9903.02.09,10.0,additional,Brazil,,0,0,
+9903.02.10,25.0,additional,Brunei,,0,0,
+9903.02.11,19.0,additional,Cambodia,,0,0,
+9903.02.12,15.0,additional,Cameroon,,0,0,
+9903.02.13,15.0,additional,Chad,,0,0,
+9903.02.14,15.0,additional,Costa,,0,0,
+9903.02.15,15.0,additional,,,0,0,
+9903.02.16,15.0,additional,Democratic,,0,0,
+9903.02.17,15.0,additional,Ecuador,,0,0,
+9903.02.18,15.0,additional,Equatorial,,0,0,
+9903.02.19,,,,,0,0,
+9903.02.20,15.0,absolute,,,0,0,
+9903.02.21,10.0,additional,Falkland,,0,0,
+9903.02.22,15.0,additional,Fiji,,0,0,
+9903.02.23,15.0,additional,Ghana,,0,0,
+9903.02.24,15.0,additional,Guyana,,0,0,
+9903.02.25,15.0,additional,Iceland,,0,0,
+9903.02.26,25.0,additional,India,,0,0,
+9903.02.27,19.0,additional,Indonesia,,0,0,
+9903.02.28,35.0,additional,Iraq,,0,0,
+9903.02.29,15.0,additional,Israel,,0,0,
+9903.02.30,15.0,additional,Japan,,0,0,
+9903.02.31,15.0,additional,Jordan,,0,0,
+9903.02.32,25.0,additional,Kazakhstan,,0,0,
+9903.02.33,40.0,additional,Laos,,0,0,
+9903.02.34,15.0,additional,Lesotho,,0,0,
+9903.02.35,30.0,additional,Libya,,0,0,
+9903.02.36,15.0,additional,Liechtenstein,,0,0,
+9903.02.37,15.0,additional,Madagascar,,0,0,
+9903.02.38,15.0,additional,Malawi,,0,0,
+9903.02.39,19.0,additional,Malaysia,,0,0,
+9903.02.40,15.0,additional,Mauritius,,0,0,
+9903.02.41,25.0,additional,Moldova,,0,0,
+9903.02.42,15.0,additional,Mozambique,,0,0,
+9903.02.43,40.0,additional,Myanmar,,0,0,
+9903.02.44,15.0,additional,Namibia,,0,0,
+9903.02.45,15.0,additional,Nauru,,0,0,
+9903.02.46,15.0,additional,New,,0,0,
+9903.02.47,18.0,additional,Nicaragua,,0,0,
+9903.02.48,15.0,additional,Nigeria,,0,0,
+9903.02.49,15.0,additional,North,,0,0,
+9903.02.50,15.0,additional,Norway,,0,0,
+9903.02.51,19.0,additional,Pakistan,,0,0,
+9903.02.52,15.0,additional,Papua,,0,0,
+9903.02.53,19.0,additional,,,0,0,
+9903.02.54,35.0,additional,Serbia,,0,0,
+9903.02.55,30.0,additional,South,,0,0,
+9903.02.56,15.0,additional,South,,0,0,
+9903.02.57,20.0,additional,Sri,,0,0,
+9903.02.58,39.0,additional,Switzerland,,0,0,
+9903.02.59,41.0,additional,Syria,,0,0,
+9903.02.60,20.0,additional,Taiwan,,0,0,
+9903.02.61,19.0,additional,Thailand,,0,0,
+9903.02.62,15.0,additional,Trinidad,,0,0,
+9903.02.63,25.0,additional,Tunisia,,0,0,
+9903.02.64,15.0,additional,Turkey,,0,0,
+9903.02.65,15.0,additional,Uganda,,0,0,
+9903.02.66,10.0,additional,,,0,0,
+9903.02.67,15.0,additional,Vanuatu,,0,0,
+9903.02.68,15.0,additional,Venezuela,,0,0,
+9903.02.69,20.0,additional,Vietnam,,0,0,
+9903.02.70,15.0,additional,Zambia,,0,0,
+9903.02.71,15.0,additional,Zimbabwe,,0,0,
+9903.02.72,,,Japan,,0,0,
+9903.02.73,15.0,absolute,Japan,,0,0,
+9903.02.74,,,,2(xx),219,18,note 2(xx)
+9903.02.75,,,,2(xxi),1361,29,note 2(xxi)
+9903.02.76,,,,,0,0,
+9903.02.77,,,,,0,0,
+9903.02.78,,,,2(b),0,0,
+9903.02.79,,,South,2(a),4,1,note 2(a)
+9903.02.80,15.0,absolute,South,2(a),4,1,note 2(a)
+9903.02.81,,,,2(b),0,0,
+9903.02.82,,,Switzerland,,0,0,
+9903.02.83,15.0,absolute,Switzerland,,0,0,
+9903.02.84,,,Switzerland,2(xxv);2(b),0,0,
+9903.02.85,,,,2(xxv);2(c),4,1,note 2(c)
+9903.02.86,,,Switzerland,2(xxv);2(d),807,12,note 2(d)
+9903.02.87,,,Liechtenstein,,0,0,
+9903.02.88,15.0,absolute,Liechtenstein,,0,0,
+9903.02.89,,,Liechtenstein,2(xxv);2(b),0,0,
+9903.02.90,,,,2(xxv);2(c),4,1,note 2(c)
+9903.02.91,,,Liechtenstein,2(xxv);2(d),807,12,note 2(d)
+9903.03.01,10.0,additional,,2(aa),0,0,
+9903.03.02,,,,,0,0,
+9903.03.03,,,,2(aa),0,0,
+9903.03.04,,,,2(aa),0,0,
+9903.03.05,,,,2(aa),0,0,
+9903.03.06,,,,2(aa),0,0,
+9903.03.07,,,Canada,2(aa),0,0,
+9903.03.08,,,Mexico,2(aa),0,0,
+9903.03.09,,,Costa,2(aa),0,0,
+9903.03.10,,,,,0,0,
+9903.03.11,,,,,0,0,
+9903.03.12,50.0,additional,Canada,51(b),654,59,note 51(b)
+9903.03.13,50.0,additional,Canada,51(b),654,59,note 51(b)
+9903.03.14,50.0,additional,Canada,51(b),654,59,note 51(b)
+9903.03.15,,,,51(c),0,0,
+9903.03.16,,,Canada,51(d),554,19,note 51(d)
+9903.04.05,200.0,absolute,,,3,1,own description
+9903.04.10,200.0,absolute,,,9,1,own description
+9903.04.15,200.0,absolute,,,6,1,own description
+9903.04.20,200.0,absolute,,,6,1,own description
+9903.04.25,200.0,absolute,,,0,0,
+9903.04.30,200.0,absolute,,,1,1,own description
+9903.04.35,200.0,absolute,,,2,1,own description
+9903.04.40,200.0,absolute,,,1,1,own description
+9903.04.45,200.0,absolute,,,3,1,own description
+9903.04.50,200.0,absolute,,,2,1,own description
+9903.04.55,200.0,absolute,,,0,0,
+9903.04.60,100.0,absolute,,,0,0,
+9903.04.61,,,,,0,0,
+9903.04.62,15.0,absolute,Japan,,0,0,
+9903.04.63,0.0,additional,,,0,0,
+9903.04.64,20.0,additional,,,0,0,
+9903.04.65,0.0,additional,,,0,0,
+9903.04.66,0.0,additional,,,0,0,
+9903.04.67,,,,40(c),0,0,
+9903.04.68,,,,,0,0,
+9903.04.69,,,,,0,0,
+9903.04.70,0.0,additional,,40(c),0,0,
+9903.05.01,25.0,additional,Brazil,50(a),0,0,
+9903.05.02,,,Brazil,,0,0,
+9903.05.03,,,Brazil,50(a),0,0,
+9903.05.04,,,Brazil,50(a),0,0,
+9903.05.05,,,,50(a),0,0,
+9903.05.06,,,Brazil,50(a),0,0,
+9903.05.07,,,,50(a),0,0,
+9903.05.08,,,Brazil,,0,0,
+9903.05.09,,,Brazil,,0,0,
+9903.05.20,12.5,additional,Algeria,,0,0,
+9903.05.21,12.5,additional,Angola,,0,0,
+9903.05.22,10.0,additional,Argentina,,0,0,
+9903.05.23,12.5,additional,Australia,,0,0,
+9903.05.24,12.5,additional,,,0,0,
+9903.05.25,12.5,additional,Bahrain,,0,0,
+9903.05.26,10.0,additional,Bangladesh,,0,0,
+9903.05.27,12.5,additional,Brazil,,0,0,
+9903.05.28,10.0,additional,Cambodia,,0,0,
+9903.05.29,10.0,additional,Canada,,0,0,
+9903.05.30,12.5,additional,Chile,,0,0,
+9903.05.31,12.5,additional,China,,0,0,
+9903.05.32,12.5,additional,Colombia,,0,0,
+9903.05.33,12.5,additional,Costa,,0,0,
+9903.05.34,12.5,additional,Dominican,,0,0,
+9903.05.35,10.0,additional,Ecuador,,0,0,
+9903.05.36,12.5,additional,Egypt,,0,0,
+9903.05.37,10.0,additional,El Salvador,,0,0,
+9903.05.38,,,,,0,0,
+9903.05.39,10.0,absolute,,,0,0,
+9903.05.40,10.0,additional,Guatemala,,0,0,
+9903.05.41,12.5,additional,Guyana,,0,0,
+9903.05.42,10.0,additional,Honduras,,0,0,
+9903.05.43,12.5,additional,Hong,,0,0,
+9903.05.44,10.0,additional,India,,0,0,
+9903.05.45,10.0,additional,Indonesia,,0,0,
+9903.05.46,12.5,additional,Iraq,,0,0,
+9903.05.47,12.5,additional,Israel,,0,0,
+9903.05.48,,,Japan,,0,0,
+9903.05.49,12.5,absolute,Japan,,0,0,
+9903.05.50,10.0,additional,Jordan,,0,0,
+9903.05.51,12.5,additional,Kazakhstan,,0,0,
+9903.05.52,12.5,additional,Kuwait,,0,0,
+9903.05.53,12.5,additional,Libya,,0,0,
+9903.05.54,10.0,additional,Malaysia,,0,0,
+9903.05.55,10.0,additional,Mexico,,0,0,
+9903.05.56,12.5,additional,Morocco,,0,0,
+9903.05.57,12.5,additional,New,,0,0,
+9903.05.58,12.5,additional,Nicaragua,,0,0,
+9903.05.59,12.5,additional,Nigeria,,0,0,
+9903.05.60,12.5,additional,Norway,,0,0,
+9903.05.61,12.5,additional,Oman,,0,0,
+9903.05.62,10.0,additional,Pakistan,,0,0,
+9903.05.63,12.5,additional,Peru,,0,0,
+9903.05.64,12.5,additional,,,0,0,
+9903.05.65,12.5,additional,Qatar,,0,0,
+9903.05.66,12.5,additional,Russia,,0,0,
+9903.05.67,12.5,additional,Saudi,,0,0,
+9903.05.68,12.5,additional,Singapore,,0,0,
+9903.05.69,12.5,additional,South,,0,0,
+9903.05.70,,,South,,0,0,
+9903.05.71,12.5,absolute,South,,0,0,
+9903.05.72,10.0,additional,Sri,,0,0,
+9903.05.73,,,Switzerland,,0,0,
+9903.05.74,12.5,absolute,Switzerland,,0,0,
+9903.05.75,,,Taiwan,,0,0,
+9903.05.76,10.0,absolute,Taiwan,,0,0,
+9903.05.77,12.5,additional,Thailand,,0,0,
+9903.05.78,10.0,additional,Trinidad,,0,0,
+9903.05.79,12.5,additional,,,0,0,
+9903.05.80,12.5,additional,,,0,0,
+9903.05.81,10.0,additional,,,0,0,
+9903.05.82,12.5,additional,Uruguay,,0,0,
+9903.05.83,12.5,additional,Venezuela,,0,0,
+9903.05.84,12.5,additional,Vietnam,,0,0,
+9903.05.85,,,,,0,0,
+9903.05.86,,,,52(b),856,46,note 52(b)
+9903.05.87,,,,52(c),16,7,note 52(c)
+9903.05.88,,,,52(d),541,18,note 52(d)
+9903.05.89,,,,52(e),700,8,note 52(e)
+9903.05.90,,,,52(f),0,0,
+9903.05.91,,,,,0,0,
+9903.05.92,,,,,0,0,
+9903.05.93,,,Canada,52(g),0,0,
+9903.05.94,,,Mexico,52(h),0,0,
+9903.05.95,,,Costa,,0,0,
+9903.05.96,,,,52(j),208,23,note 52(j)
+9903.05.97,,,,52(j),208,23,note 52(j)
+9903.05.98,,,Switzerland,52(j),208,23,note 52(j)
+9903.05.99,,,Malaysia,52(j),208,23,note 52(j)
+9903.06.01,,,Malaysia,52(j),208,23,note 52(j)
+9903.06.02,,,Cambodia,52(j),208,23,note 52(j)
+9903.06.03,,,Cambodia,52(j),208,23,note 52(j)
+9903.06.04,,,Guatemala,52(j),208,23,note 52(j)
+9903.06.05,,,Guatemala,52(j),208,23,note 52(j)
+9903.06.06,,,Guatemala,52(j),208,23,note 52(j)
+9903.06.07,,,El Salvador,52(j),208,23,note 52(j)
+9903.06.08,,,El Salvador,52(j),208,23,note 52(j)
+9903.06.09,,,El Salvador,52(j),208,23,note 52(j)
+9903.06.10,,,Argentina,52(j),208,23,note 52(j)
+9903.06.11,,,Argentina,52(j),208,23,note 52(j)
+9903.06.12,,,Bangladesh,52(j),208,23,note 52(j)
+9903.06.13,,,Bangladesh,52(j),208,23,note 52(j)
+9903.06.14,,,Taiwan,52(j),208,23,note 52(j)
+9903.06.15,,,Taiwan,52(j),208,23,note 52(j)
+9903.06.16,,,Indonesia,52(j),208,23,note 52(j)
+9903.06.17,,,Indonesia,52(j),208,23,note 52(j)
+9903.06.18,,,Ecuador,52(j),208,23,note 52(j)
+9903.06.19,,,Ecuador,52(j),208,23,note 52(j)
+9903.06.20,,,Jordan,52(j),208,23,note 52(j)
+9903.06.21,,,Jordan,52(j),208,23,note 52(j)
+9903.08.04,100.0,absolute,,,1,1,own description
+9903.08.07,100.0,absolute,,,1,1,own description
+9903.08.08,100.0,absolute,,,1,1,own description
+9903.08.09,100.0,absolute,,,0,0,
+9903.08.10,100.0,absolute,,,0,0,
+9903.08.11,100.0,absolute,,,1,1,own description
+9903.08.13,100.0,absolute,,,1,1,own description
+9903.08.14,100.0,absolute,,,3,2,own description
+9903.08.15,100.0,absolute,,,0,0,
+9903.08.20,,,,43(c),14,1,note 43(c)
+9903.08.21,100.0,additional,,,0,0,
+9903.08.22,25.0,additional,,43(c),14,1,note 43(c)
+9903.08.23,10.0,additional,,43(d),0,0,
+9903.08.24,15.0,absolute,Japan,43(d),0,0,
+9903.08.25,,,,43(c),14,1,note 43(c)
+9903.08.26,,,,43(c),14,1,note 43(c)
+9903.17.01,,,,,0,0,
+9903.17.02,,,,,0,0,
+9903.17.03,,,,,0,0,
+9903.17.04,,,,,0,0,
+9903.17.05,,,,,0,0,
+9903.17.06,,,,,0,0,
+9903.17.07,,,,,0,0,
+9903.17.08,,,,,0,0,
+9903.17.09,,,,,0,0,
+9903.17.10,,,,,0,0,
+9903.17.21,,,,,0,0,
+9903.17.22,,,,,0,0,
+9903.17.23,,,,,0,0,
+9903.17.24,,,,,0,0,
+9903.17.25,,,,,0,0,
+9903.17.26,,,,,0,0,
+9903.17.27,,,,,0,0,
+9903.17.28,,,,,0,0,
+9903.17.29,,,,,0,0,
+9903.17.30,,,,,0,0,
+9903.17.31,,,,,0,0,
+9903.17.32,,,,,0,0,
+9903.17.33,,,,,0,0,
+9903.18.01,,,,,0,0,
+9903.18.02,,,,,0,0,
+9903.18.03,,,,,0,0,
+9903.18.04,,,,,0,0,
+9903.18.05,,,,,0,0,
+9903.18.06,,,,,0,0,
+9903.18.07,,,,,0,0,
+9903.18.08,,,,,0,0,
+9903.18.09,,,,,0,0,
+9903.18.10,,,,,0,0,
+9903.19.19,0.0,absolute,,,4,1,own description
+9903.19.20,0.0,absolute,,,2,1,own description
+9903.19.21,0.0,absolute,,,1,1,own description
+9903.19.22,0.0,absolute,,,1,1,own description
+9903.19.23,0.0,absolute,,,1,1,own description
+9903.27.01,100.0,absolute,,,6,1,own description
+9903.27.02,100.0,absolute,,,1,1,own description
+9903.27.03,100.0,absolute,,,1,1,own description
+9903.27.04,100.0,absolute,,,2,1,own description
+9903.27.05,100.0,absolute,,,1,1,own description
+9903.27.06,100.0,absolute,,,2,1,own description
+9903.27.07,100.0,absolute,,,1,1,own description
+9903.27.08,100.0,absolute,,,3,1,own description
+9903.27.09,100.0,absolute,,,1,1,own description
+9903.27.10,100.0,absolute,,,1,1,own description
+9903.27.11,100.0,absolute,,,2,1,own description
+9903.27.12,100.0,absolute,,,1,1,own description
+9903.27.13,100.0,absolute,,,1,1,own description
+9903.27.14,100.0,absolute,,,1,1,own description
+9903.27.15,100.0,absolute,,,1,1,own description
+9903.40.05,25.0,absolute,,,2,1,own description
+9903.40.10,25.0,absolute,,,2,1,own description
+9903.41.05,40.0,absolute,,,0,0,
+9903.41.10,40.0,absolute,,,0,0,
+9903.41.15,100.0,absolute,,,0,0,
+9903.41.20,100.0,absolute,,,1,1,own description
+9903.41.25,100.0,absolute,,,1,1,own description
+9903.41.30,100.0,absolute,,,0,0,
+9903.41.35,100.0,absolute,,,0,0,
+9903.41.40,100.0,absolute,,,2,1,own description
+9903.41.45,100.0,absolute,,,2,1,own description
+9903.45.01,14.0,absolute,,,0,0,
+9903.45.02,30.0,absolute,,,0,0,
+9903.45.05,,,,,0,0,
+9903.45.06,30.0,absolute,,,0,0,
+9903.45.21,,,,,0,0,
+9903.45.22,30.0,absolute,,,0,0,
+9903.45.25,30.0,absolute,,,0,0,
+9903.45.27,,,,,0,0,
+9903.45.29,,,,18(j),0,0,
+9903.45.30,25.0,absolute,,41(a);41(c);41(d),0,0,
+9903.45.31,50.0,absolute,,41(a);41(c),0,0,
+9903.52.00,,,,,0,0,
+9903.52.01,,,,,0,0,
+9903.52.02,,,,,0,0,
+9903.52.03,,,,,0,0,
+9903.52.04,,,,,0,0,
+9903.52.05,,,,,0,0,
+9903.52.06,,,,,0,0,
+9903.52.07,,,,,0,0,
+9903.52.08,,,,,0,0,
+9903.52.09,,,,,0,0,
+9903.52.10,,,,,0,0,
+9903.52.11,,,,,0,0,
+9903.52.12,,,,,0,0,
+9903.52.13,,,,,0,0,
+9903.52.14,,,,,0,0,
+9903.52.15,,,,,0,0,
+9903.52.16,,,,,0,0,
+9903.52.17,,,,,0,0,
+9903.52.18,,,,,0,0,
+9903.52.19,,,,,0,0,
+9903.52.20,,,,,0,0,
+9903.52.21,,,,,0,0,
+9903.52.22,,,,,0,0,
+9903.52.23,,,,,0,0,
+9903.52.24,,,,,0,0,
+9903.52.25,,,,,0,0,
+9903.52.26,,,,,0,0,
+9903.53.01,10.0,absolute,,,0,0,
+9903.54.01,,,,,0,0,
+9903.54.02,,,,3(a);3(b),0,0,
+9903.55.01,0.0,absolute,,32(a);32(b),0,0,
+9903.74.01,25.0,additional,,38(b),22,1,note 38(b)
+9903.74.02,10.0,additional,,38(c),10,1,note 38(c)
+9903.74.03,,,,38(d),1,1,note 38(d)
+9903.74.05,,,,38(e),0,0,
+9903.74.06,,,,38(f),0,0,
+9903.74.07,,,,38(g),0,0,
+9903.74.08,25.0,additional,,,0,0,
+9903.74.09,25.0,additional,,38(j),0,0,
+9903.74.10,,,,38(k),0,0,
+9903.74.11,,,,38(l),0,0,
+9903.76.01,10.0,additional,,37(b),15,1,note 37(b)
+9903.76.02,25.0,additional,,37(d),0,0,
+9903.76.03,25.0,additional,,37(f),0,0,
+9903.76.04,,,,37(g),0,0,
+9903.76.20,10.0,additional,,,0,0,
+9903.76.21,15.0,absolute,Japan,,0,0,
+9903.76.22,15.0,absolute,,,0,0,
+9903.76.23,15.0,absolute,South,,0,0,
+9903.76.24,15.0,absolute,Taiwan,,0,0,
+9903.79.01,25.0,additional,,,0,0,
+9903.79.02,,,,39(c),0,0,
+9903.79.03,,,,39(b);39(d),0,0,
+9903.79.04,,,,39(b),0,0,
+9903.79.05,,,,39(b);39(d),0,0,
+9903.79.06,,,,39(b);39(d),0,0,
+9903.79.07,,,,39(b),0,0,
+9903.79.08,,,,39(b),0,0,
+9903.79.09,,,,39(b),0,0,
+9903.82.01,,,,16(c),0,0,
+9903.82.02,50.0,additional,,16(c),0,0,
+9903.82.03,,,,16(c),0,0,
+9903.82.04,25.0,additional,,,0,0,
+9903.82.05,15.0,additional,,,0,0,
+9903.82.06,10.0,additional,,,0,0,
+9903.82.07,10.0,absolute,,,0,0,
+9903.82.08,,,,,0,0,
+9903.82.09,25.0,additional,,,0,0,
+9903.82.10,15.0,absolute,,16(f),0,0,
+9903.82.11,,,,16(f),0,0,
+9903.82.12,25.0,additional,,16(c),0,0,
+9903.82.13,,,,16(g),0,0,
+9903.82.14,50.0,additional,,16(c),0,0,
+9903.82.15,10.0,additional,,,0,0,
+9903.82.16,25.0,additional,,,0,0,
+9903.82.17,25.0,additional,,16(c),0,0,
+9903.82.18,,,,,0,0,
+9903.82.19,,,,,0,0,
+9903.82.20,,,,16(j),0,0,
+9903.82.21,,,,16(j),0,0,
+9903.82.22,15.0,absolute,Argentina,16(c);16(xi),28,2,note 16(xi)
+9903.82.23,10.0,absolute,,,0,0,
+9903.82.24,,,,,0,0,
+9903.82.25,15.0,absolute,,,0,0,
+9903.82.26,,,,,0,0,
+9903.85.67,200.0,additional,Russia,,0,0,
+9903.85.68,200.0,additional,Russia,,0,0,
+9903.88.01,25.0,additional,China,20(a);20(b),856,9,note 20(b)
+9903.88.02,25.0,additional,China,20(c);20(d),283,13,note 20(d)
+9903.88.03,25.0,additional,China,20(e);20(f),5906,81,note 20(f)
+9903.88.04,25.0,additional,China,20(g),15,4,note 20(g)
+9903.88.05,,,China,20(h),0,0,
+9903.88.06,,,China,20(i),0,0,
+9903.88.07,,,China,20(j),0,0,
+9903.88.08,,,China,20(k),0,0,
+9903.88.09,10.0,additional,China,20(l),4,1,note 20(l)
+9903.88.10,,,China,20(m),1,1,note 20(m)
+9903.88.11,,,China,20(n),0,0,
+9903.88.12,,,China,20(o),0,0,
+9903.88.13,,,China,20(p),0,0,
+9903.88.14,,,China,20(q),3,3,note 20(q)
+9903.88.15,7.5,additional,China,20(r);20(s),4,1,note 20(r)
+9903.88.16,15.0,additional,China,20(t);20(u),546,52,note 20(u)
+9903.88.17,,,China,20(v),0,0,
+9903.88.18,,,China,20(w),0,0,
+9903.88.19,,,China,20(x),1,1,note 20(x)
+9903.88.20,,,China,20(y),0,0,
+9903.88.21,,,China,20(z),13,5,note 20(z)
+9903.88.22,,,China,20(aa),13,5,note 20(aa)
+9903.88.23,,,China,20(bb),13,5,note 20(bb)
+9903.88.24,,,China,20(cc),13,5,note 20(cc)
+9903.88.25,,,China,20(dd),26,7,note 20(dd)
+9903.88.26,,,China,20(ee),26,7,note 20(ee)
+9903.88.27,,,China,20(ff),26,7,note 20(ff)
+9903.88.28,,,China,20(gg),26,7,note 20(gg)
+9903.88.33,,,China,20(ll),0,0,
+9903.88.34,,,China,20(mm),1,1,note 20(mm)
+9903.88.35,,,China,20(nn),1,1,note 20(nn)
+9903.88.36,,,China,20(oo),0,0,
+9903.88.37,,,China,20(pp),1,1,note 20(pp)
+9903.88.38,,,China,20(qq),0,0,
+9903.88.39,,,China,20(rr),0,0,
+9903.88.40,,,China,20(ss),0,0,
+9903.88.41,,,China,20(tt),0,0,
+9903.88.42,,,China,20(uu),0,0,
+9903.88.43,,,China,20(vv),0,0,
+9903.88.44,,,China,20(ww),0,0,
+9903.88.45,,,China,20(xx),0,0,
+9903.88.46,,,China,20(yy),1,1,note 20(yy)
+9903.88.47,,,China,20(zz),0,0,
+9903.88.48,,,China,20(aaa),0,0,
+9903.88.49,,,China,20(bbb),0,0,
+9903.88.50,,,China,20(ccc),1,1,note 20(ccc)
+9903.88.51,,,China,20(ddd),1,1,note 20(ddd)
+9903.88.52,,,China,20(eee),0,0,
+9903.88.53,,,China,20(fff),0,0,
+9903.88.54,,,China,20(ggg),0,0,
+9903.88.55,,,China,20(hhh),0,0,
+9903.88.56,,,China,20(iii),1,1,note 20(iii)
+9903.88.57,,,China,20(jjj),1,1,note 20(jjj)
+9903.88.58,,,China,20(kkk),1,1,note 20(kkk)
+9903.88.59,,,China,20(lll),0,0,
+9903.88.60,,,China,20(mmm),0,0,
+9903.88.61,,,China,20(nnn),0,0,
+9903.88.62,,,China,20(ooo),0,0,
+9903.88.63,,,China,20(ppp),0,0,
+9903.88.64,,,China,20(qqq),0,0,
+9903.88.65,,,China,20(rrr),0,0,
+9903.88.66,,,China,20(sss),0,0,
+9903.88.67,,,China,20(ttt),1,1,note 20(ttt)
+9903.88.68,,,China,20(uuu),0,0,
+9903.88.69,,,China,20(vvv),0,0,
+9903.88.70,,,China,20(www),4,1,note 20(www)
+9903.89.01,0.0,additional,Nicaragua,,0,0,
+9903.89.05,15.0,additional,,21(b),0,0,
+9903.89.07,,,,,1,1,own description
+9903.89.10,25.0,additional,,21(c),0,0,
+9903.89.13,25.0,additional,,21(d),0,0,
+9903.89.16,25.0,additional,,21(e),0,0,
+9903.89.19,25.0,additional,,21(f),0,0,
+9903.89.22,25.0,additional,,21(g),0,0,
+9903.89.25,25.0,additional,,21(h),0,0,
+9903.89.28,25.0,additional,,21(i),0,0,
+9903.89.31,25.0,additional,,21(j),0,0,
+9903.89.34,25.0,additional,,21(k),0,0,
+9903.89.37,25.0,additional,,21(l),0,0,
+9903.89.40,25.0,additional,,21(m),0,0,
+9903.89.43,25.0,additional,,21(n),0,0,
+9903.89.46,25.0,additional,,21(o),0,0,
+9903.89.49,25.0,additional,,21(p),0,0,
+9903.89.50,,,,,1,1,own description
+9903.89.52,25.0,additional,,21(q),0,0,
+9903.89.55,25.0,additional,,21(r),0,0,
+9903.89.57,25.0,additional,,21(s),0,0,
+9903.89.59,,,,,1,1,own description
+9903.89.61,15.0,additional,,21(t),0,0,
+9903.89.63,,,,,0,0,
+9903.90.08,,,,30(a);30(b),553,44,note 30(b)
+9903.90.09,,,,30(c);30(d),126,6,note 30(d)
+9903.91.01,25.0,additional,China,31(b),348,9,note 31(b)
+9903.91.02,50.0,additional,China,31(c),2,1,note 31(c)
+9903.91.03,100.0,additional,China,31(d),10,2,note 31(d)
+9903.91.04,25.0,additional,China,31(e),0,0,
+9903.91.05,50.0,additional,China,31(f),0,0,
+9903.91.06,25.0,additional,China,31(g),5,2,note 31(g)
+9903.91.07,50.0,additional,China,31(h),0,0,
+9903.91.08,100.0,additional,China,,0,0,
+9903.91.09,,,China,,1,1,own description
+9903.91.10,,,,,0,0,
+9903.91.11,25.0,additional,China,31(j),3,1,note 31(j)
+9903.91.12,,,China,31(k),2,1,own description
+9903.91.13,,,China,31(k),2,1,own description
+9903.91.14,100.0,additional,,31(l),1,1,own description
+9903.91.15,,,China,,1,1,own description
+9903.91.16,,,China,31(l),1,1,own description
+9903.92.10,25.0,additional,,,1,1,own description
+9903.92.80,,,,,1,1,own description
+9903.94.01,25.0,additional,,33(b),17,1,note 33(b)
+9903.94.02,,,,33(c),0,0,
+9903.94.03,,,,33(d),1,1,note 33(d)
+9903.94.04,,,,33(e),0,0,
+9903.94.05,25.0,additional,,33(g),62,8,note 33(g)
+9903.94.06,,,,33(h),0,0,
+9903.94.07,25.0,additional,,33(p),0,0,
+9903.94.31,7.5,additional,,,0,0,
+9903.94.32,10.0,absolute,,33(j),1,1,note 33(j)
+9903.94.33,10.0,absolute,,33(q),0,0,
+9903.94.40,,,Japan,33(k);33(m),1,1,note 33(k)
+9903.94.41,15.0,absolute,Japan,33(k);33(m),1,1,note 33(k)
+9903.94.42,,,Japan,33(l);33(m),1,1,note 33(l)
+9903.94.43,15.0,absolute,Japan,33(l);33(m),1,1,note 33(l)
+9903.94.44,,,,33(r),0,0,
+9903.94.45,15.0,absolute,,33(r),0,0,
+9903.94.50,,,,33(n);33(m),1,1,note 33(n)
+9903.94.51,15.0,absolute,,33(n);33(m),1,1,note 33(n)
+9903.94.52,,,,33(o);33(m),1,1,note 33(o)
+9903.94.53,15.0,absolute,,33(o);33(m),1,1,note 33(o)
+9903.94.54,,,Japan,33(r),0,0,
+9903.94.55,15.0,absolute,Japan,33(r),0,0,
+9903.94.60,,,South,33(s);33(m),1,1,note 33(s)
+9903.94.61,15.0,absolute,South,33(s);33(m),1,1,note 33(s)
+9903.94.62,,,South,33(m),0,0,
+9903.94.63,15.0,absolute,South,33(m),0,0,
+9903.94.64,,,South,33(m),0,0,
+9903.94.65,15.0,absolute,South,33(m),0,0,
+9903.94.66,,,Taiwan,33(m),0,0,
+9903.94.67,15.0,absolute,Taiwan,33(m),0,0,
+9903.94.68,,,Taiwan,33(m),0,0,
+9903.94.69,15.0,absolute,Taiwan,33(m),0,0,
+9903.96.01,,,,35(a),565,19,note 35(a)
+9903.96.02,,,,35(b),554,19,note 35(b)
+9903.96.03,,,Taiwan,35(c),119,6,note 35(c)
