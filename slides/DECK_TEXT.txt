@@ -168,8 +168,8 @@ SLIDE 7  [TALK]
    38.0pt B  And this is where it nearly came apart.
   [FIGURE  9.2 x 4.2 in]
    17.0pt    Fig. 5   The typical tariff action covers about 5% of its chapter's value. A third cover under 1%.
-   17.0pt    Published work measures these at the 8 to 10 digit level [1]. Coarser data shrinks
-   17.0pt    estimates [2][3].
+   17.0pt    Copper, for example: ten actions touch it, and seven cover under 1% of it.
+   17.0pt    Published work measures these at 8 to 10 digits [1]; coarser data shrinks estimates [2][3].
 
   --- NOTES ---
   | THE KEY SLIDE. If time runs short, this is the one that must survive.
@@ -187,6 +187,7 @@ SLIDE 7  [TALK]
   | The fix is to work at the 8-digit level, where a tariff either names a product or it does not. Everything after this is built that way.
   | 
   | -- NARRATE IT THROUGH COPPER, which they already know from slides 2, 5 and 6 --
+  | The copper line is on the slide now, so do not just read it. Read it once, then add the part that is not up there:
   | Ten separate tariff actions touch copper, chapter 74. Three of them cover more than half the chapter: 95%, 59%, 59%. The other seven cover under 1%, and several are civil-aircraft carve-outs that name a single product line. The median action touching copper covers less than a tenth of one percent of it.
   | So if you mark copper as tariffed whenever any action fires, seven times out of ten you have flagged an entire chapter over something touching less than one percent of it. That is what the chart shows, across all 1,350 action-chapter pairs.
   | 

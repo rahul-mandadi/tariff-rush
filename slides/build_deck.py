@@ -303,8 +303,8 @@ add("Unusual is not the same as tariffed.",
 add("And this is where it nearly came apart.",
     fig="07_coverage.png",
     caption="Fig. 5   The typical tariff action covers about 5% of its chapter's value. A third cover under 1%.\n"
-            "Published work measures these at the 8 to 10 digit level [1]. Coarser data shrinks\n"
-            "estimates [2][3].",
+            "Copper, for example: ten actions touch it, and seven cover under 1% of it.\n"
+            "Published work measures these at 8 to 10 digits [1]; coarser data shrinks estimates [2][3].",
     notes="THE KEY SLIDE. If time runs short, this is the one that must survive.\n\n"
           "A tariff order does not say 'chapter 74, copper'. It points at a list of 8-digit "
           "product codes, usually published in a separate legal notice. Until you read those "
@@ -322,6 +322,8 @@ add("And this is where it nearly came apart.",
           "The fix is to work at the 8-digit level, where a tariff either names a product or it "
           "does not. Everything after this is built that way.\n\n"
           "-- NARRATE IT THROUGH COPPER, which they already know from slides 2, 5 and 6 --\n"
+          "The copper line is on the slide now, so do not just read it. Read it once, then add "
+          "the part that is not up there:\n"
           "Ten separate tariff actions touch copper, chapter 74. Three of them cover more than "
           "half the chapter: 95%, 59%, 59%. The other seven cover under 1%, and several are "
           "civil-aircraft carve-outs that name a single product line. The median action touching "
