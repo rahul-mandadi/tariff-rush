@@ -65,16 +65,30 @@ GAP, XL, XR, W = 0.012, 0.06, 0.74, 0.035
 # left column: one block per heading, biggest first
 ytop = 1.0
 left = {}
+labels = []
 for hd, v in g.items():
     h = v / tot * (1 - GAP * (len(g) - 1))
     left[hd] = (ytop, h)
     ax.add_patch(Rectangle((XL, ytop - h), W, h,
                            facecolor=GREY if hd in INPUTS else RED, edgecolor="none"))
     if v / tot > 0.012:
-        ax.text(XL - 0.012, ytop - h / 2, f"{LABEL.get(hd, hd)}  {100*v/tot:.0f}%",
-                ha="right", va="center", fontsize=12,
-                color=INK, fontweight="600" if hd not in INPUTS else "normal")
+        labels.append([hd, v, ytop - h / 2])
     ytop -= h + GAP
+
+# The named headings are thin bands, so labels placed at band centres collide. Push them apart
+# to a minimum spacing, working down from the top, and run a leader line back to the band.
+MINGAP = 0.052
+for i in range(1, len(labels)):
+    if labels[i][2] > labels[i - 1][2] - MINGAP:
+        labels[i][2] = labels[i - 1][2] - MINGAP
+for hd, v, ly in labels:
+    band = left[hd][0] - left[hd][1] / 2
+    if abs(ly - band) > 0.004:
+        ax.plot([XL - 0.010, XL - 0.004, XL], [ly, ly, band],
+                lw=0.6, color=PALE, solid_capstyle="butt", zorder=0)
+    ax.text(XL - 0.014, ly, f"{LABEL.get(hd, hd)}  {100*v/tot:.0f}%",
+            ha="right", va="center", fontsize=12,
+            color=INK, fontweight="600" if hd not in INPUTS else "normal")
 
 # right column: two destinations
 rt = {}

@@ -72,6 +72,24 @@ words where first used: cell, logarithm of customs value, fixed effects, total v
 and k in Table 1. References now start on a fresh page, so pages 1-5 are exactly the counted
 content.
 
+**Seventh (Codex, technical, cold, on the post-readability version).** Reproduced essentially
+every number but found descriptions that do not match what the code computes. Six were verified
+here and fixed. (a) The 26 percent headline described a level comparison between suppliers; it is
+a fall in relative position, 42 percent above baseline before to 6 percent after. (b) Table 1's
+"treatment is exact at eight digits" is false for Section 232, which `event_study.py:62-68`
+assigns by `df.chapter.isin(...)`; the text and the Discussion now say so. (c) The dilution test
+direction was backwards: -7.1 against -7.6 means touched chapter-months sit higher, not further
+from normal. (d) The sample is 338 antidumping and 169 countervailing, not antidumping alone.
+(e) 8 of 508 episodes rest on notices that made no affirmative determination, two stating
+liquidation will not be suspended (`2016-19867`, `2019-10283`); now disclosed in the appendix.
+(f) Q2 was declared answered four lines above "its destination is not"; now partly answered.
+
+Also corrected without Codex: the retroactivity split used `critical_circ`, a regex for the
+phrase anywhere in the document. The parser already computes `critical_affirm` and it was unused.
+Rerunning on the affirmative flag gives +0.067 against -0.066, Welch p = 0.012, rank p = 0.0002,
+so the conclusion holds and strengthens. Codex judged this test unusable; it had not rerun it.
+Figure 1's labels were overlapping at print size and now use leader lines.
+
 ## Still open
 
 - `adcvd_analysis.py` and `substitution_test.py` use nominal dollar value; the report says
