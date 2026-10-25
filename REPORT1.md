@@ -2,13 +2,8 @@
 
 **Authors.** Rahul Reddy Mandadi, Raunaksingh Khalsa
 
-**Sponsor.** This project has no external sponsor. Its stakeholders are parties whose exposure is
-to a single country of origin rather than to total import volume: importers deciding whether to
-qualify a supplier elsewhere, lenders holding that trade as credit risk, and carriers operating an
-affected service. An earlier version of this project named port and terminal operators as the
-primary user. That assumption was tested and dropped, because displaced volume arrives from a
-different country through substantially the same U.S. customs districts, so a terminal's
-throughput barely changes.
+**Sponsor.** No external sponsor. Stakeholders: importers re-sourcing a supplier, lenders exposed
+to a single country of origin, and carriers operating an affected service.
 
 **Github.** https://github.com/rahul-mandadi/tariff-rush
 
@@ -46,13 +41,12 @@ two post-tariff months are observable the duty has been in force for a quarter a
 are made.
 
 The domain problem is therefore to characterise, using only information available at announcement,
-what follows a tariff for a given product and country of origin. We decompose this into three
-analytic problems. The first is whether a surge occurs and how large it is, which is a
-classification problem followed by a regression problem. The second is what the post-duty decline
-represents, which we frame as a three-way classification between volume borrowed from later
-months, demand lost outright, and volume relocated to an untargeted country. The third is how long
-the aftermath persists, which is a duration problem with right-censoring, because some episodes are
-still in progress at the end of our panel.
+what follows a tariff for a given product and country of origin. This decomposes into three
+analytic problems: whether a surge occurs and how large, a classification problem followed by a
+regression; what the post-duty decline represents, a three-way classification between volume
+borrowed from later months, demand lost outright, and volume relocated to an untargeted country;
+and how long the aftermath persists, a duration problem with right-censoring, since some episodes
+are still in progress at the end of our panel.
 
 Existing work measures tariff responses at fine product granularity for good reason. Fajgelbaum et
 al. [1] study the 2018 tariffs at ten digits, noting the increases were predominantly set at the
@@ -98,13 +92,13 @@ total import value.
 
 ### 2.3 Event construction
 
-We searched 2,792 Federal Register documents and classified 134 as actions that impose or modify a
+We searched 2,792 Federal Register documents and classified 134 as actions imposing or modifying a
 duty; the remaining 2,658 are proposed rules, administrative notices, exclusion procedures and
-trade remedy case documents. Separately we harvested antidumping and countervailing duty
-proceedings, yielding 993 cases across 70 countries and 1,297 named product lines, with case
-numbers linking the initiation, preliminary, final and order stages of each proceeding. From
-chapter 99 we resolved 9,083 distinct eight-digit product lines named across 162 tariff surcharge
-codes, producing 1,350 pairings of one action with one chapter it touches.
+trade remedy documents. We separately harvested antidumping and countervailing duty proceedings,
+yielding 993 cases across 70 countries and 1,297 named product lines, with case numbers linking
+each proceeding's initiation, preliminary, final and order stages. From chapter 99 we resolved
+9,083 eight-digit lines named across 162 surcharge codes, giving 1,350 pairings of one action with
+one chapter.
 
 ### 2.4 Identification and evaluation
 
@@ -146,6 +140,13 @@ not subject to the duty. A category-level analysis of copper in 2025 would there
 a 50 percent tariff to more than two thirds of trade that never paid it.
 
 [[FIG:1|slides/fig/09_sankey.png|Copper in 2025. Chapter 74 held 24.7 billion dollars across 89 eight-digit lines; the Section 232 duty named 29 percent of that value. Refined copper and cathodes, 67 percent of the chapter, were treated as inputs and not taxed. Split follows Proclamation 10962, paragraph 1 against paragraph 8.]]
+
+The split also shows what happened to the part that was named. In tonnes, the semi-finished
+products covered by the duty ran at 49 thousand tonnes a month beforehand, peaked at 68, and have
+settled at 27, a fall of 45 percent that has persisted. The untaxed cathodes ran at 89, peaked at
+218, and settled at 154, above where they started. One product and one action with no placebo, so
+we offer it as illustration rather than result; but the two halves of one chapter moved in
+opposite directions, which is exactly what a category-level view cannot see.
 
 ### 3.2 Neither dollars nor quantity is a safe measure at category level
 
@@ -221,8 +222,15 @@ For a stakeholder exposed to one country of origin, the practical conclusion is 
 antidumping cases the decline is not temporary. Volumes from the named country do not recover
 within eighteen months, which argues for treating the loss as permanent rather than waiting it
 out. Against that, roughly four fifths of displaced volume reappears from other suppliers, so the
-disruption is to the relationship rather than to supply. For a lender, that distinguishes a
-counterparty exposed to one origin from one exposed to a product.
+disruption is to the relationship rather than to supply.
+
+One stakeholder assumption did not survive the data. An earlier version named port and terminal
+operators as the primary user, reasoning that a surge and collapse would disrupt throughput.
+Comparing how a product distributes across U.S. customs districts before and after an episode, the
+median total variation distance is 0.058 against 0.068 in placebo episodes, across seven cases.
+Displaced volume arrives from another country through substantially the same districts, so
+throughput barely moves and a forecast would change nothing. Seven cases is thin, and we report
+this as our reason for dropping the assumption rather than as an established null.
 
 The methodological conclusion is the one we would most want carried forward: tariff effects should
 not be measured at product-category level. The typical action names about five percent of the
