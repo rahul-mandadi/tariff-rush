@@ -18,8 +18,8 @@ eight-digit product level at which tariff orders are written, matched to 134 tar
 993 antidumping cases. We measure how much of a product category a tariff action
 actually names: typically about five percent, and under one percent in a third of cases, which is
 enough to drive a category-level estimate toward zero. Separately, we find that imports from a
-country named in an antidumping case fall to their pre-case baseline and stay there, with no
-recovery over the eighteen months we observe and no surge beforehand.
+country named in an antidumping case lose about 36 points of ground against other suppliers of
+the same product, with no recovery over the eighteen months we observe and no surge beforehand.
 
 ## 1. Introduction
 
@@ -87,7 +87,8 @@ the announcement and that the operative date is the one most often repeated.
 For modelling we apply inclusion rules fixed in advance: at least 36 months of observed data,
 a median monthly value of at least 100,000 dollars, and at least one untreated origin supplying the
 same product in the same month. This retains 6.09 million observations carrying 95.7 percent of
-total import value.
+total import value, but only 8,100 of the 12,253 product lines and 193 of the 234 partners. The
+cells that drop are thin, so the value share overstates how much of the product space survives.
 
 ### 2.3 Event construction
 
@@ -117,9 +118,9 @@ over the course of the project, including one of our own earlier conclusions, de
 ### 3.1 How much of a category a tariff action actually names
 
 A tariff order does not name a product category. It names a list of eight-digit lines, usually
-published as an annex to a separate legal notice. How much of a category that list covers is an
-empirical question, and to our knowledge it has not been measured for United States tariff
-actions. Across all 1,350 pairings of one surcharge code with one chapter, the median pairing
+published as an annex to a separate notice. How much of a category that list covers is an
+empirical question we have not seen answered for United States tariff actions. Across all 1,350
+pairings of one surcharge code with one chapter, the median pairing
 names 5.4 percent of that chapter's import value, and 32.4 percent of pairings name under one
 percent. Collapsing to one figure per surcharge code gives a median of 1.3 percent.
 
@@ -191,17 +192,28 @@ we work there, though 145,423 cells carrying 4.6 percent of value still span mor
 
 ### 3.3 The aftermath of an antidumping duty is a durable loss with no preceding surge
 
-Antidumping and countervailing duty proceedings give the event sample with adequate power: the
-cases are numerous, name products explicitly, and target individual countries. Fig. 2 traces imports from the named country around the month duties begin to be
-collected, across 673 events, measured against a baseline eighteen to thirteen months prior.
+Antidumping proceedings give the event sample with adequate power: the cases are numerous, name
+products explicitly, and target individual countries. Fig. 2 traces the named country against
+other suppliers of the same product across 673 events, from a baseline eighteen to thirteen months
+before collection begins; product-month and product-origin fixed effects make each point relative
+rather than a level. Cell-months claimed by more than one case are dropped, 27,255 of the 65,488
+falling in any window.
 
-The path is not the one the front-loading literature predicts. Imports from the named country are
-already 37 percent above baseline a year before duties begin, rising to 46 percent at five months
-out. They then decline steadily, stand 17.7 percent above baseline in the month collection starts,
-cross baseline within four months, and stay flat through eighteen months. There is no surge before
-the duty and no recovery after it.
+The path is not the one the front-loading literature predicts. The named country runs about 42
+percent above its baseline position through the year before collection, declines from roughly four
+months out, and averages 6 percent across the eighteen months after. That is a fall of 36 points
+against other suppliers of the same product, and it does not reverse. It is also not a complete
+displacement: eight of the nineteen post-period months are individually significant and all eight
+remain above baseline.
 
-[[FIG:2|slides/fig/10_event.png|Imports from the country named in an antidumping case, 673 events, against a baseline eighteen to thirteen months before duties begin. Shading is the 95 percent interval.]]
+[[FIG:2|slides/fig/10_event.png|The named country against other suppliers of the same product, 673 events, from a baseline eighteen to thirteen months before collection begins. Shading is the 95 percent interval on the real path. The placebo repeats the estimation on the same events shifted back 24 months.]]
+
+Running the identical estimation on events shifted back 24 months gives a path that rises 15
+points over the same event time rather than falling, a divergence of 51 points. That placebo is
+not a clean null: shifting back two years places its post window inside the real pre-period, which
+is itself elevated, so it is informative as a contrast rather than as a zero. The elevation a year
+before collection is in any case consistent with an import surge being the reason a petition is
+filed, which means part of the later decline may be reversion rather than the duty.
 
 Table 2 sets the episode-level comparison against its placebo.
 
@@ -215,7 +227,7 @@ events shifted back 24 months, a log deviation from each cell's own pre-event le
 | median excess after | **-0.316** | +0.020 |
 
 The post-period difference separates from its placebo at p < 0.0001 on both a rank test and a
-t-test, and is robust across horizons of six, nine and twelve months. The during-window difference is not evidence of a
+t-test, robust across horizons of six, nine and twelve months. The during-window difference is not evidence of a
 rush: a rank test gives p = 0.37, and a Welch test separates at p = 0.023 but in the wrong
 direction, real mean negative 0.018 against positive 0.063 in placebo. The absence is
 explicable rather than anomalous: antidumping duties can be applied retroactively to the initiation
@@ -238,15 +250,6 @@ destination is not.
 For a stakeholder exposed to one country of origin, the practical conclusion is that for
 antidumping cases the decline does not reverse within the eighteen months we observe, which
 argues against waiting it out. We cannot yet say whether that volume reappears elsewhere.
-
-One stakeholder assumption did not survive the data. An earlier version named port and terminal
-operators as the primary user, reasoning that a surge and collapse would disrupt throughput.
-Across seven cases, the median total variation distance between a product's district mix before
-and after an episode is 0.058, against 0.068 in placebo: displaced volume arrives from another
-country through much the same districts. That statistic is invariant to proportional contraction,
-so it shows the mix is stable rather than the throughput, and customs value in those cases fell
-by 9 to 53 percent. Seven cases is thin, and this is our reason for dropping the assumption, not
-an established null.
 
 The methodological conclusion is the one we would most want carried forward: a product category
 is the wrong unit for tariff work. The typical action names five percent of the category it
@@ -297,6 +300,18 @@ United States International Trade Commission Harmonized Tariff Schedule, chapter
 International Trade Administration antidumping and countervailing duty case index.
 
 ## 7. Appendix
+
+### The stakeholder assumption we dropped
+
+One stakeholder assumption did not survive the data. An earlier version named port and terminal
+operators as the primary user, reasoning that a surge and collapse would disrupt throughput.
+Across seven cases, the median total variation distance between a product's district mix before
+and after an episode is 0.058, against 0.068 in placebo: displaced volume arrives from another
+country through much the same districts. That statistic is invariant to proportional contraction,
+so it shows the mix is stable rather than the throughput, and customs value in those cases fell
+by 9 to 53 percent. Seven cases is thin, and this is our reason for dropping the assumption, not
+an established null.
+
 
 ### The copper split either side of the duty
 

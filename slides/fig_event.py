@@ -1,7 +1,8 @@
 """Figure: what happens to the named country's imports around an antidumping case.
 
-673 events. k = 0 is the month duties start being collected; the baseline is k in [-18,-13], so
-every point is read against the level eighteen months to just over a year before duties.
+k = 0 is the month duties start being collected; the baseline is k in [-18,-13]. Product-month
+and product-origin fixed effects mean each point is the named country relative to other suppliers
+of the same product in the same month, not a level series.
 
 The shape matters more than any single number, and it is not the one we expected. Imports from
 the named country are already about 37 percent above baseline a year out and still climbing to
@@ -31,27 +32,27 @@ plt.rcParams.update({
 INK, GREY, RED, PALE = "#14161A", "#6E737C", "#C8102E", "#D4D8DC"
 
 d = pd.read_csv("adcvd_event_study.csv")
-# the point estimates in the csv are 100*(exp(coef)-1), so the interval has to be transformed
-# the same way. An earlier version added and subtracted in log space and multiplied by 100,
-# which put the plotted point outside its own shading.
+q = pd.read_csv("adcvd_event_study_placebo.csv")
+# the point estimates are 100*(exp(coef)-1), so the interval has to be transformed the same way
 lo = 100 * (np.exp(d.coef - 1.96 * d.se) - 1)
 hi = 100 * (np.exp(d.coef + 1.96 * d.se) - 1)
 
-fig, ax = plt.subplots(figsize=(10, 4.8))
-ax.axhspan(-100, 200, xmin=0, xmax=0, color="none")
+fig, ax = plt.subplots(figsize=(10, 4.6))
 ax.fill_between(d.k, lo, hi, color=PALE, alpha=.75, lw=0)
-ax.plot(d.k, d.pct, lw=2.6, color=INK)
-ax.axhline(0, color=GREY, lw=1.2)
+ax.plot(q.k, q.pct, lw=2.0, color=GREY, ls="--", label="placebo, same events 24 months earlier")
+ax.plot(d.k, d.pct, lw=2.6, color=INK, label="real events")
+ax.axhline(0, color=GREY, lw=1.0)
 ax.axvline(0, color=RED, ls="--", lw=1.6)
-ax.annotate("duties start\nbeing collected", (0, 46), xytext=(6, 0),
-            textcoords="offset points", color=RED, fontsize=12, fontweight="600", va="top")
-ax.annotate("already 37% above baseline\na year before duties", (-12, 36.8), xytext=(10, -34),
-            textcoords="offset points", color=INK, fontsize=11.5, fontweight="600")
+ax.annotate("duties start", (0, 62), xytext=(6, 0), textcoords="offset points",
+            color=RED, fontsize=12, fontweight="600", va="top")
 ax.set_xlabel("months relative to the month duties start being collected")
-ax.set_ylabel("imports from the named\ncountry, % vs baseline")
-ax.set_title("Antidumping duties: the fall begins long before the duty, and does not reverse")
-ax.set_xlim(-12.5, 18.5); ax.set_ylim(-18, 55)
+ax.set_ylabel("named country vs other suppliers\nof the same product, %")
+ax.set_title("The named country loses ground after a duty; the placebo does not")
+ax.set_xlim(-12.5, 18.5); ax.set_ylim(-20, 68)
+ax.legend(fontsize=11, loc="lower left", frameon=True, framealpha=.95)
 fig.savefig("slides/fig/10_event.png")
 print("wrote slides/fig/10_event.png")
-print(f"k=-12 {d.pct.iloc[0]:+.1f}%   k=0 {d[d.k==0].pct.iloc[0]:+.1f}%   "
-      f"k=+6 {d[d.k==6].pct.iloc[0]:+.1f}%   k=+18 {d[d.k==18].pct.iloc[0]:+.1f}%")
+pre = lambda x: x[x.k.between(-12,-4)].pct.mean()
+post = lambda x: x[x.k.between(0,18)].pct.mean()
+print(f"real    {pre(d):+.0f}% before -> {post(d):+.0f}% after")
+print(f"placebo {pre(q):+.0f}% before -> {post(q):+.0f}% after")
