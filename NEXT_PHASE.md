@@ -1,5 +1,9 @@
 # Next phase: the plan, and whether this works
 
+
+**SUPERSEDED 2026-10-13.** This proposed moving to HS6. We went to HS10 rolled to HS8 instead,
+because tariff orders are written at HS8 and HS6 would have left partial treatment inside every
+cell. Kept for the reasoning; do not follow the plan. See DESIGN.md.
 Internal. Written 2026-10-12.
 
 ## Three problems, one cause
