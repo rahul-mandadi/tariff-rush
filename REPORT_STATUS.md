@@ -1,0 +1,63 @@
+# Report 1: where it stands
+
+Written 2026-10-25 so the state survives a context reset. The report is `REPORT1.md`, rendered to
+`Mandadi_Khalsa_Report1.pdf` by `build_report.py` (markdown plus `[[FIG:n|path|caption]]`
+placeholders, through Chrome headless; there is no pandoc on this machine).
+
+## Status
+
+Complete and self-consistent. Not submitted. Main text plus the statement of contributions fits
+five pages; the spec excludes only references and appendices, which an earlier version did not
+respect. Zero em dashes. All figure and table numbers resolve.
+
+## What it claims, and the number behind each
+
+| claim | value | produced by |
+| --- | --- | --- |
+| panel | 140 months, 15.9M rows, 12,253 lines, 234 partners | `harvest_hs10.py`, `build_panel_hs8.py` |
+| retained for modelling | 6.09M rows, 95.7% of value, but 8,100 lines and 193 partners | `analysis_panel.py` |
+| 2017 reconciliation | $2.34tn against published $2.34tn | `build_panel_hs8.py` |
+| coverage, median pairing | 5.4% of chapter value; 32.4% under 1%; 1.3% per surcharge code | `coverage_share.py` |
+| chapter-level test | treated -7.1% vs untreated -7.6%, one-sided p = 0.0075 | `coverage/treated_vs_untreated.py` |
+| eight-digit tariff actions | unstable, pre-trends in all three mechanisms (Table 1) | `event_study_*_lv_diff.csv` |
+| copper chapter 74, 2025 | $24.7bn, 89 lines, duty named 29%, cathodes 67% untaxed | `slides/fig_sankey.py` |
+| copper split, appendix | semi-finished 49 -> 68 -> 27 kt; cathodes 89 -> 218 -> 154 | `copper_split.py` |
+| units screen | 56 of 98 chapters under 70% kg; 65 pass the 80% screen, 63 rankable | `chapter_quantity.py` |
+| pharma | 2.86 on dollars, -0.33 on quantity; +57% March on flat tonnage | `pharma_mix.py` |
+| event study | real +42% before, +6% after; placebo +27% -> +42%; 51-point divergence | `adcvd_event_study.py` |
+| overlaps dropped | 27,255 of 65,488 cell-months in any window | `adcvd_event_study.py` |
+| episode test (Table 2) | after -0.316 vs +0.020 placebo, p < 0.0001; during p = 0.37 | `adcvd_analysis.py` |
+| absorption | not estimable; per-episode median near zero, sd 338 | `substitution_levels.py` |
+| port test, appendix | district-mix TVD 0.058 vs 0.068 placebo, seven cases | `port_test.py` |
+
+## Three cold reads so far, and what they changed
+
+**First (Codex).** Found the 79/21 absorption claim was confounded with market share. Removed; the
+level recomputation in `substitution_levels.py` shows it is not estimable either way. Also caught a
+confidence-interval bug in `slides/fig_event.py` where the band was built in log space and the
+points in percent space, so a point sat outside its own shading.
+
+**Second (Codex, deeper).** Found the chapter-level null no longer reproduces (p = 0.0075, not a
+null), and that eight digits never rescued the tariff actions. Section 3.1 was rebuilt around what
+was measured rather than around a failure, and Table 1 now reports the eight-digit estimates.
+
+**Third (Opus, as examiner).** Scored 18/25 on the earlier version. Found Table 1 unreferenced, Fig.
+1 rendering near 3pt, the statement of contributions pushing to page 6, panel attrition undisclosed,
+reference [6] uncited, and "action" carrying three referents. All fixed.
+
+## Still open
+
+- `adcvd_analysis.py` and `substitution_test.py` use nominal dollar value; the report says
+  "volumes" nowhere now, but the outcomes are value, not quantity.
+- Inclusion and weighting use full-panel history, so a tariff-induced exit can affect both.
+- Some retained "preliminary" documents do not themselves start collection; `2016-19867` says
+  liquidation is not suspended.
+- No multiple-comparison adjustment across the 31 monthly coefficients.
+- The copper taxed/untaxed split is assigned by heading, not from the proclamation's annex, which
+  is not in the Federal Register text we hold.
+
+## Rebuild
+
+```
+python3 slides/fig_sankey.py && python3 slides/fig_event.py && python3 build_report.py
+```
