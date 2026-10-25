@@ -110,9 +110,10 @@ month. A price shock or global demand movement affects every supplier at once an
 cancels, whereas a tariff moves one against the rest. The design is available for 89.6 percent of
 treated product-months, which have two or more suppliers, median seven.
 
-Every estimate is paired with a placebo: the identical calculation applied to the same events
-shifted 24 months earlier, where no action occurred. An estimate that does not separate from its
-own placebo is not reported as a result. This discipline has retired three candidate estimators
+Estimates we report as results are paired with a placebo: the identical calculation on the same
+events shifted 24 months earlier, where no action occurred. An estimate that does not separate
+from its own placebo is not reported as a result. Table 1 is the exception and is labelled as
+such, which is part of why we do not treat it as one. This discipline has retired three candidate estimators
 over the course of the project, including one of our own earlier conclusions, described in section
 3.3.
 
@@ -160,17 +161,19 @@ Asterisks mark significance at 5 percent; event counts are nine, four and eight 
 | country-wide, IEEPA | **+9%*** | -10%* | -15%* | +8%* |
 | material class, Section 232 | +0% | **+13%*** | -3% | -10%* |
 
-The jump arrives at a different month in each mechanism, and the ordering tracks how much warning
-each one gives. Section 301 lists are published with the action, and the jump is in the
-announcement month itself. IEEPA measures were trailed publicly, and the jump comes two to three
-months before the announcement. Section 232 duties follow an investigation, and the jump comes one
-month before. That is front-loading whose timing moves with how early the duty became knowable,
-which is the same point section 4 makes about announcement dates.
+The jump arrives at a different month in each mechanism, and the ordering is suggestive: Section
+301 lists are published with the action and the jump is in the announcement month; IEEPA measures
+were trailed publicly and the jump comes two to three months early; Section 232 follows an
+investigation and the jump comes one month early. That is the shape front-loading would take if
+the rush began when the duty became knowable.
 
-Two caveats belong with it. The pre-periods are not flat, with four, five and two of six months
-individually significant, so this is a pattern consistent with front-loading rather than a clean
-identified effect. And the three rows rest on nine, four and eight documents, with standard errors
-clustered on product-origin cells rather than on events, so the asterisks are optimistic.
+We do not report it as an answer to the first question, for three reasons. This specification has
+no placebo, unlike every other estimate here. The rows rest on nine, four and eight documents
+with standard errors clustered on product-origin cells rather than on events, so the asterisks
+overstate the evidence. And the largest Section 301 event in the sample, a December 2018 notice
+covering 5,921 lines, in fact postponed its own scheduled increase, which was then deferred
+indefinitely; whatever moved around it was not a duty taking effect. The pattern is worth
+recording and is not yet identified.
 
 ### 3.2 Neither dollars nor quantity is a safe measure at category level
 
@@ -255,14 +258,14 @@ argues against waiting it out. We cannot yet say whether that volume reappears e
 
 The methodological conclusion is the one we would most want carried forward: a product category
 is the wrong unit for tariff work. The typical action names five percent of the category it
-touches, and the same aggregation mixes incompatible units of measure. Both resolve at eight
-digits, which is where the rush in Table 1 becomes visible at all.
+touches, and the same aggregation mixes incompatible units of measure. Both resolve at eight digits, which is where the
+pattern in Table 1 becomes visible at all.
 
-The goals are partly met. The first question has a partial answer in Table 1: a rush exists and
-its timing moves with how early the duty became knowable, though on four to nine events per
-mechanism and with pre-periods that are not flat. The second is answered for antidumping cases
-and survives placebo testing. The third has only the absence of recovery over eighteen months,
-with no fitted duration model.
+The goals are partly met. The second question is answered for antidumping cases and survives
+placebo testing. The third has only the absence of recovery over eighteen months, with no fitted
+duration model. The first is not answered: Table 1 shows a pattern of the right shape, but on too
+few events, without a placebo, and over a sample in which the largest Section 301 action turns
+out to have postponed itself.
 
 What limits all three is the same thing: our announcement dates are mostly implementing notices,
 and the informative date is when a tariff becomes likely, not when it becomes official. Copper

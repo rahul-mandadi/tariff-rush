@@ -55,6 +55,13 @@ retroactivity mechanism the report asserted. All fixed.
 1 rendering near 3pt, the statement of contributions pushing to page 6, panel attrition undisclosed,
 reference [6] uncited, and "action" carrying three referents. All fixed.
 
+**Fifth (Codex, technical, on the rebuilt version).** Completed but the forwarding agent could not
+retrieve it; the output was recovered from the Codex session log. Found that `2018-27458`, the
+largest Section 301 event at 5,921 lines, is coded as an increase effective 2019-03-02 when the
+notice in fact postponed that increase, which `2019-03935` then deferred indefinitely. Table 1 is
+no longer presented as an answer to the first question. Also found Table 1 has no placebo, so the
+blanket placebo claim in Methods was narrowed to what is actually enforced.
+
 ## Still open
 
 - `adcvd_analysis.py` and `substitution_test.py` use nominal dollar value; the report says
@@ -65,6 +72,16 @@ reference [6] uncited, and "action" carrying three referents. All fixed.
 - No multiple-comparison adjustment across the 31 monthly coefficients.
 - The copper taxed/untaxed split is assigned by heading, not from the proclamation's annex, which
   is not in the Federal Register text we hold.
+- `2016-19867` is retained as a duty-start event although its notice says liquidation is not
+  suspended. Raised by two reviews, still unfixed.
+- Observations outside any event window keep K=99 alongside the omitted baseline months, so the
+  event-study reference group is wider than the caption says.
+- Of the eight significant post-event coefficients in Fig. 2, only month zero survives a
+  Bonferroni correction across 31 coefficients.
+- Treated cell-months are not a balanced cohort: 975 at k=0 against 1,437 at k=18.
+- Coverage is measured on 162 of 637 surcharge codes, with 902 unmatched HS8 codes counted as
+  zero trade and no historical concordance.
+- `build_treatment.py` converts conditional authority into actual treatment, e.g. `2025-05440`.
 
 ## Rebuild
 
