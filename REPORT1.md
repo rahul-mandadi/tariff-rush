@@ -251,8 +251,7 @@ The next step is therefore to reconstruct earlier information dates. Of the 2,65
 aside, 226 are initiation notices, proposed determinations or requests for comment, preceding the
 corresponding action by a median of 68 days for Section 301 and longer for Section 232. The
 antidumping data already carries initiation dates for 2,177 case records, a median of 190 days
-ahead of the duty-starting document. With those attached, the first question becomes answerable on
-a timescale at which a stakeholder could act.
+ahead of the duty-starting document. With those attached, the first question becomes answerable.
 
 ## 5. Statement of contributions
 
