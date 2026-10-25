@@ -32,7 +32,7 @@ respect. Zero em dashes. All figure and table numbers resolve.
 | absorption | not estimable; per-episode median near zero, sd 338 | `substitution_levels.py` |
 | port test, appendix | district-mix TVD 0.058 vs 0.068 placebo, seven cases | `port_test.py` |
 
-## Three cold reads so far, and what they changed
+## Reviews so far, and what they changed
 
 **First (Codex).** Found the 79/21 absorption claim was confounded with market share. Removed; the
 level recomputation in `substitution_levels.py` shows it is not estimable either way. Also caught a
@@ -61,6 +61,16 @@ largest Section 301 event at 5,921 lines, is coded as an increase effective 2019
 notice in fact postponed that increase, which `2019-03935` then deferred indefinitely. Table 1 is
 no longer presented as an answer to the first question. Also found Table 1 has no placebo, so the
 blanket placebo claim in Methods was narrowed to what is actually enforced.
+
+**Sixth (readability pass, not a correctness review).** No claim or number changed. Found that
+3.3 spent roughly three words of caveat per word of finding, that the Table 1 placebo caveat and
+the 2018 postponement were each stated three times, and that the three research questions were
+never numbered although the Discussion referred to them by number. Section 3.3 now opens with its
+result; the duplicate caveats are stated once each (the Table 1 placebo twice, since Methods needs
+it to stay honest); Q1/Q2/Q3 are labelled in section 1 and used in 3.1 and 4. Defined in plain
+words where first used: cell, logarithm of customs value, fixed effects, total variation distance,
+and k in Table 1. References now start on a fresh page, so pages 1-5 are exactly the counted
+content.
 
 ## Still open
 
