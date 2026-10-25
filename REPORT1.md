@@ -15,11 +15,11 @@ exposed to the targeted country is what the fall means: whether goods merely arr
 whether the business has moved permanently. That decision is made near the announcement, while
 official trade data appears about five weeks after each month closes. We built a panel of United States imports covering 140 months at the
 eight-digit product level at which tariff orders are written, matched to 134 tariff actions and
-993 antidumping cases. Our first attempt returned nothing, and the central result is why: the
-typical action covers about five percent of the category it touches, so category-level analysis
-averages any real response away. At product level we find that imports from a country named in an antidumping
-case fall to their pre-case baseline and stay there, with no recovery over eighteen months and no
-surge beforehand.
+993 antidumping cases. We measure how much of a product category a tariff action
+actually names: typically about five percent, and under one percent in a third of cases, which is
+enough to drive a category-level estimate toward zero. Separately, we find that imports from a
+country named in an antidumping case fall to their pre-case baseline and stay there, with no
+recovery over the eighteen months we observe and no surge beforehand.
 
 ## 1. Introduction
 
@@ -66,7 +66,7 @@ weight by mode. Tariff actions come from the Federal Register API. The product l
 action come from chapter 99 of the Harmonized Tariff Schedule.
 
 Products are classified hierarchically: two digits denote a chapter, a broad category such as
-copper or pharmaceuticals, of which there are roughly ninety-seven; eight digits is where United
+copper or pharmaceuticals, of which 98 appear in our panel; eight digits is where United
 States tariff orders name products; ten is the finest level Census publishes. We harvest at ten
 and aggregate to eight, because ten nests exactly inside eight, so a tariff matches precisely the
 products it names.
@@ -114,76 +114,85 @@ over the course of the project, including one of our own earlier conclusions, de
 
 ## 3. Results
 
-### 3.1 Category-level treatment averages the effect away
+### 3.1 How much of a category a tariff action actually names
 
-Our first attempt assigned treatment at chapter level, marking a chapter tariffed whenever any
-action touched any product within it, and found no detectable effect. We measured why. Across all 1,350 pairings of one
-surcharge code with one chapter, the median pairing names 5.4 percent of that chapter's import
-value, and 32.4 percent of
-pairings name under one percent. Collapsing to one figure per action gives a median of 1.3
-percent.
+A tariff order does not name a product category. It names a list of eight-digit lines, usually
+published as an annex to a separate legal notice. How much of a category that list covers is an
+empirical question, and to our knowledge it has not been measured for United States tariff
+actions. Across all 1,350 pairings of one surcharge code with one chapter, the median pairing
+names 5.4 percent of that chapter's import value, and 32.4 percent of pairings name under one
+percent. Collapsing to one figure per surcharge code gives a median of 1.3 percent.
 
-The consequence is arithmetic. If a chapter is labelled treated when roughly ninety-five percent of
-its value was never named, any genuine response in the treated five percent is averaged against the
-untreated remainder, and the estimate is driven toward zero. The null result was a property of the
-measurement, not of the world. This is the specific, quantified form of the attenuation that [2]
-and [3] describe in general terms.
-
-Fig. 1 makes the same point concretely for copper, the running example of this project. Chapter 74
+Fig. 1 shows what that looks like for copper, the running example of this project. Chapter 74
 comprised 24.7 billion dollars of imports across 89 eight-digit lines in 2025. The Section 232
 proclamation of 30 July 2025 imposed a 50 percent duty on semi-finished copper products and
-intensive copper derivatives, which account for 29 percent of the chapter by value. Refined copper
-and cathodes, which alone are 67 percent of the chapter, were treated as input materials and were
-not subject to the duty. A category-level analysis of copper in 2025 would therefore have assigned
-a 50 percent tariff to more than two thirds of trade that never paid it.
+intensive copper derivatives, 29 percent of the chapter by value. Refined copper and cathodes,
+which alone are 67 percent of the chapter, were treated as input materials and were not subject to
+the duty.
 
 [[FIG:1|slides/fig/09_sankey.png|Copper in 2025, by heading; widths are import value. The split between taxed and untaxed follows Proclamation 10962, paragraph 1 against paragraph 8. The annex table is not in the Federal Register text, so headings are assigned by standard meaning.]]
 
-The split also shows what happened to the part that was named. In tonnes, the semi-finished
-products covered by the duty ran at 49 thousand tonnes a month beforehand, peaked at 68, and have
-settled at 27, a fall of 45 percent that has persisted. The untaxed cathodes ran at 89, peaked at
-218, and settled at 154, above where they started. One product and one action with no placebo, so
-we offer it as illustration rather than result; but the two halves of one chapter moved in
-opposite directions, which is exactly what a category-level view cannot see.
+This has a direct consequence for measurement. A category-level treatment flag assigns treatment
+to mostly untreated trade, so any genuine response is averaged against a much larger unaffected
+remainder. Testing it directly, chapter-months touched by an action are more anomalous than
+untouched ones, but barely: medians of negative 7.1 against negative 7.6 percent across 1,815 and
+7,977 chapter-months, one-sided p = 0.0075. The difference is detectable and economically
+negligible, which is what heavy dilution predicts. This is the specific, quantified form of the
+attenuation that [2] and [3] describe in general terms.
+
+Granularity alone does not then deliver an answer. Re-estimating the same tariff actions at eight
+digits, where treatment is exact, Table 1 shows no common pattern in the months after a duty
+begins and significant movement before it in all three legal mechanisms.
+
+**Table 1.** The same tariff actions estimated at eight digits, by legal mechanism. Each figure is
+the differenced estimate at month k relative to the duty start, against untargeted origins of the
+same product; k is months. Asterisks mark significance at 5 percent.
+
+| mechanism | k = 0 | k = 1 | k = 2 | k = 3 | pre-period months significant |
+| --- | --- | --- | --- | --- | --- |
+| enumerated, Section 301 lists | +27%* | -37%* | -7%* | -22%* | 4 of 6 |
+| country-wide, IEEPA | -15%* | +8%* | -8%* | -6%* | 5 of 6 |
+| material class, Section 232 | -3% | -10%* | -14%* | 0% | 2 of 6 |
+
+Exact treatment removes the dilution, and the estimates remain unstable. Two constraints are
+therefore separable: how a tariff order is written, which this section measures, and when it
+becomes known, which section 4 takes up and which the 8.5-day median window makes acute. The
+antidumping cases in section 3.3 are not subject to the second constraint, which is why they
+carry the identification that these events cannot.
 
 ### 3.2 Neither dollars nor quantity is a safe measure at category level
 
 A second measurement problem comes from the same source: dollars cannot distinguish a price
-increase from a volume increase. Our anomaly detector, which compares each chapter against a
-baseline built from its own prior years, ranked cocoa among the most unusual categories of 2025;
-cocoa prices roughly tripled after poor West African harvests, so a price movement read as a
-surge in volume.
+increase from a volume increase. Our anomaly detector scores each chapter by how far its furthest
+2025 month ran from a counterfactual fitted on its own prior years, in units of that series'
+residual standard deviation, so a score of 1.0 means the chapter just reached the edge of its
+normal range. On dollars it ranked cocoa among the most unusual categories of 2025; cocoa prices
+roughly tripled after poor West African harvests, so a price movement read as a surge in volume.
 
 Switching to quantity is not a straightforward correction. Quantity is reported in each product's
 native unit, and at chapter level those units are mixed: 56 of 98 chapters report kilograms for
 under seventy percent of their value, with apparel in dozens, footwear in pairs and vessels in
-units. Because the measure asks how far a chapter moved relative to its own history it is
-scale-free, so units need only be stable within a chapter, not comparable across them. Restricting
-to chapters whose dominant unit carries at least eighty percent of value leaves 65 of 97, of which
-63 are rankable on both measures.
+units. Restricting to chapters whose dominant unit carries at least eighty percent of value leaves
+65 of them, of which 63 are rankable on both measures, and the two rankings disagree substantially.
 
-Fig. 2 compares them, and they disagree substantially. Pharmaceuticals is the extreme case, 2.86 on
-dollars against negative 0.33 on quantity. Its tonnage in 2025 tracked trend while dollar value rose 57
-percent above trend in March on flat tonnage. The increase sat in two product lines and in
-high-value origins: within one line, 30049092, Switzerland shipped 4.31 billion dollars in 832
-tonnes that month, roughly 5,200 dollars per kilogram, against India at 183. That is a shift in
-product mix, which tonnage cannot see. In dollars cocoa is a false positive; in quantity
-pharmaceuticals is a false negative. Whether pharmaceutical tonnage sat just below or just above
-trend depends on anchoring the counterfactual on the last observed month or on the fitted line,
-which moves the peak from negative 6 to positive 8 percent; the gap between the two measures does
-not depend on that choice.
-
-[[FIG:2|slides/fig/08_units.png|Twelve chapters ranked on dollars and on quantity, 2025. A value of 1.0 means the chapter just reached the edge of its own normal range. Pharmaceuticals runs from 2.86 on dollars to negative 0.33 on quantity; copper runs the other way, 1.77 to 2.68.]]
+Pharmaceuticals is the extreme case, 2.86 on dollars against negative 0.33 on quantity. Its
+tonnage in 2025 tracked trend while dollar value rose 57 percent above trend in March on flat
+tonnage, concentrated in two lines and in high-value origins: within line 30049092, Switzerland
+shipped 4.31 billion dollars in 832 tonnes that month, roughly 5,200 dollars per kilogram, against
+India at 183. That is a shift in product mix, which tonnage cannot see. Copper runs the other way,
+1.77 on dollars against 2.68 on quantity. In dollars cocoa is a false positive; in quantity
+pharmaceuticals is a false negative. Both scores move with the counterfactual's anchoring, which
+shifts pharmaceutical tonnage from negative 6 to positive 8 percent, but the gap between the two
+measures does not.
 
 Both failures share a cause with section 3.1. A chapter mixes products with different treatment
 status and different units of measure. An eight-digit line usually has one of each, which is why
-we work there, though it is not a complete escape: 145,423 cells in the panel still span more than
-one unit and carry 4.6 percent of total value.
+we work there, though 145,423 cells carrying 4.6 percent of value still span more than one unit.
 
 ### 3.3 The aftermath of an antidumping duty is a durable loss with no preceding surge
 
 Antidumping and countervailing duty proceedings give the event sample with adequate power: the
-cases are numerous, name products explicitly, and target individual countries. Fig. 3 traces imports from the named country around the month duties begin to be
+cases are numerous, name products explicitly, and target individual countries. Fig. 2 traces imports from the named country around the month duties begin to be
 collected, across 673 events, measured against a baseline eighteen to thirteen months prior.
 
 The path is not the one the front-loading literature predicts. Imports from the named country are
@@ -192,9 +201,11 @@ out. They then decline steadily, stand 17.7 percent above baseline in the month 
 cross baseline within four months, and stay flat through eighteen months. There is no surge before
 the duty and no recovery after it.
 
-[[FIG:3|slides/fig/10_event.png|Imports from the country named in an antidumping case, 673 events, against a baseline eighteen to thirteen months before duties begin. Shading is the 95 percent interval.]]
+[[FIG:2|slides/fig/10_event.png|Imports from the country named in an antidumping case, 673 events, against a baseline eighteen to thirteen months before duties begin. Shading is the 95 percent interval.]]
 
-**Table 1.** Episode-level excess imports for the named country, real events against the same
+Table 2 sets the episode-level comparison against its placebo.
+
+**Table 2.** Episode-level excess imports for the named country, real events against the same
 events shifted back 24 months, a log deviation from each cell's own pre-event level.
 
 | measure | real events | placebo at minus 24 months |
@@ -225,10 +236,8 @@ destination is not.
 ## 4. Discussion
 
 For a stakeholder exposed to one country of origin, the practical conclusion is that for
-antidumping cases the decline is not temporary. Volumes from the named country do not recover
-within eighteen months, which argues for treating the loss as permanent rather than waiting it
-out. We cannot yet say whether that volume reappears elsewhere, so a stakeholder should not assume the
-product stays equally available.
+antidumping cases the decline does not reverse within the eighteen months we observe, which
+argues against waiting it out. We cannot yet say whether that volume reappears elsewhere.
 
 One stakeholder assumption did not survive the data. An earlier version named port and terminal
 operators as the primary user, reasoning that a surge and collapse would disrupt throughput.
@@ -239,20 +248,20 @@ so it shows the mix is stable rather than the throughput, and customs value in t
 by 9 to 53 percent. Seven cases is thin, and this is our reason for dropping the assumption, not
 an established null.
 
-The methodological conclusion is the one we would most want carried forward: tariff effects should
-not be measured at product-category level. The typical action names about five percent of the
-category it touches, and the same aggregation mixes incompatible units of measure. Both largely
-resolve at the eight-digit level, where tariff orders are written.
+The methodological conclusion is the one we would most want carried forward: a product category
+is the wrong unit for tariff work. The typical action names five percent of the category it
+touches, and the same aggregation mixes incompatible units of measure. Working at eight digits
+removes both, though section 3.1 shows it is not on its own sufficient to identify an effect.
 
 The goals are partly met. The second question is answered for antidumping cases and survives
 placebo testing; the third has a partial answer in the absence of recovery over eighteen months,
-but no fitted duration model. The first remains open, blocked by a limitation we have diagnosed
-but not resolved: the median interval between the announcement date we hold and the start of
-collection is 8.5 days, far too short for any meaningful acceleration of shipments. Most of our
-documents are implementing notices rather than first announcements. Copper illustrates this. The
-proclamation was signed on 30 July 2025, but imports had climbed since February, following the
-executive order of 25 February directing a Section 232 investigation and the request for comment
-of 13 March. The informative date is when a tariff becomes likely, not when it becomes official.
+but no fitted duration model. The first remains open, and section 3.1 locates why: the median
+interval between the announcement date we hold and the start of collection is 8.5 days, too short
+for any meaningful acceleration of shipments, because most of our documents are implementing
+notices rather than first announcements. Copper illustrates it. The proclamation was signed on 30
+July 2025, but imports had climbed since February, following the executive order of 25 February
+directing a Section 232 investigation. The informative date is when a tariff becomes likely, not
+when it becomes official.
 
 The next step is to reconstruct earlier information dates. Roughly two hundred of the documents
 we set aside are initiation notices or requests for comment, and the antidumping data already
@@ -260,12 +269,11 @@ carries initiation dates for 2,177 records.
 
 ## 5. Statement of contributions
 
-Both authors contributed equally to this project. Rahul Reddy Mandadi led data collection and panel
-construction, including the Census ten-digit harvest, the eight-digit product-by-partner-by-month
-panel and its reconciliation against published totals, and the tariff and antidumping event tables.
-Raunaksingh Khalsa led exploratory data analysis, the anomaly detection work, and the design and
-delivery of the first presentation. Both authors jointly developed the research questions, selected
-the identification strategy, interpreted the results, and wrote this report.
+Both authors contributed equally. Rahul Reddy Mandadi led data collection and panel construction,
+including the Census harvest, the eight-digit panel and its reconciliation, and the tariff and
+antidumping event tables. Raunaksingh Khalsa led exploratory analysis, the anomaly detection work,
+and the first presentation. Both developed the research questions, chose the identification
+strategy, interpreted the results, and wrote this report.
 
 ## 6. References
 
@@ -284,14 +292,20 @@ Globally Connected U.S. Manufacturing Sector. *Federal Reserve FEDS* 2019-086.
 [5] Khan, S. Y. and Khederlarian, A. (2021). How does trade respond to anticipated tariff changes?
 Evidence from NAFTA. *Journal of International Economics* 133, 103538.
 
-[6] Cleveland, R., Cleveland, W., McRae, J. and Terpenning, I. (1990). STL: A seasonal-trend
-decomposition procedure based on LOESS. *Journal of Official Statistics* 6(1), 3-73.
-
 **Data sources.** United States Census Bureau international trade API; Federal Register API;
 United States International Trade Commission Harmonized Tariff Schedule, chapter 99; United States
 International Trade Administration antidumping and countervailing duty case index.
 
 ## 7. Appendix
+
+### The copper split either side of the duty
+
+The two halves of chapter 74 moved in opposite directions after the Section 232 action. In tonnes,
+the semi-finished products the duty names ran at 49 thousand tonnes a month beforehand, peaked at
+68, and have settled at 27; the untaxed cathodes ran at 89, peaked at 218, and settled at 154.
+This is one product and one action with no placebo, and the figures move with the chosen windows,
+so we record it as illustration rather than result. Produced by `copper_split.py`, which states
+the windows explicitly.
 
 ### Limitations
 

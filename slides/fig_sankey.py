@@ -59,7 +59,7 @@ def ribbon(ax, x0, y0, x1, y1, h0, h1, color, alpha):
              Path.LINETO, Path.CURVE4, Path.CURVE4, Path.CURVE4, Path.CLOSEPOLY]
     ax.add_patch(PathPatch(Path(verts, codes), facecolor=color, edgecolor="none", alpha=alpha))
 
-fig, ax = plt.subplots(figsize=(11, 6.2))
+fig, ax = plt.subplots(figsize=(11, 4.4))
 GAP, XL, XR, W = 0.012, 0.06, 0.74, 0.035
 
 # left column: one block per heading, biggest first
@@ -72,7 +72,7 @@ for hd, v in g.items():
                            facecolor=GREY if hd in INPUTS else RED, edgecolor="none"))
     if v / tot > 0.012:
         ax.text(XL - 0.012, ytop - h / 2, f"{LABEL.get(hd, hd)}  {100*v/tot:.0f}%",
-                ha="right", va="center", fontsize=11,
+                ha="right", va="center", fontsize=12,
                 color=INK, fontweight="600" if hd not in INPUTS else "normal")
     ytop -= h + GAP
 
@@ -100,15 +100,10 @@ for hd, v in g.items():
     ribbon(ax, XL + W, y0, XR, rt[key][2], h0, h1, col, 0.30)
     rt[key][2] -= h1
 
-ax.set_xlim(-0.22, 1.16); ax.set_ylim(-0.06, 1.10); ax.axis("off")
+ax.set_xlim(-0.22, 1.16); ax.set_ylim(-0.02, 1.10); ax.axis("off")
 ax.set_title("Copper, 2025: the tariff named less than a third of the chapter by value",
              fontsize=15, fontweight="600", loc="left", x=-0.20)
-ax.text(-0.20, -0.045,
-        f"Chapter 74, ${tot/1e9:.1f}bn of imports across {cu.hs8.nunique()} eight-digit lines. "
-        "Split follows Proclamation 10962: paragraph 1 taxes semi-finished and\nderivative products, "
-        "paragraph 8 leaves input materials and scrap untaxed. Headings assigned by standard "
-        "meaning; the annex table is not in the Federal Register text.",
-        fontsize=10, color=GREY, va="top")
+# the provenance note lives in the report figcaption, not burned into the image at 3pt
 fig.savefig("slides/fig/09_sankey.png")
 print(f"wrote slides/fig/09_sankey.png")
 print(f"chapter 74 2025: ${tot/1e9:.1f}bn, named {100*named/tot:.1f}%, not named {100*(tot-named)/tot:.1f}%")
