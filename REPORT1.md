@@ -48,14 +48,13 @@ borrowed from later months, demand lost outright, and volume relocated to an unt
 and how long the aftermath persists, a duration problem with right-censoring, since some episodes
 are still in progress at the end of our panel.
 
-Existing work measures tariff responses at fine product granularity for good reason. Fajgelbaum et
-al. [1] study the 2018 tariffs at ten digits, noting the increases were predominantly set at the
-eight-digit level. The International Trade Commission [2] estimates the same elasticity at two,
-four, six and eight digits and finds coarser data yields systematically smaller estimates, which
-they attribute to heterogeneity bias; Imbs and Mejean [3] report the same outside the tariff
-setting. Flaaen and Pierce [4] use a continuous value-weighted exposure measure rather than a
-binary indicator. Our first result quantifies how severe this problem is for United States tariff
-actions specifically.
+Existing work measures tariff responses at fine granularity for good reason. Fajgelbaum et al. [1]
+study the 2018 tariffs at ten digits, noting the increases were predominantly set at eight. The
+International Trade Commission [2] estimates the same elasticity at two, four, six and eight
+digits and finds coarser data gives systematically smaller estimates, attributed to heterogeneity
+bias; Imbs and Mejean [3] report the same outside the tariff setting, and Flaaen and Pierce [4]
+use a continuous exposure measure rather than a binary indicator. Our first result quantifies how
+severe this is for United States tariff actions.
 
 ## 2. Methods
 
@@ -66,11 +65,11 @@ trade API, which reports value in dollars, a quantity in each product's native u
 weight by mode. Tariff actions come from the Federal Register API. The product lists behind each
 action come from chapter 99 of the Harmonized Tariff Schedule.
 
-Products are classified hierarchically. Two digits denote a chapter, a broad category such as
-copper or pharmaceuticals, of which there are roughly ninety-seven. Six digits is the
-international standard. Eight digits is where United States tariff orders name products, and ten
-is the finest level Census publishes. We harvest at ten and aggregate to eight, because ten nests
-exactly inside eight, so a tariff can be matched to precisely the products it names.
+Products are classified hierarchically: two digits denote a chapter, a broad category such as
+copper or pharmaceuticals, of which there are roughly ninety-seven; eight digits is where United
+States tariff orders name products; ten is the finest level Census publishes. We harvest at ten
+and aggregate to eight, because ten nests exactly inside eight, so a tariff matches precisely the
+products it names.
 
 ### 2.2 Panel construction
 
@@ -85,7 +84,7 @@ date near an effective-date phrase, which fails because proclamations recite ear
 in identical wording; dates were re-extracted on the rules that an effective date cannot precede
 the announcement and that the operative date is the one most often repeated.
 
-For modelling we apply inclusion rules fixed in advance: at least 36 months of continuous history,
+For modelling we apply inclusion rules fixed in advance: at least 36 months of observed data,
 a median monthly value of at least 100,000 dollars, and at least one untreated origin supplying the
 same product in the same month. This retains 6.09 million observations carrying 95.7 percent of
 total import value.
@@ -97,16 +96,15 @@ duty; the remaining 2,658 are proposed rules, administrative notices, exclusion 
 trade remedy documents. We separately harvested antidumping and countervailing duty proceedings,
 yielding 993 cases across 70 countries and 1,297 named product lines, with case numbers linking
 each proceeding's initiation, preliminary, final and order stages. From chapter 99 we resolved
-9,083 eight-digit lines named across 162 surcharge codes, giving 1,350 pairings of one action with
-one chapter.
+9,083 eight-digit lines named across 162 surcharge codes, giving 1,350 pairings of one surcharge code with one
+chapter. We call these actions below, though one Federal Register action may cite several codes.
 
 ### 2.4 Identification and evaluation
 
 We compare a product from a targeted country against the same product from untargeted countries
-in the same month. A price shock or a global demand movement affects every supplier at once and
-cancels from the comparison, whereas a tariff moves one supplier against the rest. The design is
-available for 89.6 percent of treated product-months, which have two or more suppliers, median
-seven.
+in the same month. A price shock or global demand movement affects every supplier at once and
+cancels, whereas a tariff moves one against the rest. The design is available for 89.6 percent of
+treated product-months, which have two or more suppliers, median seven.
 
 Every estimate is paired with a placebo: the identical calculation applied to the same events
 shifted 24 months earlier, where no action occurred. An estimate that does not separate from its
@@ -118,9 +116,8 @@ over the course of the project, including one of our own earlier conclusions, de
 
 ### 3.1 Category-level treatment averages the effect away
 
-Our first attempt assigned treatment at chapter level, marking a chapter as tariffed whenever any
-action touched any product within it, and found no detectable effect. Rather than abandon the
-approach we measured why it fails. Across all 1,350 pairings of one action with one chapter it
+Our first attempt assigned treatment at chapter level, marking a chapter tariffed whenever any
+action touched any product within it, and found no detectable effect. We measured why. Across all 1,350 pairings of one action with one chapter it
 touches, the median pairing names 5.4 percent of that chapter's import value, and 32.4 percent of
 pairings name under one percent. Collapsing to one figure per action gives a median of 1.3
 percent.
@@ -150,11 +147,11 @@ opposite directions, which is exactly what a category-level view cannot see.
 
 ### 3.2 Neither dollars nor quantity is a safe measure at category level
 
-A second measurement problem emerged from the same source. Import value in dollars cannot
-distinguish a price increase from a volume increase. Our initial anomaly detector, which compares
-each chapter against a baseline built from its own prior years, ranked cocoa among the most unusual
-categories of 2025; cocoa prices approximately tripled following poor West African harvests, so a
-price movement was being read as a surge in volume.
+A second measurement problem comes from the same source: dollars cannot distinguish a price
+increase from a volume increase. Our anomaly detector, which compares each chapter against a
+baseline built from its own prior years, ranked cocoa among the most unusual categories of 2025;
+cocoa prices roughly tripled after poor West African harvests, so a price movement read as a
+surge in volume.
 
 Switching to quantity is not a straightforward correction. Quantity is reported in each product's
 native unit, and at chapter level those units are mixed: 56 of 98 chapters report kilograms for
@@ -165,30 +162,33 @@ to chapters whose dominant unit carries at least eighty percent of value leaves 
 63 are rankable on both measures.
 
 Fig. 2 compares them, and they disagree substantially. Pharmaceuticals is the extreme case, 2.86 on
-dollars against negative 0.33 on quantity. Its tonnage in 2025 grew at its established trend and
-never exceeded it, while dollar value rose 57 percent above trend in March 2025 on flat tonnage.
-The increase sat in two product lines and in high-value origins: Switzerland shipped 4.31 billion
-dollars in 832 tonnes that month, roughly 5,200 dollars per kilogram, against India at 183. That
+dollars against negative 0.33 on quantity. Its tonnage in 2025 tracked trend while dollar value rose 57
+percent above trend in March on flat tonnage. Whether tonnage sat just below or just above trend
+depends on anchoring the counterfactual on the last observed month or the fitted line, which moves
+the peak from negative 6 to positive 8 percent; the gap between the two measures does not.
+The increase sat in two product lines and in high-value origins: within one product line, 30049092,
+Switzerland shipped 4.31 billion dollars in 832 tonnes that month, roughly 5,200 dollars per
+kilogram, against India at 183. That
 is a shift in product mix, which tonnage cannot see. In dollars cocoa is a false positive; in
 quantity pharmaceuticals is a false negative.
 
 [[FIG:2|slides/fig/08_units.png|Twelve chapters ranked on dollars and on quantity, 2025. A value of 1.0 means the chapter just reached the edge of its own normal range. Pharmaceuticals runs from 2.86 on dollars to negative 0.33 on quantity; copper runs the other way, 1.77 to 2.68.]]
 
 Both failures share a cause with section 3.1. A chapter mixes products with different treatment
-status and different units of measure. A single eight-digit line has one of each, so both problems
-resolve at that level.
+status and different units of measure. An eight-digit line usually has one of each, which is why
+we work there, though it is not a complete escape: 145,423 cells in the panel still span more than
+one unit and carry 4.6 percent of total value.
 
 ### 3.3 The aftermath of an antidumping duty is a durable loss with no preceding surge
 
-Antidumping and countervailing duty proceedings provide the event sample in which our design has
-adequate power, because the cases are numerous, name products explicitly, and target individual
-countries. Fig. 3 traces imports from the named country around the month duties begin to be
+Antidumping and countervailing duty proceedings give the event sample with adequate power: the
+cases are numerous, name products explicitly, and target individual countries. Fig. 3 traces imports from the named country around the month duties begin to be
 collected, across 673 events, measured against a baseline eighteen to thirteen months prior.
 
 The path is not the one the front-loading literature predicts. Imports from the named country are
 already 37 percent above baseline a year before duties begin, rising to 46 percent at five months
 out. They then decline steadily, stand 17.7 percent above baseline in the month collection starts,
-cross baseline two months later, and stay flat through eighteen months. There is no surge before
+cross baseline within four months, and stay flat through eighteen months. There is no surge before
 the duty and no recovery after it.
 
 [[FIG:3|slides/fig/10_event.png|Imports from the country named in an antidumping case, 673 events, against a baseline eighteen to thirteen months before duties begin. Shading is the 95 percent interval.]]
@@ -202,40 +202,45 @@ Table 1 reports the episode-level comparison against placebo.
 | median excess after | **-0.316** | +0.020 |
 
 The post-period difference separates from its placebo at p < 0.0001 on both a rank test and a
-t-test, and is robust across horizons of six, nine and twelve months. The during-window difference
-does not separate at all, at p = 0.37, so we report no rush before these events. The absence is
+t-test, and is robust across horizons of six, nine and twelve months. The during-window difference is not evidence of a
+rush: a rank test gives p = 0.37, and a Welch test separates at p = 0.023 but in the wrong
+direction, real mean negative 0.018 against positive 0.063 in placebo. The absence is
 explicable rather than anomalous: antidumping duties can be applied retroactively to the initiation
 notice, so accelerating purchases offers no protection. This contrast is itself a finding, because
 it suggests that whether a tariff produces a surge depends on whether the duty can be escaped by
 buying early.
 
-Decomposing the gap, the named country ends about 36 points below its placebo trend while the
-product's total across all suppliers ends about 8 points below, implying that roughly 79 percent of
-displaced volume is absorbed elsewhere and 21 percent does not reappear. That rests on the
-comparison of totals. The component measuring whether other suppliers grow does not survive its own
-placebo, rising 4.2 percent against 6.4 percent in placebo at p = 0.28, so we do not claim
-substitution on that evidence.
+We cannot say what share of the lost volume is replaced. Dividing the median change in a
+product's total by the median change in the named country, as we first did, is confounded with
+market share: a supplier holding a fifth of a product can stop entirely with nobody replacing it
+and that arithmetic still reports four fifths absorbed. Redone in levels, where treated and other
+suppliers sum to the total by construction, the per-episode median absorption is near zero, other
+suppliers fall alongside the named country in half of episodes, and the dispersion is far too
+large to estimate from. The component measuring whether other suppliers grow also fails its
+placebo, 4.2 against 6.6 percent at p = 0.28. The loss to the named country is established; its
+destination is not.
 
 ## 4. Discussion
 
 For a stakeholder exposed to one country of origin, the practical conclusion is that for
 antidumping cases the decline is not temporary. Volumes from the named country do not recover
 within eighteen months, which argues for treating the loss as permanent rather than waiting it
-out. Against that, roughly four fifths of displaced volume reappears from other suppliers, so the
-disruption is to the relationship rather than to supply.
+out. We cannot yet say whether that volume reappears elsewhere, so a stakeholder should not assume the
+product stays equally available.
 
 One stakeholder assumption did not survive the data. An earlier version named port and terminal
 operators as the primary user, reasoning that a surge and collapse would disrupt throughput.
-Comparing how a product distributes across U.S. customs districts before and after an episode, the
-median total variation distance is 0.058 against 0.068 in placebo episodes, across seven cases.
-Displaced volume arrives from another country through substantially the same districts, so
-throughput barely moves and a forecast would change nothing. Seven cases is thin, and we report
-this as our reason for dropping the assumption rather than as an established null.
+Across seven cases, the median total variation distance between a product's district mix before
+and after an episode is 0.058, against 0.068 in placebo: displaced volume arrives from another
+country through much the same districts. That statistic is invariant to proportional contraction,
+so it shows the mix is stable rather than the throughput, and customs value in those cases fell
+by 9 to 53 percent. Seven cases is thin, and this is our reason for dropping the assumption, not
+an established null.
 
 The methodological conclusion is the one we would most want carried forward: tariff effects should
 not be measured at product-category level. The typical action names about five percent of the
-category it touches, and the same aggregation mixes incompatible units of measure. Both problems
-disappear at the eight-digit level, where tariff orders are written.
+category it touches, and the same aggregation mixes incompatible units of measure. Both largely
+resolve at the eight-digit level, where tariff orders are written.
 
 The goals are partly met. The second question is answered for antidumping cases and survives
 placebo testing. The third has a partial answer in the absence of recovery over eighteen months,
@@ -247,11 +252,9 @@ proclamation was signed on 30 July 2025, but imports had climbed since February,
 executive order of 25 February directing a Section 232 investigation and the request for comment
 of 13 March. The informative date is when a tariff becomes likely, not when it becomes official.
 
-The next step is therefore to reconstruct earlier information dates. Of the 2,658 documents we set
-aside, 226 are initiation notices, proposed determinations or requests for comment, preceding the
-corresponding action by a median of 68 days for Section 301 and longer for Section 232. The
-antidumping data already carries initiation dates for 2,177 case records, a median of 190 days
-ahead of the duty-starting document. With those attached, the first question becomes answerable.
+The next step is to reconstruct earlier information dates. Of the 2,658 documents we set aside,
+roughly two hundred are initiation notices or requests for comment, and the antidumping data
+already carries initiation dates for 2,177 records.
 
 ## 5. Statement of contributions
 

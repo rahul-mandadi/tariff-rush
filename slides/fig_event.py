@@ -17,6 +17,7 @@ Usage:  python3 slides/fig_event.py      # from the repo root
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
 
 plt.rcParams.update({
@@ -30,8 +31,11 @@ plt.rcParams.update({
 INK, GREY, RED, PALE = "#14161A", "#6E737C", "#C8102E", "#D4D8DC"
 
 d = pd.read_csv("adcvd_event_study.csv")
-lo = 100 * ((1 + d.coef - 1.96 * d.se).clip(lower=0.01) - 1)
-hi = 100 * ((1 + d.coef + 1.96 * d.se) - 1)
+# the point estimates in the csv are 100*(exp(coef)-1), so the interval has to be transformed
+# the same way. An earlier version added and subtracted in log space and multiplied by 100,
+# which put the plotted point outside its own shading.
+lo = 100 * (np.exp(d.coef - 1.96 * d.se) - 1)
+hi = 100 * (np.exp(d.coef + 1.96 * d.se) - 1)
 
 fig, ax = plt.subplots(figsize=(10, 4.8))
 ax.axhspan(-100, 200, xmin=0, xmax=0, color="none")
