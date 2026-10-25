@@ -18,8 +18,9 @@ eight-digit product level at which tariff orders are written, matched to 134 tar
 993 antidumping cases. We measure how much of a product category a tariff action
 actually names: typically about five percent, and under one percent in a third of cases, which is
 enough to drive a category-level estimate toward zero. Separately, we find that imports from a
-country named in an antidumping case lose about 36 points of ground against other suppliers of
-the same product, with no recovery over the eighteen months we observe and no surge beforehand.
+country named in an antidumping case lose roughly a quarter of their standing against other
+suppliers of the same product, measured in customs value, and do not regain it within the
+eighteen months we observe.
 
 ## 1. Introduction
 
@@ -41,12 +42,12 @@ two post-tariff months are observable the duty has been in force for a quarter a
 are made.
 
 The domain problem is therefore to characterise, using only information available at announcement,
-what follows a tariff for a given product and country of origin. This decomposes into three
-analytic problems: whether a surge occurs and how large, a classification problem followed by a
-regression; what the post-duty decline represents, a three-way classification between volume
-borrowed from later months, demand lost outright, and volume relocated to an untargeted country;
-and how long the aftermath persists, a duration problem with right-censoring, since some episodes
-are still in progress at the end of our panel.
+what follows a tariff for a given product and origin. It decomposes into three analytic problems.
+Whether a surge occurs and how large is a classification problem followed by a regression. What
+the post-duty decline represents is a three-way classification: volume borrowed from later
+months, demand lost outright, or volume relocated to an untargeted country. How long the
+aftermath persists is a duration problem with right-censoring, since some episodes are still
+running at the end of our panel.
 
 Existing work measures tariff responses at fine granularity for good reason. Fajgelbaum et al. [1]
 study the 2018 tariffs at ten digits, noting the increases were predominantly set at eight. The
@@ -75,14 +76,12 @@ products it names.
 
 The panel covers 140 months from January 2015 to August 2026: 15.9 million observations of one
 eight-digit product, one partner country and one month, across 12,253 product lines and 234
-partners. Two processing issues were material. The Census response carries a row denoting the total
-across all countries alongside the countries it sums; retaining it doubles every figure, and
-January 2015 initially reported 362.4 billion dollars against a true 181.2 billion. We drop it and
-reuse it as a per-month reconciliation check, which all 140 months pass, and our 2017 total is 2.34
-trillion dollars against a published 2.34 trillion. Separately, our initial parser took the first
-date near an effective-date phrase, which fails because proclamations recite earlier rate changes
-in identical wording; dates were re-extracted on the rules that an effective date cannot precede
-the announcement and that the operative date is the one most often repeated.
+partners. Two processing issues were material. The Census response carries an all-countries total alongside
+the countries it sums, which doubles every figure if retained; we drop it and reuse it as a
+per-month check that all 140 months pass, and our 2017 total is 2.34 trillion dollars against a
+published 2.34 trillion. Effective dates were re-extracted after an initial parser took dates
+from the rate histories proclamations recite, using the rules that an effective date cannot
+precede the announcement and that the operative date is the one most often repeated.
 
 For modelling we apply inclusion rules fixed in advance: at least 36 months of observed data,
 a median monthly value of at least 100,000 dollars, and at least one untreated origin supplying the
@@ -102,8 +101,12 @@ chapter. We call these actions below, though one Federal Register action may cit
 
 ### 2.4 Identification and evaluation
 
-We compare a product from a targeted country against the same product from untargeted countries
-in the same month. A price shock or global demand movement affects every supplier at once and
+The outcome throughout is the log of nominal customs value. Quantity is not available on a common
+unit across cells, so it is used for the chapter work in section 3.2 and not for the event
+studies, which is also the reason to read the value results with the care section 3.2 argues
+for. We compare
+a product from a targeted country against the same product from untargeted countries in the same
+month. A price shock or global demand movement affects every supplier at once and
 cancels, whereas a tariff moves one against the rest. The design is available for 89.6 percent of
 treated product-months, which have two or more suppliers, median seven.
 
@@ -141,54 +144,55 @@ untouched ones, but barely: medians of negative 7.1 against negative 7.6 percent
 negligible, which is what heavy dilution predicts. This is the specific, quantified form of the
 attenuation that [2] and [3] describe in general terms.
 
-Granularity alone does not then deliver an answer. Re-estimating the same tariff actions at eight
-digits, where treatment is exact, Table 1 shows no common pattern in the months after a duty
-begins and significant movement before it in all three legal mechanisms.
+Re-estimating the same tariff actions at eight digits, where treatment is exact, then shows what
+the category-level view could not. Table 1 reports a first-differenced specification, so each
+figure is the month-over-month change in log import value against the same change in the baseline
+months; a one-month jump in the level appears as a positive followed by a negative.
 
-**Table 1.** The same tariff actions estimated at eight digits, by legal mechanism. Each figure is
-the differenced estimate at month k relative to the duty start, against untargeted origins of the
-same product; k is months. Asterisks mark significance at 5 percent.
+**Table 1.** The same tariff actions at eight digits, by legal mechanism, first-differenced.
+Month 0 is the announcement month, not the duty start. Each figure is the month-over-month change
+in log import value for the targeted origin against untargeted origins of the same product.
+Asterisks mark significance at 5 percent; event counts are nine, four and eight documents.
 
-| mechanism | k = 0 | k = 1 | k = 2 | k = 3 | pre-period months significant |
-| --- | --- | --- | --- | --- | --- |
-| enumerated, Section 301 lists | +27%* | -37%* | -7%* | -22%* | 4 of 6 |
-| country-wide, IEEPA | -15%* | +8%* | -8%* | -6%* | 5 of 6 |
-| material class, Section 232 | -3% | -10%* | -14%* | 0% | 2 of 6 |
+| mechanism | k = -2 | k = -1 | k = 0 | k = 1 |
+| --- | --- | --- | --- | --- |
+| enumerated, Section 301 lists | -16%* | +1% | **+27%*** | -37%* |
+| country-wide, IEEPA | **+9%*** | -10%* | -15%* | +8%* |
+| material class, Section 232 | +0% | **+13%*** | -3% | -10%* |
 
-Exact treatment removes the dilution, and the estimates remain unstable. Two constraints are
-therefore separable: how a tariff order is written, which this section measures, and when it
-becomes known, which section 4 takes up and which the 8.5-day median window makes acute. The
-antidumping cases in section 3.3 are not subject to the second constraint, which is why they
-carry the identification that these events cannot.
+The jump arrives at a different month in each mechanism, and the ordering tracks how much warning
+each one gives. Section 301 lists are published with the action, and the jump is in the
+announcement month itself. IEEPA measures were trailed publicly, and the jump comes two to three
+months before the announcement. Section 232 duties follow an investigation, and the jump comes one
+month before. That is front-loading whose timing moves with how early the duty became knowable,
+which is the same point section 4 makes about announcement dates.
+
+Two caveats belong with it. The pre-periods are not flat, with four, five and two of six months
+individually significant, so this is a pattern consistent with front-loading rather than a clean
+identified effect. And the three rows rest on nine, four and eight documents, with standard errors
+clustered on product-origin cells rather than on events, so the asterisks are optimistic.
 
 ### 3.2 Neither dollars nor quantity is a safe measure at category level
 
-A second measurement problem comes from the same source: dollars cannot distinguish a price
-increase from a volume increase. Our anomaly detector scores each chapter by how far its furthest
-2025 month ran from a counterfactual fitted on its own prior years, in units of that series'
-residual standard deviation, so a score of 1.0 means the chapter just reached the edge of its
-normal range. On dollars it ranked cocoa among the most unusual categories of 2025; cocoa prices
-roughly tripled after poor West African harvests, so a price movement read as a surge in volume.
+A second measurement problem comes from the same source. Our anomaly detector scores each chapter
+by how far its furthest 2025 month ran from a counterfactual fitted on its own prior years, in
+units of that series' residual standard deviation, so 1.0 is the edge of the normal range. On
+dollars it ranked cocoa among the most unusual categories of 2025, but cocoa prices roughly
+tripled after poor West African harvests, so a price movement read as a surge in volume.
 
-Switching to quantity is not a straightforward correction. Quantity is reported in each product's
-native unit, and at chapter level those units are mixed: 56 of 98 chapters report kilograms for
-under seventy percent of their value, with apparel in dozens, footwear in pairs and vessels in
-units. Restricting to chapters whose dominant unit carries at least eighty percent of value leaves
-65 of them, of which 63 are rankable on both measures, and the two rankings disagree substantially.
-
-Pharmaceuticals is the extreme case, 2.86 on dollars against negative 0.33 on quantity. Its
-tonnage in 2025 tracked trend while dollar value rose 57 percent above trend in March on flat
-tonnage, concentrated in two lines and in high-value origins: within line 30049092, Switzerland
-shipped 4.31 billion dollars in 832 tonnes that month, roughly 5,200 dollars per kilogram, against
-India at 183. That is a shift in product mix, which tonnage cannot see. Copper runs the other way,
-1.77 on dollars against 2.68 on quantity. In dollars cocoa is a false positive; in quantity
-pharmaceuticals is a false negative. Both scores move with the counterfactual's anchoring, which
-shifts pharmaceutical tonnage from negative 6 to positive 8 percent, but the gap between the two
-measures does not.
+Quantity is not a clean substitute. It comes in each product's native unit, and at chapter level
+those are mixed: 56 of 98 chapters report kilograms for under seventy percent of their value,
+with apparel in dozens and footwear in pairs. Restricting to chapters whose dominant unit carries
+eighty percent of value leaves 65, of which 63 are rankable on both measures, and the two
+rankings disagree sharply. Pharmaceuticals scores 2.86 on dollars and negative 0.33 on quantity:
+its tonnage tracked trend while dollar value rose 57 percent above trend in March, concentrated
+in high-value origins, which is a shift in product mix that tonnage cannot see. Copper runs the
+other way, 1.77 against 2.68. In dollars cocoa is a false positive; in quantity pharmaceuticals
+is a false negative.
 
 Both failures share a cause with section 3.1. A chapter mixes products with different treatment
-status and different units of measure. An eight-digit line usually has one of each, which is why
-we work there, though 145,423 cells carrying 4.6 percent of value still span more than one unit.
+status and different units. An eight-digit line usually has one of each, though 145,423 cells
+carrying 4.6 percent of value still span more than one unit.
 
 ### 3.3 The aftermath of an antidumping duty is a durable loss with no preceding surge
 
@@ -201,19 +205,18 @@ falling in any window.
 
 The path is not the one the front-loading literature predicts. The named country runs about 42
 percent above its baseline position through the year before collection, declines from roughly four
-months out, and averages 6 percent across the eighteen months after. That is a fall of 36 points
-against other suppliers of the same product, and it does not reverse. It is also not a complete
+months out, and averages 6 percent across the eighteen months after. In the model's own units that is a fall of 0.30 log points,
+about 26 percent against other suppliers of the same product, and it does not reverse. It is also not a complete
 displacement: eight of the nineteen post-period months are individually significant and all eight
 remain above baseline.
 
 [[FIG:2|slides/fig/10_event.png|The named country against other suppliers of the same product, 673 events, from a baseline eighteen to thirteen months before collection begins. Shading is the 95 percent interval on the real path. The placebo repeats the estimation on the same events shifted back 24 months.]]
 
-Running the identical estimation on events shifted back 24 months gives a path that rises 15
-points over the same event time rather than falling, a divergence of 51 points. That placebo is
-not a clean null: shifting back two years places its post window inside the real pre-period, which
-is itself elevated, so it is informative as a contrast rather than as a zero. The elevation a year
-before collection is in any case consistent with an import surge being the reason a petition is
-filed, which means part of the later decline may be reversion rather than the duty.
+The same estimation on events shifted back 24 months gives a path that rises rather than falls
+over the same event time. That placebo is not a clean null, because shifting back two years puts
+its post window inside the real pre-period, so it is a contrast rather than a zero. The elevation
+before collection is in any case consistent with an import surge being why a petition is filed,
+so part of the later decline may be reversion rather than the duty.
 
 Table 2 sets the episode-level comparison against its placebo.
 
@@ -229,21 +232,20 @@ events shifted back 24 months, a log deviation from each cell's own pre-event le
 The post-period difference separates from its placebo at p < 0.0001 on both a rank test and a
 t-test, robust across horizons of six, nine and twelve months. The during-window difference is not evidence of a
 rush: a rank test gives p = 0.37, and a Welch test separates at p = 0.023 but in the wrong
-direction, real mean negative 0.018 against positive 0.063 in placebo. The absence is
-explicable rather than anomalous: antidumping duties can be applied retroactively to the initiation
-notice, so accelerating purchases offers no protection. This contrast is itself a finding, because
-it suggests that whether a tariff produces a surge depends on whether the duty can be escaped by
-buying early.
+direction, real mean negative 0.018 against positive 0.063 in placebo. We considered whether
+retroactive liability explains the absence, since provisional measures can reach back 90 days
+where critical circumstances are found. Our own data does not support it: splitting the episodes
+on that finding, the cases carrying critical circumstances show more buying ahead rather than
+less, at +0.063 against -0.065, Welch p = 0.015. We report the absence without a mechanism for
+it.
 
-We cannot say what share of the lost volume is replaced. Dividing the median change in a
-product's total by the median change in the named country, as we first did, is confounded with
-market share: a supplier holding a fifth of a product can stop entirely with nobody replacing it
-and that arithmetic still reports four fifths absorbed. Redone in levels, where treated and other
-suppliers sum to the total by construction, the per-episode median absorption is near zero, other
-suppliers fall alongside the named country in half of episodes, and the dispersion is far too
-large to estimate from. The component measuring whether other suppliers grow also fails its
-placebo, 4.2 against 6.6 percent at p = 0.28. The loss to the named country is established; its
-destination is not.
+We cannot say what share of the lost value is replaced. Dividing the median change in a product's
+total by the median change in the named country is confounded with market share: a supplier
+holding a fifth of a product can stop entirely with nobody replacing it and that arithmetic still
+reports four fifths absorbed. Redone in levels, where the series are additive, per-episode median
+absorption is near zero, other suppliers fall alongside the named country in half of episodes,
+and the dispersion is too large to estimate from. The component measuring whether other suppliers
+grow also fails its placebo at p = 0.28. The loss is established; its destination is not.
 
 ## 4. Discussion
 
@@ -253,30 +255,31 @@ argues against waiting it out. We cannot yet say whether that volume reappears e
 
 The methodological conclusion is the one we would most want carried forward: a product category
 is the wrong unit for tariff work. The typical action names five percent of the category it
-touches, and the same aggregation mixes incompatible units of measure. Working at eight digits
-removes both, though section 3.1 shows it is not on its own sufficient to identify an effect.
+touches, and the same aggregation mixes incompatible units of measure. Both resolve at eight
+digits, which is where the rush in Table 1 becomes visible at all.
 
-The goals are partly met. The second question is answered for antidumping cases and survives
-placebo testing; the third has a partial answer in the absence of recovery over eighteen months,
-but no fitted duration model. The first remains open, and section 3.1 locates why: the median
-interval between the announcement date we hold and the start of collection is 8.5 days, too short
-for any meaningful acceleration of shipments, because most of our documents are implementing
-notices rather than first announcements. Copper illustrates it. The proclamation was signed on 30
-July 2025, but imports had climbed since February, following the executive order of 25 February
-directing a Section 232 investigation. The informative date is when a tariff becomes likely, not
-when it becomes official.
+The goals are partly met. The first question has a partial answer in Table 1: a rush exists and
+its timing moves with how early the duty became knowable, though on four to nine events per
+mechanism and with pre-periods that are not flat. The second is answered for antidumping cases
+and survives placebo testing. The third has only the absence of recovery over eighteen months,
+with no fitted duration model.
 
-The next step is to reconstruct earlier information dates. Roughly two hundred of the documents
-we set aside are initiation notices or requests for comment, and the antidumping data already
-carries initiation dates for 2,177 records.
+What limits all three is the same thing: our announcement dates are mostly implementing notices,
+and the informative date is when a tariff becomes likely, not when it becomes official. Copper
+shows it. The proclamation was signed on 30 July 2025, but imports had climbed since February,
+after the 25 February order directing a Section 232 investigation.
+
+The next step is to reconstruct earlier information dates: roughly two hundred of the documents
+we set aside are initiation notices, and the antidumping data already carries initiation dates
+for 2,177 records.
 
 ## 5. Statement of contributions
 
 Both authors contributed equally. Rahul Reddy Mandadi led data collection and panel construction,
-including the Census harvest, the eight-digit panel and its reconciliation, and the tariff and
-antidumping event tables. Raunaksingh Khalsa led exploratory analysis, the anomaly detection work,
-and the first presentation. Both developed the research questions, chose the identification
-strategy, interpreted the results, and wrote this report.
+the Census harvest, the eight-digit panel and its reconciliation, and the event tables.
+Raunaksingh Khalsa led exploratory analysis, the anomaly detection work and the first
+presentation. Both set the research questions, chose the identification strategy, and wrote this
+report.
 
 ## 6. References
 

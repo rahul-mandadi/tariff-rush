@@ -24,7 +24,9 @@ respect. Zero em dashes. All figure and table numbers resolve.
 | copper split, appendix | semi-finished 49 -> 68 -> 27 kt; cathodes 89 -> 218 -> 154 | `copper_split.py` |
 | units screen | 56 of 98 chapters under 70% kg; 65 pass the 80% screen, 63 rankable | `chapter_quantity.py` |
 | pharma | 2.86 on dollars, -0.33 on quantity; +57% March on flat tonnage | `pharma_mix.py` |
-| event study | real +42% before, +6% after; placebo +27% -> +42%; 51-point divergence | `adcvd_event_study.py` |
+| event study | real +42% before, +6% after, a fall of 0.30 log points (about 26%) | `adcvd_event_study.py` |
+| tariff-action rush | 301 jumps +27% in the announcement month, IEEPA +9% two months early, 232 +13% one month early | `event_study.py --diff` |
+| retroactivity | NOT supported: critical-circumstance cases rush more, +0.063 vs -0.065, p = 0.015 | `adcvd_analysis.py` |
 | overlaps dropped | 27,255 of 65,488 cell-months in any window | `adcvd_event_study.py` |
 | episode test (Table 2) | after -0.316 vs +0.020 placebo, p < 0.0001; during p = 0.37 | `adcvd_analysis.py` |
 | absorption | not estimable; per-episode median near zero, sd 338 | `substitution_levels.py` |
@@ -40,6 +42,14 @@ points in percent space, so a point sat outside its own shading.
 **Second (Codex, deeper).** Found the chapter-level null no longer reproduces (p = 0.0075, not a
 null), and that eight digits never rescued the tariff actions. Section 3.1 was rebuilt around what
 was measured rather than around a failure, and Table 1 now reports the eight-digit estimates.
+
+**Fourth (Opus, as examiner, on the rebuilt version).** Scored 17/25 and found the reading of
+Table 1 was wrong: the specification is first-differenced and anchored on the announcement month,
+so +27 then -37 for Section 301 is a one-month level spike, which is the rush. Section 3.1 had
+called the same coefficients unstable. Also found the outcome is log nominal value while the
+prose said volume, that "36 points" was a difference of two exp(b)-1 transforms rather than a
+percent change, and that the repository's own critical-circumstances test contradicts the
+retroactivity mechanism the report asserted. All fixed.
 
 **Third (Opus, as examiner).** Scored 18/25 on the earlier version. Found Table 1 unreferenced, Fig.
 1 rendering near 3pt, the statement of contributions pushing to page 6, panel attrition undisclosed,
