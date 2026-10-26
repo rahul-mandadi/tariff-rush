@@ -90,6 +90,16 @@ Rerunning on the affirmative flag gives +0.067 against -0.066, Welch p = 0.012, 
 so the conclusion holds and strengthens. Codex judged this test unusable; it had not rerun it.
 Figure 1's labels were overlapping at print size and now use leader lines.
 
+**Eighth (wording only).** Three terms Codex flagged as undefined or inconsistent. IEEPA is now
+expanded and all three legal authorities get a one-line plain description before Table 1 uses
+them as row labels. Antidumping and countervailing are defined at first substantive use in 3.3.
+`cell` is redefined as one product from one country, which matches the scripts and makes
+"cell-month", "clustered on cells" and the 145,423 mixed-unit count coherent; `build_panel_hs8.py`
+groups that check on product and country only, so the figure counts pairs. The appendix no longer
+says R-squared for the absorber model, which is a classifier scored on AUC and top-one accuracy.
+Figure 1's labels use leader lines, and figures render at 66 percent so they stop jumping page
+breaks and leaving gaps.
+
 ## Still open
 
 - `adcvd_analysis.py` and `substitution_test.py` use nominal dollar value; the report says

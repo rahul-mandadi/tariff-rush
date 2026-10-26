@@ -74,7 +74,8 @@ products it names.
 
 The panel covers 140 months from January 2015 to August 2026: 15.9 million observations of one
 eight-digit product, one partner country and one month, across 12,253 product lines and 234
-partners. We call one such product-country-month a cell. Two processing issues were material, an
+partners. We call one eight-digit product from one partner country a cell, so each row is one
+cell in one month. Two processing issues were material, an
 all-countries total that doubles every figure if retained and effective dates misread from
 recited rate histories; the appendix gives both. After the first, the panel reconciles to a 2017
 total of 2.34 trillion dollars against a published 2.34 trillion, and all 140 months pass the
@@ -90,8 +91,7 @@ cells that drop are thin, so the value share overstates how much of the product 
 
 We searched 2,792 Federal Register documents and classified 134 as actions imposing or modifying a
 duty; the rest are proposed rules, notices, exclusion procedures and trade remedy documents. We separately harvested antidumping and countervailing duty proceedings,
-yielding 993 cases across 70 countries and 1,297 named product lines, with case numbers linking
-each proceeding's initiation, preliminary, final and order stages. From chapter 99 we resolved
+yielding 993 cases across 70 countries and 1,297 named product lines, with case numbers linking each proceeding's stages. From chapter 99 we resolved
 9,083 eight-digit lines named across 162 surcharge codes, giving 1,350 pairings of one surcharge code with one
 chapter. We call these actions below, though one Federal Register action may cite several codes.
 
@@ -99,19 +99,18 @@ chapter. We call these actions below, though one Federal Register action may cit
 
 The outcome throughout is the logarithm of customs value, the dollar amount declared at the
 border and not adjusted for inflation; in logs a coefficient reads as a percentage change.
-Quantity is not available on a common unit across cells, so it is used for the chapter work in
-section 3.2 and not for the event studies. We compare
-a product from a targeted country against the same product from untargeted countries in the same
-month. A price shock or global demand movement affects every supplier at once and
-cancels, whereas a tariff moves one against the rest. The design is available for 89.6 percent of
-treated product-months, which have two or more suppliers, median seven.
+Quantity has no common unit across cells, so it is used for the chapter work in section 3.2 and
+not for the event studies. We compare a product from a targeted country against the same product
+from untargeted countries in the same month. A price shock or global demand movement hits every
+supplier at once and cancels, whereas a tariff moves one against the rest. The design is
+available for 89.6 percent of treated product-months, which have two or more suppliers, median
+seven.
 
 Estimates we report as results are paired with a placebo: the identical calculation on the same
-events shifted 24 months earlier, where no action occurred. An estimate that does not separate
-from its own placebo is not reported as a result. Table 1 is the exception and is labelled as
-such. This discipline has retired three candidate estimators
-over the course of the project, including one of our own earlier conclusions, described in section
-3.3.
+events shifted 24 months earlier, where no action occurred. An estimate that does not separate from its own
+placebo is not reported as a result; Table 1 is the exception and is labelled as such. This
+discipline has retired three candidate estimators, including one of our own earlier conclusions,
+described in section 3.3.
 
 ## 3. Results
 
@@ -124,7 +123,7 @@ pairings of one surcharge code with one chapter, the median pairing
 names 5.4 percent of that chapter's import value, and 32.4 percent of pairings name under one
 percent. Collapsing to one figure per surcharge code gives a median of 1.3 percent.
 
-Fig. 1 shows what that looks like for copper, the running example of this project. Chapter 74
+Fig. 1 shows this for copper, the running example of this project. Chapter 74
 comprised 24.7 billion dollars of imports across 89 eight-digit lines in 2025. The Section 232
 proclamation of 30 July 2025 imposed a 50 percent duty on semi-finished copper products and
 intensive derivatives, 29 percent of the chapter by value. Refined copper and cathodes, 67
@@ -141,9 +140,11 @@ points is detectable and economically negligible, which is what heavy dilution p
 general terms.
 
 Re-estimating the same tariff actions on the eight-digit panel then shows what the
-category-level view could not. Treatment is exact for the two mechanisms that name products,
-Section 301 and IEEPA. It is not for Section 232, whose proclamations name a material class, so
-that row still assigns treatment by chapter and carries the dilution this section describes. Table 1 reports a first-differenced specification, so each
+category-level view could not. Three legal authorities appear below. Section 301 answers an unfair-trade finding and publishes
+the list of goods it taxes. IEEPA, the International Emergency Economic Powers Act, taxes
+everything from one country at once. Section 232 answers a national-security investigation and
+names a class of material, not a list. Treatment is therefore exact for the first two but not for
+Section 232, whose row still assigns by chapter and carries the dilution this section describes. Table 1 reports a first-differenced specification, so each
 figure is the month-over-month change in log import value against the same change in the baseline
 months; a one-month jump in the level appears as a positive followed by a negative.
 
@@ -202,8 +203,9 @@ has not reversed eighteen months later. This is the one estimate here that clear
 a wide margin, and it is the opposite of what front-loading predicts: we detect no rush before
 the duty starts.
 
-Antidumping and countervailing proceedings give the event sample with adequate power: the cases
-are numerous, name products explicitly, and target individual countries. Of the 508 episodes in
+An antidumping duty answers a complaint that a foreign producer sells below its home-market
+price; a countervailing duty answers a complaint of subsidy. Both name a product and a country,
+and both are numerous, which gives the event sample adequate power. Of the 508 episodes in
 Table 2, 338 are antidumping and 169 countervailing. We date each from the publication of the
 preliminary determination and treat that as the onset of collection, which is wrong for 8 of
 them; the appendix gives the detail. Fig. 2 traces the named country against
@@ -280,9 +282,8 @@ carry one.
 ## 5. Statement of contributions
 
 Both authors contributed equally. Rahul Reddy Mandadi led data collection, the eight-digit
-panel and its reconciliation, and the event tables.
-Raunaksingh Khalsa led exploratory analysis, the anomaly detection work and the first
-presentation. Both set the research questions, chose the identification strategy, and wrote this
+panel and the event tables. Raunaksingh Khalsa led exploratory analysis, anomaly detection and
+the first presentation. Both set the research questions, chose the identification strategy, and wrote this
 report.
 
 ## 6. References
@@ -352,9 +353,11 @@ them. This is a property of the selection rule, not of those two documents.
 Three limitations should be stated. The tariff action sample is thin: 21 usable events, with a
 single December 2018 action carrying 5,921 named product lines, so that group approximates one
 large event. Pre-trends in levels are substantial for two of three legal mechanisms, which is why
-we report the differenced specification. And three attempts to predict episode-level outcomes gave
-negative out-of-sample R-squared; year alone explains 0.366 of the variance in retention against
-0.142 for structural features in-sample, so period effects dominate. That is consistent with the
+we report the differenced specification. And three attempts to predict episode-level outcomes
+failed: two regressions gave negative out-of-sample R-squared, including against the training
+mean, and the third ranks which origin absorbs the displaced volume and so is scored on AUC and
+top-one accuracy rather than R-squared. Year alone explains 0.366 of the variance in retention
+against 0.142 for structural features in-sample, so period effects dominate. That is consistent with the
 within-product design working precisely because it differences them out.
 
 
