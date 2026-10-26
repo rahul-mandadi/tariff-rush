@@ -23,6 +23,9 @@ body { font-family: "Avenir Next", Helvetica, Arial, sans-serif; font-size: 10pt
 h1 { font-size: 17pt; margin: 0 0 2pt 0; line-height: 1.2; }
 h2 { font-size: 12pt; margin: 10pt 0 3pt 0; }
 h3 { font-size: 10.5pt; margin: 7pt 0 2pt 0; }
+/* never strand a heading at the foot of a page, and keep stray single lines together */
+h1, h2, h3 { page-break-after: avoid; }
+p { orphans: 2; widows: 2; }
 p  { margin: 0 0 6pt 0; text-align: justify; }
 figure { margin: 7pt 0; page-break-inside: avoid; text-align: center; }
 figure img { width: 60%; }

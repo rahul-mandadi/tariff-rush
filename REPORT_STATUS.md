@@ -107,6 +107,13 @@ read, and the report already conceded its consequence without naming its cause. 
 at 60 percent so they stop jumping page breaks. Caught on visual inspection: the 3.3 heading had
 been wrapped across two lines in the markdown, so its second half was rendering as body text.
 
+**Tenth (visual pass over every rendered page).** Previous passes checked the markdown and the
+extracted text, which is how the 3.3 heading defect survived. Rendering all seven pages and
+looking at them found one more: page 1 ended with "2. Methods" and "2.1 Data" and no body text
+under them. Fixed in `build_report.py` with `page-break-after: avoid` on headings and
+`orphans/widows: 2` on paragraphs. Confirmed by eye: both figures legible at 60 percent, Figure 1
+labels separated, all headings intact, tables aligned, page 5 ends on the contributions.
+
 ## Still open
 
 - `adcvd_analysis.py` and `substitution_test.py` use nominal dollar value; the report says
