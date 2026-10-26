@@ -100,6 +100,13 @@ says R-squared for the absorber model, which is a classifier scored on AUC and t
 Figure 1's labels use leader lines, and figures render at 66 percent so they stop jumping page
 breaks and leaving gaps.
 
+**Ninth (final).** Added the control-group caveat to 2.4: a supplier absorbing displaced volume
+sits in the control group itself, so the design measures relative standing rather than the
+targeted origin's loss in isolation. This was the strongest unaddressed objection from the Codex
+read, and the report already conceded its consequence without naming its cause. Figures render
+at 60 percent so they stop jumping page breaks. Caught on visual inspection: the 3.3 heading had
+been wrapped across two lines in the markdown, so its second half was rendering as body text.
+
 ## Still open
 
 - `adcvd_analysis.py` and `substitution_test.py` use nominal dollar value; the report says

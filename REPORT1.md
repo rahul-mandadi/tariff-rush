@@ -25,20 +25,20 @@ declared at the border, and does not recover it within the eighteen months we ob
 ## 1. Introduction
 
 A tariff is a tax on imported goods, announced in the United States by a proclamation or agency
-notice naming a future date on which collection begins. That gap creates an incentive to
-accelerate shipments and clear customs beforehand. The resulting pattern, a rise before the start
-date and a fall after it, is known as front-loading and is well documented [5].
+notice naming a future date on which collection begins. That gap rewards shipping early and
+clearing customs beforehand. The resulting rise before the start date and fall after it is known
+as front-loading and is well documented [5].
 
 Observing the surge is not difficult. Knowing what the fall means is. If importers merely moved
 purchases forward, volumes recover; the volume was borrowed from later months. If buyers switched
 to another country and stayed, the fall is permanent. The two are indistinguishable for months and
 imply opposite decisions.
 
-Those decisions are expensive and made early. An importer must choose between absorbing the duty
-and qualifying an alternative supplier, which takes months; a lender holds the same uncertainty
-as credit risk. Census publishes monthly trade roughly five weeks after the reference month
-closes, so by the time two post-tariff months are observable the duty has been in force for a
-quarter and the commitments are made.
+Those decisions are expensive and made early. An importer must choose between absorbing the
+duty and qualifying an alternative supplier, which takes months; a lender holds the same
+uncertainty as credit risk. Census publishes monthly trade roughly five weeks after the month
+closes, so by the time two post-tariff months are visible the duty has run for a quarter and the
+commitments are made.
 
 The domain problem is therefore to characterise, using only information available at announcement,
 what follows a tariff for a given product and origin. It decomposes into three questions. **Q1:
@@ -52,8 +52,8 @@ Existing work measures tariff responses at fine granularity for good reason. Faj
 [1] study the 2018 tariffs at ten digits, noting the increases were predominantly set at eight.
 The International Trade Commission [2] estimates one elasticity at two, four, six and eight
 digits and finds coarser data gives systematically smaller estimates; Imbs and Mejean [3] report
-the same outside the tariff setting, and Flaaen and Pierce [4] use a continuous exposure measure
-rather than a binary indicator. Our first result quantifies how severe this is for United States
+the same outside the tariff setting, and Flaaen and Pierce [4] use continuous exposure rather
+than a binary indicator. Our first result quantifies how severe this is for United States
 tariff actions.
 
 ## 2. Methods
@@ -98,19 +98,19 @@ chapter. We call these actions below, though one Federal Register action may cit
 ### 2.4 Identification and evaluation
 
 The outcome throughout is the logarithm of customs value, the dollar amount declared at the
-border and not adjusted for inflation; in logs a coefficient reads as a percentage change.
+border, not adjusted for inflation; in logs a coefficient reads as a percentage change.
 Quantity has no common unit across cells, so it is used for the chapter work in section 3.2 and
 not for the event studies. We compare a product from a targeted country against the same product
 from untargeted countries in the same month. A price shock or global demand movement hits every
-supplier at once and cancels, whereas a tariff moves one against the rest. The design is
-available for 89.6 percent of treated product-months, which have two or more suppliers, median
-seven.
+supplier at once and cancels, whereas a tariff moves one against the rest. The controls are not clean, though: a supplier
+absorbing displaced volume sits in the control group itself, so what we measure is relative
+standing rather than the targeted origin's loss in isolation. The design is available for 89.6
+percent of treated product-months, which have two or more suppliers, median seven.
 
-Estimates we report as results are paired with a placebo: the identical calculation on the same
+Estimates we report as results are paired with a placebo: the same calculation on the same
 events shifted 24 months earlier, where no action occurred. An estimate that does not separate from its own
-placebo is not reported as a result; Table 1 is the exception and is labelled as such. This
-discipline has retired three candidate estimators, including one of our own earlier conclusions,
-described in section 3.3.
+placebo is not reported as a result; Table 1 is the exception and is labelled as such. The discipline has retired three candidate estimators, including one of our own earlier
+conclusions, described in section 3.3.
 
 ## 3. Results
 
@@ -193,8 +193,7 @@ Both failures share a cause with section 3.1: a chapter mixes products with diff
 status and different units. An eight-digit line usually has one of each, though 145,423 cells
 carrying 4.6 percent of value still span more than one.
 
-### 3.3 The aftermath of an antidumping or countervailing duty is a durable loss, with no
-preceding surge we can detect
+### 3.3 The aftermath of an antidumping or countervailing duty is a durable loss
 
 When the United States imposes an antidumping or countervailing duty, the named country loses
 ground against the other countries supplying the same product. It runs 42 percent above its own

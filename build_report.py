@@ -25,7 +25,7 @@ h2 { font-size: 12pt; margin: 10pt 0 3pt 0; }
 h3 { font-size: 10.5pt; margin: 7pt 0 2pt 0; }
 p  { margin: 0 0 6pt 0; text-align: justify; }
 figure { margin: 7pt 0; page-break-inside: avoid; text-align: center; }
-figure img { width: 66%; }
+figure img { width: 60%; }
 figcaption { font-size: 8.5pt; text-align: left; color: #44474d; margin-top: 3pt; line-height: 1.3; }
 p.tblcap { font-size: 8.5pt; color: #44474d; margin: 9pt 0 2pt 0; line-height: 1.3; }
 table { border-collapse: collapse; font-size: 9.5pt; margin: 7pt 0; }
