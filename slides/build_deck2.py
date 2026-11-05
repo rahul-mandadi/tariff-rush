@@ -107,7 +107,7 @@ def add(headline, fig=None, caption=None, notes="", bullets=None, bullet_size=22
         y = bullet_top
         # A long bullet wraps, and the original step only accounted for explicit breaks, so a
         # wrapped line drew over the next bullet. Estimate the wrap from the character count.
-        per_line = int(1700 / bullet_size)
+        per_line = int(1600 / bullet_size)
         for b in bullets:
             txt(s, b, X0 + 0.15, y, CW - 0.5, 0.8, bullet_size,
                 color=GREY, spacing=1.15)
@@ -129,158 +129,189 @@ def add(headline, fig=None, caption=None, notes="", bullets=None, bullet_size=22
 s = prs.slides.add_slide(BLANK)
 chrome(s, names=False)
 txt(s, "Borrowed or Real", X0, 2.05, CW, 1.05, 48, bold=True)
-txt(s, "Measuring import surges around U.S. tariffs", X0, 3.12, CW, 0.7, 25, color=RED)
+txt(s, "When a tariff hits, does the business come back?", X0, 3.12, CW, 0.7, 25, color=RED)
 txt(s, "Rahul Reddy Mandadi   +   Raunaksingh Khalsa", X0, 4.18, CW, 0.5, 18, bold=True)
 txt(s, "DS 5500 Data Science Capstone   |   Presentation 2   |   November 2026",
     X0, 4.66, CW, 0.5, 13, color=GREY)
-txt(s, "Presentation 1 covered the data and what it could support. This one has the results.",
+txt(s, "For importers and lenders who depend on one supplier country.",
     X0, 5.52, CW, 0.9, 13, color=GREY)
 txt(s, "github.com/rahul-mandadi/tariff-rush", X0, Y_TAKE, CW, 0.4, 13, bold=True, color=RED)
 s.notes_slide.notes_text_frame.text = (
-    "Note the subtitle change: 'Forecasting' became 'Measuring'. That is deliberate and it is\n"
-    "the honest description of what the project can do. Slide 9 says why.\n\n"
-    "SPEAKER SPLIT: suggest Rahul 1-4, Raunak 5-9. Both must speak for the rubric.\n"
-    "Target is under 10 minutes.")
+    "SPEAKER SPLIT: suggest Rahul 1-5, Raunak 6-11. Both must speak.\n"
+    "Target under 10 minutes.\n\n"
+    "Open with one line: a tariff is a tax on imports.\n\n"
+    "The story: copper looks like it came back, but only the untaxed part did; and across "
+    "hundreds of antidumping cases, the targeted country does not regain its earlier position "
+    "for at least the 18 months we can see.")
 
-# ---------------------------------------------------------------- 2 recap
-add("Three results, and one retirement.",
+# ---------------------------------------------------------------- 2 the question, with copper
+add("Copper rushed in, crashed, then came back.", fig="01_context.png",
+    caption="When a tariff is announced, importers often buy early, then imports drop. Is that "
+            "drop borrowed, meaning they bought ahead and will be back, or real, meaning the "
+            "business has left? Copper looks borrowed: total imports came back.",
+    notes="This is the question in the title. Borrowed means bought early and comes back. Real "
+          "means gone.\n\n"
+          "Copper is our running example because the answer is not what it looks like. Hold that "
+          "thought for two slides.")
+
+# ---------------------------------------------------------------- 3 coverage (finding 1)
+add("But most copper was outside this duty.", fig="09_sankey.png",
+    caption="The 50% duty named wire, tubes and sheets: 29% of copper imports by value. Refined "
+            "cathodes, copper sold as a raw input and 67% of the total, were outside it. That is "
+            "typical: a tariff usually names about 5 dollars of every 100 its category imports.",
+    notes="Say this, it answers Kylie's note '1% coverage means ...': 1% coverage means the "
+          "products a tariff names made up one dollar in every hundred that the category imported. "
+          "The other ninety-nine were in products outside that tariff's list.\n\n"
+          "A category here is a broad product group, what the customs schedule calls a chapter, "
+          "like copper or pharmaceuticals.\n\n"
+          "How it is built, Kylie's 'same for Fig 5': for each pairing of a tariff list with a "
+          "category, add up imports of the products the list names, from all countries, and divide "
+          "by the whole category. Across 1,350 pairings the median is 5.4%, and a third are under "
+          "1%. We use 2017 trade, before the 2018 tariffs, so the shares are not already shaped by "
+          "them. It does not hinge on the year: 5.4% with 2016, 5.4% with 2017, 6.7% with 2024.")
+
+# ---------------------------------------------------------------- 4 the copper split
+add("Split it, and the answer appears.", fig="11_copper_split.png",
+    caption="The duty's main taxed products fell to about half their old level and stayed there. "
+            "Untaxed cathodes are what came back. For the products the duty hit, the drop looks real. "
+            "One material and one tariff, so an example; the next slides test it across hundreds.",
+    notes="Numbers if asked, thousand tonnes a month: the taxed group ran 49 before, peaked at 68, "
+          "settled at 27. Cathodes ran 89, peaked at 218, settled at 154.\n\n"
+          "The two lines are the main taxed group (headings 7407 to 7413: bars, wire, plates, foil, "
+          "tubes, fittings) and refined cathodes, not every copper product. Which is taxed comes "
+          "from the proclamation's own paragraphs; its product annex is not in the Federal Register "
+          "text we hold, so groups are assigned by what each heading covers.\n\n"
+          "Both lines rose before the list of taxed products came out at the end of July. After it, "
+          "only the taxed group stayed down.")
+
+# ---------------------------------------------------------------- 5 the method
+add("How we measure it, product by product.",
     bullets=[
-        "**Presentation 1 said the category is the wrong unit.**",
-        "We had not proved it. We built the eight-digit panel, 15.9 million rows, and measured "
-        "the dilution directly.",
-        "**Three results now survive a placebo test.**",
-        "One question still does not. The rush rests on 21 usable events, so we do not report "
-        "it as answered.",
-        "**We retired the forecasting goal, on evidence. Slide 9.**",
+        "**One product from one country, every month,** using the eight-digit product codes "
+        "tariff orders are written in: 15.9 million rows of Census trade data, 2015 to 2026.",
+        "**Compared with other countries selling the same product that month.** A price or "
+        "demand change shared by all of them cancels out; the duty hits one.",
+        "**Checked against a fake date.** The identical calculation on the same cases two years "
+        "earlier, before those cases. A real effect has to beat the fake one.",
     ],
-    bullet_size=21, bullet_top=2.20, bullet_step=0.56,
-    caption="Report 1 is submitted. Everything on the next five slides is in it, with the "
-            "script that produces each number.",
+    bullet_size=20, bullet_top=2.15, bullet_step=0.62,
+    caption="Values are in nominal dollars. Price changes shared by every country, such as general "
+            "inflation, cancel in this comparison.",
     take_rule=True,
-    notes="Thirty seconds. Do not linger. The point is only: last time we had data, this time "
-          "we have results, and we also cut something.")
+    notes="This is the method Kylie asked us to explain.\n\n"
+          "Why compare countries within a product: 2020 to 2025 moved every trade series at once. "
+          "A before-and-after on one country cannot tell that apart from the duty. Comparing with "
+          "other suppliers of the same product in the same month removes what they share.\n\n"
+          "The caveat, if pushed: a price change specific to one country does not cancel, and a "
+          "supplier that picks up the lost business is itself in the comparison group, so this "
+          "measures relative standing.")
 
-# ---------------------------------------------------------------- 3 the problem, precisely
-# Bemis: "Analytic problem is given but lacks clarity." This slide exists to fix that.
-add("The problem, precisely.",
+# ---------------------------------------------------------------- 6 the aftermath (finding 2)
+add("The targeted country does not bounce back.", fig="10_event_plain.png",
+    caption="Antidumping and countervailing duties tax one product from one named country. Across "
+            "673 such events, its dollar imports ran 42% above its usual level against rival "
+            "suppliers before the duty and averaged 6% after, without returning in the 18 months "
+            "we see. Part may be an earlier run-up unwinding.",
+    notes="Define both on the way in: an antidumping duty answers a complaint that a foreign "
+          "producer sells below its home price; a countervailing duty answers a complaint that it is "
+          "subsidised. Both name one product and one country, and there are hundreds of them, which "
+          "is why we can test the question here.\n\n"
+          "Reading the chart: zero is the country's usual position against rival suppliers, measured "
+          "a year and a half before the case. It is not zero imports.\n\n"
+          "So for these duties the drop looks real, not borrowed: eighteen months on, the country's "
+          "position has not come back. That is a lasting fall in relative dollar value, not proof the "
+          "business left for good, and we cannot yet say where it went.\n\n"
+          "If asked how strong: the chart is 673 events. A separate per-case test on 508 episodes "
+          "(338 antidumping, 169 countervailing, one unlabelled) compares each with its fake date "
+          "and separates at p < 0.0001. Eight of those 508 are preliminary notices that did not "
+          "start collection.")
+
+# ---------------------------------------------------------------- 7 the transformation (Kylie's Fig 4)
+add("How we spot an unusual month.", fig="04_normal.png",
+    caption="Three steps. Draw an expected line from the category's past: recent trend plus usual "
+            "seasonal pattern. Shade a normal range from how much it usually wobbles. Score each "
+            "month of 2025 by its gap above the line as a share of the range: 1.0 reaches the top "
+            "edge. The category keeps its highest month.",
+    notes="This answers Kylie's note on Fig 4: explain the transformation and the choices.\n\n"
+          "The choices: the trend uses the last three years, so the line reflects recent growth "
+          "rather than the pre-2020 pace. The wobble is measured over the whole decade, which gives "
+          "a wider, more cautious range; using only three years would flag 28 of 96 categories "
+          "instead of 10. Gaps are on a log scale so a doubling counts the same for a small "
+          "category as a large one. The range is 1.96 times the usual wobble. The window is January "
+          "to August 2025, the one Presentation 1 used. It is a historical benchmark, not a tested "
+          "forecast.\n\n"
+          "Copper here went above its range in spring 2025, before the duty.")
+
+# ---------------------------------------------------------------- 8 dollars vs quantity (finding 3)
+add("Dollars alone can fool you.", fig="08_units.png",
+    caption="One category per row, scored in dollars and in physical quantity. Cocoa looked unusual "
+            "in dollars because its price roughly tripled. Pharmaceuticals barely moved in tonnes but "
+            "jumped in dollars in March 2025, led by Swiss medicines at about $5,000 a kilo.",
+    notes="The takeaway: a category's dollar total alone can mislead, in both directions.\n\n"
+          "Pharmaceuticals scores 2.26 on dollars and minus 0.34 on tonnes. In the medicine line "
+          "with the biggest March jump, Swiss shipments ran about $5,185 a kilo against $183 for "
+          "Indian ones, so a shift toward Swiss product lifts dollars far more than tonnes.\n\n"
+          "This check applies to the category rankings. The antidumping result on slide 6 is in "
+          "dollars, compared within the same product.")
+
+# ---------------------------------------------------------------- 9 discussion
+add("What this means.",
     bullets=[
-        "**Input**   one eight-digit product from one country, monthly customs value,\n"
-        "eighteen months either side of a trade action.",
-        "**Output**   that country's monthly position against every other country\n"
-        "supplying the same product, as a percentage.",
-        "**Success**   the path has to separate from the same calculation run on the\n"
-        "same events shifted back twenty-four months, where nothing happened.",
+        "**For an importer tied to one country:** after an antidumping duty the supplier did not "
+        "regain its earlier position in the 18 months we see, so waiting it out is risky.",
+        "**For anyone measuring tariffs:** study the products a tariff names, not the whole "
+        "category, and check physical quantities as well as dollars.",
+        "**For timing:** what matters is when a tariff becomes likely, not when it becomes "
+        "official. Copper imports rose during the investigation, months before the duty.",
     ],
-    bullet_size=21, bullet_top=2.15, bullet_step=1.30,
-    caption="One product from one country in one month is a cell. The panel holds 15.9 million "
-            "of them across 140 months.",
-    take_rule=True,
-    notes="This is the slide Bemis asked for. Read the three lines almost as written. Do not "
-          "add the three research questions here, they are on the next slides where the results "
-          "are. Input, output, how we know it worked.")
+    bullet_size=20, bullet_top=2.15, bullet_step=0.78,
+    notes="This is the Discussion. One takeaway for each audience; about a minute.\n\n"
+          "The first bullet is a reading of the evidence, not a tested rule for any one importer. "
+          "Turning it into one is what the next step is for.")
 
-# ---------------------------------------------------------------- 4 result 1, coverage
-add("A tariff names 5% of its category.", fig="09_sankey.png",
-    caption="Copper, 2025. The 50% duty named semi-finished products and derivatives, 29% of "
-            "chapter 74. Refined copper and cathodes, 67% on their own, were treated as inputs "
-            "and left untaxed. Median across all 1,350 action-and-category pairs is 5.4%, and "
-            "32.4% of pairs name under 1%.",
-    notes="The number to say out loud: 1% coverage means the action touches one dollar in every "
-          "hundred of that category. So a category-level average is 99 percent untreated trade, "
-          "and any real effect is averaged away. That is why we work at eight digits.\n\n"
-          "Copper is the example because the answer is counter-intuitive: the headline said "
-          "'50% tariff on copper' and two thirds of copper was never tariffed.")
-
-# ---------------------------------------------------------------- 5 result 2, units
-add("Dollars and quantity disagree.", fig="08_units.png",
-    caption="Chapter-level anomaly scores on value against quantity, for the 63 categories "
-            "rankable on both. Cocoa is a false positive in dollars: prices roughly tripled "
-            "after poor West African harvests. Pharmaceuticals is a false negative in quantity: "
-            "tonnage tracked trend while value rose 57% above it.",
-    notes="The point is that neither measure is safe at category level, for the same reason as "
-          "the last slide. A chapter mixes products with different treatment and different units "
-          "of measure. 56 of 98 chapters report kilograms for under seventy percent of their "
-          "value, with apparel in dozens and footwear in pairs.")
-
-# ---------------------------------------------------------------- 6 the transformation
-# Bemis: "consider adding additional slide explaining the transformation and some of the choices"
-add("How the next figure is built.",
+# ---------------------------------------------------------------- 10 what the checks confirmed
+add("What the checks confirmed.",
     bullets=[
-        "**Compare within a product, across countries, in the same month.**",
-        "A price shock or a demand swing hits every supplier at once and cancels out. "
-        "A duty moves one supplier against the rest.",
-        "**Hold the product's own monthly swings and each country's usual level fixed.**",
-        "So a point is a position against rival suppliers, not a dollar amount.",
-        "**Then run the identical calculation 24 months earlier and plot both.**",
-        "If the two paths look the same, we have measured nothing.",
+        "**Inflation.** Values are nominal dollars. A price change shared by all suppliers leaves "
+        "the main comparison unchanged; the category ranking keeps 8 or 9 of its top 10.",
+        "**Finer product codes.** The data now uses the eight-digit codes tariffs name.",
+        "**The tariff list.** 120 tariff documents, each tagged with the law it rests on.",
+        "**Unusual-month score.** Now on one consistent scale; same top ten categories.",
     ],
-    bullet_size=20, bullet_top=2.15, bullet_step=0.60,
-    caption="The controls are not clean: a supplier absorbing displaced volume is itself in the "
-            "control group. So this measures relative standing, not one country's loss in isolation.",
+    bullet_size=20, bullet_top=2.15, bullet_step=0.62,
+    caption="Each check runs from a script in the repository.",
     take_rule=True,
-    notes="Bemis asked for this slide by name after Presentation 1. Take your time here, it is "
-          "the methods justification and it is worth more than another result.\n\n"
-          "If asked why not a simple before-and-after: because 2020 to 2025 moved every trade "
-          "series at once, and a before-and-after cannot tell that apart from the duty.")
+    notes="These answer Kylie's notes from Presentation 1.\n\n"
+          "Say this about the list, since Kylie flagged it: last time we said 134. Fourteen of those "
+          "were Labor Department notices about retraining for laid-off workers, not tariffs, so the "
+          "list is 120.\n\n"
+          "Inflation, two BLS price indexes: adjusting by all import prices keeps 8 of the top 10 "
+          "(rank correlation 0.97); by non-fuel import prices, 9 of 10 (0.99). The all-imports index "
+          "is driven by fuel, which fell over 2022 to 2024. Neither touches the antidumping result, "
+          "where a shared price change cancels.\n\n"
+          "The score: the old version divided a percentage gap by a log-scale wobble. Fixed, the "
+          "scores shrink (pharmaceuticals 2.86 to 2.26), positions shift slightly, and the same ten "
+          "categories stay in the top ten.")
 
-# ---------------------------------------------------------------- 7 result 3, the aftermath
-add("The named country does not come back.", fig="10_event.png",
-    caption="673 events. The named country runs 42% above its own pre-case baseline before "
-            "collection and 6% above it after, a fall of about 26% that has not reversed "
-            "eighteen months later. The placebo rises over the same event time. Post-period "
-            "difference separates at p < 0.0001.",
-    notes="Say clearly that this is antidumping AND countervailing duties: 338 and 169 of the "
-          "508 episodes. Not tariffs. These are the cases where we have enough events.\n\n"
-          "The 26 percent is a fall in RELATIVE POSITION, from 42 above baseline to 6 above. It "
-          "is not a claim that the country sells 26 percent less than its rivals. Be precise, "
-          "this is the sentence most likely to be challenged.\n\n"
-          "Also note what is NOT here: there is no rush before the duty starts. Front-loading "
-          "predicts one and we do not detect one.")
-
-# ---------------------------------------------------------------- 8 what we retired
-# Bemis: "Need better and in-depth reasoning/justification for methods is needed."
-add("What we retired, and why.",
+# ---------------------------------------------------------------- 11 next
+add("Next: how long until it comes back?",
     bullets=[
-        "**The 79/21 absorption split.** Confounded with market share. A supplier holding a "
-        "fifth of a product can stop entirely and the arithmetic still says four fifths absorbed.",
-        "**Category-level treatment flags.** The dilution on slide 4 drives any estimate toward "
-        "zero. Detectable at p = 0.0075 and economically negligible.",
-        "**Forecasting, as a goal.** Three prediction attempts, all negative out-of-sample "
-        "R-squared, including against the training mean. Year alone explains 0.366 of the "
-        "variance; eleven structural features explain 0.142 in sample.",
+        "**The question.** For a business tied to one country, how long until its supplier is "
+        "back within its usual range?",
+        "**The data.** 508 antidumping and countervailing cases, some still running today.",
+        "**The method.** A survival model, built for how-long questions, which keeps cases that "
+        "have not recovered yet instead of dropping them.",
+        "**The deliverable.** For an importer facing a case on their product: what usually "
+        "happens, and how long it takes.",
     ],
-    bullet_size=19, bullet_top=2.15, bullet_step=1.15,
-    caption="Every estimate we report is paired with a placebo. Three candidate estimators did "
-            "not survive it, including one of our own earlier conclusions.",
+    bullet_size=20, bullet_top=2.15, bullet_step=0.62,
+    caption="Report 2 and the final presentation.",
     take_rule=True,
-    notes="This is the most important slide for the Methods and Results score. The message is "
-          "that the discipline has teeth: it killed our own findings, including one we had "
-          "already presented.\n\n"
-          "The last bullet is the big one. Period effects dominate the level of trade, which is "
-          "exactly why the within-product design works: it differences them out.")
-
-# ---------------------------------------------------------------- 9 where we are
-add("Identifiable, but not forecastable.",
-    bullets=[
-        "**What we can say.** What a duty does to a targeted origin, with a placebo behind it, "
-        "and that the category is the wrong unit to say it at.",
-        "**What we cannot.** How much volume a given product keeps. That depends mostly on what "
-        "the following year looks like for trade as a whole.",
-        "**Next.** Fit the duration model on 508 antidumping and countervailing episodes with "
-        "right-censoring, after balancing the cohort across the event window.",
-        "**Open.** Only month zero survives a Bonferroni correction across 31 coefficients.",
-    ],
-    bullet_size=19, bullet_top=2.15, bullet_step=0.95,
-    caption="Deliverable by December: outcome distributions and time-to-recovery for an "
-            "antidumping case on your product from your supplier, rather than a forecast "
-            "nobody should trust.",
-    take_rule=True,
-    notes="Close on the honest framing. 'Identifiable but not forecastable' is the line to "
-          "leave them with, and it is a result rather than an apology: three failed prediction "
-          "models are why we trust the measurement.\n\n"
-          "If asked 'so did you answer your question?': question two is partly answered, the "
-          "fall is established but we cannot separate volume lost from volume relocated. "
-          "Question one is not answered. Question three is next.")
+    notes="Close here: the targeted country does not regain its earlier position for at least 18 "
+          "months; the next question is how long.\n\n"
+          "If asked about the rush itself: we are rebuilding the tariff list document by document, "
+          "checking which countries each tariff actually hit and from what date, before we report "
+          "anything on it.")
 
 out = "slides/Mandadi_Khalsa_Presentation2.pptx"
 prs.save(out)

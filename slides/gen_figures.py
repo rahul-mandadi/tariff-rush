@@ -113,6 +113,8 @@ ax.plot(pred.index, pred.values / 1e9, lw=1.8, color=RED, ls="--", label="what w
 ax.fill_between(pred.index, pred * np.exp(-1.96 * sd) / 1e9, pred * np.exp(1.96 * sd) / 1e9,
                 color=GREY, alpha=.18, label="normal range")
 ax.axvline(pd.Timestamp("2025-08-01"), color=WARN, ls="--", lw=1.6)
+ax.text(pd.Timestamp("2025-08-01"), 0.62, " 50% duty starts", color=WARN, fontsize=12,
+        fontweight="600", va="bottom")
 ax.set_xlim(pd.Timestamp("2022-06-01"), s.index.max())
 ax.set_title("Copper went outside its own normal range in 2025")
 ax.set_ylabel("$bn"); ax.legend(fontsize=12, loc="upper left")

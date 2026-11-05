@@ -18,8 +18,8 @@ import numpy as np
 import pandas as pd
 
 plt.rcParams.update({
-    "font.family": "Avenir Next", "font.size": 13, "axes.titlesize": 15,
-    "axes.labelsize": 12, "xtick.labelsize": 12, "ytick.labelsize": 12,
+    "font.family": "Avenir Next", "font.size": 16, "axes.titlesize": 18,
+    "axes.labelsize": 16, "xtick.labelsize": 16, "ytick.labelsize": 17,
     "axes.grid": True, "grid.alpha": .22, "grid.color": "#6E737C",
     "axes.edgecolor": "#6E737C", "text.color": "#14161A",
     "axes.spines.top": False, "axes.spines.right": False,
@@ -76,19 +76,18 @@ c = cmp.loc[keep].sort_values("qty")
 lab = [NAMES.get(i, i) for i in c.index]
 y = np.arange(len(c))
 
-fig, ax = plt.subplots(figsize=(10, 5.2))
+fig, ax = plt.subplots(figsize=(13.5, 5.4))
 ax.hlines(y, c.dollars, c.qty, color="#D4D8DC", lw=3, zorder=1)
 ax.scatter(c.dollars, y, s=95, color=GREY, zorder=3, label="measured in dollars")
 ax.scatter(c.qty, y, s=95, color=INK, zorder=3, label="measured in quantity")
 ax.axvline(1, color=RED, ls=":", lw=1.6, zorder=2)
-ax.text(1.03, len(c) - 0.4, "edge of the\nnormal range", color=RED, fontsize=11,
-        fontweight="600", va="top")
+# the x-axis label already says 1.0 is the edge of normal; a label here sat on copper's dots
 ax.set_yticks(y); ax.set_yticklabels(lab)
 ax.set_xlabel("how far outside its own normal range the chapter went in 2025\n"
               "(1.0 = just reaching the edge of normal)")
 ax.set_title("Dollars and quantity disagree about which chapters moved")
 # the rightmost point is pharmaceuticals on dollars, so the legend cannot sit bottom-right
-ax.legend(fontsize=11, loc="center right", frameon=True, framealpha=.95)
+ax.legend(fontsize=14, loc="center right", frameon=True, framealpha=.95)
 fig.savefig("slides/fig/08_units.png")
 print("wrote slides/fig/08_units.png")
 
