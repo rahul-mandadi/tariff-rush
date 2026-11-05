@@ -50,23 +50,56 @@ def clean(raw):
     return re.sub(r'\s+', ' ', raw).strip()
 
 
-def authority(text):
+AUTH_PATTERNS = [
+    ('SECTION_232', r'section\s+232\b|19\s+U\.?S\.?C\.?\s+1862'),
+    ('SECTION_301', r'section\s+301\s+(?:of\s+the\s+Trade Act|investigation|action)|19\s+U\.?S\.?C\.?\s+2411'),
+    ('IEEPA', r'International Emergency Economic Powers Act|\bIEEPA\b'),
+    # safeguards: sections 201 to 204 of the Trade Act, which proclamations cite in the plural
+    # ("sections 203 and 604 of the Trade Act")
+    ('SECTION_201', r'sections?\s+20[1-4]\b[^.;]{0,40}of\s+the\s+Trade Act|19\s+U\.?S\.?C\.?\s+225[1-4]'),
+]
+
+
+def authority(text, resolve=None):
     summary = re.search(r'SUMMARY:(.*?)DATES:', text, re.I)
     if summary:
         main = re.search(r'section\s+(232|301|201)\b', summary.group(1), re.I)
         if main:
             return 'SECTION_' + main.group(1), 'Authority identified from current-action summary'
-    delegation = re.search(r'By the authority vested in me.{0,1500}?I,', text, re.I)
-    if delegation and re.search(r'International Emergency Economic Powers Act|IEEPA', delegation.group(), re.I):
-        return 'IEEPA', 'Authority identified from executive order delegation'
 
-    patterns = [
-        ('SECTION_232', r'section\s+232\b|19\s+U\.?S\.?C\.?\s+1862'),
-        ('SECTION_301', r'section\s+301\s+(?:of\s+the\s+Trade Act|investigation|action)|19\s+U\.?S\.?C\.?\s+2411'),
-        ('IEEPA', r'International Emergency Economic Powers Act|\bIEEPA\b'),
-        ('SECTION_201', r'section\s+201\s+of\s+the\s+Trade Act|19\s+U\.?S\.?C\.?\s+2251'),
-    ]
-    found = [name for name, pattern in patterns if re.search(pattern, text, re.I)]
+    # The legal basis an order rests on is named in its own delegation clause ("by the
+    # authority vested in me ..., including section 232 ..."). Recitals in 2025 orders also cite
+    # other authorities when explaining how tariffs stack, which is why copper, steel, timber and
+    # trucks came out as "multiple authorities" and fell out of the event study. Take the
+    # authority the clause names first.
+    # No end marker: orders close the clause variously ("it is hereby ordered", "do proclaim",
+    # "I hereby determine and order"), and requiring one dropped the April 2025 reciprocal-tariff
+    # order. The basis is named first, so a fixed window after the phrase is enough.
+    vest = re.search(r'authority vested in me(.{0,500})', text, re.I)
+    if vest:
+        clause = vest.group(1)
+        if re.search(r'Suspending Normal Trade Relations with Russia and Belarus', clause, re.I):
+            return 'OTHER', 'Suspending Normal Trade Relations with Russia and Belarus Act, from the delegation clause'
+        # Section 338 of the Tariff Act of 1930. The 2026 Canada measures rest on it and cite
+        # Section 232 only later, as an exemption, so a whole-document search read them as 232.
+        if re.search(r'section\s+338\b', clause, re.I):
+            return 'SECTION_338', 'Section 338 of the Tariff Act of 1930, from the delegation clause'
+        hits = sorted((m.start(), name) for name, pattern in AUTH_PATTERNS
+                      for m in [re.search(pattern, clause, re.I)] if m)
+        if hits:
+            return hits[0][1], 'Authority identified from the delegation clause'
+
+    # An agency notice that implements an executive order inherits that order's authority.
+    if resolve and summary:
+        eo = re.search(r"Executive Order (\d{5})", summary.group(1))
+        if eo:
+            parent = resolve(eo.group(1))
+            if parent:
+                auth, _ = authority(parent)
+                if auth != 'UNKNOWN':
+                    return auth, f'Authority inherited from Executive Order {eo.group(1)}'
+
+    found = [name for name, pattern in AUTH_PATTERNS if re.search(pattern, text, re.I)]
     if len(found) == 1:
         return found[0], ''
     if len(found) > 1:
@@ -94,6 +127,8 @@ def classify(record, text, body):
         return '', 'PROPOSED_RULE'
     if re.search(r'antidumping|countervailing|less than fair value|circumvention|sunset review', title):
         return '', 'TRADE_REMEDY_CASE'
+    if re.search(r'trade adjustment assistance', title):
+        return '', 'NOT_A_TARIFF_WORKER_ASSISTANCE'
     if re.search(r'product exclusion|exclusion extensions?|reinstatement of.*exclusions|conforming amendment.*exclusion|exclusion of particular products', title):
         return 'EXCLUSION', 'EXCLUSION'
     if re.search(r'exclusion.*(?:process|portal|request)|submissions.*exclusion|procedures.*(?:relief|exclusion)', title):
@@ -255,6 +290,14 @@ def main():
     records = json.loads((ROOT/'fr_index.json').read_text(encoding='utf-8'))
     assert len(records) == 2792, f'Expected 2792 index records, found {len(records)}'
     available = set(args.cached_documents.split(',')) if args.cached_documents is not None else {p.stem for p in (ROOT/'raw').glob('*.txt')}
+    by_eo = {str(r.get('presidential_document_number')): r['document_number'] for r in records
+             if r.get('presidential_document_number')}
+
+    def resolve(eo_number):
+        doc = by_eo.get(eo_number)
+        path = ROOT/'raw'/(doc+'.txt') if doc else None
+        return clean(path.read_text(encoding='utf-8', errors='replace')) if path and path.is_file() else None
+
     kept, rejected, missing = [], [], 0
     for record in records:
         path = ROOT/'raw'/(record['document_number']+'.txt')
@@ -268,7 +311,7 @@ def main():
             rejected.append(dict(document_number=record['document_number'], title=record['title'].replace('\u2014','-'), reason=reason))
             continue
         notes = []
-        auth, note = authority(text)
+        auth, note = authority(text, resolve)
         if note:
             notes.append(note)
         date_source = 'signing_date' if record.get('signing_date') else 'publication_date'

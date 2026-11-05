@@ -72,7 +72,7 @@ fig.savefig(f"{OUT}/01_context.png"); plt.close(fig)
 fig, ax = plt.subplots(figsize=(11, 3.6))
 ax.axhline(0, color=INK, lw=2.5, zorder=1)
 # palette is ink, grey and red only, matching the pitch deck. Red marks the thing
-# to notice, which is that the decision lands before anything is observable.
+# to notice, which is that the decision lands before Census monthly totals arrive.
 for x, lab, col, y in [(0, "Tariff announced\nYOU DECIDE HERE", RED, 0.42),
                        (30, "Duty takes effect", INK, -0.40),
                        (65, "First data on what\nactually happened", GREY, 0.42)]:
@@ -124,8 +124,15 @@ for ch in sorted(cm.chapter.unique()):
     x = series(ch)
     if len(x) < 100 or x[:"2024-12"].min() <= 0:
         continue
+    if ch in ('98', '99'):
+        continue   # customs special provisions, not product categories
     pr, sdv = expected(x)
-    dev = (x / pr - 1).loc["2025-01":"2025-08"]
+    # Deviation in logs so it is on the same scale as sd, which is a log-residual standard
+    # deviation: a score of 1.0 now means the month touched the upper edge of the historical
+    # variability band drawn around the expected line (1.96 x residual sd; not a validated
+    # forecast interval). The earlier (s / pred - 1) divided a percentage
+    # by a log quantity; ranks barely move (Spearman 0.998) but the scores were inflated.
+    dev = (np.log(x) - np.log(pr)).loc["2025-01":"2025-08"]
     if dev.empty or sdv == 0:
         continue
     rows.append(dict(chapter=ch, ratio=dev.max() / (1.96 * sdv),
@@ -135,17 +142,11 @@ NAMES = {"29": "organic chemicals", "30": "pharmaceuticals", "89": "ships",
          "71": "gold & gems", "97": "works of art", "91": "clocks",
          "74": "copper", "50": "silk", "84": "machinery", "18": "cocoa"}
 r["lab"] = r.chapter.map(NAMES).fillna(r.chapter)
-flag = {"cocoa", "silk", "works of art", "clocks"}
-cols = [WARN if l in flag else INK for l in r.lab]
 fig, ax = plt.subplots(figsize=(11, 4.6))
-ax.barh(r.lab[::-1], r.ratio[::-1], color=cols[::-1])
+ax.barh(r.lab[::-1], r.ratio[::-1], color=INK)
 ax.axvline(1, color="grey", ls=":", lw=1.5)
-ax.set_title("Furthest outside their own normal range, 2025")
-ax.set_xlabel("how many times outside the normal range")
-from matplotlib.patches import Patch
-ax.legend(handles=[Patch(color=INK, label="plausibly tariff-related"),
-                   Patch(color=WARN, label="not a tariff story")],
-          fontsize=13, loc="lower right", frameon=True)
+ax.set_title("Furthest above their own expected range, 2025")
+ax.set_xlabel("1.0 = touching the top of the normal range")
 fig.savefig(f"{OUT}/05_chapters.png"); plt.close(fig)
 
 # --- 6. the tariff actions ----------------------------------------------

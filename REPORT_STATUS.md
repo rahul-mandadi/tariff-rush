@@ -114,6 +114,46 @@ under them. Fixed in `build_report.py` with `page-break-after: avoid` on heading
 `orphans/widows: 2` on paragraphs. Confirmed by eye: both figures legible at 60 percent, Figure 1
 labels separated, all headings intact, tables aligned, page 5 ends on the contributions.
 
+## After Report 1: Kylie's Presentation 1 notes, worked through (2026-11-05)
+
+Each change below was reviewed by an independent cold read before the next step started.
+
+- **Event list: 134 to 120.** Fourteen documents were Labor Department Trade Adjustment Assistance
+  eligibility notices, not tariffs, and had been classified as tariff increases
+  (`events/build_event_table.py`, new rejection). None had reached the event study.
+- **Authority labels: 28 UNKNOWN to 0.** `authority()` now reads each order's own delegation
+  clause, takes the first authority named there, lets an agency notice inherit the authority of the
+  executive order it implements, recognises safeguard citations in the plural, and labels Section
+  338 (six Canada measures, five previously mislabelled Section 232) and the Russia normal trade
+  relations act. No previously known authority was overwritten.
+- **Anomaly score.** Four scripts divided a percentage deviation by a log-scale residual sd
+  (`chapter_quantity.py`, `slides/fig_units.py`, `slides/gen_figures.py`, `pharma_mix.py`). Now a
+  log deviation throughout. Ranks barely move (Spearman 0.998); scores shrink: pharmaceuticals
+  2.86 to 2.26 on dollars and -0.33 to -0.34 on quantity, copper 1.77/2.68 to 1.27/1.96. Chapters
+  98 and 99 (customs special provisions) excluded. Fig 4's hand-picked red/black split removed.
+  `build_nb.py`, `counterfactual_hs8.py` and `reversal_control.py` still carry the old formula and
+  are not cited anywhere. `adcvd_analysis.py` was checked and is consistent (log on log).
+- **Inflation.** Values are nominal. In the within-product design a common price change cancels
+  exactly. For the chapter score, BLS all-imports deflation keeps 8 of the top 10 (Spearman 0.97,
+  pharmaceuticals 2.26 to 1.30); ex-fuel deflation keeps 9 of 10 (0.99, pharmaceuticals 1.77).
+  The two differ because fuel prices fell over the 2022 to 2024 trend window. Both series cached
+  in `review/`.
+- **Coverage reference year.** Median 5.4% (2016), 5.4% (2017), 6.7% (2024). Reference-year
+  sensitivity only; no claim about bias direction.
+- **Rush event list.** Study set 21 to 19: the Section 338 Canada measure leaves; timber and heavy
+  trucks excluded because the resolver marks their capped or partly exempt partners as treated;
+  the Venezuelan oil order excluded as conditional ("may be imposed"). A per-document check against
+  the raw text then found **13 of the 19 still wrong** in date, countries, direction, duplication
+  or product list. Full table in `review/rush_event_audit.md`. **Table 1 has not been rerun** and
+  should not be until those are corrected.
+- **New figure.** `slides/fig_copper_split.py`: copper taxed (7407 to 7413) against untaxed
+  cathodes (74031100), monthly. Taxed 49 to 27 thousand tonnes a month, untaxed 89 to 154. One
+  product, one action, no placebo: an illustration.
+- **Stakeholder skill reference** (`~/.claude/skills/tariff-stakeholder/reference/
+  logistics_domain.md`): its project findings still listed the 79/21 split, "36 points" and the
+  retroactivity mechanism as verified; corrected to Report 1's numbers with the superseded entries
+  marked.
+
 ## Still open
 
 - `adcvd_analysis.py` and `substitution_test.py` use nominal dollar value; the report says

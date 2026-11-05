@@ -78,7 +78,7 @@ document_number,title,reason
 2020-15054,Heavy Walled Rectangular Welded Carbon Steel Pipes and Tubes From Mexico: Final Results of Antidumping Duty Administrative Review and Final Determination of No Shipments; 2017-2018,TRADE_REMEDY_CASE
 2020-15957,Circular Welded Carbon Steel Standard Pipe and Tube Products From Turkey: Preliminary Results of Antidumping Duty Administrative Review and Preliminary Determination of No Shipments; 2018-2019,TRADE_REMEDY_CASE
 2020-17071,"Aluminum Extrusions From the People's Republic of China: Preliminary Results of Countervailing Duty Administrative Review and Intent to Rescind, in Part; 2018",TRADE_REMEDY_CASE
-2020-13802,Trade Adjustment Assistance for Workers,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2020-13802,Trade Adjustment Assistance for Workers,NOT_A_TARIFF_WORKER_ASSISTANCE
 2020-18508,Combined Notice of Filings #1,UNRELATED_RULEMAKING
 2020-16760,Department Regulatory and Deregulatory Agenda; Semiannual Summary,PROPOSED_RULE
 2020-18821,Notice of Interim Approval of Rate Schedules for Kerr-Philpott System,NO_CLEAR_OPERATIVE_TARIFF_ACTION
@@ -1099,7 +1099,7 @@ R1-2026-03829,Continuing the Suspension of Duty-Free De Minimis Treatment for Al
 2018-00206,Inflation Adjustment of Civil Monetary Penalties,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2017-28220,Regulatory Agenda,PROPOSED_RULE
 2018-00344,Administrative Manual and Special Regulations Regarding Natural Gas Development Activities; Additional Clarifying Amendments,PROPOSED_RULE
-2018-00401,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2018-00401,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2018-00417,Civil Monetary Penalty Inflation Adjustment-Alcoholic Beverage Labeling Act,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2018-00572,Carbon and Alloy Steel Wire Rod From the Republic of South Africa: Affirmative Final Determination of Sales at Less Than Fair Value and Affirmative Finding of Critical Circumstances,TRADE_REMEDY_CASE
 2018-00573,"Multilayered Wood Flooring From the People's Republic of China: Preliminary Results of the Antidumping Duty Administrative Review, Preliminary Determination of No Shipments, and Rescission of Review, in Part; 2015-2016",TRADE_REMEDY_CASE
@@ -1109,7 +1109,7 @@ R1-2026-03829,Continuing the Suspension of Duty-Free De Minimis Treatment for Al
 2018-01023,"Proposed Amendment of Class B Airspace; San Francisco, CA",PROPOSED_RULE
 2017-26569,Labeling and Advertising of Home Insulation: Trade Regulation Rule,PROPOSED_RULE
 2018-01173,Implementation of the Provision of the Comprehensive Addiction and Recovery Act of 2016 Relating to the Dispensing of Narcotic Drugs for Opioid Use Disorder,NO_CLEAR_OPERATIVE_TARIFF_ACTION
-2018-01239,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2018-01239,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2018-01065,Revision of Fee Schedules; Fee Recovery for Fiscal Year 2018,PROPOSED_RULE
 2018-01328,Sentencing Guidelines for United States Courts,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2018-01447,"Ripe Olives From Spain: Preliminary Affirmative Determination of Sales at Less Than Fair Value, Postponement of Final Determination, and Extension of Provisional Measures",TRADE_REMEDY_CASE
@@ -1123,7 +1123,7 @@ R1-2026-03829,Continuing the Suspension of Duty-Free De Minimis Treatment for Al
 2018-01868,Large Residential Washers From the Republic of Korea: Final Results of Antidumping Duty Administrative Review; 2016-2017,TRADE_REMEDY_CASE
 2018-01256,Modernization of Swine Slaughter Inspection,PROPOSED_RULE
 2018-02112,Migratory Bird Hunting; Proposed Frameworks for Migratory Bird Hunting Regulations,PROPOSED_RULE
-2018-02260,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2018-02260,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2018-02264,Marketing Order Regulating the Handling of Spearmint Oil Produced in the Far West; Revision of the Salable Quantity and Allotment Percentage for Class 3 (Native) Spearmint Oil for the 2017-2018 Marketing Year,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2018-02315,Chlorinated Isocyanurates From the People's Republic of China: Final Results of Antidumping Duty Administrative Review; 2015-2016,TRADE_REMEDY_CASE
 2018-02383,Combined Notice of Filings #1,UNRELATED_RULEMAKING
@@ -1146,7 +1146,7 @@ R1-2026-03829,Continuing the Suspension of Duty-Free De Minimis Treatment for Al
 2018-02928,User Fees for the Administration of the Toxic Substances Control Act,PROPOSED_RULE
 2018-03721,"Federal Motor Vehicle Safety Standard No. 141, Minimum Sound Requirements for Hybrid and Electric Vehicles",UNRELATED_RULEMAKING
 2018-03733,Harmonization of Fire Protection Equipment Standards for Towing Vessels,NO_CLEAR_OPERATIVE_TARIFF_ACTION
-2018-03781,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2018-03781,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2018-03769,"Endangered and Threatened Wildlife and Plants; Removing Oenothera avita ssp. eurekensis From the Federal List of Endangered and Threatened Plants, and Reclassification of Swallenia alexandrae From Endangered to Threatened",NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2018-03923,"Rubber Bands From the People's Republic of China, Sri Lanka, and Thailand: Initiation of Less-Than-Fair-Value Investigations",NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2018-03934,"Britax Child Safety, Inc.; Complaints",NO_CLEAR_OPERATIVE_TARIFF_ACTION
@@ -1154,7 +1154,7 @@ R1-2026-03829,Continuing the Suspension of Duty-Free De Minimis Treatment for Al
 2018-04129,Commission Agenda and Priorities; Notice of Hearing,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2018-04137,"Biodiesel From Argentina: Final Determination of Sales at Less Than Fair Value and Final Affirmative Determination of Critical Circumstances, in Part",TRADE_REMEDY_CASE
 2018-04138,Biodiesel From Indonesia: Final Determination of Sales at Less Than Fair Value,TRADE_REMEDY_CASE
-2018-04161,Notice of Determinations Regarding Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2018-04161,Notice of Determinations Regarding Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2018-04193,Methyl Bromide; Pesticide Tolerances for Emergency Exemptions,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2018-04262,Emergency Measures To Address Overfishing of Atlantic Shortfin Mako Shark,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2018-03374,Aviation Safety Organization Changes,NO_CLEAR_OPERATIVE_TARIFF_ACTION
@@ -1166,7 +1166,7 @@ R1-2026-03829,Continuing the Suspension of Duty-Free De Minimis Treatment for Al
 2018-04666,"Silicon Metal From Norway: Affirmative Final Determination of Sales at Less Than Fair Value, Final Determination of No Sales, and Final Negative Determination of Critical Circumstances",TRADE_REMEDY_CASE
 2018-04668,Silicon Metal From Brazil: Affirmative Final Determination of Sales at Less Than Fair Value,TRADE_REMEDY_CASE
 2018-04702,Washington: Authorization of State Hazardous Waste Management Program Revisions,NO_CLEAR_OPERATIVE_TARIFF_ACTION
-2018-04721,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2018-04721,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2018-04679,Certain Cut-to-Length Carbon-Quality Steel Plate Products From the Republic of Korea: Preliminary Results of Antidumping Duty Administrative Review; 2016-2017,TRADE_REMEDY_CASE
 2018-04517,Taking and Importing Marine Mammals; Taking Marine Mammals Incidental to the U.S. Navy Training and Testing Activities in the Atlantic Fleet Training and Testing Study Area,PROPOSED_RULE
 2018-04832,Civil Monetary Penalty Inflation Adjustment for 2018,NO_CLEAR_OPERATIVE_TARIFF_ACTION
@@ -1174,8 +1174,8 @@ R1-2026-03829,Continuing the Suspension of Duty-Free De Minimis Treatment for Al
 2018-05375,Large Power Transformers From the Republic of Korea: Final Results of Antidumping Duty Administrative Review; 2015-2016,TRADE_REMEDY_CASE
 2018-05376,Certain Passenger Vehicle and Light Truck Tires From the People's Republic of China: Final Results of Antidumping Duty Administrative Review and Final Determination of No Shipments; 2015-2016,TRADE_REMEDY_CASE
 2018-05377,Countervailing Duty Order on Certain Passenger Vehicle and Light Truck Tires From the People's Republic of China: Final Results of Countervailing Duty Administrative Review; 2014-2015,TRADE_REMEDY_CASE
-2018-05894,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
-2018-05895,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2018-05894,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
+2018-05895,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2018-05964,Notice of Issuance of Final Determination Concerning Certain Monochrome Laser Printers and Replacement Toner Cartridges,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2018-06049,Pacific Halibut Fisheries; Catch Sharing Plan,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2018-06136,Carbon and Alloy Steel Wire Rod From Turkey: Final Determination of Sales at Less Than Fair Value and Final Negative Determination of Critical Circumstances,TRADE_REMEDY_CASE
@@ -1188,9 +1188,10 @@ R1-2026-03829,Continuing the Suspension of Duty-Free De Minimis Treatment for Al
 2018-06721,Citric Acid and Certain Citrate Salts From Canada: Final Results of Antidumping Duty Administrative Review; 2016-2017,TRADE_REMEDY_CASE
 2018-06875,"Cranberries Grown in States of Massachusetts, et al.; Free and Restricted Percentages for the 2017-18 Crop Year for Cranberries",NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2018-07296,IFR Operations at Locations Without Weather Reporting,PROPOSED_RULE
+2018-07299,Notice of Determinations Regarding Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2018-07315,Certain Tool Chests and Cabinets From the People's Republic of China: Final Affirmative Determination of Sales at Less Than Fair Value,TRADE_REMEDY_CASE
 2018-07232,Rinderpest; Update of Communicable Animal Disease Provisions,NO_CLEAR_OPERATIVE_TARIFF_ACTION
-2018-07380,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2018-07380,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2018-06864,Endangered and Threatened Wildlife and Plants; Removing the Kirtland's Warbler From the Federal List of Endangered and Threatened Wildlife,PROPOSED_RULE
 2018-07347,Endangered and Threatened Wildlife and Plants; Endangered Status for the Island Marble Butterfly and Designation of Critical Habitat,PROPOSED_RULE
 2018-07616,Carbazole Violet Pigment 23 from India: Final Results of Antidumping Duty Administrative Review; 2015-2016,TRADE_REMEDY_CASE
@@ -1212,7 +1213,7 @@ R1-2026-03829,Continuing the Suspension of Duty-Free De Minimis Treatment for Al
 2018-08310,Protection of Stratospheric Ozone: Notification of Guidance and a Stakeholder Meeting Concerning the Significant New Alternatives Policy (SNAP) Program,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2018-09139,Proposed Information Collection; Comment Request; Procedures for Submitting Requests for Objections From the Section 232 National Security Adjustments of Imports of Steel and Aluminum,ADMINISTRATIVE_OR_INQUIRY
 2018-09140,Proposed Information Collection; Comment Request; Procedures for Submitting Request for Exclusions From the Section 232 National Security Adjustments of Imports of Steel and Aluminum,EXCLUSION_PROCEDURE
-2018-09081,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2018-09081,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2018-09557,"Protection of Stratospheric Ozone: Notice of Data Availability; Information Concerning HCFC-123 and HCFC-124 Production, Consumption, and Use",NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2018-08705,"Medicare Program; Hospital Inpatient Prospective Payment Systems for Acute Care Hospitals and the Long-Term Care Hospital Prospective Payment System and Proposed Policy Changes and Fiscal Year 2019 Rates; Proposed Quality Reporting Requirements for Specific Providers; Proposed Medicare and Medicaid Electronic Health Record (EHR) Incentive Programs (Promoting Interoperability Programs) Requirements for Eligible Hospitals, Critical Access Hospitals, and Eligible Professionals; Medicare Cost Reporting Requirements; and Physician Certification and Recertification of Claims",PROPOSED_RULE
 2018-09549,Sentencing Guidelines for United States Courts,NO_CLEAR_OPERATIVE_TARIFF_ACTION
@@ -1225,12 +1226,12 @@ R1-2026-03829,Continuing the Suspension of Duty-Free De Minimis Treatment for Al
 2018-10083,"Tart Cherries Grown in the States of Michigan, et al.; Free and Restricted Percentages for the 2017-18 Crop Year for Tart Cherries",PROPOSED_RULE
 2018-10132,2018 Rates Charged for AMS Services,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2018-10201,Certain Steel Nails From the Sultanate of Oman: Preliminary Results of Antidumping Duty Administrative Review and Partial Rescission of Antidumping Duty Administrative Review; 2016-2017,TRADE_REMEDY_CASE
-2018-10205,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2018-10205,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2018-09080,National Emission Standards for Hazardous Air Pollutants: Surface Coating of Wood Building Products Residual Risk and Technology Review,PROPOSED_RULE
 2018-10345,Tebuconazole; Pesticide Tolerances,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2018-10533,Certain Quartz Surface Products From the People's Republic of China: Initiation of Less-Than-Fair-Value Investigation,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2018-10547,"Forged Steel Fittings From the People's Republic of China: Affirmative Preliminary Determination of Sales at Less Than Fair Value, Postponement of Final Determination and Extension of Provisional Measures",TRADE_REMEDY_CASE
-2018-10616,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2018-10616,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2018-10879,"Carbon and Alloy Steel Wire Rod From Italy, the Republic of Korea, Spain, the Republic of Turkey, and the United Kingdom: Antidumping Duty Orders and Amended Final Affirmative Antidumping Duty Determinations for Spain and the Republic of Turkey",TRADE_REMEDY_CASE
 2018-10366,"International Traffic in Arms Regulations: U.S. Munitions List Categories I, II, and III",PROPOSED_RULE
 2018-10367,"Control of Firearms, Guns, Ammunition and Related Articles the President Determines No Longer Warrant Control Under the United States Munitions List (USML)",PROPOSED_RULE
@@ -1240,7 +1241,8 @@ R1-2026-03829,Continuing the Suspension of Duty-Free De Minimis Treatment for Al
 2018-11710,Fine Denier Polyester Staple Fiber From India: Final Affirmative Determination of Sales at Less Than Fair Value,TRADE_REMEDY_CASE
 2018-11711,Fine Denier Polyester Staple Fiber From the Republic of Korea: Final Affirmative Determination of Sales at Less Than Fair Value,TRADE_REMEDY_CASE
 2018-11714,Fine Denier Polyester Staple Fiber From the People's Republic of China: Final Affirmative Determination of Sales at Less Than Fair Value,TRADE_REMEDY_CASE
-2018-11635,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2018-11633,Notice of Determinations Regarding Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
+2018-11635,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2018-11732,Exercise of Time-Limited Authority To Increase the Fiscal Year 2018 Numerical Limitation for the H-2B Temporary Nonagricultural Worker Program,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2018-11643,Limited Extension of Select Compliance Dates for Occupational Exposure to Beryllium in General Industry,PROPOSED_RULE
 2018-11786,Endangered and Threatened Wildlife and Plants; Removing Trichostema austromontanum ssp. compactum (Hidden Lake Bluecurls) From the Federal List of Endangered and Threatened Plants,NO_CLEAR_OPERATIVE_TARIFF_ACTION
@@ -1267,7 +1269,7 @@ R1-2026-03829,Continuing the Suspension of Duty-Free De Minimis Treatment for Al
 2018-12938,Safety Standard for High Chairs,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2018-13024,Safety Standard for Stationary Activity Centers,PROPOSED_RULE
 2018-13077,Information Collection Activities; Comment Request,ADMINISTRATIVE_OR_INQUIRY
-2018-13130,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2018-13130,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2018-13177,Updates to Rulemaking and Waiver Procedures and Expansion of the Equivalent Level of Safety Option,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2018-13194,"Notice Inviting Post-Technical Conference Comments; Old Dominion Electric Cooperative v. PJM Interconnection, L.L.C., Advanced Energy Management Alliance v. PJM Interconnection, L.L.C",UNRELATED_RULEMAKING
 2018-12906,Taking and Importing Marine Mammals; Taking Marine Mammals Incidental to Geophysical Surveys Related to Oil and Gas Activities in the Gulf of Mexico,PROPOSED_RULE
@@ -1287,7 +1289,7 @@ R1-2026-03829,Continuing the Suspension of Duty-Free De Minimis Treatment for Al
 2018-14018,"Determination of Total Amounts of Fiscal Year 2019 WTO Tariff-Rate Quotas for Raw Cane Sugar and Certain Sugars, Syrups and Molasses",NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2018-14133,Safety Standard for Booster Seats,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2018-14351,New Message Format for the Fedwire® Funds Service,NO_CLEAR_OPERATIVE_TARIFF_ACTION
-2018-14368,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2018-14368,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2018-14416,"Proposed Information Collection; Comment Request; Services Surveys: BE-45, Quarterly Survey of Insurance Transactions by U.S. Insurance Companies With Foreign Persons",ADMINISTRATIVE_OR_INQUIRY
 2018-14420,"Proposed Information Collection; Comment Request; Services Surveys: BE-185, Quarterly Survey of Financial Services Transactions Between U.S. Financial Services Providers and Foreign Persons",ADMINISTRATIVE_OR_INQUIRY
 2018-14422,"Proposed Information Collection; Comment Request; Services Surveys: BE-9, Quarterly Survey of Foreign Airline Operators' Revenues and Expenses in the United States",ADMINISTRATIVE_OR_INQUIRY
@@ -1306,9 +1308,10 @@ R1-2026-03829,Continuing the Suspension of Duty-Free De Minimis Treatment for Al
 2018-13502,"Proposed Revisions to Prohibitions and Restrictions on Proprietary Trading and Certain Interests in, and Relationships With, Hedge Funds and Private Equity Funds",PROPOSED_RULE
 2018-14916,Atlantic Highly Migratory Species,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2018-15143,Air Plan Approval; Kentucky; 2008 Ozone NAAQS Interstate Transport SIP Requirements,NO_CLEAR_OPERATIVE_TARIFF_ACTION
-2018-15203,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2018-15203,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2018-15224,Certain Steel Racks From the People's Republic: Initiation of Countervailing Duty Investigation,TRADE_REMEDY_CASE
 2018-15225,Steel Racks From the People's Republic of China: Initiation of Less-Than-Fair-Value Investigation,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2018-15269,Notice of Determinations Regarding Eligibility to Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2018-15327,Welded Line Pipe From the Republic of Korea: Final Results of Antidumping Duty Administrative Review; 2015-2016,TRADE_REMEDY_CASE
 2018-15329,"Foreign-Trade Zone (FTZ) 41-Milwaukee, Wisconsin; Notification of Proposed Production Activity; CNH Industrial America LLC (Tractors, Component Parts, and Axle Subassemblies); Sturtevant, Wisconsin",UNRELATED_RULEMAKING
 2018-15341,"International Fisheries; Western and Central Pacific Fisheries for Highly Migratory Species; Fishing Limits in Purse Seine and Longline Fisheries, Restrictions on the Use of Fish Aggregating Devices in Purse Seine Fisheries, and Transshipment Prohibitions",NO_CLEAR_OPERATIVE_TARIFF_ACTION
@@ -1316,7 +1319,7 @@ R1-2026-03829,Continuing the Suspension of Duty-Free De Minimis Treatment for Al
 2018-15573,Aluminum Extrusions From the People's Republic of China: Initiation and Preliminary Results of Expedited Changed Circumstances Review,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2018-15534,Security Threat Disqualification Update,PROPOSED_RULE
 2018-15720,Certain New Chemical Substances; Receipt and Status Information for April 2018,NO_CLEAR_OPERATIVE_TARIFF_ACTION
-2018-15850,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2018-15850,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2018-15903,Small-Scale Natural Gas Exports,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2018-15920,Agency Information Collection Activities; Proposed Renewal of an Existing Collection (EPA ICR No. 0574.18); Comment Request,ADMINISTRATIVE_OR_INQUIRY
 2018-15923,Agency Information Collection Activities; Proposed Renewal of an Existing Collection (EPA ICR No. 0161.14); Comment Request,ADMINISTRATIVE_OR_INQUIRY
@@ -1333,7 +1336,7 @@ R1-2026-03829,Continuing the Suspension of Duty-Free De Minimis Treatment for Al
 2018-16114,Taking and Importing Marine Mammals; Taking Marine Mammals Incidental to Alaska Fisheries Science Center Fisheries Research,PROPOSED_RULE
 2018-16450,Ripe Olives From Spain: Antidumping Duty Order,TRADE_REMEDY_CASE
 2018-16246,Renewable Fuel Standard Program: Grain Sorghum Oil Pathway,NO_CLEAR_OPERATIVE_TARIFF_ACTION
-2018-16892,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2018-16892,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2018-16897,Common Alloy Aluminum Sheet From the People's Republic of China: Amended Preliminary Affirmative Determination of Sales at Less Than Fair Value,TRADE_REMEDY_CASE
 2018-16900,Certain Plastic Decorative Ribbon From the People's Republic of China: Preliminary Determination of Sales at Less Than Fair Value,TRADE_REMEDY_CASE
 2018-16989,Spinetoram; Pesticide Tolerances,NO_CLEAR_OPERATIVE_TARIFF_ACTION
@@ -1345,7 +1348,8 @@ R1-2026-03829,Continuing the Suspension of Duty-Free De Minimis Treatment for Al
 2018-17723,Cotton Board Rules and Regulations: Adjusting Supplemental Assessment on Imports (2018 Amendments),NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2018-17893,"Proposed Aggregate Production Quotas for Schedule I and II Controlled Substances and Assessment of Annual Needs for the List I Chemicals Ephedrine, Pseudoephedrine, and Phenylpropanolamine for 2019",NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2018-17514,Endangered and Threatened Wildlife and Plants; Designation of Critical Habitat for Three Plant Species on Hawaii Island,NO_CLEAR_OPERATIVE_TARIFF_ACTION
-2018-17940,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2018-17940,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
+2018-18193,Notice of Determinations Regarding Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2018-18212,Agency Information Collection Activities; Proposed Collection; Comment Request; Tobacco Health Document Submission,ADMINISTRATIVE_OR_INQUIRY
 2018-18265,"Proposed Adjustments to the Aggregate Production Quotas for Schedule I and II Controlled Substances and Assessment of Annual Needs for the List I Chemicals Ephedrine, Pseudoephedrine, and Phenylpropanolamine for 2018",NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2018-18283,Submission for OMB Review; Comment Request; Procedures for Submitting Request for Objections From the Section 232 National Security Adjustments of Imports of Aluminum and Steel,NO_CLEAR_OPERATIVE_TARIFF_ACTION
@@ -1361,7 +1365,7 @@ R1-2026-03829,Continuing the Suspension of Duty-Free De Minimis Treatment for Al
 2018-19086,Agency Information Collection Activities; Submission for Office of Management and Budget Review; Comment Request; Medical Device Labeling Regulations,ADMINISTRATIVE_OR_INQUIRY
 2018-19162,Notice of Issuance of Final Determination Concerning the Visionary Advanced 2 Dietary Supplement Tablets,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2018-19206,Certain Steel Wheels 12 to 16.5 Inches in Diameter From the People's Republic of China: Initiation of Less-Than-Fair-Value Investigation,NO_CLEAR_OPERATIVE_TARIFF_ACTION
-2018-19271,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2018-19271,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2018-19332,"Rubber Bands From Thailand: Preliminary Affirmative Determination of Sales at Less Than Fair Value, Postponement of Final Determination, and Extension of Provisional Measures",TRADE_REMEDY_CASE
 2018-19333,Less-Than-Fair-Value Investigation of Rubber Bands From the People's Republic of China: Preliminary Affirmative Determination of Sales at Less Than Fair Value and Preliminary Affirmative Determination of Critical Circumstances,TRADE_REMEDY_CASE
 2018-19052,"Apprehension, Processing, Care, and Custody of Alien Minors and Unaccompanied Alien Children",PROPOSED_RULE
@@ -1387,7 +1391,7 @@ R1-2026-03829,Continuing the Suspension of Duty-Free De Minimis Treatment for Al
 2018-20599,Energy Conservation Program: Test Procedures for Integrated Light-Emitting Diode Lamps,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2018-20606,"Sodium Gluconate, Gluconic Acid, and Derivative Products From the People's Republic of China: Final Affirmative Determination of Sales at Less Than Fair Value",TRADE_REMEDY_CASE
 2018-20176,Removal of Flight Plan Requirements for Commercial Air Tour Operations Within the Special Flight Rules Area at Grand Canyon National Park,NO_CLEAR_OPERATIVE_TARIFF_ACTION
-2018-20654,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2018-20654,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2018-20673,Revisions to Safety Standard for Portable Hook-On Chairs,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2018-20719,Polyethylene Terephthalate Resin From Brazil: Final Determination of Sales at Less Than Fair Value,TRADE_REMEDY_CASE
 2018-20721,"Polyethylene Terephthalate Resin From the Republic of Korea: Affirmative Final Determination of Sales at Less Than Fair Value and Final Affirmative Determination of Critical Circumstances, in Part",TRADE_REMEDY_CASE
@@ -1410,7 +1414,7 @@ R1-2026-03829,Continuing the Suspension of Duty-Free De Minimis Treatment for Al
 2018-21797,Endangered and Threatened Wildlife and Plants; Threatened Species Status With Section 4(d) Rule and Critical Habitat Designation for Slenderclaw Crayfish,PROPOSED_RULE
 2018-21841,"Pecans Grown in the States of Alabama, Arkansas, Arizona, California, Florida, Georgia, Kansas, Louisiana, Missouri, Mississippi, North Carolina, New Mexico, Oklahoma, South Carolina, and Texas; Revision of Reporting Requirements",PROPOSED_RULE
 2018-21851,Stainless Steel Flanges From India: Antidumping Duty Order,TRADE_REMEDY_CASE
-2018-21929,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2018-21929,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2018-21798,Endangered and Threatened Wildlife and Plants; Threatened Species Status With Section 4(d) Rule and Critical Habitat Designation for Atlantic Pigtoe,PROPOSED_RULE
 2018-22034,Atlantic Highly Migratory Species; Atlantic Bluefin Tuna and Northern Albacore Tuna Quotas; Atlantic Bigeye and Yellowfin Tuna Size Limit Regulations,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2018-22126,Laminated Woven Sacks From the Socialist Republic of Vietnam: Preliminary Determination of Sales at Less Than Fair Value,TRADE_REMEDY_CASE
@@ -1427,12 +1431,12 @@ R1-2026-03829,Continuing the Suspension of Duty-Free De Minimis Treatment for Al
 2018-22604,"Takes of Marine Mammals Incidental to Specified Activities; Taking Marine Mammals Incidental to In-Water Demolition and Construction Activities Associated With a Harbor Improvement Project in Statter Harbor, Alaska",NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2018-22114,Hazardous Materials: Notification of the Pilot-in-Command and Response to Air Related Petitions for Rulemaking,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2018-22656,Aluminum Wire and Cable From the People's Republic of China: Initiation of Less-Than-Fair-Value Investigation,NO_CLEAR_OPERATIVE_TARIFF_ACTION
-2018-22684,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2018-22684,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2018-22758,"Oranges, Grapefruit, Tangerines, and Pummelos Grown in Florida and Imported Grapefruit; Change in Grade and Size Requirements",PROPOSED_RULE
 2018-22759,Oranges and Grapefruit Grown in Lower Rio Grande Valley in Texas; Changing of Container Requirements,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2018-22853,Amendment of the Prohibition Against Certain Flights in Specified Areas of the Simferopol and Dnipropetrovsk Flight Information Regions (FIRs) (UKFV and UKDV),NO_CLEAR_OPERATIVE_TARIFF_ACTION
-2018-22915,Post-Initial Determinations Regarding Eligiblity To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
-2018-22916,Notice of Determinations Regarding Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2018-22915,Post-Initial Determinations Regarding Eligiblity To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
+2018-22916,Notice of Determinations Regarding Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2018-22969,Certain Activated Carbon From the People's Republic of China: Final Results of Antidumping Duty Administrative Review; 2016-2017,TRADE_REMEDY_CASE
 2018-23004,Certain New Chemical Substances; Receipt and Status Information for July 2018,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2018-23053,Certain Circular Welded Non-Alloy Steel Pipe From Mexico: Notice of Amended Final Results of Antidumping Duty Administrative Review Pursuant to Settlement; 2014-2015,TRADE_REMEDY_CASE
@@ -1449,7 +1453,8 @@ R1-2026-03829,Continuing the Suspension of Duty-Free De Minimis Treatment for Al
 2018-23592,Technical Issues-Formaldehyde Emission Standards for Composite Wood Products,PROPOSED_RULE
 2018-23917,"Domestic Dates Produced or Packed in Riverside County, California; Increased Assessment Rate",PROPOSED_RULE
 2018-24251,Diamond Sawblades and Parts Thereof From the People's Republic of China: Notice of Court Decision Not in Harmony With the Final Results of Review and Amended Final Results of the Antidumping Duty Administrative Review; 2012-2013,TRADE_REMEDY_CASE
-2018-24292,Post-Initial Determinations Regarding Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2018-24290,Notice of Determinations Regarding Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
+2018-24292,Post-Initial Determinations Regarding Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2018-24440,Agency Information Collection Activities; Submission for Office of Management and Budget Review; Comment Request; Registration of Producers of Drugs and Listing of Drugs in Commercial Distribution,ADMINISTRATIVE_OR_INQUIRY
 2018-24594,Aliens Subject to a Bar on Entry Under Certain Presidential Proclamations; Procedures for Protection Claims,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2018-24379,Cyantraniliprole; Pesticide Tolerances,NO_CLEAR_OPERATIVE_TARIFF_ACTION
@@ -1473,7 +1478,7 @@ R1-2026-03829,Continuing the Suspension of Duty-Free De Minimis Treatment for Al
 2018-25690,Pyrifluquinazon; Pesticide Tolerances,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2018-24620,Hazardous Materials: Harmonization With International Standards,PROPOSED_RULE
 2018-25530,Proposed Information Collections; Comment Request (No. 72),ADMINISTRATIVE_OR_INQUIRY
-2018-25743,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2018-25743,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2018-25751,Agency Forms Undergoing Paperwork Reduction Act Review,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2018-25778,Agency Information Collection Activities; Renewal Request Submitted to OMB for Review and Approval; Comment Request; Premanufacture Review Reporting and Exemption Requirements for New Chemical Substances and Significant New Use Reporting Requirements for Chemical Substances,ADMINISTRATIVE_OR_INQUIRY
 2018-24642,Swap Execution Facilities and Trade Execution Requirement,PROPOSED_RULE
@@ -1482,7 +1487,8 @@ R1-2026-03829,Continuing the Suspension of Duty-Free De Minimis Treatment for Al
 2018-26160,Safety Standard for Cigarette Lighters; Adjusted Customs Value for Cigarette Lighters,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2018-26167,Notice of Issuance of Final Determination Concerning Airlift PTTD Brace,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2018-26172,"Certain Steel Racks From the People's Republic of China: Preliminary Affirmative Countervailing Duty Determination, and Alignment of Final Determination With Final Antidumping Duty Determination",TRADE_REMEDY_CASE
-2018-26189,Post-Initial Determinations Regarding Eligiblity To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2018-26189,Post-Initial Determinations Regarding Eligiblity To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
+2018-26190,Notice of Determinations Regarding Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2018-26303,Agency Information Collection Activities; Proposed Collection; Comment Request; Electronic Submission of Medical Device Registration and Listing,ADMINISTRATIVE_OR_INQUIRY
 2018-26345,Clomazone; Pesticide Tolerances,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2018-26388,Endangered and Threatened Wildlife and Plants; Designation of Critical Habitat for Sonoyta Mud Turtle,PROPOSED_RULE
@@ -1491,13 +1497,13 @@ R1-2026-03829,Continuing the Suspension of Duty-Free De Minimis Treatment for Al
 2018-26587,"Final Adjusted Aggregate Production Quotas for Schedule I and II Controlled Substances and Assessment of Annual Needs for the List I Chemicals Ephedrine, Pseudoephedrine, and Phenylpropanolamine for 2018",NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2018-26680,Extension of the Prohibition Against Certain Flights in the Damascus Flight Information Region (FIR) (OSTT),NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2018-26774,Circular Welded Non-Alloy Steel Pipe From the Republic of Korea: Preliminary Results of Antidumping Duty Administrative Review; 2016-2017,TRADE_REMEDY_CASE
-2018-26946,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2018-26946,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2018-26973,Certain Oil Country Tubular Goods From Turkey: Final Results of Antidumping Duty Administrative Review; 2016-2017,TRADE_REMEDY_CASE
 2018-27122,Certain Corrosion-Resistant Steel Products From India: Final Results of Antidumping Duty Administrative Review; 2016-2017,TRADE_REMEDY_CASE
 2018-27015,Medical Device Classification Procedures: Incorporating Food and Drug Administration Safety and Innovation Act Procedures,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2018-27244,Certain Corrosion-Resistant Steel Products From Taiwan: Final Results of Antidumping Duty Administrative Review; 2016-2017,TRADE_REMEDY_CASE
-2018-27295,Notice of Determinations Regarding Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
-2018-27297,Post-Initial Determinations Regarding Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2018-27295,Notice of Determinations Regarding Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
+2018-27297,Post-Initial Determinations Regarding Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2018-26922,Determination of Royalty Rates and Terms for Transmission of Sound Recordings by Satellite Radio and “Preexisting” Subscription Services (SDARS III),UNRELATED_RULEMAKING
 2018-27402,Removal of Training Requirements for an Airline Transport Pilot Certificate Issued Concurrently With a Single-Engine Airplane Type Rating,PROPOSED_RULE
 2018-27505,Sentencing Guidelines for United States Courts,NO_CLEAR_OPERATIVE_TARIFF_ACTION
@@ -1522,7 +1528,7 @@ R1-2026-03829,Continuing the Suspension of Duty-Free De Minimis Treatment for Al
 2019-00219,Revision of Fee Schedules; Fee Recovery for Fiscal Year 2019,PROPOSED_RULE
 2019-00302,Registration Requirement for Petitioners Seeking To File H-1B Petitions on Behalf of Cap-Subject Aliens,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2019-00624,Federal Reserve Bank Services,NO_CLEAR_OPERATIVE_TARIFF_ACTION
-2019-00801,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2019-00801,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2019-00872,"Honey Packers and Importers Research, Promotion, Consumer Education and Industry Information Order; Change in Membership",NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2019-00873,Noncommercial Use of Pre-1972 Sound Recordings That Are Not Being Commercially Exploited,PROPOSED_RULE
 2019-01048,Agency Information Collection Activities; Proposed eCollection eComments Requested; Revision of a Currently Approved Collection; Furnishing of Samples,ADMINISTRATIVE_OR_INQUIRY
@@ -1537,7 +1543,7 @@ R1-2026-03829,Continuing the Suspension of Duty-Free De Minimis Treatment for Al
 2019-00758,Safe and Secure Operations of Small Unmanned Aircraft Systems,PROPOSED_RULE
 2019-00765,External Marking Requirement for Small Unmanned Aircraft,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2019-01854,Energy Conservation Program for Appliance Standards: Proposed Procedures for Use in New or Revised Energy Conservation Standards and Test Procedures for Consumer Products and Commercial/Industrial Equipment,PROPOSED_RULE
-2019-02132,"Proposed Information Collection; Comment Request; Form ED-840P, Petition by a Firm for Certification of Eligibility To Apply for Trade Adjustment Assistance, and Adjustment Proposals; Trade Adjustment Assistance for Firms Program",ADMINISTRATIVE_OR_INQUIRY
+2019-02132,"Proposed Information Collection; Comment Request; Form ED-840P, Petition by a Firm for Certification of Eligibility To Apply for Trade Adjustment Assistance, and Adjustment Proposals; Trade Adjustment Assistance for Firms Program",NOT_A_TARIFF_WORKER_ASSISTANCE
 2019-02241,Proposed Information Collection; Comment Request; Interim Procedures For Considering Requests and Comments From the Public for Textile and Apparel Safeguard Actions on Imports from Korea,ADMINISTRATIVE_OR_INQUIRY
 2019-02480,Agency Information Collection Activities; Proposed Collection; Comment Request; Exports: Notification and Recordkeeping Requirements,ADMINISTRATIVE_OR_INQUIRY
 2019-02656,Truck and Bus Tires From the People's Republic of China: Antidumping Duty Order,TRADE_REMEDY_CASE
@@ -1550,7 +1556,7 @@ R1-2026-03829,Continuing the Suspension of Duty-Free De Minimis Treatment for Al
 2019-01298,Management Standards for Hazardous Waste Pharmaceuticals and Amendment to the P075 Listing for Nicotine,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2019-02634,Foreign Civil Aviation Authority Certifying Statements,PROPOSED_RULE
 2019-03073,Large Residential Washers: Monitoring Developments in the Domestic Industry,NO_CLEAR_OPERATIVE_TARIFF_ACTION
-2019-03192,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2019-03192,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2019-02979,Endangered and Threatened Wildlife and Plants; Removing the Borax Lake Chub From the List of Endangered and Threatened Wildlife,PROPOSED_RULE
 2019-03209,"Agency Information Collection Activities; Comment Request; Petition Requirements and Investigative Data Collection: Trade Act of 1974, as Amended",ADMINISTRATIVE_OR_INQUIRY
 2019-03240,Corrosion-Resistant Steel Products From Taiwan: Notice of Court Decision Not in Harmony With Final Determination of Antidumping Duty Investigation and Notice of Amended Final Determination of Investigation,TRADE_REMEDY_CASE
@@ -1581,7 +1587,7 @@ R1-2026-03829,Continuing the Suspension of Duty-Free De Minimis Treatment for Al
 2019-04657,Agency Information Collection Activities; Proposed Collection; Comment Request; Third Party Testing of Children's Products,ADMINISTRATIVE_OR_INQUIRY
 2018-27324,Energy Labeling Rule,PROPOSED_RULE
 2019-04095,Submission and Consideration of Petitions for Duty Suspensions and Reductions,PROPOSED_RULE
-2019-04735,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2019-04735,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2019-04759,Certain Uncoated Paper From Indonesia: Final Results of Antidumping Duty Administrative Review; 2017-2018,TRADE_REMEDY_CASE
 2019-04420,Endangered and Threatened Wildlife and Plants; Removing the Gray Wolf (Canis lupus) From the List of Endangered and Threatened Wildlife,PROPOSED_RULE
 2019-04878,"Foreign-Trade Zone (FTZ) 12-McAllen, Texas; Notification of Proposed Production Activity; Universal Metal Products, Inc.; (Formed and Converted Metal for Commercial and Industrial Use); Pharr, Texas",UNRELATED_RULEMAKING
@@ -1590,14 +1596,15 @@ R1-2026-03829,Continuing the Suspension of Duty-Free De Minimis Treatment for Al
 2019-05004,"Acetone From Belgium, the Republic of Korea, the Kingdom of Saudi Arabia, Singapore, the Republic of South Africa, and Spain: Initiation of Less-Than-Fair-Value Investigations",NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2019-05031,Proposed Information Collection Request; Comment Request; Recordkeeping and Reporting Related to E15 (Renewal),ADMINISTRATIVE_OR_INQUIRY
 2019-04896,Amendment of the Prohibition Against Certain Flights in the Tripoli Flight Information Region (FIR) (HLLL),NO_CLEAR_OPERATIVE_TARIFF_ACTION
-2019-05050,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
-2019-05054,Notice of Determinations Regarding Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
-2019-05057,Post-Initial Determinations Regarding Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2019-05050,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
+2019-05054,Notice of Determinations Regarding Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
+2019-05057,Post-Initial Determinations Regarding Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2019-05102,Commission Agenda and Priorities; Notice of Hearing,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2019-05127,"Marine Mammals; Incidental Take During Specified Activities: Cook Inlet, Alaska",PROPOSED_RULE
 2019-05136,"Carbon and Alloy Steel Threaded Rod From India, Taiwan, Thailand, and the People's Republic of China: Initiation of Less-Than-Fair-Value Investigations",NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2019-05030,Modifications to Fuel Regulations To Provide Flexibility for E15; Modifications to RFS RIN Market Regulations,PROPOSED_RULE
-2019-05306,Post-Initial Determinations Regarding Eligiblity To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2019-05305,Notice of Determinations Regarding Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
+2019-05306,Post-Initial Determinations Regarding Eligiblity To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2019-05376,Certain New Chemical Substances; Receipt and Status Information for September 2018,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2019-05422,Animal Welfare; Amendments to Licensing Provisions and to Requirements for Dogs,PROPOSED_RULE
 2019-05523,Certain Corrosion-Resistant Steel Products From the Republic of Korea: Final Results of Antidumping Duty Administrative Review; 2016-2017,TRADE_REMEDY_CASE
@@ -1658,7 +1665,7 @@ R1-2026-03829,Continuing the Suspension of Duty-Free De Minimis Treatment for Al
 2019-08347,Countervailing Duty Order on Certain Passenger Vehicle and Light Truck Tires From the People's Republic of China: Final Results of Countervailing Duty Administrative Review; 2016,TRADE_REMEDY_CASE
 2019-08348,Hydrofluorocarbon Blends From the People's Republic of China: Final Results of the Antidumping Duty Administrative Review and Final Determination of No Shipments; 2016-2017,TRADE_REMEDY_CASE
 2019-08454,Certain Passenger Vehicle and Light Truck Tires From the People's Republic of China: Final Results of Antidumping Duty Administrative Review and Final Determination of No Shipments; 2016-2017,TRADE_REMEDY_CASE
-2019-08550,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2019-08550,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2019-08558,Agency Information Collection Activities; Submission for Office of Management and Budget Review; Comment Request; Administrative Detention and Banned Medical Devices,ADMINISTRATIVE_OR_INQUIRY
 2019-08701,2019 Rates Charged for AMS Services,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2019-08699,Test Procedure Interim Waiver Process,PROPOSED_RULE
@@ -1668,7 +1675,7 @@ R1-2026-03829,Continuing the Suspension of Duty-Free De Minimis Treatment for Al
 2019-08950,Large Diameter Welded Pipe From the Republic of Korea: Amended Final Affirmative Antidumping Determination and Antidumping Duty Order,TRADE_REMEDY_CASE
 2019-08953,Large Diameter Welded Pipe From the Republic of Turkey: Amended Final Affirmative Antidumping Duty Determination and Antidumping Duty Order,TRADE_REMEDY_CASE
 2019-08330,Medicare Program; Hospital Inpatient Prospective Payment Systems for Acute Care Hospitals and the Long-Term Care Hospital Prospective Payment System and Proposed Policy Changes and Fiscal Year 2020 Rates; Proposed Quality Reporting Requirements for Specific Providers; Medicare and Medicaid Promoting Interoperability Programs Proposed Requirements for Eligible Hospitals and Critical Access Hospitals,PROPOSED_RULE
-2019-09211,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2019-09211,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2019-09152,"Tart Cherries Grown in the States of Michigan, et al.; Free and Restricted Percentages for the 2018-19 Crop Year and Revision of Grower Diversion Requirements for Tart Cherries",PROPOSED_RULE
 2019-09377,Cyflumetofen; Pesticide Tolerances,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2019-09378,Certain New Chemicals; Receipt and Status Information for February 2019,NO_CLEAR_OPERATIVE_TARIFF_ACTION
@@ -1681,9 +1688,10 @@ R1-2026-03829,Continuing the Suspension of Duty-Free De Minimis Treatment for Al
 2019-08788,Certain Swap Data Repository and Data Reporting Requirements,PROPOSED_RULE
 2019-09541,Taking and Importing Marine Mammals; Taking Marine Mammals Incidental to the U.S. Navy Training and Testing Activities in the Atlantic Fleet Training and Testing Study Area,PROPOSED_RULE
 2019-09823,Decompression Criteria for Interior Compartments,PROPOSED_RULE
-2019-09986,Post-Initial Determinations Regarding Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2019-09985,Notice of Determinations Regarding Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
+2019-09986,Post-Initial Determinations Regarding Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2019-09997,Agency Information Collection Activities; Submission for Office of Management and Budget Review; Comment Request; Registration and Product Listing for Owners and Operators of Domestic Tobacco Product Establishments and Listing of Ingredients in Tobacco Products,ADMINISTRATIVE_OR_INQUIRY
-2019-10108,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2019-10108,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2019-10193,Atlantic Highly Migratory Species; Spatial Fisheries Management,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2019-10051,Revision of Fee Schedules; Fee Recovery for Fiscal Year 2019,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2019-10287,"Agency Information Collection Activities; Submission for Office of Management and Budget Review; Comment Request; Tobacco Products, User Fees, Requirements for the Submission of Data Needed To Calculate User Fees for Domestic Manufacturers and Importers of Tobacco Products",ADMINISTRATIVE_OR_INQUIRY
@@ -1710,7 +1718,7 @@ R1-2026-03829,Continuing the Suspension of Duty-Free De Minimis Treatment for Al
 2019-11086,Removal of Check Pilot Medical Certificate Requirement,PROPOSED_RULE
 2019-11258,"Revision for Regulated Navigation Area; Savannah River, GA",PROPOSED_RULE
 2019-11488,Certain Quartz Surface Products From India and the Republic of Turkey: Initiation of Less-Than-Fair-Value Investigations,NO_CLEAR_OPERATIVE_TARIFF_ACTION
-2019-11554,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2019-11554,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2019-11577,"Mattresses From the People's Republic of China: Preliminary Determination of Sales at Less-Than-Fair-Value, Postponement of Final Determination and Affirmative Preliminary Determination of Critical Circumstances",NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2019-11579,Laminated Woven Sacks From the Socialist Republic of Vietnam: Antidumping Duty and Countervailing Duty Orders,TRADE_REMEDY_CASE
 2019-11588,"Refillable Stainless Steel Kegs From the People's Republic of China: Preliminary Affirmative Determination of Sales at Less Than Fair Value, Preliminary Affirmative Determination of Critical Circumstances, in Part, Postponement of Final Determination, and Extension of Provisional Measures",TRADE_REMEDY_CASE
@@ -1745,7 +1753,7 @@ R1-2026-03829,Continuing the Suspension of Duty-Free De Minimis Treatment for Al
 2019-12326,Spring 2019 Semiannual Agenda of Regulations,PROPOSED_RULE
 2019-13101,Trifloxystrobin; Pesticide Tolerances,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2019-13246,Plant Pest Regulations,NO_CLEAR_OPERATIVE_TARIFF_ACTION
-2019-13469,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2019-13469,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2019-13450,"Softwood Lumber Research, Promotion, Consumer Education and Industry Information Order; Change in Membership, Nominations, Procedures, and Continuance Referenda Period",PROPOSED_RULE
 2019-13653,"Determination of Total Amounts of Fiscal Year 2020 WTO Tariff-Rate Quotas for Raw Cane Sugar and Certain Sugars, Syrups and Molasses",NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2019-13728,Certain Hot-Rolled Steel Flat Products From the Republic of Turkey: Final Results of Antidumping Duty Administrative Review and Final Determination of No Shipments; 2016-2017,TRADE_REMEDY_CASE
@@ -1761,7 +1769,8 @@ R1-2026-03829,Continuing the Suspension of Duty-Free De Minimis Treatment for Al
 2019-13933,"Board of Immigration Appeals: Affirmance Without Opinion, Referral for Panel Review, and Publication of Decisions as Precedents",NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2019-13646,Interior Parts and Components Fire Protection for Transport Category Airplanes,PROPOSED_RULE
 2019-14154,"Air Plan Approval; Ohio; Redesignation of the Columbus, Ohio Area to Attainment of the 2015 Ozone Standard",PROPOSED_RULE
-2019-14188,Post-Initial Determinations Regarding Eligiblity To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2019-14186,Notice of Determinations Regarding Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
+2019-14188,Post-Initial Determinations Regarding Eligiblity To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2019-14234,"Certain Collated Steel Staples From the People's Republic of China, the Republic of Korea, and Taiwan: Initiation of Less-Than-Fair-Value Investigations",NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2019-14273,Certain New Chemicals; Receipt and Status Information for April 2019,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2019-14295,Safety Standard for Gates and Enclosures,PROPOSED_RULE
@@ -1775,7 +1784,7 @@ R1-2026-03829,Continuing the Suspension of Duty-Free De Minimis Treatment for Al
 2019-14568,Atlantic Highly Migratory Species; Atlantic Bluefin Tuna Fisheries; Pelagic Longline Fishery Management,PROPOSED_RULE
 2019-14799,Regulations and Procedures Under the Plant Variety Protection Act,PROPOSED_RULE
 2019-15005,Statutory Requirements for Substantiation of Confidential Business Information (CBI) Claims Under the Toxic Substances Control Act (TSCA),NO_CLEAR_OPERATIVE_TARIFF_ACTION
-2019-15010,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2019-15010,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2019-15248,Revision to Automatic Dependent Surveillance-Broadcast (ADS-B) Out Equipment and Use Requirements,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2019-15322,Magnuson-Stevens Fishery Conservation and Management Act Provisions; Fisheries of the Northeastern United States; Northeast Multispecies Fishery; Framework Adjustment 58,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2019-15416,"60-Day Notice of Proposed Information Collection: Ginnie Mae Mortgage-Backed Securities Guide 5500.3, Revision 1 (Forms and Electronic Data Submissions)",ADMINISTRATIVE_OR_INQUIRY
@@ -1785,7 +1794,7 @@ R1-2026-03829,Continuing the Suspension of Duty-Free De Minimis Treatment for Al
 2019-15717,Certain Steel Racks and Parts Thereof From the People's Republic of China: Final Affirmative Countervailing Duty Determination,TRADE_REMEDY_CASE
 2019-15718,Certain Steel Racks and Parts Thereof From the People's Republic of China: Final Affirmative Determination of Sales at Less Than Fair Value,TRADE_REMEDY_CASE
 2019-15742,Food Safety Modernization Act Voluntary Qualified Importer Program User Fee Rate for Fiscal Year 2020,NO_CLEAR_OPERATIVE_TARIFF_ACTION
-2019-15768,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2019-15768,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2019-15791,"Agency Information Collection Activities; Submission for Office of Management and Budget Review; Comment Request; Deeming Tobacco Products To Be Subject to the Federal Food, Drug, and Cosmetic Act",ADMINISTRATIVE_OR_INQUIRY
 2019-15817,"Food Safety Modernization Act Domestic and Foreign Facility Reinspection, Recall, and Importer Reinspection Fee Rates for Fiscal Year 2020",NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2019-15840,IFR Operations at Locations Without Weather Reporting,NO_CLEAR_OPERATIVE_TARIFF_ACTION
@@ -1808,7 +1817,7 @@ R1-2026-03829,Continuing the Suspension of Duty-Free De Minimis Treatment for Al
 2019-16663,Glycine From Thailand: Final Determination of Sales at Less Than Fair Value and Final Affirmative Determination of Critical Circumstances in Part,TRADE_REMEDY_CASE
 2019-16753,Multilayered Wood Flooring From the People's Republic of China: Final Results and Partial Rescission of Countervailing Duty Administrative Review; 2016,TRADE_REMEDY_CASE
 2019-16933,Adjustment of Appendices Under the Dairy Tariff-Rate Quota Import Licensing Regulation for the 2019 Tariff-Rate Quota Year,NO_CLEAR_OPERATIVE_TARIFF_ACTION
-2019-16991,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2019-16991,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2019-16107,Medicare Program: Proposed Changes to Hospital Outpatient Prospective Payment and Ambulatory Surgical Center Payment Systems and Quality Reporting Programs; Price Transparency of Hospital Standard Charges; Proposed Revisions of Organ Procurement Organizations Conditions of Coverage; Proposed Prior Authorization Process and Requirements for Certain Covered Outpatient Department Services; Potential Changes to the Laboratory Date of Service Policy; Proposed Changes to Grandfathered Children's Hospitals-Within-Hospitals,PROPOSED_RULE
 2019-16892,Energy Conservation Program: Test Procedures for Cooking Products,PROPOSED_RULE
 2019-17149,Certain New Chemicals; Receipt and Status Information for June 2019,NO_CLEAR_OPERATIVE_TARIFF_ACTION
@@ -1821,7 +1830,8 @@ R1-2026-03829,Continuing the Suspension of Duty-Free De Minimis Treatment for Al
 2019-17623,Listing of Noroxymorphone in the Code of Federal Regulations and Assignment of a Controlled Substances Code Number,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2019-17494,Security Threat Disqualification Update,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2019-17561,Migratory Bird Hunting; Final Frameworks for Migratory Bird Hunting Regulations,NO_CLEAR_OPERATIVE_TARIFF_ACTION
-2019-17700,Post-Initial Determinations Regarding Eligiblity To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2019-17700,Post-Initial Determinations Regarding Eligiblity To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
+2019-17702,Notice of Determinations Regarding Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2019-17710,General Updates and Elimination of Certain TAAF and PWEDA Regulations,PROPOSED_RULE
 2019-17770,Citric Acid and Certain Citrate Salts From Canada: Final Results of Antidumping Duty Administrative Review; 2017-2018,TRADE_REMEDY_CASE
 2019-16099,Significant New Use Rules on Certain Chemical Substances,NO_CLEAR_OPERATIVE_TARIFF_ACTION
@@ -1835,9 +1845,10 @@ R1-2026-03829,Continuing the Suspension of Duty-Free De Minimis Treatment for Al
 2019-18437,Circular Welded Carbon-Quality Steel Pipe From the United Arab Emirates: Final Results of Antidumping Duty Administrative Review; 2016-2017,TRADE_REMEDY_CASE
 2019-18557,"Crystalline Silicon Photovoltaic Cells, Whether or Not Assembled Into Modules, From the People's Republic of China: Final Results of Countervailing Duty Administrative Review and Rescission of Review, in Part; 2016",TRADE_REMEDY_CASE
 2019-18365,Buprofezin; Pesticide Tolerances,NO_CLEAR_OPERATIVE_TARIFF_ACTION
-2019-18623,Post-Initial Determinations Regarding Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2019-18621,Notice of Determinations Regarding Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
+2019-18623,Post-Initial Determinations Regarding Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2019-18649,"Fisheries of the Caribbean, Gulf of Mexico, and South Atlantic; Shrimp Fishery of the Gulf of Mexico; Amendment 18",PROPOSED_RULE
-2019-18740,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2019-18740,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2019-18937,Certain Steel Trailer Wheels 12 to 16.5 Inches From the People's Republic of China: Antidumping Duty and Countervailing Duty Orders,TRADE_REMEDY_CASE
 2019-18344,National Emission Standards for Hazardous Air Pollutants: Miscellaneous Coating Manufacturing Residual Risk and Technology Review,PROPOSED_RULE
 2019-18987,Agency Information Collection Activities; Proposed Collection; Comment Request; Procedures for the Safe and Sanitary Processing and Importing of Fish and Fishery Products,ADMINISTRATIVE_OR_INQUIRY
@@ -1860,8 +1871,8 @@ R1-2026-03829,Continuing the Suspension of Duty-Free De Minimis Treatment for Al
 2019-19664,Spinosad; Pesticide Tolerances,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2019-18015,Dinotefuran; Pesticide Tolerances,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2019-19965,Revisions to Safety Standard for Infant Bath Seats,NO_CLEAR_OPERATIVE_TARIFF_ACTION
-2019-20600,Notice of Determinations Regarding Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
-2019-20601,Post-Initial Determinations Regarding Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2019-20600,Notice of Determinations Regarding Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
+2019-20601,Post-Initial Determinations Regarding Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2019-20813,Fresh Tomatoes From Mexico: Suspension of Antidumping Duty Investigation,TRADE_REMEDY_CASE
 2019-20291,"Softwood Lumber Research, Promotion, Consumer Education and Industry Information Order; Change in Membership, Nominations, Procedures, and Continuance Referenda Period",NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2019-20315,Premarket Tobacco Product Applications and Recordkeeping Requirements,PROPOSED_RULE
@@ -1884,7 +1895,7 @@ R1-2026-03829,Continuing the Suspension of Duty-Free De Minimis Treatment for Al
 2019-21360,"Tart Cherries Grown in the States of Michigan, et al.; Free and Restricted Percentages for the 2018-19 Crop Year and Revision of Grower Diversion Requirements for Tart Cherries",NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2019-21542,Cyromazine; Pesticide Tolerances,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2019-21645,Endangered and Threatened Wildlife and Plants; Removal of Howellia aquatilis (Water Howellia) From the List of Endangered and Threatened Plants,PROPOSED_RULE
-2019-21741,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2019-21741,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2019-21863,Agency Information Collection Activities; Submission to the Office of Management and Budget for Review and Approval; Solid Minerals and Geothermal Collections,ADMINISTRATIVE_OR_INQUIRY
 2019-21951,"Grant Guideline, Notice",NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2019-21186,"Endangered and Threatened Wildlife and Plants: Proposed Rule To Designate Critical Habitat for the Central America, Mexico, and Western North Pacific Distinct Population Segments of Humpback Whales",PROPOSED_RULE
@@ -1893,7 +1904,7 @@ R1-2026-03829,Continuing the Suspension of Duty-Free De Minimis Treatment for Al
 2019-21835,Request for Petitions for Duty Suspensions and Reductions,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2019-22151,Migratory Bird Hunting; Proposed 2020-21 Migratory Game Bird Hunting Regulations (Preliminary) With Requests for Indian Tribal Proposals; Notice of Meetings,PROPOSED_RULE
 2019-22364,Cotton Board Rules and Regulations: Adjusting Supplemental Assessment on Imports (2019 Amendments),NO_CLEAR_OPERATIVE_TARIFF_ACTION
-2019-22605,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2019-22605,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2019-22666,Certain New Pneumatic Off-The-Road Tires from the People's Republic of China; 2012-2013: Notice of Court Decision Not in Harmony With Final Results of Administrative Review and Notice of Amended Final Results of Antidumping Duty Administrative Review,TRADE_REMEDY_CASE
 2019-21207,Response to Clean Air Act Section 126(b) Petition From New York,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2019-22639,National Organic Program; Proposed Amendments to the National List of Allowed and Prohibited Substances per October 2018 NOSB Recommendations (Crops and Handling),PROPOSED_RULE
@@ -1904,7 +1915,7 @@ R1-2026-03829,Continuing the Suspension of Duty-Free De Minimis Treatment for Al
 2019-22918,"30-Day Notice of Proposed Information Collection: Ginnie Mae Mortgage-Backed Securities Guide 5500.3, Revision 1 (Forms and Electronic Data Submissions) (OMB# 2503-0033)",ADMINISTRATIVE_OR_INQUIRY
 2019-20550,Definition of “Waters of the United States”-Recodification of Pre-Existing Rules,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2019-21989,Management of Quotas for Controlled Substances and List I Chemicals,PROPOSED_RULE
-2019-23025,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2019-23025,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2019-23081,"Take of Marine Mammals Incidental to Specified Activities; Taking Marine Mammals Incidental to the North Jetty Maintenance and Repairs Project, Coos Bay, Oregon",NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2019-23088,Revisions to Safety Standards for Non-Full-Size Baby Cribs and Play Yards,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2019-22949,Hazardous Materials: Liquefied Natural Gas by Rail,PROPOSED_RULE
@@ -1916,6 +1927,7 @@ R1-2026-03829,Continuing the Suspension of Duty-Free De Minimis Treatment for Al
 2019-23380,Fenbuconazole; Pesticide Tolerances,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2019-23360,Mandipropamid; Pesticide Tolerances,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2019-23379,"Renewable Fuel Standard Program: Standards for 2020 and Biomass-Based Diesel Volume for 2021, and Response to the Remand of the 2016 Standards; Supplemental Notice of Proposed Rulemaking",PROPOSED_RULE
+2019-23454,Notice of Determinations Regarding Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2019-23505,Energy Labeling Rule,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2019-23612,Aluminum Wire and Cable From the People's Republic of China: Final Affirmative Determination of Sales at Less Than Fair Value,TRADE_REMEDY_CASE
 2019-23620,Information Collection Request Submitted to OMB for Review and Approval; Comment Request; Recordkeeping and Reporting Related to E15 (Renewal),ADMINISTRATIVE_OR_INQUIRY
@@ -1927,12 +1939,12 @@ R1-2026-03829,Continuing the Suspension of Duty-Free De Minimis Treatment for Al
 2019-23988,"Certain Height-Adjustable Desk Platforms and Components Thereof; Commission Determination Not To Review an Initial Determination Granting in Part a Motion for Summary Determination; Schedule for Filing Written Submissions on Remedy, the Public Interest, and Bonding",NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2019-24067,"Agency Information Collection Activities: Information Collection Request (ICR) for On-Highway Motorcycle Certification and Compliance Program; EPA ICR Number 2535.02, OMB Control Number 2060-0710",ADMINISTRATIVE_OR_INQUIRY
 2019-24219,Certain Cold-Rolled Steel Flat Products From the United Kingdom: Final Results of Antidumping Duty Administrative Review; 2017-2018,TRADE_REMEDY_CASE
-2019-24242,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2019-24242,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2019-24287,Certain New Chemicals; Receipt and Status Information for August 2019,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2019-24234,Eligibility of the People's Republic of China (PRC) To Export to the United States Poultry Products From Birds Slaughtered in the PRC,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2019-23724,Safety Standard for Infant Sleep Products,PROPOSED_RULE
 2019-24267,Tebuconazole; Pesticide Tolerances,NO_CLEAR_OPERATIVE_TARIFF_ACTION
-2019-24488,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2019-24488,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2019-24440,"Medicare Program; Medicare Part B Monthly Actuarial Rates, Premium Rates, and Annual Deductible Beginning January 1, 2020",NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2019-22695,"Prohibitions and Restrictions on Proprietary Trading and Certain Interests in, and Relationships With, Hedge Funds and Private Equity Funds",NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2019-24331,Energy Conservation Program: Test Procedure for Microwave Ovens,PROPOSED_RULE
@@ -1947,8 +1959,9 @@ R1-2026-03829,Continuing the Suspension of Duty-Free De Minimis Treatment for Al
 2019-25048,Circular Welded Carbon Steel Pipes and Tubes From Thailand: Final Results of Antidumping Duty Administrative Review and Final Determination of No Shipments; 2017-2018,TRADE_REMEDY_CASE
 2019-25083,"Pecans Grown in the States of Alabama, Arkansas, Arizona, California, Florida, Georgia, Kansas, Louisiana, Missouri, Mississippi, North Carolina, New Mexico, Oklahoma, South Carolina, and Texas; Reporting Requirements",PROPOSED_RULE
 2019-25043,Forged Steel Fittings From India and the Republic of Korea: Initiation of Less-Than-Fair-Value Investigations,NO_CLEAR_OPERATIVE_TARIFF_ACTION
-2019-25416,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
-2019-25493,Post-Initial Determinations Regarding Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2019-25416,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
+2019-25490,Notice of Determinations Regarding Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
+2019-25493,Post-Initial Determinations Regarding Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2019-25535,Clothianidin; Pesticide Tolerances,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2019-25543,Cyflumetofen; Pesticide Tolerances,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2019-24894,McGovern-Dole International Food for Education and Child Nutrition Program,NO_CLEAR_OPERATIVE_TARIFF_ACTION
@@ -1961,7 +1974,7 @@ R1-2026-03829,Continuing the Suspension of Duty-Free De Minimis Treatment for Al
 2019-26119,"Established Aggregate Production Quotas for Schedule I and II Controlled Substances and Assessment of Annual Needs for the List I Chemicals Ephedrine, Pseudoephedrine, and Phenylpropanolamine for 2020",NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2019-26228,Federal Reserve Bank Services,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2019-26234,"Agency Information Collection Activities; Proposed Collection; Comment Request; Human Cells, Tissues, and Cellular and Tissue-Based Products: Establishment Registration and Listing; Eligibility Determination for Donors; and Current Good Tissue Practice",ADMINISTRATIVE_OR_INQUIRY
-2019-26290,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2019-26290,Notice of Petitions by Firms for Determination of Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2019-25516,Energy Conservation Program: Test Procedure for External Power Supplies,PROPOSED_RULE
 2019-26210,"Endangered and Threatened Wildlife and Plants; Endangered Species Status for Beardless Chinchweed With Designation of Critical Habitat, and Threatened Species Status for Bartram's Stonecrop With Section 4(d) Rule",PROPOSED_RULE
 2019-26429,"Taking and Importing Marine Mammals; Taking Marine Mammals Incidental to U.S. Navy Construction Activities at Naval Weapons Station Seal Beach, California",PROPOSED_RULE
@@ -1983,6 +1996,7 @@ R1-2026-03829,Continuing the Suspension of Duty-Free De Minimis Treatment for Al
 2019-27266,Certain Cut-to-Length Carbon-Quality Steel Plate Products From the Republic of Korea: Preliminary Results of Antidumping Duty Administrative Review; 2018-2019,TRADE_REMEDY_CASE
 2019-25974,Accidental Release Prevention Requirements: Risk Management Programs Under the Clean Air Act,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2019-26548,Endangered and Threatened Wildlife and Plants; Reclassifying the Hawaiian Goose From Endangered to Threatened With a Section 4(d) Rule,NO_CLEAR_OPERATIVE_TARIFF_ACTION
+2019-27327,Notice of Determinations Regarding Eligibility To Apply for Trade Adjustment Assistance,NOT_A_TARIFF_WORKER_ASSISTANCE
 2019-27049,"Taking and Importing Marine Mammals; Taking Marine Mammals Incidental to Construction and Operation of the Liberty Drilling and Production Island, Beaufort Sea, Alaska",NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2019-27398,Sea Turtle Conservation; Shrimp Trawling Requirements,NO_CLEAR_OPERATIVE_TARIFF_ACTION
 2019-27533,Acetone From Singapore and Spain: Antidumping Duty Orders,TRADE_REMEDY_CASE

@@ -36,8 +36,9 @@ p = d[d.chapter == CH].set_index("ym").sort_index()
 print("Chapter 30, pharmaceuticals. Dominant unit KG.\n")
 for col, lab in [("qty", "tonnage"), ("value", "dollars")]:
     pred, sd = expected(p[col])
-    dev = (p[col] / pred - 1).loc["2025-01":"2025-08"]
-    print(f"  {lab:8s} band +/-{1.96*sd*100:3.0f}%   peak {dev.max()*100:+4.0f}% "
+    # log gap, on the same scale as sd; the ratio matches chapter_quantity.py after its fix
+    dev = (np.log(p[col]) - np.log(pred)).loc["2025-01":"2025-08"]
+    print(f"  {lab:8s} band +/-{100*(np.exp(1.96*sd)-1):3.0f}%   peak {100*(np.exp(dev.max())-1):+4.0f}% "
           f"in {dev.idxmax():%b-%y}   ratio {dev.max()/(1.96*sd):+.2f}")
 
 base, h1 = p.loc["2023-01":"2024-12"], p.loc["2025-01":"2025-08"]

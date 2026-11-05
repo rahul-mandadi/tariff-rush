@@ -76,8 +76,15 @@ def rank(df, col):
         s = s[s > 0]
         if len(s) < 100 or s[:"2024-12"].min() <= 0:
             continue
+        if str(ch).zfill(2) in ('98', '99'):
+            continue   # customs special provisions, not product categories
         pred, sd = expected(s)
-        dev = (s / pred - 1).loc["2025-01":"2025-08"]
+        # Deviation in logs so it is on the same scale as sd, which is a log-residual standard
+        # deviation: a score of 1.0 now means the month touched the upper edge of the historical
+        # variability band drawn around the expected line (1.96 x residual sd; not a validated
+        # forecast interval). The earlier (s / pred - 1) divided a percentage
+        # by a log quantity; ranks barely move (Spearman 0.998) but the scores were inflated.
+        dev = (np.log(s) - np.log(pred)).loc["2025-01":"2025-08"]
         if dev.empty or sd == 0:
             continue
         out.append(dict(chapter=ch, ratio=dev.max() / (1.96 * sd)))

@@ -41,6 +41,26 @@ MATERIAL = [
 ]
 
 
+# Global Section 232 actions with differentiated treatment. The partners the parser extracts
+# are the countries with a capped rate or a partial exemption, not countries singled out for the
+# duty, and treatment is heterogeneous across products and content rules. The current resolver
+# would mark those partners "treated" against everyone else, which is not a valid comparison.
+# Excluded until the treated set is built from the operative text.
+NO_VALID_COMPARISON = {
+    "2025-19482": "timber and lumber: UK, EU and Japan capped (base lumber rate is 10%, equal to "
+                  "the UK cap; furniture and cabinets higher), so treatment varies by product",
+    "2025-19639": "medium and heavy trucks: Canada and Mexico partly exempt (US content untaxed, "
+                  "qualifying parts temporarily exempt, knock-down kits taxed)",
+}
+
+
+# Orders that authorize a tariff without starting one. No duty is collected on the date the
+# event study would treat as the start.
+CONDITIONAL_ONLY = {
+    "2025-05440": "Venezuelan oil: tariffs 'may be imposed' at the Secretary of State's discretion",
+}
+
+
 def to_cty(names):
     out = []
     for n in names:
@@ -90,7 +110,8 @@ def main():
         else:
             mech, chapters = None, []
 
-        if mech is None or not ctys:
+        if mech is None or not ctys or e.document_number in NO_VALID_COMPARISON \
+                or e.document_number in CONDITIONAL_ONLY:
             continue
         for cty in ctys:
             res.append(dict(document_number=e.document_number, authority=e.authority,
