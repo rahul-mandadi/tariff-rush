@@ -45,3 +45,4 @@ report1.html
 panel/adcvd_stacks_*.parquet
 final_report.html
 panel/s301_stacks.parquet
+panel/adcvd_stacks_decision.parquet

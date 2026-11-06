@@ -94,7 +94,7 @@ print("wrote slides/fig/13_recovery_km.png")
 b = pd.read_csv("recovery_benchmark_fall20.csv")
 cats = ["no fall", "recovered", "not recovered", "exited"]
 labels = {"no fall": "did not fall", "recovered": "fell, came back",
-          "not recovered": "fell, still down", "exited": "stopped trading"}
+          "not recovered": "fell, still down", "exited": "fell, then stopped"}
 cols = {"no fall": LGREY, "recovered": "#9BA1A9", "not recovered": LRED, "exited": RED}
 txt = {"no fall": INK, "recovered": INK, "not recovered": INK, "exited": "white"}
 fig, ax = plt.subplots(figsize=(11, 3.2))

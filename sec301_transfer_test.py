@@ -4,6 +4,9 @@ Population in both domains: targeted products that fell (sec301_benchmark.py, ho
 complete follow-up). Target: back at or above the pre-case share for three months running by
 k = 16. Decision: the month the fall first shows in published data (k_fall + 2).
 
+Both domains use decision-time comparison panels: AD/CVD from build_decision_stacks.py, Section 301
+from the strict sample of sec301_benchmark.py (rivals left out only for cases already started).
+
 Features, as prediction_stage2.py at the fall, minus three that cannot transfer: China (always 1
 under Section 301), both AD and CVD, and critical circumstances (always 0). Kept: pre-case share,
 trend, size, rival count and concentration (every country trading in k -18..-7), the duty rate
@@ -17,8 +20,7 @@ Tests:
                          could have made in 2018, since most AD/CVD training cases come later; it
                          asks whether the relationship carries across laws.
   B  strict, in time     train only on AD/CVD cases whose month 16 was published before the first
-                         Section 301 decision (September 2018), score the strict Section 301
-                         population, whose rival exclusions use only cases started by the tariff.
+                         Section 301 decision (September 2018), score Section 301.
   C  strict, reverse     train on Section 301 (published by March 2020), score AD/CVD cases whose
                          fall decision comes after that.
   ref in-domain         Section 301 scored by a model trained on other Section 301 chapters
@@ -90,9 +92,9 @@ def build(pairs, stacks, b_of, tc_of, rate_of, group_of):
 
 
 # ---------------------------------------------------------------- AD/CVD side
-ad_pairs = pd.read_csv("s301_adcvd_pairs_h16.csv", dtype={"hs8": str})
+ad_pairs = pd.read_csv("s301_adcvd_pairs_h16_decision.csv", dtype={"hs8": str})
 ad_pairs["hs8"] = ad_pairs.hs8.str.zfill(8)
-ad_st = pd.read_parquet("panel/adcvd_stacks_real.parquet")
+ad_st = pd.read_parquet("panel/adcvd_stacks_decision.parquet")
 
 
 def ad_rate(sid, dm):
@@ -109,9 +111,6 @@ print(f"AD/CVD fallen products {len(AD):,}, cases {AD.sid.nunique()}, groups {AD
 
 # ---------------------------------------------------------------- Section 301 side
 info = pd.read_csv("s301_stacks_info.csv")
-s3_pairs = pd.read_csv("s301_pairs_real.csv", dtype={"hs8": str})
-s3_st = pd.read_parquet("panel/s301_stacks.parquet")
-s3_st = s3_st[s3_st["sample"] == "real"]
 b301 = info.set_index("sid").b.to_dict()
 list_of = info.set_index("sid").list.to_dict()
 RAISE = 2019 * 12 + 5  # June 2019: first decision month after the May 10 increase to 25 percent
@@ -121,17 +120,14 @@ def s301_rate(sid, dm):
     return 10.0 if list_of[sid] == "List 3" and dm < RAISE else 25.0
 
 
-S3 = build(s3_pairs, s3_st, {k: v for k, v in b301.items() if k < 100}, {k: CHINA for k in b301},
+# every test uses the strict Section 301 population: rival exclusions only from cases already
+# started by the tariff date, so no test selects products or rivals on later cases
+s3_pairs = pd.read_csv("s301_pairs_real_strict.csv", dtype={"hs8": str})
+s3_st = pd.read_parquet("panel/s301_stacks.parquet")
+s3_st = s3_st[s3_st["sample"] == "real, strict"]
+S3 = build(s3_pairs, s3_st, {k: v for k, v in b301.items() if k > 200}, {k: CHINA for k in b301},
            s301_rate, lambda r: r.hs8[:2])
 S3["w"] = 1.0
-# strict population for test B: stacks whose exclusions use only cases started by the tariff date
-s3s_pairs = pd.read_csv("s301_pairs_real_strict.csv", dtype={"hs8": str})
-s3s_st = pd.read_parquet("panel/s301_stacks.parquet")
-s3s_st = s3s_st[s3s_st["sample"] == "real, strict"]
-S3s = build(s3s_pairs, s3s_st, {k: v for k, v in b301.items() if k > 200}, {k: CHINA for k in b301},
-            s301_rate, lambda r: r.hs8[:2])
-S3s["w"] = 1.0
-print(f"Section 301 strict population: fallen products {len(S3s):,}, came back {S3s.y.mean():.3f}")
 print(f"Section 301 fallen products {len(S3):,}, chapters {S3.group.nunique()}, "
       f"came back {S3.y.mean():.3f}")
 print("\nfeature means (AD/CVD, Section 301):")
@@ -217,7 +213,7 @@ def transfer(label, tr, te):
 R = []
 R.append(transfer("A: all AD/CVD -> Section 301", AD, S3))
 early = AD[AD.b + H + LAG < 2018 * 12 + 8]
-R.append(transfer("B: AD/CVD published by Sep 2018 -> Section 301", early, S3s))
+R.append(transfer("B: AD/CVD published by Sep 2018 -> Section 301", early, S3))
 late_ad = AD[AD.decision >= 2020 * 12 + 2]
 R.append(transfer("C: Section 301 -> AD/CVD decided from Mar 2020", S3.assign(w=1.0), late_ad))
 # in-domain reference: Section 301 out-of-fold by chapter

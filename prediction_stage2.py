@@ -109,11 +109,13 @@ for s, (ds, b, f0) in enumerate(zip(ep.docs, ep.b, first)):
 ep["stage"], ep["k_final"], ep["d_final"] = stage, k_final, d_final
 
 # ---------------------------------------------------------------- pairs and their share paths
-pairs = pd.read_csv("recovery_pairs_real_fall20.csv", dtype={"hs8": str})
+# decision-time panels (build_decision_stacks.py): rivals left out only for cases already started
+# by the duty, so the visible share, the fall, the features and the labels use no later cases
+pairs = pd.read_csv("recovery_pairs_decision_fall20.csv", dtype={"hs8": str})
 pairs["hs8"] = pairs.hs8.str.zfill(8)
 pairs = pairs[(pairs.category != "censored") & pairs.fell_at.notna()].copy()
 pairs["recovered"] = pairs.rec_at.notna().astype(int)
-st = pd.read_parquet("panel/adcvd_stacks_real.parquet")
+st = pd.read_parquet("panel/adcvd_stacks_decision.parquet")
 st = st[st.sid.isin(set(pairs.sid))]
 tot = st.groupby(["sid", "hs8", "k"]).value.sum()
 tg = st[st.treated].groupby(["sid", "hs8", "k"]).value.sum()

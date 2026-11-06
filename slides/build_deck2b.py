@@ -236,7 +236,7 @@ add("Losses persist in cases that become orders.", fig="12_order_vs_negative.png
 # ---------------------------------------------------------------- 7 outcomes (finding 3)
 add("Six in ten fall and do not recover.", fig="14_outcomes.png",
     caption="384 cases, each counted once. 25% did not fall, 17% fell and recovered, 42% stayed "
-            "down while trading, 16% had no imports in months 13 to 18 (fake date: 3%).",
+            "down while trading, 16% fell and had no imports in months 13 to 18 (fake date: 3%).",
     notes="This is what a buyer of one of these products can expect.\n\n"
           "Definitions: fell means the country's share of the product's imports dropped at least "
           "a fifth below its level before the case, within six months of the duty. Came back "
@@ -245,7 +245,9 @@ add("Six in ten fall and do not recover.", fig="14_outcomes.png",
           "months are in the shares.\n\n"
           "Counting from the month of the fall, about one in four products was back within 18 "
           "months of falling, against six in ten on the fake date. Where the commission confirmed "
-          "the duty, nearly one in five stopped trading.\n\n"
+          "the duty, nearly one in five fell and stopped trading.\n\n"
+          "Stopped trading is a subset of falling and not coming back. Counting every product, "
+          "including a few that came back first, 19% had no imports in months 13 to 18.\n\n"
           "Robust: with a 10% or 30% definition of a fall, 16% still stop trading. On just the "
           "282 cases that also have a fake date, 13% stop trading against 3%. And built only "
           "from earlier cases, these rates beat a blind guess on later cases in five of six "
@@ -286,10 +288,10 @@ add("Dollars alone can fool you.", fig="08_units.png",
 # ---------------------------------------------------------------- 10 discussion
 add("What this means.",
     bullets=[
-        "**For an importer tied to one country:** weigh qualifying another supplier early. In six "
-        "of ten past cases the product fell without recovering; one in six had none a year on.",
-        "**When to look again:** on day one, use the historical rates; once the fall shows in "
-        "the data, a model tells recoveries apart far better.",
+        "**For an importer tied to one country:** weigh qualifying another supplier early. Six "
+        "in ten targeted products fell without recovering; one in six also had none a year on.",
+        "**When to look again:** on day one, use the historical rates; by the ITC's final vote, "
+        "a model tells recoveries apart far better.",
         "**For anyone measuring tariffs:** study the products a tariff names, not the whole "
         "category, and check quantities as well as dollars.",
     ],
@@ -327,17 +329,18 @@ add("What the checks confirmed.",
 # ---------------------------------------------------------------- 12 next
 add("A few months in, the odds get sharper.", fig="15_decision_points.png",
     caption="Scored on later years only. Day one: no reliable gain over the historical rates. At "
-            "the ITC's final vote: better by 0.042. Next slide: the same models as a lookup a "
+            "the ITC's final vote: better by 0.045. Next slide: the same models as a lookup a "
             "sourcing team can read.",
     notes="Where the duty stays, the business does not come back, and a few months in we can tell "
           "fairly well which products will.\n\n"
           "Numbers if asked: every model sees only trade data Census had published by then, about "
           "five weeks after a month ends, and notices published by that date, and trains only on "
-          "earlier cases whose outcomes were already published. Day one: Brier 0.246 against 0.250 "
+          "earlier cases whose outcomes were already published. Day one: Brier 0.243 against 0.249 "
           "for the historical rate, a gain of 0.005 whose range includes zero. When the fall first "
-          "shows: gradient boosting, 0.023 better (0.012 to 0.034). At the ITC's final vote: a "
-          "logistic model, 0.042 better (0.028 to 0.056), ranking a product that will come back "
-          "above one that will not 80% of the time. Most of that is how far the published share has "
+          "shows: gradient boosting, 0.018 better (0.008 to 0.029), mostly from day-one facts. At "
+          "the ITC's final vote: a logistic model, 0.045 better (0.032 to 0.060), ranking a product "
+          "that will come back above one that will not 81% of the time. Most of that is how far the "
+          "published share has "
           "already come back; the vote by itself adds little.")
 
 # ---------------------------------------------------------------- 13 the lookup
@@ -347,10 +350,10 @@ add("Under half the old share, few come back.", fig="16_lookup.png",
     take_rule=True,
     notes="Close here: this is what a sourcing team would read. Where the duty was confirmed and "
           "the published share is under half its old level, 13 in 100 came back; where it was "
-          "lifted and the share is back to four-fifths, 81.\n\n"
+          "lifted and the share is back to four-fifths, 82.\n\n"
           "Small text in each cell: the model's estimate and how many cases are behind it. "
           "Recalibrating on earlier years made later years worse, so the estimates are the model's "
-          "own; at the vote its most confident third runs about 10 points high, so we show what "
+          "own; at the vote its most confident third runs about 11 points high, so we show what "
           "happened first.\n\n"
           "If asked about the rush before tariffs like copper's: we are rebuilding that tariff "
           "list document by document before we report anything on it.")

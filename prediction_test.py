@@ -36,7 +36,9 @@ from sklearn.preprocessing import StandardScaler
 K_HI = 18
 LAG = 2  # months between the end of a data month and its release, rounded up
 ep = pd.read_csv("adcvd_episodes_collapsed.csv", dtype={"cty": str})
-pairs = pd.read_csv("recovery_pairs_real_fall20.csv", dtype={"hs8": str})
+# outcomes on the decision-time panels (build_decision_stacks.py): rivals left out only for cases
+# already started by the duty, so nothing about later cases enters
+pairs = pd.read_csv("recovery_pairs_decision_fall20.csv", dtype={"hs8": str})
 pairs["hs8"] = pairs.hs8.str.zfill(8)
 pairs = pairs[pairs.category != "censored"].copy()
 pairs["bad"] = pairs.category.isin(["not recovered", "exited"]).astype(int)

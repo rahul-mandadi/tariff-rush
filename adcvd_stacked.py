@@ -138,7 +138,10 @@ pm_tot = sub.groupby(["hs8", "m"]).value.sum()
 pm_live = set(pm_tot[pm_tot > 0].index)
 
 
-def build(shift):
+def build(shift, excl_hi=18):
+    """excl_hi: rivals named on the product by another episode with k = 0 up to this many months
+    after this one are left out. 18 for the measurement (hindsight is allowed there); 0 for the
+    prediction tests (build_decision_stacks.py), which may use only cases started by the duty."""
     out = []
     for s, r in ep.iterrows():
         b = r.b - shift
@@ -154,7 +157,7 @@ def build(shift):
             if r.cty not in ctys:
                 continue
             bad = {c for c in ctys if c != r.cty and any(
-                b - 36 <= bb - shift <= b + 18 for bb in named.get((h, c), []))}
+                b - 36 <= bb - shift <= b + excl_hi for bb in named.get((h, c), []))}
             ctys -= bad
             if len(ctys) < 2:
                 continue
