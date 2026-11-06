@@ -57,6 +57,9 @@ def pairs(stacks, shift):
     last_m = d.m.max()
     for (s, h), g in sh.groupby(["sid", "hs8"]):
         g = g.set_index("k").share.sort_index()
+        # put the path on calendar months: a month with no trade from any country in the panel
+        # has no defined share, so it is missing, and the 3-month average needs 3 real months
+        g = g.reindex(range(int(g.index.min()), int(g.index.max()) + 1))
         bench = g.loc[-18:-13].mean()
         if not np.isfinite(bench) or bench <= 0:
             continue

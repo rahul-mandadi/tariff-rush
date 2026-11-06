@@ -4,7 +4,8 @@ The Federal Register publishes the List annexes as images, so the product codes 
 from the notices. They come instead from the Harmonized Tariff Schedule's Chapter 99 notes, as
 already parsed into coverage/product_lines.csv: heading 9903.88.01 (List 1, note 20(b)),
 9903.88.02 (List 2, note 20(d)) and 9903.88.03 (List 3, note 20(f)). The notes are the 2026
-edition, so codes renumbered since 2018 are missing; the match to the 2017 import data is logged.
+edition, so codes renumbered since 2018 are missing; the match to the 2017 import data is logged
+but not used as a filter.
 
 Dates (first month duties were collected):
   List 1   July 6, 2018, 25 percent
@@ -37,7 +38,9 @@ out = pd.DataFrame(rows)
 assert not out.hs8.duplicated().any(), "a product sits on two lists"
 print(out.groupby("list").agg(lines=("hs8", "size"), in_2017_data=("in_2017_data", "sum"),
                               section_232=("s232", "sum")).to_string())
-out = out[out.in_2017_data & ~out.s232]
+# no filter on trading in 2017: that is after the fake dates (2016), so it would select the placebo
+# sample on later data. Each stack keeps a product only if China traded it in its own k -18..-7.
+out = out[~out.s232]
 print("kept:", out.groupby("list").size().to_dict(), "total", len(out))
 out.to_csv("events/s301_products.csv", index=False)
 print("wrote events/s301_products.csv")

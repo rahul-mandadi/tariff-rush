@@ -122,6 +122,7 @@ tv = st[st.treated].set_index(["sid", "hs8", "k"]).value
 paths = {}
 for (s, h), g in share.groupby(level=[0, 1]):
     g = g.droplevel([0, 1]).sort_index()
+    g = g.reindex(range(int(g.index.min()), int(g.index.max()) + 1))  # calendar months, gaps missing
     paths[(s, h)] = (g, g.rolling(3, min_periods=3).mean(), tv.loc[(s, h)].sort_index())
 
 # unit values: the targeted exporter and its rivals, products with one reporting unit throughout
@@ -131,9 +132,9 @@ cols = ["hs8", "cty", "ym", "value", "qty", "unit", "qty_ok"]
 q = pd.concat([x[x.hs8.isin(need) & (x.value > 0)] for x in
                (pd.read_parquet(f, columns=cols) for f in files)])
 q["m"] = q.ym.dt.year * 12 + q.ym.dt.month - 1
-one_unit = q.groupby("hs8").unit.nunique()
-okq = q[q.hs8.isin(one_unit[one_unit == 1].index) & q.qty_ok.fillna(False).astype(bool) & (q.qty > 0)]
-uvq = {h: g[["cty", "m", "value", "qty"]] for h, g in okq.groupby("hs8")}
+# whether a product reports in one unit is decided inside each decision's visible window (uv_change),
+# not over the whole panel, which would use months after the decision
+uvq = {h: g[["cty", "m", "value", "qty", "unit", "qty_ok"]] for h, g in q.groupby("hs8")}
 
 # pre-case structure, every country trading in k -18..-7 (as prediction_test.py)
 raw = q[["hs8", "cty", "m", "value"]]
@@ -164,6 +165,9 @@ def uv_change(s, h, kv):
         return np.nan
     b0, tc = int(ep.b[s]), ep.cty[s]
     g = g[(g.m >= b0 - 18) & (g.m <= b0 + kv)]
+    if g.unit.nunique() > 1:
+        return np.nan
+    g = g[g.qty_ok.fillna(False).astype(bool) & (g.qty > 0)]
     pre, post = g[g.m <= b0 - 7], g[g.m >= b0]
     def luv(x):
         return np.log(x.value.sum() / x.qty.sum()) if len(x) and x.qty.sum() > 0 else np.nan
@@ -190,7 +194,8 @@ def trade_features(s, h, bench, fell_at, kv):
     post = sm.loc[0:kv]
     vv = v.reindex(range(0, kv + 1), fill_value=0)
     uvc = uv_change(s, h, kv)
-    return dict(k_fall=float(fell_at), depth=float(post.min() / bench), latest=float(post.iloc[-1] / bench),
+    return dict(k_fall=float(fell_at), depth=float(post.min() / bench),
+                latest=float(post.dropna().iloc[-1] / bench),
                 zero_months=float((vv == 0).mean()), rush=float(sh.loc[-6:-1].mean() / bench),
                 uv_change=0.0 if pd.isna(uvc) else float(np.clip(uvc, -3, 3)),
                 uv_missing=float(pd.isna(uvc)))

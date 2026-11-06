@@ -4,7 +4,9 @@ Same design as the AD/CVD work: for each list, a stack of its products with Chin
 country that traded them in k -18..-7, months with no trade kept as zeros, reference k -18..-13.
 Rivals named on the same product by an AD/CVD case with k = 0 within 36 months before to 18 after
 are left out, and so are products where China itself had such a case, so the comparison isolates
-Section 301. Fake date: the same lists 24 months earlier, cohort rebuilt from its own window.
+Section 301. Fake date: the same lists 24 months earlier, cohort rebuilt from its own window. A
+third, strict sample uses only AD/CVD cases already started by the tariff date for those exclusions,
+so the in-time transfer test (sec301_transfer_test.py, test B) selects nothing on later cases.
 
 Horizon: every window stops at January 2020, before China's COVID shutdown, which would otherwise
 read as a tariff effect. List 3 (September 2018) then has 16 months, so the outcomes use H = 16
@@ -16,7 +18,8 @@ list-level effect; the shares carry 90 percent intervals from resampling 2-digit
 covers product heterogeneity but not the common shock of each list date.
 
 First, a check that recovery_lib.categorize reproduces recovery_pairs_real_fall20.csv on the AD/CVD
-stacks at H = 18.
+stacks at H = 18: same category, pre-case share, fall month, recovery month and follow-up for every
+pair. Both share the calendar-month rule, so this checks the shared code, not the rule itself.
 
 Usage:  python3 sec301_benchmark.py
 """
@@ -37,9 +40,14 @@ chk = RL.categorize(st, 18, ep.b.to_dict(), int(st.m.max()))
 ref = pd.read_csv("recovery_pairs_real_fall20.csv", dtype={"hs8": str})
 m = chk.merge(ref[["sid", "hs8", "category"]].assign(hs8=lambda x: x.hs8.str.zfill(8)),
               on=["sid", "hs8"], suffixes=("", "_ref"))
-print(f"check: {len(m):,} of {len(ref):,} pairs matched; categories identical: "
-      f"{(m.category == m.category_ref).mean():.4f}")
-assert len(m) == len(ref) and (m.category == m.category_ref).all()
+same = lambda a, b: ((a == b) | (pd.isna(a) & pd.isna(b))).all()  # noqa: E731
+cols = ["category", "bench", "fell_at", "rec_at", "follow"]
+m = chk.merge(ref.assign(hs8=lambda x: x.hs8.str.zfill(8))[["sid", "hs8"] + cols], on=["sid", "hs8"],
+              suffixes=("", "_ref"))
+ok = {c: bool(same(m[c], m[c + "_ref"])) if c != "bench" else bool(np.allclose(m[c], m[c + "_ref"]))
+      for c in cols}
+print(f"check: {len(m):,} of {len(ref):,} pairs matched; identical on {ok}")
+assert len(m) == len(ref) and all(ok.values())
 
 
 def shares(p, w):
@@ -77,12 +85,15 @@ epP = [(set(P.split(";")), c, b) for P, c, b in zip(ep.P, ep.cty, ep.b)]
 stacks, info = [], []
 for i, (name, g) in enumerate(L.groupby("list"), start=1):
     b = int(g.b.iloc[0])
-    for shift, tag in [(0, "real"), (SHIFT, "placebo")]:
+    for shift, tag in [(0, "real"), (SHIFT, "placebo"), (0, "real, strict")]:
         b0 = b - shift
         cap = CAP if shift == 0 else b0 + H
+        # clean controls use AD/CVD cases from 36 months before to 18 after; the strict version,
+        # for the in-time transfer test, uses only cases already started by the tariff date
+        hi = b0 if tag == "real, strict" else b0 + 18
         excl, china_case = {}, set()
         for P, c, bb in epP:
-            if b0 - 36 <= bb <= b0 + 18:
+            if b0 - 36 <= bb <= hi:
                 for h in P & set(g.hs8):
                     if c == CHINA:
                         china_case.add(h)
@@ -90,7 +101,7 @@ for i, (name, g) in enumerate(L.groupby("list"), start=1):
                         excl.setdefault(h, set()).add(c)
         use = set(g.hs8) - china_case
         d = RL.build_stack(raw, use, CHINA, b0, cap, excl)
-        sid = i + (100 if shift else 0)
+        sid = i + (100 if shift else 0) + (200 if tag == "real, strict" else 0)
         d["sid"], d["list"], d["sample"] = sid, name, tag
         stacks.append(d)
         info.append(dict(list=name, sample=tag, sid=sid, b=b0, products_listed=len(g),
@@ -103,17 +114,17 @@ S.to_parquet("panel/s301_stacks.parquet", index=False)
 
 b_of = info.set_index("sid").b.to_dict()
 res = []
-for tag in ["real", "placebo"]:
+for tag in ["real", "placebo", "real, strict"]:
     d = S[S["sample"] == tag]
     last = CAP if tag == "real" else None
     # each placebo list ends at its own b + H; categorize uses one last month, so run per list
     parts = []
     for sid, g in d.groupby("sid"):
-        parts.append(RL.categorize(g, H, b_of, CAP if tag == "real" else b_of[sid] + H))
+        parts.append(RL.categorize(g, H, b_of, b_of[sid] + H if tag == "placebo" else CAP))
     p = pd.concat(parts, ignore_index=True)
     p["list"] = p.sid.map(info.set_index("sid").list)
     p["chapter"] = p.hs8.str[:2]
-    p.to_csv(f"s301_pairs_{tag}.csv", index=False)
+    p.to_csv(f"s301_pairs_{tag.replace(', ', '_')}.csv", index=False)
     c = p[p.category != "censored"].reset_index(drop=True)
     w = pd.Series(1.0, index=c.index)
     sh, ci = shares(c, w), boot(c, w, c.chapter)
@@ -144,5 +155,5 @@ for k in CATS:
 ad.to_csv("s301_adcvd_pairs_h16.csv", index=False)
 pd.DataFrame(res).to_csv("s301_benchmark.csv", index=False)
 info.to_csv("s301_stacks_info.csv", index=False)
-print("wrote s301_benchmark.csv, s301_pairs_{real,placebo}.csv, s301_adcvd_pairs_h16.csv, "
+print("wrote s301_benchmark.csv, s301_pairs_{real,placebo,real_strict}.csv, s301_adcvd_pairs_h16.csv, "
       "s301_stacks_info.csv, panel/s301_stacks.parquet")

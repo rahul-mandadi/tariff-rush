@@ -11,7 +11,7 @@ unchanged), with the results replaced by the November corrections in FINAL_REPOR
   slide 10  discussion rewritten to the corrected numbers
   slide 11  checks: quantity, and the 21 notices removed
   slide 12  the held-out results at three decision points (fig 15)
-  slide 13  the calibrated lookup (fig 16) and the next step
+  slide 13  the lookup (fig 16) and the next step
 
 Every number traces to FINAL_REPORT.md. Style and helpers are build_deck2.py's, unchanged.
 
@@ -235,8 +235,8 @@ add("Losses persist in cases that become orders.", fig="12_order_vs_negative.png
 
 # ---------------------------------------------------------------- 7 outcomes (finding 3)
 add("Six in ten fall and do not recover.", fig="14_outcomes.png",
-    caption="384 cases, each counted once. 25% did not fall, 18% fell and recovered, 41% stayed "
-            "down while trading, 16% had no imports in months 13 to 18 (fake date: 4%).",
+    caption="384 cases, each counted once. 25% did not fall, 17% fell and recovered, 42% stayed "
+            "down while trading, 16% had no imports in months 13 to 18 (fake date: 3%).",
     notes="This is what a buyer of one of these products can expect.\n\n"
           "Definitions: fell means the country's share of the product's imports dropped at least "
           "a fifth below its level before the case, within six months of the duty. Came back "
@@ -247,7 +247,7 @@ add("Six in ten fall and do not recover.", fig="14_outcomes.png",
           "months of falling, against six in ten on the fake date. Where the commission confirmed "
           "the duty, nearly one in five stopped trading.\n\n"
           "Robust: with a 10% or 30% definition of a fall, 16% still stop trading. On just the "
-          "282 cases that also have a fake date, 13% stop trading against 4%. And built only "
+          "282 cases that also have a fake date, 13% stop trading against 3%. And built only "
           "from earlier cases, these rates beat a blind guess on later cases in five of six "
           "years.")
 
@@ -327,16 +327,16 @@ add("What the checks confirmed.",
 # ---------------------------------------------------------------- 12 next
 add("A few months in, the odds get sharper.", fig="15_decision_points.png",
     caption="Scored on later years only. Day one: no reliable gain over the historical rates. At "
-            "the ITC's final vote: better by 0.045. Next slide: the same models as a lookup a "
+            "the ITC's final vote: better by 0.042. Next slide: the same models as a lookup a "
             "sourcing team can read.",
     notes="Where the duty stays, the business does not come back, and a few months in we can tell "
           "fairly well which products will.\n\n"
           "Numbers if asked: every model sees only trade data Census had published by then, about "
           "five weeks after a month ends, and notices published by that date, and trains only on "
           "earlier cases whose outcomes were already published. Day one: Brier 0.246 against 0.250 "
-          "for the historical rate, a gain of 0.004 whose range includes zero. When the fall first "
-          "shows: gradient boosting, 0.022 better (0.013 to 0.033). At the ITC's final vote: a "
-          "logistic model, 0.045 better (0.031 to 0.059), ranking a product that will come back "
+          "for the historical rate, a gain of 0.005 whose range includes zero. When the fall first "
+          "shows: gradient boosting, 0.023 better (0.012 to 0.034). At the ITC's final vote: a "
+          "logistic model, 0.042 better (0.028 to 0.056), ranking a product that will come back "
           "above one that will not 80% of the time. Most of that is how far the published share has "
           "already come back; the vote by itself adds little.")
 
@@ -348,9 +348,10 @@ add("Under half the old share, few come back.", fig="16_lookup.png",
     notes="Close here: this is what a sourcing team would read. Where the duty was confirmed and "
           "the published share is under half its old level, 13 in 100 came back; where it was "
           "lifted and the share is back to four-fifths, 81.\n\n"
-          "Small text in each cell: the calibrated model's estimate and how many cases are behind "
-          "it. Calibration is fitted only on earlier years; at the vote the most confident third "
-          "still runs about 12 points high, so we show what happened, not just the model.\n\n"
+          "Small text in each cell: the model's estimate and how many cases are behind it. "
+          "Recalibrating on earlier years made later years worse, so the estimates are the model's "
+          "own; at the vote its most confident third runs about 10 points high, so we show what "
+          "happened first.\n\n"
           "If asked about the rush before tariffs like copper's: we are rebuilding that tariff "
           "list document by document before we report anything on it.")
 

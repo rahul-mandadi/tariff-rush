@@ -17,7 +17,8 @@ Tests:
                          could have made in 2018, since most AD/CVD training cases come later; it
                          asks whether the relationship carries across laws.
   B  strict, in time     train only on AD/CVD cases whose month 16 was published before the first
-                         Section 301 decision (September 2018), score Section 301.
+                         Section 301 decision (September 2018), score the strict Section 301
+                         population, whose rival exclusions use only cases started by the tariff.
   C  strict, reverse     train on Section 301 (published by March 2020), score AD/CVD cases whose
                          fall decision comes after that.
   ref in-domain         Section 301 scored by a model trained on other Section 301 chapters
@@ -25,7 +26,9 @@ Tests:
 Baselines: the training domain's historical recovery rate (what you would use with no model) and,
 for reference only, the target domain's own rate, which no one knows in advance.
 Weights: AD/CVD products weighted 1 / products in the case, Section 301 products 1 each.
-Intervals: 90 percent, 2,000 resamples of chapters (Section 301) or investigation groups (AD/CVD).
+Intervals: 90 percent, 2,000 resamples of chapters (Section 301) or investigation groups (AD/CVD)
+of the scored products, with the fitted models held fixed: they cover which products are scored,
+not how the model would change with other training cases or other tariff dates.
 
 Usage:  python3 sec301_transfer_test.py      # after sec301_benchmark.py
 """
@@ -121,6 +124,14 @@ def s301_rate(sid, dm):
 S3 = build(s3_pairs, s3_st, {k: v for k, v in b301.items() if k < 100}, {k: CHINA for k in b301},
            s301_rate, lambda r: r.hs8[:2])
 S3["w"] = 1.0
+# strict population for test B: stacks whose exclusions use only cases started by the tariff date
+s3s_pairs = pd.read_csv("s301_pairs_real_strict.csv", dtype={"hs8": str})
+s3s_st = pd.read_parquet("panel/s301_stacks.parquet")
+s3s_st = s3s_st[s3s_st["sample"] == "real, strict"]
+S3s = build(s3s_pairs, s3s_st, {k: v for k, v in b301.items() if k > 200}, {k: CHINA for k in b301},
+            s301_rate, lambda r: r.hs8[:2])
+S3s["w"] = 1.0
+print(f"Section 301 strict population: fallen products {len(S3s):,}, came back {S3s.y.mean():.3f}")
 print(f"Section 301 fallen products {len(S3):,}, chapters {S3.group.nunique()}, "
       f"came back {S3.y.mean():.3f}")
 print("\nfeature means (AD/CVD, Section 301):")
@@ -206,7 +217,7 @@ def transfer(label, tr, te):
 R = []
 R.append(transfer("A: all AD/CVD -> Section 301", AD, S3))
 early = AD[AD.b + H + LAG < 2018 * 12 + 8]
-R.append(transfer("B: AD/CVD published by Sep 2018 -> Section 301", early, S3))
+R.append(transfer("B: AD/CVD published by Sep 2018 -> Section 301", early, S3s))
 late_ad = AD[AD.decision >= 2020 * 12 + 2]
 R.append(transfer("C: Section 301 -> AD/CVD decided from Mar 2020", S3.assign(w=1.0), late_ad))
 # in-domain reference: Section 301 out-of-fold by chapter

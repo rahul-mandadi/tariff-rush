@@ -67,6 +67,9 @@ def categorize(d, H, b_of, last_m, fall=FALL):
     out = []
     for (s, h), g in sh.groupby(["sid", "hs8"]):
         g = g.set_index("k").share.sort_index()
+        # put the path on calendar months: a month with no trade from any country in the panel
+        # has no defined share, so it is missing, and the 3-month average needs 3 real months
+        g = g.reindex(range(int(g.index.min()), int(g.index.max()) + 1))
         bench = g.loc[-18:-13].mean()
         if not np.isfinite(bench) or bench <= 0:
             continue
@@ -101,6 +104,7 @@ def share_paths(d):
     paths = {}
     for (s, h), g in share.groupby(level=[0, 1]):
         g = g.droplevel([0, 1]).sort_index()
+        g = g.reindex(range(int(g.index.min()), int(g.index.max()) + 1))  # calendar months, gaps missing
         paths[(s, h)] = (g, g.rolling(3, min_periods=3).mean(), tv.loc[(s, h)].sort_index())
     return paths
 
@@ -127,6 +131,9 @@ def uv_change(uvq, h, b0, tc, kv):
     if g is None:
         return np.nan
     g = g[(g.m >= b0 - 18) & (g.m <= b0 + kv)]
+    if g.unit.nunique() > 1:
+        return np.nan
+    g = g[g.qty_ok.fillna(False).astype(bool) & (g.qty > 0)]
     pre, post = g[g.m <= b0 - 7], g[g.m >= b0]
 
     def luv(x):
@@ -135,9 +142,8 @@ def uv_change(uvq, h, b0, tc, kv):
 
 
 def one_unit_qty(q):
-    one = q.groupby("hs8").unit.nunique()
-    ok = q[q.hs8.isin(one[one == 1].index) & q.qty_ok.fillna(False).astype(bool) & (q.qty > 0)]
-    return {h: g[["cty", "m", "value", "qty"]] for h, g in ok.groupby("hs8")}
+    """Rows by product; uv_change decides one-unit eligibility inside each visible window."""
+    return {h: g[["cty", "m", "value", "qty", "unit", "qty_ok"]] for h, g in q.groupby("hs8")}
 
 
 def fall_features(path, bench, fell_at, uvc):
@@ -145,6 +151,7 @@ def fall_features(path, bench, fell_at, uvc):
     kv = int(fell_at)
     post = sm.loc[0:kv]
     vv = v.reindex(range(0, kv + 1), fill_value=0)
-    return dict(k_fall=float(fell_at), depth=float(post.min() / bench), latest=float(post.iloc[-1] / bench),
+    return dict(k_fall=float(fell_at), depth=float(post.min() / bench),
+                latest=float(post.dropna().iloc[-1] / bench),
                 zero_months=float((vv == 0).mean()), rush=float(sh.loc[-6:-1].mean() / bench),
                 uv_change=0.0 if pd.isna(uvc) else float(np.clip(uvc, -3, 3)), uv_missing=float(pd.isna(uvc)))

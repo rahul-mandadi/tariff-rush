@@ -2,9 +2,9 @@
 team can read, "of 100 products like yours, about N came back".
 
 Calibration: the held-out predictions run high in places. For each test year Y, a Platt scaling
-(logistic regression on the logit of the model's probability) is fitted only on the held-out
-predictions of years before Y, which were themselves out of sample, and applied to year Y. The
-first test year has nothing earlier to calibrate on and stays uncalibrated. Compared on the years
+(logistic regression on the logit of the model's probability) is fitted only on held-out predictions
+of earlier years whose month 18 had been published before January of Y (at least 50 products), and
+applied to year Y. Earlier test years have too little published history and stay uncalibrated. Compared on the years
 that can be calibrated: Brier score and calibration by predicted tercile, raw against calibrated.
 
 Lookup cells, using facts visible at each decision:
@@ -12,8 +12,9 @@ Lookup cells, using facts visible at each decision:
                    $10M, over $10M; and the preliminary duty rate missing, up to 25 percent, over 25
   at the ITC vote  the latest published share against the pre-case level (under half, half to
                    four-fifths, four-fifths or more); and the vote (duty confirmed or lifted)
-Each cell: held-out products and cases, the calibrated model's average prediction, and the share
-that actually came back. Cells with fewer than 20 products or 5 cases are marked too few.
+Each cell: held-out products and cases, the model's average prediction, and the share that actually
+came back. The cells use the uncalibrated prediction, because the calibration test above made later
+years worse once it was restricted to labels already published. Cells with fewer than 20 products or 5 cases are marked too few.
 Episode-weighted, as everywhere else.
 
 Usage:  python3 calibrated_lookup.py      # after prediction_stage2.py
@@ -27,6 +28,7 @@ P = pd.read_csv("prediction_stage2_heldout.csv")
 D = pd.read_csv("prediction_stage2_features.csv", dtype={"hs8": str})
 yrs = pd.read_csv("prediction_stage2_years.csv")
 MODEL = {"fall": "boosting", "ITC": "logit, + vote"}
+K_HI, LAG = 18, 2
 logit = lambda p: np.log(np.clip(p, 1e-4, 1 - 1e-4) / (1 - np.clip(p, 1e-4, 1 - 1e-4)))  # noqa: E731
 
 
@@ -42,8 +44,9 @@ def aligned(pt):
 def calibrate(p, col):
     out = pd.Series(np.nan, index=p.index)
     for Y in sorted(p.year.unique()):
-        past, now = p[p.year < Y], p.year == Y
-        if past.year.nunique() < 1 or past.y.nunique() < 2:
+        # only earlier held-out cases whose month 18 had been published before January of Y
+        past, now = p[(p.year < Y) & (p.b + K_HI + LAG < Y * 12)], p.year == Y
+        if len(past) < 50 or past.y.nunique() < 2:
             continue
         m = LogisticRegression(C=1e6).fit(logit(past[col]).to_frame(), past.y, sample_weight=past.w)
         out[now] = m.predict_proba(logit(p.loc[now, col]).to_frame())[:, 1]
@@ -74,8 +77,9 @@ for pt in ["fall", "ITC"]:
         ev.append(dict(point=pt, model=name, years=f"{c.year.min()}-{c.year.max()}", brier=bs,
                        mean_pred=np.average(c[name], weights=c.w), realized=np.average(c.y, weights=c.w),
                        max_tercile_gap=gap))
-    # lookup cells, on every held-out product; the uncalibrated first year uses the raw prediction
-    p["pred"] = p.calibrated.fillna(p[col])
+    # lookup cells, on every held-out product, with the model's own (uncalibrated) prediction:
+    # calibrating on earlier published years made the later years worse (calibrated_lookup_eval.csv)
+    p["pred"] = p[col]
     if pt == "fall":
         val = np.expm1(p.log_pre_value)
         p["row"] = pd.cut(val, [-1, 1e6, 1e7, np.inf], labels=["under $1M", "$1M to $10M", "over $10M"])
@@ -98,7 +102,7 @@ L = pd.DataFrame(cells)
 pd.set_option("display.width", 200)
 for pt in ["fall", "ITC"]:
     x = L[L.point == pt]
-    print(f"\nlookup at the {pt}: expected (calibrated model) / came back (held-out), per 100 products")
+    print(f"\nlookup at the {pt}: expected (model) / came back (held-out), per 100 products")
     tab = x.assign(cell=[("too few" if f else f"{100 * e:.0f} / {100 * b:.0f}  ({n} products, {c} cases)")
                          for e, b, n, c, f in zip(x.expected, x.came_back, x.products, x.cases, x.too_few)])
     order = {"fall": ["under $1M", "$1M to $10M", "over $10M"],
