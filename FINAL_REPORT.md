@@ -125,8 +125,9 @@ guess over four outcomes scores 0.75). We then test models against them at three
 team could act: the day the duty starts (target: fell and did not come back), the month a fall first
 shows in published data, and the ITC's final vote (target at both: back by month 18, among products
 that have visibly fallen and are not yet back). Models see only trade data published by then (a
-two-month lag), notices published by that date, and comparison panels that leave out only rivals
-named by cases already started: regularized logistic regression throughout, plus
+two-month lag), notices published by that date, the products named by the first preliminary, and
+comparison panels that leave out only rivals whose own case was published by then (exact dates):
+regularized logistic regression throughout, plus
 shallow gradient boosting and a penalized Cox model at the later points. All are validated forward
 in time, training only on earlier cases whose outcomes were already published.
 
@@ -206,26 +207,27 @@ Built only from earlier cases, these rates beat a uniform guess in five of six t
 
 On the day the duty starts, case facts add no reliable gain over the historical rate (Table 3).
 Later looks do better. When the fall first shows, gradient boosting beats the historical recovery
-rate by 0.018, but only 0.009 (-0.000 to 0.019) beyond a model of day-one facts alone, so most of what
-can be told then was known on day one. At the ITC's final vote, a logistic model ranks a product that
+rate by 0.017; among products whose fall was already observed, it improves on a model using only
+day-one features by 0.008, with a 90 percent interval that includes zero (-0.002 to 0.019). At the
+ITC's final vote, a logistic model ranks a product that
 will come back above one that will not 81 percent of the time and cuts the Brier score by a quarter.
 The latest published share alone gives 0.027; the other features add 0.018 (0.009 to 0.029), the
-vote alone 0.005 (-0.001 to 0.012). It beats the rates split by vote in all six test years (2023 by
-0.001); its top third runs 11 points high. Large pre-case
+vote alone 0.006 (-0.001 to 0.012). It beats the rates split by vote in all six test years (2023 by
+0.001); its top third runs 12 points high. Large pre-case
 suppliers and high duty rates go with lower odds of coming back. Recalibrating on earlier years
 makes later years worse, so we do not. Appendix
 Table A1 turns both models into a lookup: where the duty was confirmed and the share is under half
-its pre-case level, 13 of 100 products came back (the model expected 12); where it was lifted and the
-share is back to four-fifths, 82 (expected 76).
+its pre-case level, 13 of 100 products came back (the model expected 11); where it was lifted and the
+share is back to four-fifths, 82 (expected 75).
 
 **Table 3.** Held-out Brier scores (lower is better). Cases: eligible, and in parentheses those in
 scored test years. Intervals resample investigation groups of scored cases, models held fixed.
 
 | decision point | cases (scored) | history | best model | improvement | AUC |
 | --- | --- | --- | --- | --- | --- |
-| duty starts | 384 (242) | 0.249 | logistic, 0.243 | 0.005 [-0.004, 0.014] | 0.60 |
-| fall first visible | 354 (222) | 0.205 | boosting, 0.187 | 0.018 [0.008, 0.029] | 0.69 |
-| ITC final vote | 333 (210) | 0.180 | logistic, 0.134 | 0.045 [0.032, 0.060] | 0.81 |
+| duty starts | 384 (242) | 0.249 | logistic, 0.240 | 0.008 [-0.002, 0.018] | 0.61 |
+| fall first visible | 354 (222) | 0.204 | boosting, 0.188 | 0.017 [0.006, 0.028] | 0.68 |
+| ITC final vote | 333 (210) | 0.179 | logistic, 0.134 | 0.045 [0.032, 0.060] | 0.81 |
 
 ### 3.4 The same model on China's Section 301 tariffs
 
@@ -236,8 +238,8 @@ China's share of these products' imports fell from 14.9 to 10.4 percent (fake da
 Of the products, 37 percent did not fall, 23 fell and came back, 35 stayed down and 5 had no late
 imports, against 25, 17, 42 and 16 for antidumping cases at the same horizon (Table A2). The
 at-the-fall model trained on antidumping cases, minus the China and case-type flags, ranks Section
-301 products correctly 70 percent of the time (a model trained on Section 301 itself: 76) and beats
-even Section 301's own recovery rate by 0.026 (0.022 to 0.031); trained on Section 301, it beats
+301 products correctly 69 percent of the time (a model trained on Section 301 itself: 76) and beats
+even Section 301's own recovery rate by 0.022 (0.017 to 0.028); trained on Section 301, it beats
 antidumping cases from 2020 on by 0.011 (0.001 to 0.020). Most antidumping training cases come after
 2018; trained only on the 26 published before September 2018, it ranks as well (0.71) but expects
 too few recoveries. One pattern stands out: products whose
@@ -306,19 +308,19 @@ determination notices in the Federal Register.
 
 | when the fall shows: supplier's pre-case imports | rate up to 25% | rate over 25% | rate not published |
 | --- | --- | --- | --- |
-| under USD 1M | 35 / 56 (51) | 30 / 30 (38) | 35 / 43 (27) |
-| USD 1M to USD 10M | 23 / 36 (52) | 18 / 16 (51) | 26 / 25 (28) |
-| over USD 10M | 20 / 25 (78) | 16 / 15 (72) | 19 / 28 (36) |
+| under USD 1M | 35 / 56 (50) | 30 / 30 (38) | 37 / 43 (27) |
+| USD 1M to USD 10M | 23 / 36 (51) | 18 / 16 (51) | 27 / 25 (28) |
+| over USD 10M | 20 / 25 (77) | 17 / 15 (72) | 19 / 28 (36) |
 
 | at the ITC vote: latest share against pre-case | duty confirmed | duty lifted |
 | --- | --- | --- |
-| under half | 12 / 13 (144) | 38 / 32 (24) |
-| half to 4/5 | 21 / 22 (68) | 55 / 40 (20) |
-| 4/5 or more | 45 / 52 (50) | 76 / 82 (18) |
+| under half | 11 / 13 (144) | 37 / 32 (24) |
+| half to 4/5 | 21 / 22 (67) | 55 / 40 (20) |
+| 4/5 or more | 46 / 52 (51) | 75 / 82 (18) |
 
 ### Section 301 details
 
-**Table A2.** Section 301 Lists 1 to 3 (6,844 listed products, 4,908 with a pre-case share) against antidumping cases, 16-month horizon; 90 percent intervals from resampling 2-digit chapters (Section 301) or investigation groups (antidumping), holding fitted models fixed. Transfer tests use comparison panels that leave out only rivals named by cases already started.
+**Table A2.** Section 301 Lists 1 to 3 (6,844 listed products, 4,908 with a pre-case share) against antidumping cases, 16-month horizon; 90 percent intervals from resampling 2-digit chapters (Section 301) or investigation groups (antidumping), holding fitted models fixed. Transfer tests compare only with rivals whose own case was published by the decision (exact dates).
 
 | outcome | Section 301 | fake date | antidumping |
 | --- | --- | --- | --- |
@@ -329,9 +331,9 @@ determination notices in the Federal Register.
 
 | trained on, scored on | products | AUC | Brier | gain over the target's own rate |
 | --- | --- | --- | --- | --- |
-| antidumping, all cases, to Section 301 (boosting) | 3,128 | 0.70 | 0.207 | 0.026 [0.022, 0.031] |
+| antidumping, all cases, to Section 301 (boosting) | 3,128 | 0.69 | 0.211 | 0.022 [0.017, 0.028] |
 | antidumping published by Sep 2018, to Section 301 (logistic) | 3,128 | 0.71 | 0.237 | -0.004 [-0.012, 0.004] |
-| Section 301, to antidumping from 2020 (logistic) | 1,252 | 0.67 | 0.185 | 0.011 [0.001, 0.020] |
+| Section 301, to antidumping from 2020 (logistic) | 1,243 | 0.67 | 0.185 | 0.011 [0.001, 0.020] |
 | Section 301 on itself, by chapter (reference) (boosting) | 3,128 | 0.76 | 0.188 | 0.045 [0.039, 0.050] |
 
 ### Dollars and quantity at the category level

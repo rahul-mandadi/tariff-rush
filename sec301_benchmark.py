@@ -5,7 +5,8 @@ country that traded them in k -18..-7, months with no trade kept as zeros, refer
 Rivals named on the same product by an AD/CVD case with k = 0 within 36 months before to 18 after
 are left out, and so are products where China itself had such a case, so the comparison isolates
 Section 301. Fake date: the same lists 24 months earlier, cohort rebuilt from its own window. A
-third, strict sample uses only AD/CVD cases already started by the tariff date for those exclusions,
+third, strict sample uses only AD/CVD cases whose first preliminary was published on or before the
+list's start date (exact dates) for those exclusions,
 so the in-time transfer test (sec301_transfer_test.py, test B) selects nothing on later cases.
 
 Horizon: every window stops at January 2020, before China's COVID shutdown, which would otherwise
@@ -81,19 +82,25 @@ L = pd.read_csv("events/s301_products.csv", dtype={"hs8": str})
 L["b"] = pd.to_datetime(L.start).map(RL.month)
 prods = set(L.hs8)
 raw = RL.load_raw(prods, L.b.min() - SHIFT - 18, CAP)
-epP = [(set(P.split(";")), c, b) for P, c, b in zip(ep.P, ep.cty, ep.b)]
+# each episode's first preliminary date, for the strict sample's exact-date rule
+ev = pd.read_csv("events/adcvd_events.csv", dtype={"cty": str}).drop_duplicates("document_number")
+pubd = pd.to_datetime(ev.set_index("document_number").publication_date)
+first = [min(pubd[d] for d in ds.split(";")) for ds in ep.docs]
+epP = [(set(P.split(";")), c, b, f) for P, c, b, f in zip(ep.P, ep.cty, ep.b, first)]
 stacks, info = [], []
 for i, (name, g) in enumerate(L.groupby("list"), start=1):
     b = int(g.b.iloc[0])
+    start = pd.Timestamp(g.start.iloc[0])
     for shift, tag in [(0, "real"), (SHIFT, "placebo"), (0, "real, strict")]:
         b0 = b - shift
         cap = CAP if shift == 0 else b0 + H
         # clean controls use AD/CVD cases from 36 months before to 18 after; the strict version,
-        # for the in-time transfer test, uses only cases already started by the tariff date
-        hi = b0 if tag == "real, strict" else b0 + 18
+        # for the transfer tests, uses only cases whose first preliminary was published on or
+        # before the list's start date (exact dates)
         excl, china_case = {}, set()
-        for P, c, bb in epP:
-            if b0 - 36 <= bb <= hi:
+        for P, c, bb, fd in epP:
+            known = fd <= start if tag == "real, strict" else bb <= b0 + 18
+            if b0 - 36 <= bb and known:
                 for h in P & set(g.hs8):
                     if c == CHINA:
                         china_case.add(h)

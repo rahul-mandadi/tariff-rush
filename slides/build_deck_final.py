@@ -286,7 +286,7 @@ add("One in four that falls comes back.", fig="13_recovery_km.png",
 # ---------------------------------------------------------------- 10 the early warning
 add("A few months in, the odds get sharper.", fig="15_decision_points.png",
     caption="Scored on later years only. Day one: no reliable gain over the historical rates. When "
-            "the fall shows in published data: better by 0.018. At the ITC's final vote: better by "
+            "the fall shows in published data: better by 0.017. At the ITC's final vote: better by "
             "0.045, mostly from the latest published share.",
     notes="This is the evaluation Kylie's Methods comment asks for: a baseline, a held-out test, "
           "and an honest size, at three points a sourcing team can act.\n\n"
@@ -296,17 +296,18 @@ add("A few months in, the odds get sharper.", fig="15_decision_points.png",
           "data Census had published by then (about five weeks after a month ends) and notices "
           "published by that date, and trains only on earlier cases whose outcomes were already "
           "published.\n\n"
-          "Day one: the gain is 0.005 and its range includes zero, so history is the forecast. "
-          "When the fall first shows, gradient boosting beats history by 0.018 (0.008 to 0.029), "
-          "but a day-one model alone gets most of that: the trade data add only 0.009, inside "
-          "zero. At the ITC vote, a logistic model ranks a product that will come back above one "
+          "Day one: the gain is 0.008 and its range includes zero, so history is the forecast. "
+          "When the fall first shows, gradient boosting beats history by 0.017 (0.006 to 0.028), "
+          "and, among products whose fall was already observed, a model using only day-one "
+          "features by 0.008, with a range that includes zero. At the ITC vote, a logistic model ranks a product that will come back above one "
           "that will not 81% of the time. The latest published share alone gives 0.027; the "
-          "other facts add 0.018 (0.009 to 0.029); the vote by itself adds 0.005, inside zero. "
+          "other facts add 0.018 (0.009 to 0.029); the vote by itself adds 0.006, inside zero. "
           "Gradient boosting and a Cox survival model do about as well as the logistic, not "
-          "better. Every model compares the supplier only with rivals not named by an earlier "
-          "case, so it uses nothing a forecaster could not have known.\n\n"
+          "better. Every model compares the supplier only with rivals whose own case was "
+          "published by the first preliminary, and uses only products named by then, so it uses "
+          "nothing a forecaster could not have known.\n\n"
           "If asked what changed: earlier versions of the day-one test looked stronger; two "
-          "timing leaks were fixed, cutting its gain from 0.014 to 0.005.")
+          "timing leaks were fixed, cutting its gain from 0.014 to under 0.01.")
 
 # ---------------------------------------------------------------- 10b the lookup
 add("Under half the old share, few come back.", fig="16_lookup.png",
@@ -319,13 +320,13 @@ add("Under half the old share, few come back.", fig="16_lookup.png",
           "was lifted and the share is already back to four-fifths, 82.\n\n"
           "Calibration, if asked: we tried recalibrating on earlier years whose outcomes were "
           "already published, and it made later years worse, so the estimates are the model's own. "
-          "At the vote the most confident third runs about 11 points high, so we show the outcome "
+          "At the vote the most confident third runs about 12 points high, so we show the outcome "
           "first.")
 
 # ---------------------------------------------------------------- 10c Section 301
 add("The model carries over to China's tariffs.", fig="17_s301_outcomes.png",
     caption="6,844 products on the 2018 Section 301 lists, China against untaxed rivals, to January "
-            "2020. A model trained on antidumping cases ranks them correctly 70% of the time; where "
+            "2020. A model trained on antidumping cases ranks them correctly 69% of the time; where "
             "China's share rushed before the tariff, 60% came back.",
     notes="This answers the question everyone asks about the antidumping results: does it hold for "
           "the tariffs that hit most importers' China spend?\n\n"
@@ -334,9 +335,9 @@ add("The model carries over to China's tariffs.", fig="17_s301_outcomes.png",
           "2020, before China's COVID shutdown, so outcomes run 16 months. China's share of these "
           "products fell from 14.9% to 10.4% of imports; on the fake date it rose 6%.\n\n"
           "The transfer: the at-the-fall model trained on antidumping cases, minus the China and "
-          "case-type flags, ranks Section 301 products correctly 70% of the time; a model trained "
-          "on Section 301 itself gets 76%. It beats even Section 301's own recovery rate by 0.026 "
-          "(0.022 to 0.031). Trained only on the 26 antidumping cases published before September "
+          "case-type flags, ranks Section 301 products correctly 69% of the time; a model trained "
+          "on Section 301 itself gets 76%. It beats even Section 301's own recovery rate by 0.022 "
+          "(0.017 to 0.028). Trained only on the 26 antidumping cases published before September "
           "2018 it ranks as well but expects too few recoveries.\n\n"
           "The borrowed part: where China's share ran more than a quarter above normal just "
           "before the tariff, 60% came back, against about 30% for the rest. That fall was "

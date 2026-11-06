@@ -71,6 +71,7 @@ prods = {d: set(g.hs8) for d, g in p.groupby("document_number")}
 e = e[(e.stage == "preliminary") & e.window_days.notna() & (e.window_days >= 60)]
 e = e[e.document_number.isin(prods) & ~e.document_number.isin(EXCLUDE)].copy()
 e["b"] = mi(e.publication_date)
+e["date"] = pd.to_datetime(e.publication_date)
 e["ini"] = mi(e.initiation_date)
 e["prog"] = e.case.fillna("").str[:1]
 
@@ -106,8 +107,10 @@ for (cty, ini), g in e.groupby(["cty", "ini"]):
     root = union_find(range(len(g)), lambda i, j: bool(g.P[i] & g.P[j]))
     for r in set(root):
         h = g[[x == r for x in root]]
+        first = h.date.min()
         eps.append(dict(cty=cty, ini=int(ini), b=int(h.b.min()),
                         P=frozenset().union(*h.P), docs=";".join(h.document_number),
+                        first_date=first, P0=frozenset().union(*h[h.date <= first].P),
                         ad="A" in set(h.prog), cvd="C" in set(h.prog)))
 ep = pd.DataFrame(eps)
 # one petition across countries: same initiation month, overlapping products
@@ -125,10 +128,11 @@ print(f"episodes whose initiation falls at or before k = -7, so the -12..-7 benc
       f"wholly pre-case: {(ep.k_ini <= -7).sum()}")
 
 # (product, country) -> months at which an episode starts, for clean controls
-named = {}
+named, named_date = {}, {}
 for _, r in ep.iterrows():
     for h in r.P:
         named.setdefault((h, r.cty), []).append(r.b)
+        named_date.setdefault((h, r.cty), []).append((r.b, r.first_date))
 
 # ---------------------------------------------------------------- stacks
 allP = set().union(*ep.P)
@@ -138,10 +142,14 @@ pm_tot = sub.groupby(["hs8", "m"]).value.sum()
 pm_live = set(pm_tot[pm_tot > 0].index)
 
 
-def build(shift, excl_hi=18):
+def build(shift, excl_hi=18, decision=False):
     """excl_hi: rivals named on the product by another episode with k = 0 up to this many months
-    after this one are left out. 18 for the measurement (hindsight is allowed there); 0 for the
-    prediction tests (build_decision_stacks.py), which may use only cases started by the duty."""
+    after this one are left out; 18 for the measurement, where hindsight is allowed.
+    decision=True (build_decision_stacks.py, real dates only): what a forecaster knew on the day of
+    the episode's first preliminary. Rivals are left out only if their own first preliminary was
+    published on or before that date (exact dates, not months), and the products are only those
+    named in notices published by that date, not ones a later companion notice adds."""
+    assert not (decision and shift), "decision-time panels are for real dates only"
     out = []
     for s, r in ep.iterrows():
         b = r.b - shift
@@ -149,15 +157,19 @@ def build(shift, excl_hi=18):
         if lo < M_FIRST:
             continue
         elig_hi = min(b - 7, r.ini - shift - 1)     # strictly before the case's initiation
-        for h in r.P:
+        for h in (r.P0 if decision else r.P):
             g = by_h[h]
             g = g[(g.m >= lo) & (g.m <= hi)]
             pre = g[(g.m >= lo) & (g.m <= elig_hi)]
             ctys = set(pre.cty)
             if r.cty not in ctys:
                 continue
-            bad = {c for c in ctys if c != r.cty and any(
-                b - 36 <= bb - shift <= b + excl_hi for bb in named.get((h, c), []))}
+            if decision:
+                bad = {c for c in ctys if c != r.cty and any(
+                    b - 36 <= bb and fd <= r.first_date for bb, fd in named_date.get((h, c), []))}
+            else:
+                bad = {c for c in ctys if c != r.cty and any(
+                    b - 36 <= bb - shift <= b + excl_hi for bb in named.get((h, c), []))}
             ctys -= bad
             if len(ctys) < 2:
                 continue

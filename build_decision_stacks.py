@@ -2,9 +2,11 @@
 
 adcvd_stacked.py drops rival countries that another case names on the same product from 36 months
 before to 18 months after the duty. That is right for measuring the aftermath, but a forecaster at
-the fall or at the ITC vote could not know about cases filed later. Here the rivals left out are
-only those named by cases already started by the episode's first preliminary (k = 0), which is
-known at every later decision point. Everything a prediction test uses (the visible share path,
+the fall or at the ITC vote could not know about cases filed later. Here a rival is left out only
+if its own first preliminary was published on or before this episode's first preliminary (exact
+dates, not months), and the products are only those named in notices published by that date, not
+ones a later companion notice adds. Both are known at every later decision point and both rules are
+asserted below. Everything a prediction test uses (the visible share path,
 whether a product has fallen, the trade features and the outcome labels) is computed on these
 panels; the descriptive results keep adcvd_stacked.py's panels.
 
@@ -22,7 +24,20 @@ import pandas as pd  # noqa: E402
 
 import recovery_lib as RL  # noqa: E402
 
-d = S.build(0, excl_hi=0)
+d = S.build(0, decision=True)
+
+# checks that fail loudly if the rule is ever broken
+ep = S.ep
+cells = d[["sid", "hs8", "cty"]].drop_duplicates()
+for s_, g in cells.groupby("sid"):
+    assert set(g.hs8) <= set(ep.P0[s_]), f"episode {s_}: a product not named by its first preliminary"
+    tc = ep.cty[s_]
+    for h, c in g[g.cty != tc][["hs8", "cty"]].itertuples(index=False):
+        assert not any(S.ep.b[s_] - 36 <= bb and fd <= ep["first_date"][s_]
+                       for bb, fd in S.named_date.get((h, c), [])), f"episode {s_}: rival {c} on {h}"
+print(f"checks passed: every product named by the first preliminary; no kept rival had a case "
+      f"published on or before it (episodes whose companion notices add products later: "
+      f"{(ep.P0 != ep.P).sum()})")
 d.to_parquet("panel/adcvd_stacks_decision.parquet", index=False)
 ref = pd.read_parquet("panel/adcvd_stacks_real.parquet", columns=["sid", "hs8", "cty"]).drop_duplicates()
 now = d[["sid", "hs8", "cty"]].drop_duplicates()
