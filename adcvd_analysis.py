@@ -91,6 +91,7 @@ def episodes(shift):
         sd = float((d.sd * w).sum()) / np.sqrt(len(d))
         out.append(dict(document_number=r.document_number, cty=r.cty, n_cells=len(d),
                         critical_circ=bool(r.get("critical_circ", False)),
+                        critical_affirm=bool(r.get("critical_affirm", False)),
                         excess_during=ed, excess_after=ea, sd=sd,
                         surged=ed > 1.96 * sd,
                         reversal=(-ea / ed) if ed > 0 else np.nan))
@@ -144,16 +145,21 @@ if len(s) > 5:
 # initiation notice, whichever is later. Where Commerce raises critical circumstances the
 # whole window is exposed, so buying ahead gets taxed anyway. If that provision is what
 # deters front-loading, cases carrying it should rush less than cases that do not.
-if "critical_circ" in real.columns and real.critical_circ.nunique() > 1:
-    print("\n--- rush by retroactive-duty exposure (real events) ---")
+# critical_circ is a regex for the phrase anywhere in the notice; critical_affirm is the parsed
+# affirmative finding, which is what exposes imports to retroactive duty and what Report 1 quotes.
+# Tests are two-sided, since the question is whether the groups differ at all.
+for flag_col in ("critical_affirm", "critical_circ"):
+    if flag_col not in real.columns or real[flag_col].nunique() < 2:
+        continue
+    print(f"\n--- rush by retroactive-duty exposure, split on {flag_col} (real events) ---")
     print(f"  {'group':<28}{'n':>6}{'mean excess_during':>21}{'median':>10}")
-    for flag, g in real.groupby("critical_circ"):
+    for flag, g in real.groupby(flag_col):
         lbl = "critical circumstances" if flag else "no critical circumstances"
         print(f"  {lbl:<28}{len(g):>6}{g.excess_during.mean():>21.4f}"
               f"{g.excess_during.median():>10.4f}")
-    a = real[~real.critical_circ].excess_during.dropna()
-    b = real[real.critical_circ].excess_during.dropna()
+    a = real[~real[flag_col]].excess_during.dropna()
+    b = real[real[flag_col]].excess_during.dropna()
     if len(a) > 5 and len(b) > 5:
-        u = stats.mannwhitneyu(a, b, alternative="greater")
+        u = stats.mannwhitneyu(a, b, alternative="two-sided")
         t = stats.ttest_ind(a, b, equal_var=False)
-        print(f"  without > with ?   MWU p={u.pvalue:.4f}   t p={t.pvalue:.4f}")
+        print(f"  two-sided   MWU p={u.pvalue:.4f}   Welch t p={t.pvalue:.4f}")
