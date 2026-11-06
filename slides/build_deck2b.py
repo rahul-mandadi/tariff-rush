@@ -234,9 +234,8 @@ add("Losses persist in cases that become orders.", fig="12_order_vs_negative.png
 
 # ---------------------------------------------------------------- 7 outcomes (finding 3)
 add("Six in ten fall and do not recover.", fig="14_outcomes.png",
-    caption="384 cases, each counted once. Fell: share down a fifth within 6 months. 25% did not "
-            "fall, 18% fell and recovered, 41% stayed down while trading, 16% stopped trading "
-            "(fake date: 4%).",
+    caption="384 cases, each counted once. 25% did not fall, 18% fell and recovered, 41% stayed "
+            "down while trading, 16% had no imports in months 13 to 18 (fake date: 4%).",
     notes="This is what a buyer of one of these products can expect.\n\n"
           "Definitions: fell means the country's share of the product's imports dropped at least "
           "a fifth below its level before the case, within six months of the duty. Came back "
@@ -246,9 +245,10 @@ add("Six in ten fall and do not recover.", fig="14_outcomes.png",
           "Counting from the month of the fall, about one in four products was back within 18 "
           "months of falling, against six in ten on the fake date. Where the commission confirmed "
           "the duty, nearly one in five stopped trading.\n\n"
-          "Robust: with a 10% or 30% definition of a fall, 16% still stop trading. And "
-          "built only from earlier cases, these rates beat a blind guess on later cases in five "
-          "of six years.")
+          "Robust: with a 10% or 30% definition of a fall, 16% still stop trading. On just the "
+          "282 cases that also have a fake date, 13% stop trading against 4%. And built only "
+          "from earlier cases, these rates beat a blind guess on later cases in five of six "
+          "years.")
 
 # ---------------------------------------------------------------- 7 the transformation (Kylie's Fig 4)
 add("How we spot an unusual month.", fig="04_normal.png",
@@ -286,9 +286,9 @@ add("Dollars alone can fool you.", fig="08_units.png",
 add("What this means.",
     bullets=[
         "**For an importer tied to one country:** weigh qualifying another supplier early. In six "
-        "of ten past cases the product fell without recovering; one in six stopped trading.",
-        "**The earliest warnings:** a high duty rate and few rival suppliers go with worse "
-        "outcomes; a simple model beats the historical average on later cases, slightly.",
+        "of ten past cases the product fell without recovering; one in six had no imports a year on.",
+        "**The earliest warning is history:** past rates beat a blind guess on later cases; "
+        "day-one facts such as the duty rate add no reliable edge.",
         "**For anyone measuring tariffs:** study the products a tariff names, not the whole "
         "category, and check quantities as well as dollars.",
     ],
@@ -319,7 +319,7 @@ add("What the checks confirmed.",
           "Inflation, two BLS price indexes: adjusting by all import prices keeps 8 of the top 10 "
           "categories (rank correlation 0.97); by non-fuel import prices, 9 of 10 (0.99). Neither "
           "touches the antidumping result, where a shared price change cancels, and the tonnes "
-          "check rules out a price cut by the targeted exporter.\n\n"
+          "check points to lower volume rather than a price cut, though both ranges include zero.\n\n"
           "The 21 notices removed: 4 negative findings, 9 side notices about retroactive duties, "
           "8 reviews of orders that already existed.")
 
@@ -328,10 +328,10 @@ add("Next: an early warning on the day of a duty.",
     bullets=[
         "**The question.** On the day a duty starts, can we tell which suppliers will not come "
         "back?",
-        "**First result.** A simple model using the duty rate, the number of rival suppliers and "
-        "the supplier's recent trend ranks later cases a little better than history alone.",
-        "**Next.** Fix its probabilities, which run 4 to 12 points high, and check it year by "
-        "year.",
+        "**First result.** Past rates beat a blind guess on later cases. A model adding the duty "
+        "rate, rival count and recent trend gains too little over them to rely on.",
+        "**Next.** Test whether facts public a few months in, like the ITC's vote, sharpen "
+        "the odds.",
         "**The deliverable.** For an importer facing a case: what usually happens, how long it "
         "takes, and how this case compares.",
     ],
@@ -340,11 +340,11 @@ add("Next: an early warning on the day of a duty.",
     take_rule=True,
     notes="Close here: where the duty stays, the business does not come back; the next question "
           "is whether we can tell which suppliers in advance.\n\n"
-          "Numbers if asked: trained only on earlier cases whose 18 months had finished, tested on "
-          "later years, using only what was public on the day the duty started. Brier score 0.241 "
-          "against 0.250 for the historical rate (lower is better), improvement 0.009 with a 90% "
-          "range of 0.0003 to 0.017, so a weak signal; it ranks a bad outcome above a good one 63% "
-          "of the time. Better in three of six test years, equal in one, worse in two.\n\n"
+          "Numbers if asked: trained only on earlier cases whose month 18 had been published by "
+          "Census, tested on later years, using only notices published by the day the duty "
+          "started. Brier score 0.246 against 0.250 for the historical rate (lower is better), "
+          "improvement 0.004 with a 90% range of -0.005 to 0.013, so no reliable gain; it ranks a "
+          "bad outcome above a good one 61% of the time. Better in three of six test years.\n\n"
           "If asked about the rush before tariffs like copper's: we are rebuilding that tariff "
           "list document by document before we report anything on it.")
 

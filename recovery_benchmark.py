@@ -41,6 +41,7 @@ import pandas as pd
 
 FALL = float(sys.argv[sys.argv.index("--fall") + 1]) if "--fall" in sys.argv else 0.2
 K_HI = 18
+LAG = 2  # months between the end of a data month and its release, rounded up
 B = 1000
 rng = np.random.default_rng(0)
 ep = pd.read_csv("adcvd_episodes_collapsed.csv", dtype={"cty": str})
@@ -163,6 +164,23 @@ if __name__ == "__main__":
             res.append(dict(sample=label, measure=f"KM recovered by {t}", value=k[t],
                             lo=kci.loc[t, 0.05], hi=kci.loc[t, 0.95], fall=FALL))
 
+    # the fake date covers fewer episodes (it needs 42 months of data before the case), so repeat
+    # the real shares on just the episodes that also have a complete fake-date window. Run last so
+    # the bootstrap draws for the two main samples are unchanged.
+    both = set(plac[plac.category != "censored"].sid)
+    pm = real[real.sid.isin(both)]
+    s, ci = shares(pm), boot(pm[pm.category != "censored"], shares)
+    print(f"\n[real, fake-date-matched episodes] complete pairs {(pm.category != 'censored').sum():,}, "
+          f"episodes {pm[pm.category != 'censored'].sid.nunique()}")
+    for c_ in CATS:
+        print(f"  {c_:<14} {s[c_]:.3f}  [{ci.loc[c_, 0.05]:.3f}, {ci.loc[c_, 0.95]:.3f}]")
+        res.append(dict(sample="real, fake-date-matched", measure=c_, value=s[c_],
+                        lo=ci.loc[c_, 0.05], hi=ci.loc[c_, 0.95], fall=FALL))
+    k, kci = km(pm), boot(pm, km)
+    print(f"  Kaplan-Meier recovered by 18: {k[18]:.3f}  [{kci.loc[18, 0.05]:.3f}, {kci.loc[18, 0.95]:.3f}]")
+    res.append(dict(sample="real, fake-date-matched", measure="KM recovered by 18", value=k[18],
+                    lo=kci.loc[18, 0.05], hi=kci.loc[18, 0.95], fall=FALL))
+
     # evaluate the benchmark on later cases
     c = real[real.category != "censored"].copy()
     ev = []
@@ -171,9 +189,10 @@ if __name__ == "__main__":
         test = c[c.year == Y]
         if len(test) < 30:
             continue
-        # episodes whose 18 months (k = 0 at b) finished before January of Y
+        # episodes whose month k = 18 had been released before January of Y (Census publishes a
+        # month's trade about five weeks after it ends)
         bmonth = c.sid.map(ep.b)
-        train = c[(bmonth + K_HI) < Y * 12]
+        train = c[(bmonth + K_HI + LAG) < Y * 12]
         if len(train) < 100:
             continue
         r = shares(train).to_numpy()

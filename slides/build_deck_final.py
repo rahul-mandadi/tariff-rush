@@ -251,9 +251,8 @@ add("Losses persist in cases that become orders.", fig="12_order_vs_negative.png
 
 # ---------------------------------------------------------------- 7 outcomes (finding 3)
 add("Six in ten fall and do not recover.", fig="14_outcomes.png",
-    caption="384 cases, each counted once. Fell: share down a fifth within 6 months. 25% did not "
-            "fall, 18% fell and recovered, 41% stayed down while trading, 16% stopped trading "
-            "(fake date: 4%).",
+    caption="384 cases, each counted once. 25% did not fall, 18% fell and recovered, 41% stayed "
+            "down while trading, 16% had no imports in months 13 to 18 (fake date: 4%).",
     notes="This is what a buyer of one of these products can expect.\n\n"
           "Definitions: fell means the country's share of the product's imports dropped at least "
           "a fifth below its level before the case, within six months of the duty. Came back "
@@ -263,9 +262,10 @@ add("Six in ten fall and do not recover.", fig="14_outcomes.png",
           "Counting from the month of the fall, about one in four products was back within 18 "
           "months of falling, against six in ten on the fake date. Where the commission confirmed "
           "the duty, nearly one in five stopped trading.\n\n"
-          "Robust: with a 10% or 30% definition of a fall, 16% still stop trading. And "
-          "built only from earlier cases, these rates beat a blind guess on later cases in five "
-          "of six years.")
+          "Robust: with a 10% or 30% definition of a fall, 16% still stop trading. On just the "
+          "282 cases that also have a fake date, 13% stop trading against 4%. And built only "
+          "from earlier cases, these rates beat a blind guess on later cases in five of six "
+          "years.")
 
 # ---------------------------------------------------------------- 9 time to recovery
 add("One in four that falls comes back.", fig="13_recovery_km.png",
@@ -281,39 +281,40 @@ add("One in four that falls comes back.", fig="13_recovery_km.png",
           "of a fall, 28% and 25%.")
 
 # ---------------------------------------------------------------- 10 the early warning
-add("Day-one facts help, a little.",
+add("History is the forecast to use.",
     bullets=[
-        "**What it uses.** Only what is public when the duty starts: the duty rate, how many "
-        "rival suppliers there are, and whether the supplier was gaining share before the case.",
-        "**How it was tested.** Trained on earlier cases, scored on later years it never saw.",
-        "**Result.** It ranks a bad outcome above a good one 63% of the time, and beats the "
-        "historical average in three of six years.",
-        "**Reading it.** A high duty rate and few rivals mean worse odds; treat it as a nudge.",
+        "**What we tested.** A model using only what is public when the duty starts: the duty "
+        "rate, how many rival suppliers there are, and the supplier's recent trend.",
+        "**How.** Trained on earlier cases, scored on later years it never saw.",
+        "**Result.** Its edge over the historical rates is too small to rely on: better in three "
+        "of six years, and its 90% range includes zero.",
+        "**Reading it.** Use the rates on slide 8; a high duty rate and few rivals are a nudge.",
     ],
     bullet_size=20, bullet_top=2.15, bullet_step=0.62,
-    caption="Brier score 0.241 against 0.250 for history alone (lower is better); improvement "
-            "0.009, 90% range 0.0003 to 0.017.",
+    caption="Brier score 0.246 against 0.250 for history alone (lower is better); improvement "
+            "0.004, 90% range -0.005 to 0.013.",
     take_rule=True,
     notes="This is the evaluation Kylie's Methods comment asks for: a baseline, a held-out test, "
           "and an honest size.\n\n"
           "The baseline is the historical rate itself: what an importer would assume if they knew "
           "only the past. The model is a regularized logistic regression, kept simple on purpose. "
-          "Training only uses cases whose 18 months had finished before the test year, so it never "
-          "learns from outcomes that were not yet known.\n\n"
+          "Training only uses cases whose month 18 had been published by Census before the test "
+          "year, so it never learns from outcomes that were not yet known.\n\n"
           "Brier score is the average squared gap between a predicted probability and what "
-          "happened. The improvement is small and its range barely clears zero, so the signal is "
-          "weak but real. Its probabilities run 4 to 12 points high and need recalibrating.\n\n"
-          "An earlier version looked stronger. A review found it was using notices published after "
-          "the duty started; removing them cut the gain from 0.014 to 0.009. We report the "
-          "corrected number.")
+          "happened. The improvement is 0.004 and its range includes zero, so we do not claim "
+          "the model beats history. It still ranks a bad outcome above a good one 61% of the "
+          "time, and its probabilities run 4 to 10 points high.\n\n"
+          "Earlier versions looked stronger. Reviews found two timing leaks: notices published "
+          "after the first preliminary, and outcomes not yet released by Census. Fixing them cut "
+          "the gain from 0.014 to 0.004. We report the corrected number.")
 
 # ---------------------------------------------------------------- 10 discussion
 add("What this means.",
     bullets=[
         "**For an importer tied to one country:** weigh qualifying another supplier early. In six "
-        "of ten past cases the product fell without recovering; one in six stopped trading.",
-        "**The earliest warnings:** a high duty rate and few rival suppliers go with worse "
-        "outcomes; a simple model beats the historical average on later cases, slightly.",
+        "of ten past cases the product fell without recovering; one in six had no imports a year on.",
+        "**The earliest warning is history:** past rates beat a blind guess on later cases; "
+        "day-one facts such as the duty rate add no reliable edge.",
         "**For anyone measuring tariffs:** study the products a tariff names, not the whole "
         "category, and check quantities as well as dollars.",
     ],
@@ -332,8 +333,8 @@ add("What we answered, and what is open.",
         "tariffs like copper's, still open.",
         "**Q2, borrowed or real:** closer to real where the duty becomes an order: about a 31% "
         "fall over the 18 months we see.",
-        "**Q3, how long:** most fallen products are still down at 18 months; day-one facts sharpen "
-        "the odds slightly.",
+        "**Q3, how long:** most fallen products are still down at 18 months; past cases are the "
+        "best guide we found.",
         "**Open:** where the lost trade goes. Gains spread across many rival countries.",
     ],
     bullet_size=20, bullet_top=2.15, bullet_step=0.66,

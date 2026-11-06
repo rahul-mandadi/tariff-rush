@@ -13,8 +13,9 @@ Features, all known by the preliminary determination (k = 0), none from later mo
   targeted country.
 Model: L2-regularized logistic regression on standardized features, C chosen by grouped
 cross-validation inside the training years.
-Validation: forward-chaining by year of k = 0. Training uses only episodes whose 18 months had
-finished before the test year began, so every training label was observable at test time.
+Validation: forward-chaining by year of k = 0. Training uses only episodes whose month k = 18
+had been released by Census before the test year began, so every training label was observable
+at test time.
 Baseline: the benchmark, i.e. the episode-weighted share of bad outcomes in those training
 episodes. Every score is episode-weighted, as in recovery_benchmark.py.
 Scores: Brier score (lower is better), log loss, and AUC. The test passes only if the model's
@@ -33,6 +34,7 @@ from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 
 K_HI = 18
+LAG = 2  # months between the end of a data month and its release, rounded up
 ep = pd.read_csv("adcvd_episodes_collapsed.csv", dtype={"cty": str})
 pairs = pd.read_csv("recovery_pairs_real_fall20.csv", dtype={"hs8": str})
 pairs["hs8"] = pairs.hs8.str.zfill(8)
@@ -67,15 +69,15 @@ for s_, h in pairs[["sid", "hs8"]].drop_duplicates().itertuples(index=False):
                      hhi=float((csh ** 2).sum()), n_rivals=float(np.log(max(len(cs) - 1, 1)))))
 f = pd.DataFrame(rows)
 
-# Case facts as of k = 0: only notices published by the month of the first preliminary. A
-# companion AD or CVD preliminary that comes out months later carries a rate nobody knew at k = 0.
+# Case facts as of the first preliminary: only notices published on or before its publication
+# date. A companion AD or CVD preliminary that comes out later, even later in the same month,
+# carries a rate nobody knew on that day.
 ev = pd.read_csv("events/adcvd_events.csv", dtype={"cty": str}).drop_duplicates("document_number")
-pubm = pd.to_datetime(ev.set_index("document_number").publication_date)
-pubm = pubm.dt.year * 12 + pubm.dt.month - 1
+pubd = pd.to_datetime(ev.set_index("document_number").publication_date)
 crit = ev.set_index("document_number").critical_affirm.fillna(False).astype(bool)
 mg = pd.read_csv("events/adcvd_margins.csv").set_index("document_number").rate
-docs0 = [[d for d in ds.split(";") if pubm.get(d, 10 ** 9) <= b0]
-         for ds, b0 in zip(ep.docs, ep.b)]
+first = [min(pubd[d] for d in ds.split(";")) for ds in ep.docs]
+docs0 = [[d for d in ds.split(";") if pubd[d] <= f0] for ds, f0 in zip(ep.docs, first)]
 ep["crit"] = [any(crit.get(d, False) for d in ds) for ds in docs0]
 ep["rate"] = [np.nansum([mg.get(d, np.nan) for d in ds])
               if any(pd.notna(mg.get(d, np.nan)) for d in ds) else np.nan for ds in docs0]
@@ -116,7 +118,9 @@ def fit(tr):
 rows, preds = [], []
 for Y in sorted(d.year.unique()):
     te = d[d.year == Y]
-    tr = d[(d.b + K_HI) < Y * 12].reset_index(drop=True)
+    # a training label needs its month k = 18 released: Census publishes a month's trade about
+    # five weeks after it ends, so month m is public by January of Y only if m <= October
+    tr = d[(d.b + K_HI + LAG) < Y * 12].reset_index(drop=True)
     if len(te) < 30 or tr.sid.nunique() < 60 or te.bad.nunique() < 2:
         continue
     m, C = fit(tr)

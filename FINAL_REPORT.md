@@ -21,9 +21,10 @@ we observe; where the trade commission found no injury and the duty was lifted, 
 lasting fall. A separate check on physical quantity is consistent with a fall in volume rather than
 price, but is imprecise. Across 384 past cases, 25
 percent of targeted products did not fall, 18 percent fell and came back, 41 percent fell and
-stayed down, and 16 percent stopped trading, against 4 percent on the fake date. A simple model
-using only facts public on the day the duty starts ranks later cases slightly better than these
-historical rates. We also show that a tariff list typically names about 5 percent of the product
+stayed down, and 16 percent had no imports at all 13 to 18 months later, against 4 percent on the
+fake date. Built only from earlier cases, these historical rates beat a uniform guess on later
+cases in five of six years; a model adding facts public on the day the duty starts gains too little
+over them to rely on. We also show that a tariff list typically names about 5 percent of the product
 category it touches, which is why this work has to be done product by product.
 
 ## 1. Introduction
@@ -117,11 +118,13 @@ cases still running, with the clock starting at the month of the fall. Intervals
 ranges from resampling whole investigation groups.
 
 The historical rates are themselves a forecast: what an importer would assume about a new case. We
-test them on later cases, building them only from earlier cases whose 18 months had finished, and
+test them on later cases, building them only from earlier cases whose month 18 had been published
+(Census releases a month's trade about five weeks after it ends), and
 score them with the Brier score (mean squared error of a probability; lower is better; a uniform
 guess over four outcomes scores 0.75). We then test one model against them: a regularized logistic
 regression for "fell and did not come back", using only facts public on the day the duty starts.
-It is validated forward in time, training only on earlier cases whose outcomes were already known
+Its case facts come only from notices published on or before the first preliminary. It is
+validated forward in time, training only on earlier cases whose outcomes were already published
 and testing on each later year.
 
 ## 3. Results
@@ -186,8 +189,10 @@ episodes and does not show whether retroactive liability changes behavior.
 
 Table 2 and Fig. 3 give the outcomes for targeted products. Fewer than half are unaffected or come
 back: 25 percent never fall and 18 percent fall and recover, while 41 percent fall and stay down and
-16 percent stop trading entirely. On the fake date, 4 percent stop trading. The shares barely move
-with the definition of a fall: at 10, 20 or 30 percent, 16 percent stop trading. Counting from the
+16 percent have no imports at all in months 13 to 18. On the fake date, 4 percent do. The fake
+date needs 42 months of earlier data, so it covers 282 of the 384 cases; on those 282 alone the
+real shares are 27, 18, 42 and 13 percent, so the gap is not a product of the different samples.
+At 10, 20 or 30 percent definitions of a fall, 16 percent have no late imports. Counting from the
 month of the fall, 26 percent of products that fall are back within 18 months of falling, against
 58 percent on the fake date.
 
@@ -203,29 +208,29 @@ intervals from resampling investigation groups.
 
 [[FIG:3|slides/fig/14_outcomes.png|What happened to each targeted product-country pair within 18 months of the duty, real cases against the fake date.]]
 
-These rates hold up on later cases. Built only from cases whose 18 months had finished before each
+These rates hold up on later cases. Built only from cases whose month 18 was published before each
 year, they beat a uniform guess in five of six test years (Brier 0.65 to 0.72 against 0.75) and
-are marginally worse in 2024 (0.754), a year dominated by cases the ITC later voted down.
+are marginally worse in 2024 (0.755), a year dominated by cases the ITC later voted down.
 
-Facts known on the day of the duty add a weak but measurable signal. The model of "fell and did not
-come back" scores a pooled held-out Brier of 0.241 against 0.250 for the historical rate, an
-improvement of 0.009 with a 90 percent interval of 0.0003 to 0.017, and ranks a bad outcome above a
-good one 63 percent of the time (0.57 to 0.68). It is better in three of six test years, equal in
-one, and worse in two. In the fitted model, more rival suppliers, a more concentrated market and a
-supplier that was gaining share before the case go with lower predicted risk, and a higher
-preliminary duty rate with higher risk. These features are correlated with each other, and none of
-this shows cause. Its probabilities rank correctly but run 4 to 12 points too high in later years, so they
-need recalibrating before use.
+The historical rates are therefore the forecast to use: facts known on the day of the duty add no
+reliable gain over them. The model of "fell and did not come back" scores a pooled held-out Brier
+of 0.246 against 0.250 for the historical rate, an improvement of 0.004 with a 90 percent interval
+of -0.005 to 0.013, and ranks a bad outcome above a good one 61 percent of the time (0.56 to 0.66).
+It is better in three of six test years, about equal in one, and worse in two. In the fitted model,
+more rival suppliers, a more concentrated market and a supplier that was gaining share before the
+case go with lower predicted risk, and a higher preliminary duty rate with higher risk; these
+features are correlated with each other, and none of this shows cause. Its probabilities run 4 to
+10 points too high.
 
 ## 4. Discussion
 
 For the importer, the answer to the title is closer to real than borrowed. When an antidumping or
 countervailing duty starts, the historical odds are that the targeted country's position in the
 product falls and stays down: in six cases out of ten it falls without coming back within 18
-months, and in one in six the trade stops. We find no clear average surge before collection that
-would later be paid back. The ITC's vote
-a few months later is a second, public point to update: where the duty is confirmed, nearly one
-product in five stops trading; where it is lifted, the aftermath looks like the fake date. These are
+months, and in one in six there are no imports at all a year on. We find no clear average surge
+before collection that would later be paid back. The ITC's vote a few months later is a second,
+public point to update: where the duty is confirmed, nearly one product in five has no imports a
+year on; where it is lifted, the aftermath looks like the fake date. These are
 the base rates a sourcing team would want at the preliminary determination. They describe what
 usually happens, not a guarantee for any supplier, and we have not tested with importers how such
 teams decide.
@@ -235,14 +240,14 @@ the wrong unit for tariff work, because the typical list names a twentieth of it
 forecasts of trade fail: in our earlier attempts, the year a case happened explained 0.366 of the
 variance in how much of a product's imports survived, against 0.142 for every case feature together,
 and three prediction targets failed to beat simple baselines out of sample. Comparing a country with
-its rivals in the same product and month removes shocks they share, including the year. The new
-prediction test also changes the outcome and adds the duty rate, so we cannot credit its
-improvement to the comparison alone.
+its rivals in the same product and month removes shocks they share, including the year. What does
+forecast well is the simplest thing: the historical rates of each outcome, which beat a uniform
+guess on later cases, while day-one case facts add no reliable gain over them.
 
 Against the three questions: Q2 is answered for antidumping and countervailing duties, as a
 persistent relative decline over the 18 months we observe; where the lost trade goes is not
 estimable from totals, since gains spread across many rivals. Q3 is answered descriptively by the
-recovery rates, with a modest predictive improvement on top. Q1 is answered only for these duties,
+recovery rates, which also serve as the forecast for a new case. Q1 is answered only for these duties,
 where there is no clear surge before collection; for the broad 2018 to 2026 tariff actions it
 remains open (appendix).
 
