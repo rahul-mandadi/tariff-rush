@@ -2,7 +2,8 @@
 
 Built from slides/build_deck2b.py (the Presentation 2 resubmission draft) with its helpers and
 style unchanged. Adds the three-questions slide (Kylie: "Analytic problem is given but lacks
-clarity"), the time-to-recovery curve (fig 13), the held-out prediction result, and a closing
+clarity"), the time-to-recovery curve (fig 13), the held-out results at three decision points (fig
+15), and a closing
 slide on what each question's answer is. Every number traces to FINAL_REPORT.md and the CSVs
 written by the scripts it cites.
 
@@ -281,40 +282,35 @@ add("One in four that falls comes back.", fig="13_recovery_km.png",
           "of a fall, 28% and 25%.")
 
 # ---------------------------------------------------------------- 10 the early warning
-add("History is the forecast to use.",
-    bullets=[
-        "**What we tested.** A model using only what is public when the duty starts: the duty "
-        "rate, how many rival suppliers there are, and the supplier's recent trend.",
-        "**How.** Trained on earlier cases, scored on later years it never saw.",
-        "**Result.** Its edge over the historical rates is too small to rely on: better in three "
-        "of six years, and its 90% range includes zero.",
-        "**Reading it.** Use the rates on slide 8; a high duty rate and few rivals are a nudge.",
-    ],
-    bullet_size=20, bullet_top=2.15, bullet_step=0.62,
-    caption="Brier score 0.246 against 0.250 for history alone (lower is better); improvement "
-            "0.004, 90% range -0.005 to 0.013.",
-    take_rule=True,
+add("A few months in, the odds get sharper.", fig="15_decision_points.png",
+    caption="Scored on later years only. Day one: no reliable gain over the historical rates. When "
+            "the fall shows in published data: better by 0.022. At the ITC's final vote: better by "
+            "0.045, mostly from the latest published share.",
     notes="This is the evaluation Kylie's Methods comment asks for: a baseline, a held-out test, "
-          "and an honest size.\n\n"
-          "The baseline is the historical rate itself: what an importer would assume if they knew "
-          "only the past. The model is a regularized logistic regression, kept simple on purpose. "
-          "Training only uses cases whose month 18 had been published by Census before the test "
-          "year, so it never learns from outcomes that were not yet known.\n\n"
-          "Brier score is the average squared gap between a predicted probability and what "
-          "happened. The improvement is 0.004 and its range includes zero, so we do not claim "
-          "the model beats history. It still ranks a bad outcome above a good one 61% of the "
-          "time, and its probabilities run 4 to 10 points high.\n\n"
-          "Earlier versions looked stronger. Reviews found two timing leaks: notices published "
-          "after the first preliminary, and outcomes not yet released by Census. Fixing them cut "
-          "the gain from 0.014 to 0.004. We report the corrected number.")
+          "and an honest size, at three points a sourcing team can act.\n\n"
+          "The baseline is the historical rate: what an importer would assume knowing only past "
+          "cases. Brier score is the average squared gap between a predicted probability and what "
+          "happened; the chart shows how much each model lowers it. Every model sees only trade "
+          "data Census had published by then (about five weeks after a month ends) and notices "
+          "published by that date, and trains only on earlier cases whose outcomes were already "
+          "published.\n\n"
+          "Day one: the gain is 0.004 and its range includes zero, so history is the forecast. "
+          "When the fall first shows, gradient boosting beats history by 0.022 (0.013 to 0.033) "
+          "and a day-one model by 0.015. At the ITC vote, a logistic model ranks a product that "
+          "will come back above one that will not 80% of the time. Most of that is how far the "
+          "published share has already come back (0.029 alone); the other facts add 0.016 "
+          "(0.006 to 0.027); the vote by itself adds 0.006, inside zero. Gradient boosting and a "
+          "Cox survival model do about as well as the logistic, not better.\n\n"
+          "If asked what changed: earlier versions of the day-one test looked stronger; two "
+          "timing leaks were fixed, cutting its gain from 0.014 to 0.004.")
 
 # ---------------------------------------------------------------- 10 discussion
 add("What this means.",
     bullets=[
         "**For an importer tied to one country:** weigh qualifying another supplier early. In six "
-        "of ten past cases the product fell without recovering; one in six had no imports a year on.",
-        "**The earliest warning is history:** past rates beat a blind guess on later cases; "
-        "day-one facts such as the duty rate add no reliable edge.",
+        "of ten past cases the product fell without recovering; one in six had none a year on.",
+        "**When to look again:** on day one, use the historical rates; once the fall shows in "
+        "the data, a model tells recoveries apart far better.",
         "**For anyone measuring tariffs:** study the products a tariff names, not the whole "
         "category, and check quantities as well as dollars.",
     ],
@@ -333,8 +329,8 @@ add("What we answered, and what is open.",
         "tariffs like copper's, still open.",
         "**Q2, borrowed or real:** closer to real where the duty becomes an order: about a 31% "
         "fall over the 18 months we see.",
-        "**Q3, how long:** most fallen products are still down at 18 months; past cases are the "
-        "best guide we found.",
+        "**Q3, how long:** most fallen products are still down at 18 months; a few months in, "
+        "a model picks out which will come back.",
         "**Open:** where the lost trade goes. Gains spread across many rival countries.",
     ],
     bullet_size=20, bullet_top=2.15, bullet_step=0.66,

@@ -30,13 +30,14 @@ p  { margin: 0 0 6pt 0; text-align: justify; }
 figure { margin: 7pt 0; page-break-inside: avoid; text-align: center; }
 figure img { width: 60%; }
 figcaption { font-size: 8.5pt; text-align: left; color: #44474d; margin-top: 3pt; line-height: 1.3; }
-p.tblcap { font-size: 8.5pt; color: #44474d; margin: 9pt 0 2pt 0; line-height: 1.3; }
-table { border-collapse: collapse; font-size: 9.5pt; margin: 7pt 0; }
+p.tblcap { font-size: 8.5pt; color: #44474d; margin: 9pt 0 2pt 0; line-height: 1.3; page-break-after: avoid; break-after: avoid; }
+table { border-collapse: collapse; font-size: 9.5pt; margin: 7pt 0; page-break-inside: avoid; }
 th, td { border-bottom: 1px solid #ccc; padding: 3pt 10pt 3pt 0; text-align: left; }
 .meta { font-size: 10pt; margin: 0 0 3pt 0; }
 /* references and appendix are excluded from the 5-page count, so start them
    on a fresh page: it stops the heading orphaning and makes the boundary clear */
 h2.excluded { page-break-before: always; }
+div.tblwrap { page-break-inside: avoid; break-inside: avoid; }
 """
 
 
@@ -50,7 +51,10 @@ def fig(m):
 src = open(SRC).read()
 src = re.sub(r"\[\[FIG:(\d+)\|([^|]+)\|([^\]]+)\]\]", fig, src)
 body = markdown.markdown(src, extensions=["tables"])
-body = body.replace("<p><strong>Table 1.</strong>", '<p class="tblcap"><strong>Table 1.</strong>')
+# every table caption is styled, and kept on the same page as its table
+body = re.sub(r"<p><strong>(Table \d+\.)</strong>(.*?)</p>\s*(<table>.*?</table>)",
+              r'<div class="tblwrap"><p class="tblcap"><strong>\1</strong>\2</p>\3</div>', body,
+              flags=re.S)
 body = body.replace("<h2>6. References</h2>", '<h2 class="excluded">6. References</h2>')
 open(HTML, "w").write(f"<html><head><meta charset='utf-8'><style>{CSS}</style></head>"
                       f"<body>{body}</body></html>")

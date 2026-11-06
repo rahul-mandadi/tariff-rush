@@ -127,3 +127,36 @@ ax.set_title("What happened to each targeted product within 18 months", loc="lef
 fig.savefig("slides/fig/14_outcomes.png")
 plt.close(fig)
 print("wrote slides/fig/14_outcomes.png")
+
+# ---------------------------------------------------------------- 15: decision points
+# improvement over the historical rate (held-out Brier, positive = better), 90 percent interval
+pt = pd.read_csv("prediction_test.csv").set_index("year").loc["pooled"]
+bs = pd.read_csv("prediction_test_bootstrap.csv").brier_improvement
+s2 = pd.read_csv("prediction_stage2.csv").set_index(["point", "model"])
+rows = [("on the day the duty starts", pt.brier_benchmark - pt.brier_model, *bs.quantile([.05, .95]),
+         pt.auc_model, "logistic"),
+        ("when the fall first shows", *s2.loc[("fall", "boosting"), ["gain_vs_history", "lo_vs_history",
+                                                                     "hi_vs_history", "auc"]], "boosting"),
+        ("at the ITC's final vote", *s2.loc[("ITC", "logit, + vote"), ["gain_vs_history", "lo_vs_history",
+                                                                       "hi_vs_history", "auc"]], "logistic")]
+fig, ax = plt.subplots(figsize=(11, 3.6))
+ax.axvline(0, color=GREY, lw=1)
+for i, (lab, g, lo, hi, auc, mod) in enumerate(rows):
+    c = RED if lo > 0 else GREY
+    ax.plot([lo, hi], [i, i], color=c, lw=2.4, solid_capstyle="round")
+    ax.plot(g, i, "o", ms=10, color=c, mec="white", mew=2)
+    ax.annotate(f"ranks correctly {100 * auc:.0f}% of the time ({mod})", (hi, i), xytext=(10, 0),
+                textcoords="offset points", va="center", color=INK, fontsize=12)
+ax.set_yticks(range(len(rows)))
+ax.set_yticklabels([r[0] for r in rows])
+ax.invert_yaxis()
+ax.set_ylim(len(rows) - 0.5, -0.6)
+ax.set_xlim(-0.01, 0.09)
+ax.grid(axis="y", visible=False)
+ax.tick_params(left=False)
+ax.spines["left"].set_visible(False)
+ax.set_xlabel("drop in Brier score against the historical rate (further right is better), 90% range")
+ax.set_title("A few months in, a model beats the historical rates", loc="left", fontweight="600")
+fig.savefig("slides/fig/15_decision_points.png")
+plt.close(fig)
+print("wrote slides/fig/15_decision_points.png")

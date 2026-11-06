@@ -23,8 +23,9 @@ price, but is imprecise. Across 384 past cases, 25
 percent of targeted products did not fall, 18 percent fell and came back, 41 percent fell and
 stayed down, and 16 percent had no imports at all 13 to 18 months later, against 4 percent on the
 fake date. Built only from earlier cases, these historical rates beat a uniform guess on later
-cases in five of six years; a model adding facts public on the day the duty starts gains too little
-over them to rely on. We also show that a tariff list typically names about 5 percent of the product
+cases. On the day the duty starts, case facts add no reliable gain over them; once the fall shows in
+published trade data, a model does, and by the trade commission's final vote it ranks a product that
+will come back above one that will not 80 percent of the time. We also show that a tariff list typically names about 5 percent of the product
 category it touches, which is why this work has to be done product by product.
 
 ## 1. Introduction
@@ -121,11 +122,13 @@ The historical rates are themselves a forecast: what an importer would assume ab
 test them on later cases, building them only from earlier cases whose month 18 had been published
 (Census releases a month's trade about five weeks after it ends), and
 score them with the Brier score (mean squared error of a probability; lower is better; a uniform
-guess over four outcomes scores 0.75). We then test one model against them: a regularized logistic
-regression for "fell and did not come back", using only facts public on the day the duty starts.
-Its case facts come only from notices published on or before the first preliminary. It is
-validated forward in time, training only on earlier cases whose outcomes were already published
-and testing on each later year.
+guess over four outcomes scores 0.75). We then test models against them at three points a sourcing
+team could act: the day the duty starts (target: fell and did not come back), the month a fall first
+shows in published data, and the ITC's final vote (target at both: back by month 18, among products
+that have visibly fallen and are not yet back). Models see only trade data published by then (a
+two-month lag) and notices published by that date: regularized logistic regression throughout, plus
+shallow gradient boosting and a penalized Cox model at the later points. All are validated forward
+in time, training only on earlier cases whose outcomes were already published.
 
 ## 3. Results
 
@@ -158,6 +161,13 @@ about 31 percent, deepening to 0.46 in months 13 to 18, and the chance the produ
 falls 9 points. For cases the ITC voted down, there is no sustained fall: the targeted country ends
 slightly above its pre-case level.
 
+The comparison between the two final outcomes describes them; it does not prove the duty caused
+the gap. The ITC's vote rests on the import record itself, and the no-injury group is small and
+dominated by the 2024 aluminum extrusions cases. Shared price movements, including inflation, cancel
+in the design; a price cut by the targeted exporter alone would not. On the 2,492 pairs whose
+quantity is reported in one unit, among months with trade, quantity falls 0.31 log points and
+value 0.30: consistent with lower volume rather than price, though both intervals include zero.
+
 **Table 1.** The targeted country against rival suppliers of the same product, after the duty
 (months 0 to 18) and late (months 13 to 18), relative to months 18 to 13 before. Log points;
 standard errors over investigation groups in parentheses.
@@ -171,33 +181,23 @@ standard errors over investigation groups in parentheses.
 
 [[FIG:2|slides/fig/12_order_vs_negative.png|Month by month, the targeted country against rivals selling the same product. Shading is the 95 percent interval for cases that became permanent orders.]]
 
-The comparison between the two final outcomes describes them; it does not prove the duty caused
-the gap. The ITC's vote rests on the import record itself, and the no-injury group is small and
-dominated by the 2024 aluminum extrusions cases. Shared price movements in a product and month,
-including general inflation, cancel in the design; a price cut by the targeted exporter alone would
-not. Across the 2,492 product-country pairs whose quantity is reported in one unit throughout,
-among months with trade, quantity falls 0.31 log points and dollar value 0.30. That is consistent
-with a fall in volume rather than price, but both intervals include zero and we did not test
-prices directly.
-
-Where Commerce finds critical circumstances, duties can reach back 90 days, which should
-discourage buying ahead. An earlier descriptive comparison found the opposite, more buying ahead in
-those cases (+0.067 against -0.066, Welch p = 0.012); it uses the older sample of 508 uncollapsed
-episodes and does not show whether retroactive liability changes behavior.
+Where Commerce finds critical circumstances, duties can reach back 90 days. An earlier descriptive
+comparison found more buying ahead in those cases, not less (+0.067 against -0.066, Welch p = 0.012,
+on the older 508-episode sample); it does not show that retroactive liability changes behavior.
 
 ### 3.3 What an importer can expect, and how well history predicts it
 
 Table 2 and Fig. 3 give the outcomes for targeted products. Fewer than half are unaffected or come
 back: 25 percent never fall and 18 percent fall and recover, while 41 percent fall and stay down and
-16 percent have no imports at all in months 13 to 18. On the fake date, 4 percent do. The fake
-date needs 42 months of earlier data, so it covers 282 of the 384 cases; on those 282 alone the
-real shares are 27, 18, 42 and 13 percent, so the gap is not a product of the different samples.
-At 10, 20 or 30 percent definitions of a fall, 16 percent have no late imports. Counting from the
+16 percent have no imports at all in months 13 to 18. On the fake date, 4 percent do. On the 282
+cases the fake date covers, the real shares are 27, 18, 42 and 13 percent. At 10, 20 or 30 percent
+definitions of a fall, 16 percent have no late imports. Counting from the
 month of the fall, 26 percent of products that fall are back within 18 months of falling, against
 58 percent on the fake date.
 
-**Table 2.** Outcome within 18 months of a preliminary duty, each case counted once; 90 percent
-intervals from resampling investigation groups.
+[[FIG:3|slides/fig/14_outcomes.png|What happened to each targeted product-country pair within 18 months of the duty, real cases against the fake date.]]
+
+**Table 2.** Outcome within 18 months of a preliminary duty; 90 percent intervals as in Table 3.
 
 | outcome | real cases (384) | fake date | became an order | ITC found no injury |
 | --- | --- | --- | --- | --- |
@@ -206,49 +206,48 @@ intervals from resampling investigation groups.
 | fell, still down | 41% [37, 45] | 18% [15, 20] | 42% | 35% |
 | stopped trading | 16% [12, 21] | 4% [3, 5] | 18% | 3% |
 
-[[FIG:3|slides/fig/14_outcomes.png|What happened to each targeted product-country pair within 18 months of the duty, real cases against the fake date.]]
+Built only from earlier cases, these rates beat a uniform guess in five of six test years (Brier
+0.65 to 0.72 against 0.75; 2024, dominated by cases the ITC later voted down, scores 0.755).
 
-These rates hold up on later cases. Built only from cases whose month 18 was published before each
-year, they beat a uniform guess in five of six test years (Brier 0.65 to 0.72 against 0.75) and
-are marginally worse in 2024 (0.755), a year dominated by cases the ITC later voted down.
+On the day the duty starts, case facts add no reliable gain over the historical rate (Table 3).
+Later looks do better. When the fall first shows, gradient boosting beats the historical recovery
+rate by 0.022 and a model of day-one facts by 0.015 (0.005 to 0.025). At the ITC's final vote, a
+logistic model ranks a product that will come back above one that will not 80 percent of the time
+and cuts the Brier score by a quarter. Most of that is the latest published share (0.029 alone); the
+other features add 0.016 (0.006 to 0.027), the vote alone 0.006 (-0.002 to 0.014). It beats the
+rates split by vote in five of six years, within 3 to 9 points of outcomes. Large pre-case
+suppliers and high duty rates go with lower odds of coming back.
 
-The historical rates are therefore the forecast to use: facts known on the day of the duty add no
-reliable gain over them. The model of "fell and did not come back" scores a pooled held-out Brier
-of 0.246 against 0.250 for the historical rate, an improvement of 0.004 with a 90 percent interval
-of -0.005 to 0.013, and ranks a bad outcome above a good one 61 percent of the time (0.56 to 0.66).
-It is better in three of six test years, about equal in one, and worse in two. In the fitted model,
-more rival suppliers, a more concentrated market and a supplier that was gaining share before the
-case go with lower predicted risk, and a higher preliminary duty rate with higher risk; these
-features are correlated with each other, and none of this shows cause. Its probabilities run 4 to
-10 points too high.
+**Table 3.** Held-out Brier scores (lower is better); 90 percent intervals over investigation groups.
+
+| decision point | cases | historical rate | best model | improvement | AUC |
+| --- | --- | --- | --- | --- | --- |
+| duty starts | 384 | 0.250 | logistic, 0.246 | 0.004 [-0.005, 0.013] | 0.61 |
+| fall first visible | 354 | 0.205 | boosting, 0.183 | 0.022 [0.013, 0.033] | 0.70 |
+| ITC final vote | 331 | 0.181 | logistic, 0.136 | 0.045 [0.031, 0.059] | 0.80 |
 
 ## 4. Discussion
 
 For the importer, the answer to the title is closer to real than borrowed. When an antidumping or
-countervailing duty starts, the historical odds are that the targeted country's position in the
-product falls and stays down: in six cases out of ten it falls without coming back within 18
-months, and in one in six there are no imports at all a year on. We find no clear average surge
-before collection that would later be paid back. The ITC's vote a few months later is a second,
-public point to update: where the duty is confirmed, nearly one product in five has no imports a
-year on; where it is lifted, the aftermath looks like the fake date. These are
-the base rates a sourcing team would want at the preliminary determination. They describe what
-usually happens, not a guarantee for any supplier, and we have not tested with importers how such
-teams decide.
+countervailing duty starts, the historical odds are that the targeted country's position falls and
+stays down: in six cases out of ten it falls without coming back within 18 months, and in one in six
+there are no imports at all a year on. We find no clear average surge before collection to be paid
+back. Where the ITC confirms the duty, nearly one product in five has no imports a year on; where it
+lifts it, the aftermath looks like the fake date. These rates describe what usually happens, not a
+guarantee for any supplier, and we have not tested with importers how such teams decide.
 
-The methodological lesson is that both the unit and the comparison matter. A product category is
-the wrong unit for tariff work, because the typical list names a twentieth of it. And level
-forecasts of trade fail: in our earlier attempts, the year a case happened explained 0.366 of the
-variance in how much of a product's imports survived, against 0.142 for every case feature together,
-and three prediction targets failed to beat simple baselines out of sample. Comparing a country with
-its rivals in the same product and month removes shocks they share, including the year. What does
-forecast well is the simplest thing: the historical rates of each outcome, which beat a uniform
-guess on later cases, while day-one case facts add no reliable gain over them.
+The methodological lesson is that the unit, the comparison and the decision point all matter. A
+product category is the wrong unit, because the typical list names a twentieth of it. Level
+forecasts of trade failed in our earlier attempts: the year a case happened explained more of the
+outcome than every case feature together. Comparing a country with its rivals in the same product
+and month removes shocks they share, including the year. On day one the best forecast is the
+historical rates; a few months in, a model does better, mostly by reading how far the published
+share has come back.
 
-Against the three questions: Q2 is answered for antidumping and countervailing duties, as a
-persistent relative decline over the 18 months we observe; where the lost trade goes is not
-estimable from totals, since gains spread across many rivals. Q3 is answered descriptively by the
-recovery rates, which also serve as the forecast for a new case. Q1 is answered only for these duties,
-where there is no clear surge before collection; for the broad 2018 to 2026 tariff actions it
+Against the three questions: Q2 is answered for these duties, as a persistent relative decline over
+the 18 months we observe; where the lost trade goes is not estimable from totals. Q3 is answered by
+the recovery rates and by a model that sharpens them once the fall shows. Q1 is answered only for
+these duties, with no clear surge before collection; for the broad 2018 to 2026 tariff actions it
 remains open (appendix).
 
 ## 5. Statement of contributions
@@ -321,6 +320,6 @@ All code is in the repository. The panel: `harvest_hs10.py`, `build_panel_hs8.py
 `events/harvest_adcvd.py`, `events/parse_adcvd.py`, `events/parse_margins.py`. Final outcomes:
 `events/itc_check.py`, `events/itc_audit.py`. Section 3.2: `adcvd_stacked.py`, `itc_compare.py`,
 `adcvd_stacked_qty.py`, `adcvd_analysis.py`. Section 3.3: `recovery_benchmark.py`,
-`recovery_by_final_stage.py`, `prediction_test.py`. Section 3.1: `coverage_share.py`,
+`recovery_by_final_stage.py`, `prediction_test.py`, `prediction_stage2.py`. Section 3.1: `coverage_share.py`,
 `copper_split.py`. Figures: `slides/fig_sankey.py`, `slides/fig_stacked.py`. Each script writes
 the CSV its numbers come from.

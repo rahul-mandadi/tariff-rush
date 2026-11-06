@@ -10,7 +10,7 @@ unchanged), with the results replaced by the November corrections in FINAL_REPOR
   slide 9   notes: the antidumping result holds in physical quantity
   slide 10  discussion rewritten to the corrected numbers
   slide 11  checks: quantity, and the 21 notices removed
-  slide 12  next step: the early-warning result and what remains
+  slide 12  the held-out results at three decision points (fig 15) and the next step
 
 Every number traces to FINAL_REPORT.md. Style and helpers are build_deck2.py's, unchanged.
 
@@ -286,9 +286,9 @@ add("Dollars alone can fool you.", fig="08_units.png",
 add("What this means.",
     bullets=[
         "**For an importer tied to one country:** weigh qualifying another supplier early. In six "
-        "of ten past cases the product fell without recovering; one in six had no imports a year on.",
-        "**The earliest warning is history:** past rates beat a blind guess on later cases; "
-        "day-one facts such as the duty rate add no reliable edge.",
+        "of ten past cases the product fell without recovering; one in six had none a year on.",
+        "**When to look again:** on day one, use the historical rates; once the fall shows in "
+        "the data, a model tells recoveries apart far better.",
         "**For anyone measuring tariffs:** study the products a tariff names, not the whole "
         "category, and check quantities as well as dollars.",
     ],
@@ -324,27 +324,20 @@ add("What the checks confirmed.",
           "8 reviews of orders that already existed.")
 
 # ---------------------------------------------------------------- 12 next
-add("Next: an early warning on the day of a duty.",
-    bullets=[
-        "**The question.** On the day a duty starts, can we tell which suppliers will not come "
-        "back?",
-        "**First result.** Past rates beat a blind guess on later cases. A model adding the duty "
-        "rate, rival count and recent trend gains too little over them to rely on.",
-        "**Next.** Test whether facts public a few months in, like the ITC's vote, sharpen "
-        "the odds.",
-        "**The deliverable.** For an importer facing a case: what usually happens, how long it "
-        "takes, and how this case compares.",
-    ],
-    bullet_size=20, bullet_top=2.15, bullet_step=0.62,
-    caption="Final report and presentation, December 11.",
-    take_rule=True,
-    notes="Close here: where the duty stays, the business does not come back; the next question "
-          "is whether we can tell which suppliers in advance.\n\n"
-          "Numbers if asked: trained only on earlier cases whose month 18 had been published by "
-          "Census, tested on later years, using only notices published by the day the duty "
-          "started. Brier score 0.246 against 0.250 for the historical rate (lower is better), "
-          "improvement 0.004 with a 90% range of -0.005 to 0.013, so no reliable gain; it ranks a "
-          "bad outcome above a good one 61% of the time. Better in three of six test years.\n\n"
+add("A few months in, the odds get sharper.", fig="15_decision_points.png",
+    caption="Scored on later years only. Day one: no reliable gain over the historical rates. At "
+            "the ITC's final vote: better by 0.045. Next, by December 11: calibrate it and turn it "
+            "into a lookup a sourcing team can use.",
+    notes="Close here: where the duty stays, the business does not come back, and a few months in "
+          "we can tell fairly well which products will.\n\n"
+          "Numbers if asked: every model sees only trade data Census had published by then, about "
+          "five weeks after a month ends, and notices published by that date, and trains only on "
+          "earlier cases whose outcomes were already published. Day one: Brier 0.246 against 0.250 "
+          "for the historical rate, a gain of 0.004 whose range includes zero. When the fall first "
+          "shows: gradient boosting, 0.022 better (0.013 to 0.033). At the ITC's final vote: a "
+          "logistic model, 0.045 better (0.031 to 0.059), ranking a product that will come back "
+          "above one that will not 80% of the time. Most of that is how far the published share has "
+          "already come back; the vote by itself adds little.\n\n"
           "If asked about the rush before tariffs like copper's: we are rebuilding that tariff "
           "list document by document before we report anything on it.")
 
