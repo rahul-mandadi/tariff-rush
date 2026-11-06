@@ -42,14 +42,16 @@ div.tblwrap { page-break-inside: avoid; break-inside: avoid; }
 
 
 def fig(m):
-    n, path, cap = m.group(1), m.group(2), m.group(3)
+    n, path, cap, width = m.group(1), m.group(2), m.group(3), m.group(4)
     b64 = base64.b64encode(open(path, "rb").read()).decode()
-    return (f'<figure><img src="data:image/png;base64,{b64}">'
+    style = f' style="width:{width}%"' if width else ""
+    return (f'<figure><img src="data:image/png;base64,{b64}"{style}>'
             f'<figcaption><b>Fig. {n}.</b> {cap}</figcaption></figure>')
 
 
 src = open(SRC).read()
-src = re.sub(r"\[\[FIG:([A-Z]?\d+)\|([^|]+)\|([^\]]+)\]\]", fig, src)
+# [[FIG:n|file|caption]] or [[FIG:n|file|caption|width percent]]
+src = re.sub(r"\[\[FIG:([A-Z]?\d+)\|([^|]+)\|([^|\]]+)(?:\|(\d+))?\]\]", fig, src)
 body = markdown.markdown(src, extensions=["tables"])
 # every table caption is styled, and kept on the same page as its table
 body = re.sub(r"<p><strong>(Table \d+\.)</strong>(.*?)</p>\s*(<table>.*?</table>)",

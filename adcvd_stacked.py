@@ -128,11 +128,16 @@ print(f"episodes whose initiation falls at or before k = -7, so the -12..-7 benc
       f"wholly pre-case: {(ep.k_ini <= -7).sum()}")
 
 # (product, country) -> months at which an episode starts, for clean controls
-named, named_date = {}, {}
+named = {}
 for _, r in ep.iterrows():
     for h in r.P:
         named.setdefault((h, r.cty), []).append(r.b)
-        named_date.setdefault((h, r.cty), []).append((r.b, r.first_date))
+# for the decision-time panels, per notice: a rival is known to be named on a product only through
+# a notice that names that product, with that notice's own publication date
+named_date = {}
+for _, r in e.iterrows():
+    for h in r.P:
+        named_date.setdefault((h, r.cty), []).append((r.b, r.date))
 
 # ---------------------------------------------------------------- stacks
 allP = set().union(*ep.P)

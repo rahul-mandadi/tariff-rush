@@ -155,3 +155,52 @@ def fall_features(path, bench, fell_at, uvc):
                 latest=float(post.dropna().iloc[-1] / bench),
                 zero_months=float((vv == 0).mean()), rush=float(sh.loc[-6:-1].mean() / bench),
                 uv_change=0.0 if pd.isna(uvc) else float(np.clip(uvc, -3, 3)), uv_missing=float(pd.isna(uvc)))
+
+
+def final_stage(ep):
+    """Each episode's final stage (order / negative / unresolved) and the date it became public:
+    the first harvested order notice after the first preliminary for cases linked to an order, the
+    ITC's negative determination notice for verified negatives. The same rule as
+    prediction_stage2.py, which keeps its own copy so its committed results stay byte-identical."""
+    import json
+    import re
+    ev = pd.read_csv("events/adcvd_events.csv", dtype={"cty": str}).drop_duplicates("document_number")
+    pubd = pd.to_datetime(ev.set_index("document_number").publication_date)
+    case = re.compile(r"\b([AC])-(\d{3})-(\d{3})\b")
+    allc = {d: {"-".join(m) for m in case.findall(open(f"events/raw/{d}.txt", errors="ignore").read())}
+            for d in ev.document_number}
+    orders = ev[ev.stage == "order"].document_number.tolist()
+    order_cases = set().union(*[allc[d] for d in orders])
+    pub_itc = {}
+    for f in glob.glob("events/raw/itc_cache/*"):
+        try:
+            js = json.loads(open(f).read())
+        except Exception:
+            continue
+        for r in (js.get("results", []) if isinstance(js, dict) else []):
+            if r.get("document_number") and r.get("publication_date"):
+                pub_itc[r["document_number"]] = pd.Timestamp(r["publication_date"])
+    pc = pd.read_csv("events/itc_check_by_country.csv", dtype={"cty": str})
+    key = {(r.ini, r.cty): r.verdict for r in pc.itertuples()}
+    fam_of = {(r.ini, r.cty): r.family for r in pc.itertuples()}
+    grp = pd.read_csv("events/itc_check.csv")
+    grp_ev = {(r.family, r.ini): str(r.evidence).split(";")[0] for r in grp.itertuples()}
+    neg_doc = pd.read_csv("events/itc_negative_audit.csv").set_index("sid").itc_doc
+    first = [min(pubd[d] for d in ds.split(";")) for ds in ep.docs]
+    out = []
+    for s, (ds, b, f0) in enumerate(zip(ep.docs, ep.b, first)):
+        own = set().union(*[allc.get(d, set()) for d in ds.split(";")])
+        od = [pubd[o] for o in orders if allc[o] & own and pubd[o] > f0]
+        if own & order_cases:
+            st, dt = "order", (min(od) if od else None)
+        else:
+            v = key.get((ep.ini[s], ep.cty[s]))
+            st = {"verified negative": "negative", "verified order": "order"}.get(v, "unresolved")
+            dt = None
+            if st == "negative" and s in neg_doc.index:
+                dt = pub_itc.get(neg_doc[s])
+            if st == "order":
+                dt = pub_itc.get(grp_ev.get((fam_of.get((ep.ini[s], ep.cty[s])), ep.ini[s])))
+        out.append(dict(stage=st, d_final=dt, k_final=month(dt) - b if dt is not None else np.nan,
+                        first=f0))
+    return pd.DataFrame(out, index=ep.index)

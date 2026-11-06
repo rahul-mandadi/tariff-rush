@@ -179,7 +179,7 @@ add("Three questions behind one decision.",
         "qualifying another supplier now, or wait for the business to come back?",
         "**Q1.** Is there a rush to buy before the duty?",
         "**Q2.** After the duty, does the targeted country's trade fall, and does it stay down?",
-        "**Q3.** How long does recovery take, and can we tell on the day the duty starts?",
+        "**Q3.** How long does recovery take, and how early can we tell?",
     ],
     bullet_size=20, bullet_top=2.15, bullet_step=0.66,
     caption="We answer with history: 707 U.S. antidumping and countervailing duty decisions, "
@@ -196,6 +196,37 @@ add("Three questions behind one decision.",
           "We first tried to forecast the level of trade, as the proposal planned. It failed: the "
           "year a case happened explained far more than anything about the case. Comparing a "
           "country with its rivals in the same month removes the year, which is the design here.")
+
+# ---------------------------------------------------------------- the decision is real (public evidence)
+add("Importers make this call, and it is slow.",
+    bullets=[
+        "**They switch.** In the trade commission's own surveys, 27 of 54 aluminum extrusion "
+        "buyers and 23 of 45 steel nail buyers changed suppliers.",
+        "**It takes months.** Qualifying a new supplier took from days to 18 months; tin mill "
+        "buyers averaged about seven.",
+        "**Some move early.** Floor & Decor moved its Chinese tile sourcing to other countries "
+        "after the 2019 preliminary duties.",
+        "**Waiting can pay.** Deposits are refunded if the duty is lifted, so when to act matters.",
+    ],
+    bullet_size=20, bullet_top=2.15, bullet_step=0.66,
+    caption="Sources: USITC final staff reports, Publications 5560, 5370 and 5492; Floor & Decor "
+            "Form 10-K, February 2020.",
+    take_rule=True,
+    notes="This is who the answer is for, and the evidence that they make this decision.\n\n"
+          "The trade commission sends questionnaires to purchasers in every case. In the final "
+          "staff reports for our own cases, about half of responding purchasers changed suppliers "
+          "during the investigation period: aluminum extrusions 27 of 54, steel nails 23 of 45, "
+          "PET resin 17 of 25. Not all of that switching was caused by the duty; shortages and "
+          "COVID drove some of it, and the reports say so.\n\n"
+          "Qualifying a new supplier is slow: purchasers reported anywhere from days to 18 months, "
+          "and tin mill buyers averaged a little over seven. A trade association told the commission "
+          "12 to 18 months for regulated products.\n\n"
+          "Floor & Decor's 10-K says that after Commerce's 2019 preliminary duties on Chinese "
+          "ceramic tile it sourced from alternative countries and believed it was no longer "
+          "importing the covered tile from China. Mattress makers left Vietnam within weeks of the "
+          "2020 preliminary rates, and our data show the same shift the trade press reported.\n\n"
+          "So the decision starts early, but finishing it takes months, and deposits are refunded if "
+          "the duty is lifted. That is why a forecast that sharpens over the first months is useful.")
 
 # ---------------------------------------------------------------- 6 the method
 add("How we measure it, product by product.",
@@ -284,30 +315,23 @@ add("One in four that falls comes back.", fig="13_recovery_km.png",
           "of a fall, 28% and 24%.")
 
 # ---------------------------------------------------------------- 10 the early warning
-add("A few months in, the odds get sharper.", fig="15_decision_points.png",
-    caption="Scored on later years only. Day one: no reliable gain over the historical rates. When "
-            "the fall shows in published data: better by 0.017. At the ITC's final vote: better by "
-            "0.045, mostly from the latest published share.",
+add("By month 4, the forecast tells them apart.", fig="19_monthly_forecast.png",
+    caption="Held-out later years, data as published each month. Day one: no reliable gain. "
+            "Month 4: 78% ranked correctly; month 5: 81%. Early on it beats reading the share alone.",
     notes="This is the evaluation Kylie's Methods comment asks for: a baseline, a held-out test, "
-          "and an honest size, at three points a sourcing team can act.\n\n"
-          "The baseline is the historical rate: what an importer would assume knowing only past "
-          "cases. Brier score is the average squared gap between a predicted probability and what "
-          "happened; the chart shows how much each model lowers it. Every model sees only trade "
-          "data Census had published by then (about five weeks after a month ends) and notices "
-          "published by that date, and trains only on earlier cases whose outcomes were already "
-          "published.\n\n"
-          "Day one: the gain is 0.008 and its range includes zero, so history is the forecast. "
-          "When the fall first shows, gradient boosting beats history by 0.017 (0.006 to 0.028), "
-          "and, among products whose fall was already observed, a model using only day-one "
-          "features by 0.008, with a range that includes zero. At the ITC vote, a logistic model ranks a product that will come back above one "
-          "that will not 81% of the time. The latest published share alone gives 0.027; the "
-          "other facts add 0.018 (0.009 to 0.029); the vote by itself adds 0.006, inside zero. "
-          "Gradient boosting and a Cox survival model do about as well as the logistic, not "
-          "better. Every model compares the supplier only with rivals whose own case was "
-          "published by the first preliminary, and uses only products named by then, so it uses "
-          "nothing a forecaster could not have known.\n\n"
-          "If asked what changed: earlier versions of the day-one test looked stronger; two "
-          "timing leaks were fixed, cutting its gain from 0.014 to under 0.01.")
+          "and an honest size, re-done every month as a sourcing team would see the data.\n\n"
+          "Each month after the duty, the model re-scores every product that has visibly fallen "
+          "and is not yet back, using only trade data Census had published (about five weeks after "
+          "a month ends), notices published by then, and rivals not yet named in another case. It "
+          "trains only on earlier cases whose outcomes were already published.\n\n"
+          "Day one: the gain over history is 0.008 and its range includes zero, so history is the "
+          "day-one forecast. By month 4 gradient boosting ranks a product that will come back above "
+          "one that will not 78% of the time and beats that month's historical rate by 0.040 (0.027 "
+          "to 0.052); by month 5, 81%. In months 4 to 6 it also beats a model of the latest share "
+          "alone by 0.012 to 0.016; after that the share catches up. At the ITC vote a logistic "
+          "model reaches 81%, 0.018 beyond the share.\n\n"
+          "If asked what changed: outside reviews found timing leaks four times; each fix moved "
+          "these numbers a little and none changed the conclusion.")
 
 # ---------------------------------------------------------------- 10b the lookup
 add("Under half the old share, few come back.", fig="16_lookup.png",
@@ -323,10 +347,26 @@ add("Under half the old share, few come back.", fig="16_lookup.png",
           "At the vote the most confident third runs about 12 points high, so we show the outcome "
           "first.")
 
+# ---------------------------------------------------------------- 10b2 decision value
+add("At the ITC vote, acting on it pays.", fig="18_decision_value.png",
+    caption="Net benefit of qualifying a second supplier only when the forecast says the product "
+            "will not come back. At the vote it beats always qualifying and history for any cost "
+            "ratio from 0.25 to 0.90.",
+    notes="Accuracy is not the question a sourcing team asks; whether acting on the forecast "
+          "beats their simple options is.\n\n"
+          "The cost ratio is what qualifying a second supplier costs, as a share of the loss it "
+          "avoids when the old supplier does not come back. Net benefit counts the bad outcomes "
+          "you prepared for, minus unneeded qualifications weighted by that ratio. This is "
+          "decision-curve analysis, standard for judging clinical prediction models.\n\n"
+          "The model was fixed in advance as the logistic regression. At the ITC vote it beats "
+          "always qualifying, never qualifying and the historical rate for every ratio from 0.25 "
+          "to 0.90, at all fourteen at once in 90% of resamples. On day one it wins only near "
+          "0.5, which matches the day-one result.")
+
 # ---------------------------------------------------------------- 10c Section 301
 add("The model carries over to China's tariffs.", fig="17_s301_outcomes.png",
     caption="6,844 products on the 2018 Section 301 lists, China against untaxed rivals, to January "
-            "2020. A model trained on antidumping cases ranks them correctly 69% of the time; where "
+            "2020. A model trained on antidumping cases ranks them correctly 67% of the time; where "
             "China's share rushed before the tariff, 60% came back.",
     notes="This answers the question everyone asks about the antidumping results: does it hold for "
           "the tariffs that hit most importers' China spend?\n\n"
@@ -335,9 +375,9 @@ add("The model carries over to China's tariffs.", fig="17_s301_outcomes.png",
           "2020, before China's COVID shutdown, so outcomes run 16 months. China's share of these "
           "products fell from 14.9% to 10.4% of imports; on the fake date it rose 6%.\n\n"
           "The transfer: the at-the-fall model trained on antidumping cases, minus the China and "
-          "case-type flags, ranks Section 301 products correctly 69% of the time; a model trained "
-          "on Section 301 itself gets 76%. It beats even Section 301's own recovery rate by 0.022 "
-          "(0.017 to 0.028). Trained only on the 26 antidumping cases published before September "
+          "case-type flags (logistic, fixed in advance), ranks Section 301 products correctly 67% of "
+          "the time; a model trained on Section 301 itself gets 73%. It beats even Section 301's own "
+          "recovery rate by 0.015 (0.009 to 0.021); boosting does a little better. Trained only on the 26 antidumping cases published before September "
           "2018 it ranks as well but expects too few recoveries.\n\n"
           "The borrowed part: where China's share ran more than a quarter above normal just "
           "before the tariff, 60% came back, against about 30% for the rest. That fall was "
@@ -349,8 +389,8 @@ add("What this means.",
     bullets=[
         "**For an importer tied to one country:** weigh qualifying another supplier early. Six "
         "in ten targeted products fell without recovering; one in six also had none a year on.",
-        "**When to look again:** on day one, use the historical rates; by the ITC's final vote, "
-        "a model tells recoveries apart far better.",
+        "**When to look again:** on day one, use the historical rates; by month 4 or 5, a model "
+        "tells recoveries apart far better.",
         "**For anyone measuring tariffs:** study the products a tariff names, not the whole "
         "category, and check quantities as well as dollars.",
     ],
@@ -369,8 +409,8 @@ add("What we answered, and what is open.",
         "tariffs, a rush means the fall is often borrowed.",
         "**Q2, borrowed or real:** closer to real where the duty becomes an order: about a 31% "
         "fall over the 18 months we see.",
-        "**Q3, how long:** most fallen products are still down at 18 months; by the ITC vote, "
-        "a model picks out which will come back.",
+        "**Q3, how long:** most fallen products are still down at 18 months; within four to "
+        "five months, a model picks out which will come back.",
         "**Open:** where the lost trade goes. Gains spread across many rival countries.",
     ],
     bullet_size=20, bullet_top=2.15, bullet_step=0.66,

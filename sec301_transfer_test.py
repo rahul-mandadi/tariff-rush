@@ -23,6 +23,11 @@ Tests:
                          Section 301 decision (September 2018), score Section 301.
   C  strict, reverse     train on Section 301 (published by March 2020), score AD/CVD cases whose
                          fall decision comes after that.
+  D, E  pooling         AD/CVD cases published by March 2020 forecast AD/CVD cases decided from
+                         April 2020, without (D) and with (E) Section 301 added to the training set
+                         (whose labels are published by March 2020); hyperparameters for E are chosen
+                         by cross-validation on the pooled set; the paired E minus D Brier difference
+                         carries a 90 percent interval from resampling investigation groups
   ref in-domain         Section 301 scored by a model trained on other Section 301 chapters
                          (5-fold, grouped by chapter): how predictable it is from its own data.
 Baselines: the training domain's historical recovery rate (what you would use with no model) and,
@@ -214,8 +219,19 @@ R = []
 R.append(transfer("A: all AD/CVD -> Section 301", AD, S3))
 early = AD[AD.b + H + LAG < 2018 * 12 + 8]
 R.append(transfer("B: AD/CVD published by Sep 2018 -> Section 301", early, S3))
-late_ad = AD[AD.decision >= 2020 * 12 + 2]
-R.append(transfer("C: Section 301 -> AD/CVD decided from Mar 2020", S3.assign(w=1.0), late_ad))
+# AD/CVD test cases decided from April 2020: Section 301 List 3's month-16 labels are published in
+# March 2020, so every training label below is public before the first test decision
+late_ad = AD[AD.decision >= 2020 * 12 + 3]
+R.append(transfer("C: Section 301 -> AD/CVD decided from Apr 2020", S3.assign(w=1.0), late_ad))
+# pooling: does adding Section 301 to the training set help forecast later AD/CVD cases? Both
+# training sets have every label published by March 2020; test decisions start in April 2020. Section 301 products are weighted so
+# each list-chapter counts like one AD/CVD case.
+ad_early = AD[AD.b + H + LAG < 2020 * 12 + 3]
+s3w = S3.assign(w=1.0 / S3.groupby(["sid", "group"]).sid.transform("size"))
+R.append(transfer("D: AD/CVD published by Mar 2020 -> AD/CVD decided from Apr 2020", ad_early, late_ad))
+R.append(transfer("E: same + Section 301 (pooled) -> AD/CVD decided from Apr 2020",
+                  pd.concat([ad_early.assign(group="ad-" + ad_early.group.astype(str)),
+                             s3w.assign(group="301-" + s3w.group.astype(str))], ignore_index=True), late_ad))
 # in-domain reference: Section 301 out-of-fold by chapter
 oof = {k: np.zeros(len(S3)) for k in MODELS}
 for a, b in GroupKFold(n_splits=5).split(S3, groups=S3.group):
@@ -229,6 +245,24 @@ s.insert(2, "test_n", len(S3))
 print("\n[ref: Section 301 in-domain, 5 folds by chapter]")
 print(s.drop(columns=["test", "train_n", "test_n"]).round(3).to_string(index=False))
 R.append(s)
+# paired check for pooling: same test rows, D's and E's predictions, resampling investigation groups
+dD = pd.read_csv("sec301_transfer_heldout_D.csv"); dE = pd.read_csv("sec301_transfer_heldout_E.csv")
+assert (dD.sid.values == dE.sid.values).all() and (dD.hs8.astype(str).values == dE.hs8.astype(str).values).all()
+gk = dD.group.values
+cl_ = np.unique(gk)
+ix = {c: np.flatnonzero(gk == c) for c in cl_}
+pool = []
+for m in MODELS:
+    g0 = brier_score_loss(dD.y, dD[f"pred_{m}"], sample_weight=dD.w) - brier_score_loss(dE.y, dE[f"pred_{m}"], sample_weight=dE.w)
+    dr = []
+    for _ in range(2000):
+        ii = np.concatenate([ix[c] for c in rng.choice(cl_, len(cl_), replace=True)])
+        dr.append(brier_score_loss(dD.y.values[ii], dD[f"pred_{m}"].values[ii], sample_weight=dD.w.values[ii])
+                  - brier_score_loss(dE.y.values[ii], dE[f"pred_{m}"].values[ii], sample_weight=dE.w.values[ii]))
+    lo, hi = np.quantile(dr, [0.05, 0.95])
+    pool.append(dict(model=m, pooling_gain=g0, lo=lo, hi=hi))
+    print(f"pooling gain (E better than D, Brier) {m}: {g0:+.4f} [{lo:+.4f}, {hi:+.4f}]")
+pd.DataFrame(pool).to_csv("sec301_pooling_gain.csv", index=False)
 pd.concat(R).to_csv("sec301_transfer_test.csv", index=False)
 # coefficients in each domain, for the comparison of what predicts recovery
 co = {}

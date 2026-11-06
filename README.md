@@ -29,12 +29,20 @@ anyone tell?
   fall, 17 percent fall and come back, 42 percent fall and stay down, and 16 percent fall, never
   come back and have no imports in months 13 to 18 (fake date: 49 / 30 / 18 / 3).
 - **Forecasting, on held-out later years.** On the day the duty starts, case facts add no reliable
-  gain over these historical rates. By the trade commission's final vote, a logistic model ranks a
-  product that will come back above one that will not 81 percent of the time and cuts the Brier
-  score by a quarter (0.134 against 0.179); the latest published share alone gives part of that, and
-  the other facts add 0.018 (0.009 to 0.029).
+  gain over these historical rates. Re-estimated every month from what Census has published, a model
+  ranks a product that will come back above one that will not 78 percent of the time by month 4 and
+  81 percent by month 5, beating that month's historical rate by about 0.04 in Brier score and, in
+  months 4 to 6, beating a reading of the latest share alone. At the trade commission's final vote,
+  acting on the forecast beats always qualifying a second supplier, never doing so, and the
+  historical rate for every cost ratio from 0.25 to 0.90 (decision-curve analysis).
+- **The decision is real.** In the commission's final staff reports for these cases, about half of
+  responding purchasers changed suppliers (27 of 54 for aluminum extrusions, 23 of 45 for steel
+  nails), and qualifying a new supplier took from days to 18 months. Floor & Decor's 2020 annual
+  report describes moving its Chinese tile sourcing after the 2019 preliminary duties. For the 2020
+  mattress cases our panel matches published import figures within 3 million dollars, and the
+  outcomes match the reported shift out of Vietnam into Indonesia.
 - **The model carries over to China's 2018 Section 301 tariffs** (6,844 listed products): trained on
-  antidumping cases, it ranks Section 301 products correctly 69 percent of the time, against 76 for a
+  antidumping cases, it ranks Section 301 products correctly 67 percent of the time, against 73 for a
   model trained on Section 301 itself. There, products whose China share ran more than a quarter
   above normal just before the tariff came back 60 percent of the time, against about 30: that part
   of the fall was borrowed.
@@ -54,7 +62,7 @@ repository root, in this order:
 | aftermath | `adcvd_stacked.py` (about 40 minutes), `adcvd_stacked_qty.py`, `adcvd_analysis.py` | stacked event study, quantity check, retroactivity split |
 | final outcomes | `events/itc_check.py`, `events/itc_audit.py`, `itc_compare.py` | ITC verdicts, the no-injury audit, order against no-injury |
 | outcome rates | `recovery_benchmark.py --fall 0.2` (also 0.1, 0.3), `recovery_by_final_stage.py` | the four outcome shares, Kaplan-Meier recovery |
-| forecasts | `build_decision_stacks.py`, `prediction_test.py`, `prediction_stage2.py`, `calibrated_lookup.py` | decision-time panels, day-one, at-the-fall and ITC-vote tests, the lookup |
+| forecasts | `build_decision_stacks.py`, `prediction_test.py`, `prediction_stage2.py`, `prediction_landmark.py`, `decision_value.py`, `calibrated_lookup.py` | decision-time panels; day-one, at-the-fall, ITC-vote and monthly forecasts; decision value; the lookup |
 | Section 301 | `events/build_301_lists.py`, `sec301_benchmark.py`, `sec301_transfer_test.py` | product lists, outcomes, transfer tests |
 | coverage | `coverage_share.py`, `copper_split.py` | how much of a category a list names; copper |
 | outputs | `slides/fig_stacked.py`, `slides/fig_sankey.py`, `build_final_report.py`, `slides/build_deck2b.py`, `slides/build_deck_final.py` | figures, report PDF, decks |
@@ -70,7 +78,9 @@ by the Section 301 and forecasting scripts; `sec301_benchmark.py` checks that it
   comparison.
 - Where the lost trade goes: gains spread across many rival countries and are not predictable from
   the tariff (`q3_absorbers.py`, `PHASE2_RESULTS.md`).
-- The importer use case is grounded in the duty timeline but not validated with importers.
+- The importer use case rests on public records (commission purchaser surveys, company filings, trade
+  press; see `evidence/USE_EVIDENCE.md`), not on interviews, and the forecasts are for a supplier
+  country, not one importer's own supplier.
 
 An earlier version of this work named port and terminal operators as the user; that was tested and
 dropped, because displaced volume arrives through substantially the same U.S. customs districts.

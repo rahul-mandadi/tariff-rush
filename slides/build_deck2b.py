@@ -3,14 +3,15 @@
 Same deck as slides/build_deck2.py (which built the version submitted on 2026-11-06 and is kept
 unchanged), with the results replaced by the November corrections in FINAL_REPORT.md:
 
-  slide 5   method now says months with no trade count as zero, and how many notices were read
+  slide 5   new: the public evidence that importers make this decision
+  slide 6   method now says months with no trade count as zero, and how many notices were read
   slide 6   the aftermath split by whether the duty became permanent (fig 12), replacing "the
             targeted country does not bounce back" and its "42 percent above its usual level"
   slide 7   new: what happened to each targeted product within 18 months (fig 14)
   slide 9   notes: the antidumping result holds in physical quantity
   slide 10  discussion rewritten to the corrected numbers
   slide 11  checks: quantity, and the 21 notices removed
-  slide 12  the held-out results at three decision points (fig 15)
+  slide 12  the monthly forecast (fig 19)
   slide 13  the lookup (fig 16) and the next step
 
 Every number traces to FINAL_REPORT.md. Style and helpers are build_deck2.py's, unchanged.
@@ -180,6 +181,37 @@ add("Split it, and the answer appears.", fig="11_copper_split.png",
           "Both lines rose before the list of taxed products came out at the end of July. After it, "
           "only the taxed group stayed down.")
 
+# ---------------------------------------------------------------- the decision is real (public evidence)
+add("Importers make this call, and it is slow.",
+    bullets=[
+        "**They switch.** In the trade commission's own surveys, 27 of 54 aluminum extrusion "
+        "buyers and 23 of 45 steel nail buyers changed suppliers.",
+        "**It takes months.** Qualifying a new supplier took from days to 18 months; tin mill "
+        "buyers averaged about seven.",
+        "**Some move early.** Floor & Decor moved its Chinese tile sourcing to other countries "
+        "after the 2019 preliminary duties.",
+        "**Waiting can pay.** Deposits are refunded if the duty is lifted, so when to act matters.",
+    ],
+    bullet_size=20, bullet_top=2.15, bullet_step=0.66,
+    caption="Sources: USITC final staff reports, Publications 5560, 5370 and 5492; Floor & Decor "
+            "Form 10-K, February 2020.",
+    take_rule=True,
+    notes="This is who the answer is for, and the evidence that they make this decision.\n\n"
+          "The trade commission sends questionnaires to purchasers in every case. In the final "
+          "staff reports for our own cases, about half of responding purchasers changed suppliers "
+          "during the investigation period: aluminum extrusions 27 of 54, steel nails 23 of 45, "
+          "PET resin 17 of 25. Not all of that switching was caused by the duty; shortages and "
+          "COVID drove some of it, and the reports say so.\n\n"
+          "Qualifying a new supplier is slow: purchasers reported anywhere from days to 18 months, "
+          "and tin mill buyers averaged a little over seven. A trade association told the commission "
+          "12 to 18 months for regulated products.\n\n"
+          "Floor & Decor's 10-K says that after Commerce's 2019 preliminary duties on Chinese "
+          "ceramic tile it sourced from alternative countries and believed it was no longer "
+          "importing the covered tile from China. Mattress makers left Vietnam within weeks of the "
+          "2020 preliminary rates, and our data show the same shift the trade press reported.\n\n"
+          "So the decision starts early, but finishing it takes months, and deposits are refunded if "
+          "the duty is lifted. That is why a forecast that sharpens over the first months is useful.")
+
 # ---------------------------------------------------------------- 5 the method
 add("How we measure it, product by product.",
     bullets=[
@@ -290,8 +322,8 @@ add("What this means.",
     bullets=[
         "**For an importer tied to one country:** weigh qualifying another supplier early. Six "
         "in ten targeted products fell without recovering; one in six also had none a year on.",
-        "**When to look again:** on day one, use the historical rates; by the ITC's final vote, "
-        "a model tells recoveries apart far better.",
+        "**When to look again:** on day one, use the historical rates; by month 4 or 5, a model "
+        "tells recoveries apart far better.",
         "**For anyone measuring tariffs:** study the products a tariff names, not the whole "
         "category, and check quantities as well as dollars.",
     ],
@@ -327,22 +359,20 @@ add("What the checks confirmed.",
           "8 reviews of orders that already existed.")
 
 # ---------------------------------------------------------------- 12 next
-add("A few months in, the odds get sharper.", fig="15_decision_points.png",
-    caption="Scored on later years only. Day one: no reliable gain over the historical rates. At "
-            "the ITC's final vote: better by 0.045. Next slide: the same models as a lookup a "
-            "sourcing team can read.",
-    notes="Where the duty stays, the business does not come back, and a few months in we can tell "
-          "fairly well which products will.\n\n"
-          "Numbers if asked: every model sees only trade data Census had published by then, about "
-          "five weeks after a month ends, and notices published by that date, and trains only on "
-          "earlier cases whose outcomes were already published. Day one: Brier 0.240 against 0.249 "
-          "for the historical rate, a gain of 0.008 whose range includes zero. When the fall first "
-          "shows: gradient boosting, 0.017 better (0.006 to 0.028); over a day-one-only model on "
-          "the same fallen products, 0.008, inside zero. At "
-          "the ITC's final vote: a logistic model, 0.045 better (0.032 to 0.060), ranking a product "
-          "that will come back above one that will not 81% of the time. Most of that is how far the "
-          "published share has "
-          "already come back; the vote by itself adds little.")
+add("By month 4, the forecast tells them apart.", fig="19_monthly_forecast.png",
+    caption="Held-out later years, data as published each month. Day one: no reliable gain. "
+            "Month 4: 78% ranked correctly; month 5: 81%. Next slide: the same model as a lookup.",
+    notes="Where the duty stays, the business does not come back, and within a few months we can "
+          "tell fairly well which products will.\n\n"
+          "Each month the model re-scores every product that has visibly fallen and is not yet "
+          "back, using only trade data Census had published, notices published by then, and rivals "
+          "not yet named in another case; it trains only on earlier cases whose outcomes were "
+          "published.\n\n"
+          "Numbers if asked: day one, Brier 0.240 against 0.249 for history, a gain of 0.008 whose "
+          "range includes zero. By month 4, boosting ranks a product that will come back above one "
+          "that will not 78% of the time, 0.040 better than that month's historical rate (0.027 to "
+          "0.052); by month 5, 81%. In months 4 to 6 it beats reading the latest share alone by "
+          "0.012 to 0.016.")
 
 # ---------------------------------------------------------------- 13 the lookup
 add("Under half the old share, few come back.", fig="16_lookup.png",
