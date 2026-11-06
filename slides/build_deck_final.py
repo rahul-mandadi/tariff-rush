@@ -304,6 +304,40 @@ add("A few months in, the odds get sharper.", fig="15_decision_points.png",
           "If asked what changed: earlier versions of the day-one test looked stronger; two "
           "timing leaks were fixed, cutting its gain from 0.014 to 0.004.")
 
+# ---------------------------------------------------------------- 10b the lookup
+add("Under half the old share, few come back.", fig="16_lookup.png",
+    caption="Held-out years only. Each cell: of 100 products that fell, how many came back by month 18; "
+            "below it, the calibrated model's estimate and the cases behind the cell.",
+    notes="This is what a sourcing team would actually read: the model turned into a lookup.\n\n"
+          "Left, when the fall first shows: smaller suppliers come back more often, and a duty "
+          "rate over 25% lowers the odds. Right, at the ITC vote: where the duty was confirmed and "
+          "the published share is under half its old level, 13 in 100 came back; where the duty "
+          "was lifted and the share is already back to four-fifths, 81.\n\n"
+          "Calibration, if asked: fitted only on earlier years. At the fall it cuts the model's "
+          "largest gap to outcomes from 8 points to 3. At the vote it does not help; the most "
+          "confident third runs about 12 points high, so we show the outcome, not just the model.")
+
+# ---------------------------------------------------------------- 10c Section 301
+add("The model carries over to China's tariffs.", fig="17_s301_outcomes.png",
+    caption="6,137 products on the 2018 Section 301 lists, China against untaxed rivals, to January "
+            "2020. A model trained on antidumping cases ranks them correctly 70% of the time; where "
+            "China's share rushed before the tariff, 61% came back.",
+    notes="This answers the question everyone asks about the antidumping results: does it hold for "
+          "the tariffs that hit most importers' China spend?\n\n"
+          "Section 301 taxed China alone, product by product, so China can be compared with "
+          "untaxed rivals in the same product, the same design as before. Windows stop at January "
+          "2020, before China's COVID shutdown, so outcomes run 16 months. China's share of these "
+          "products fell from 14.9% to 10.4% of imports; on the fake date it rose 6%.\n\n"
+          "The transfer: the at-the-fall model trained on antidumping cases, minus the China and "
+          "case-type flags, ranks Section 301 products correctly 70% of the time; a model trained "
+          "on Section 301 itself gets 75%. It beats even Section 301's own recovery rate by 0.027 "
+          "(0.023 to 0.032). Trained only on the 26 antidumping cases published before September "
+          "2018 it ranks as well but expects too few recoveries.\n\n"
+          "The borrowed part: where China's share ran more than a quarter above normal just "
+          "before the tariff, 61% came back, against about 30% for the rest. That fall was "
+          "payback for buying ahead. Each list is one date, so this describes products; it does "
+          "not estimate a list's effect, and product exclusions are not removed.")
+
 # ---------------------------------------------------------------- 10 discussion
 add("What this means.",
     bullets=[
@@ -325,8 +359,8 @@ add("What this means.",
 # ---------------------------------------------------------------- 14 what we answered
 add("What we answered, and what is open.",
     bullets=[
-        "**Q1, a rush before the duty:** no clear average surge for these duties. For broad "
-        "tariffs like copper's, still open.",
+        "**Q1, a rush before the duty:** none on average for antidumping; under China's 2018 "
+        "tariffs, a rush means the fall is often borrowed.",
         "**Q2, borrowed or real:** closer to real where the duty becomes an order: about a 31% "
         "fall over the 18 months we see.",
         "**Q3, how long:** most fallen products are still down at 18 months; a few months in, "

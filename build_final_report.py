@@ -49,7 +49,7 @@ def fig(m):
 
 
 src = open(SRC).read()
-src = re.sub(r"\[\[FIG:(\d+)\|([^|]+)\|([^\]]+)\]\]", fig, src)
+src = re.sub(r"\[\[FIG:([A-Z]?\d+)\|([^|]+)\|([^\]]+)\]\]", fig, src)
 body = markdown.markdown(src, extensions=["tables"])
 # every table caption is styled, and kept on the same page as its table
 body = re.sub(r"<p><strong>(Table \d+\.)</strong>(.*?)</p>\s*(<table>.*?</table>)",

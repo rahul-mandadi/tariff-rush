@@ -25,7 +25,9 @@ stayed down, and 16 percent had no imports at all 13 to 18 months later, against
 fake date. Built only from earlier cases, these historical rates beat a uniform guess on later
 cases. On the day the duty starts, case facts add no reliable gain over them; once the fall shows in
 published trade data, a model does, and by the trade commission's final vote it ranks a product that
-will come back above one that will not 80 percent of the time. We also show that a tariff list typically names about 5 percent of the product
+will come back above one that will not 80 percent of the time. The model carries over to China's
+2018 Section 301 tariffs, where a fall that follows a rush before the tariff is often
+borrowed. We also show that a tariff list typically names about 5 percent of the product
 category it touches, which is why this work has to be done product by product.
 
 ## 1. Introduction
@@ -43,16 +45,15 @@ For an importer, the preliminary determination is the moment of decision. If the
 targeted country is merely interrupted, waiting is cheap. If it will not come back, the months spent
 waiting are months not spent qualifying a new supplier. This is the question in our title: after a
 duty, is the fall in trade borrowed, coming back once the shock passes, or real? Census publishes
-monthly trade about five weeks after each month closes, so the answer for a new case arrives too
-late to act on. What an importer can use is what happened in past cases.
+monthly trade about five weeks after each month closes, so on the day the duty starts an importer
+has only past cases to go on; a few months in, the new case's own data begin to arrive.
 
 We set three questions. **Q1: is there a rush to buy before the duty, and when?** **Q2: after the
 duty, does the targeted country's trade fall, and does it stay down?** **Q3: how long does
 recovery take, and can it be anticipated on the day the duty starts?** The proposal framed these
-as forecasting problems. We found that forecasting the level of trade fails because the year a
-case happens explains far more than anything about the case (section 4), so the project became a
-measurement study with one held-out prediction test, built on a comparison that removes those
-year effects.
+as forecasting problems. Forecasting the level of trade failed, because the year a case happens
+explains more than anything about the case (section 4), so the project became a measurement study
+with held-out prediction tests, built on a comparison that removes those year effects.
 
 Existing work measures tariff responses at fine product detail for good reason. Fajgelbaum et al.
 [1] study the 2018 tariffs at ten digits; the ITC [2] and Imbs and Mejean [3] show that coarser
@@ -97,9 +98,7 @@ including general inflation and demand, cancels. The coefficient reads as a prop
 against rivals; we report it in log points, where minus 0.37 is about minus 31 percent. Uncertainty
 is computed over investigation groups, not individual product rows, because one petition's
 countries and products are not independent. The reference period is months 18 to 13 before the
-duty, which precedes the investigation's opening for 506 of 507 episodes. Our earlier estimate
-pooled every month outside any case window into the reference; that, not a surge before the case,
-produced the "42 percent above" level reported in Report 1.
+duty, which precedes the investigation's opening for 506 of 507 episodes.
 
 Every estimate is repeated with the cases moved 24 months earlier, when nothing happened: the fake
 date. A real effect has to beat it. The fake date needs 42 months of data before each case, so it
@@ -112,8 +111,7 @@ of the product's imports among the panel's countries, smoothed over three months
 if that share dropped at least a fifth below its pre-case level within six months of the duty, and
 **came back** if it was then at or above the pre-case level for three months running by month 18.
 A pair **stopped trading** if it fell, never came back, and had no imports at all in months 13 to
-18. Coming back means meeting the rule once; 50 pairs that came back later stopped trading and are
-counted as having come back. Each pair lands in exactly one category, each case counts once however many products it names, and only pairs with a
+18. Each pair lands in exactly one category, each case counts once however many products it names, and only pairs with a
 full 18 months enter the shares. Time to recovery is estimated by Kaplan-Meier, which also uses
 cases still running, with the clock starting at the month of the fall. Intervals are 90 percent
 ranges from resampling whole investigation groups.
@@ -137,21 +135,18 @@ in time, training only on earlier cases whose outcomes were already published.
 A tariff order names a list of eight-digit products, not a category. Across 1,350 pairings of one
 tariff list with one chapter (a broad product category such as copper or pharmaceuticals), the median list names 5.4 percent of the chapter's import
 value, and a third name under 1 percent: one dollar in every hundred the chapter imports, with the
-other ninety-nine outside the list. Fig. 1 shows copper, our running example. The 2025 Section 232
+other ninety-nine outside the list. Copper, our running example, is in appendix Fig. A1. The 2025 Section 232
 duty named wire, tubes and sheets, 29 percent of copper imports by value; refined cathodes, 67
 percent, were exempt as an input material. Total copper imports rushed in, crashed and recovered,
 which looks borrowed. Split by what the duty taxed, among imports reported in kilograms, the
 semi-finished products averaged 49 thousand tonnes a month from August 2024 to January 2025 and 27
-thousand from March to August 2026, while untaxed cathodes rose from 89 to 154 thousand. Fig. 1's
-taxed and untaxed split is assigned from product headings, an approximation of the duty's annex. Studying whole categories
+thousand from March to August 2026, while untaxed cathodes rose from 89 to 154 thousand. Studying whole categories
 mostly watches trade a tariff never touched, which is why the rest of this report works product by
 product.
 
-[[FIG:1|slides/fig/09_sankey.png|Copper in 2025, by heading; widths are import value. The taxed and untaxed split follows Proclamation 10962, paragraph 1 against paragraph 8.]]
-
 ### 3.2 Where the duty stays, the targeted country loses ground and has not regained it by month 18
 
-Table 1 and Fig. 2 give the aftermath. Pooled over the 384 episodes with a full 18 months, the
+Table 1 and Fig. 1 give the aftermath. Pooled over the 384 episodes with a full 18 months, the
 targeted country falls 0.19 log points against its rivals after the duty, about 17 percent, with
 no movement in the year before: no clear surge to buy ahead, and no early decline. The fall
 arrives as a step at the duty, reaching about 0.2 by month 3. The pooled estimate is imprecise once
@@ -179,15 +174,11 @@ standard errors over investigation groups in parentheses.
 | ITC found no injury | 45 (18) | +0.06 (0.03) | +0.09 (0.02) | -0.05 (0.02) |
 | fake date, 24 months earlier | 286 (110) | +0.06 (0.03) | +0.08 (0.07) | +0.04 (0.04) |
 
-[[FIG:2|slides/fig/12_order_vs_negative.png|Month by month, the targeted country against rivals selling the same product. Shading is the 95 percent interval for cases that became permanent orders.]]
-
-Where Commerce finds critical circumstances, duties can reach back 90 days. An earlier descriptive
-comparison found more buying ahead in those cases, not less (+0.067 against -0.066, Welch p = 0.012,
-on the older 508-episode sample); it does not show that retroactive liability changes behavior.
+[[FIG:1|slides/fig/12_order_vs_negative.png|Month by month, the targeted country against rivals selling the same product. Shading is the 95 percent interval for cases that became permanent orders.]]
 
 ### 3.3 What an importer can expect, and how well history predicts it
 
-Table 2 and Fig. 3 give the outcomes for targeted products. Fewer than half are unaffected or come
+Table 2 and Fig. 2 give the outcomes for targeted products. Fewer than half are unaffected or come
 back: 25 percent never fall and 18 percent fall and recover, while 41 percent fall and stay down and
 16 percent have no imports at all in months 13 to 18. On the fake date, 4 percent do. On the 282
 cases the fake date covers, the real shares are 27, 18, 42 and 13 percent. At 10, 20 or 30 percent
@@ -195,7 +186,7 @@ definitions of a fall, 16 percent have no late imports. Counting from the
 month of the fall, 26 percent of products that fall are back within 18 months of falling, against
 58 percent on the fake date.
 
-[[FIG:3|slides/fig/14_outcomes.png|What happened to each targeted product-country pair within 18 months of the duty, real cases against the fake date.]]
+[[FIG:2|slides/fig/14_outcomes.png|What happened to each targeted product-country pair within 18 months of the duty, real cases against the fake date.]]
 
 **Table 2.** Outcome within 18 months of a preliminary duty; 90 percent intervals as in Table 3.
 
@@ -216,7 +207,12 @@ logistic model ranks a product that will come back above one that will not 80 pe
 and cuts the Brier score by a quarter. Most of that is the latest published share (0.029 alone); the
 other features add 0.016 (0.006 to 0.027), the vote alone 0.006 (-0.002 to 0.014). It beats the
 rates split by vote in five of six years, within 3 to 9 points of outcomes. Large pre-case
-suppliers and high duty rates go with lower odds of coming back.
+suppliers and high duty rates go with lower odds of coming back. Calibrated on earlier years only,
+the at-the-fall model's largest gap to outcomes falls from 8 to 3 points; at the vote calibration
+does not help, and its most confident third runs about 12 points high. Appendix Table A1 turns both
+into a lookup: where the duty was confirmed and the share is under half its pre-case level, 13 of
+100 products came back (the model expected 14); where it was lifted and the share is back to
+four-fifths, 81 (expected 77).
 
 **Table 3.** Held-out Brier scores (lower is better); 90 percent intervals over investigation groups.
 
@@ -225,6 +221,24 @@ suppliers and high duty rates go with lower odds of coming back.
 | duty starts | 384 | 0.250 | logistic, 0.246 | 0.004 [-0.005, 0.013] | 0.61 |
 | fall first visible | 354 | 0.205 | boosting, 0.183 | 0.022 [0.013, 0.033] | 0.70 |
 | ITC final vote | 331 | 0.181 | logistic, 0.136 | 0.045 [0.031, 0.059] | 0.80 |
+
+### 3.4 The same model on China's Section 301 tariffs
+
+The 2018 Section 301 tariffs taxed China alone, product by product: 6,137 products on Lists 1 to 3
+at 10 to 25 percent, read from the tariff schedule's notes, compared with untaxed rivals in the same
+product. Windows stop at January 2020, before China's COVID shutdown, so outcomes run 16 months.
+China's share of these products' imports fell from 14.9 to 10.4 percent (fake date: up 6 percent).
+Of the products, 35 percent did not fall, 24 fell and came back, 35 stayed down and 6 had no late
+imports, against 25, 17, 42 and 16 for antidumping cases at the same horizon (Table A2). The
+at-the-fall model trained on antidumping cases, minus the China and case-type flags, ranks Section
+301 products correctly 70 percent of the time (a model trained on Section 301 itself: 75) and beats
+even Section 301's own recovery rate by 0.027 (0.023 to 0.032); trained on Section 301, it beats
+antidumping cases from 2020 on by 0.012 (0.001 to 0.022). Most antidumping training cases come after
+2018; trained only on the 26 published before September 2018, it ranks as well (0.72) but expects
+too few recoveries. One pattern stands out: products whose
+China share ran more than a quarter above its usual level just before the tariff came back 61
+percent of the time, against about 30 for the rest. That part of the fall was borrowed. Each list
+is one date, so these describe products; they do not estimate a list's effect.
 
 ## 4. Discussion
 
@@ -242,12 +256,13 @@ forecasts of trade failed in our earlier attempts: the year a case happened expl
 outcome than every case feature together. Comparing a country with its rivals in the same product
 and month removes shocks they share, including the year. On day one the best forecast is the
 historical rates; a few months in, a model does better, mostly by reading how far the published
-share has come back.
+share has come back, and the same model works on a different tariff law.
 
 Against the three questions: Q2 is answered for these duties, as a persistent relative decline over
 the 18 months we observe; where the lost trade goes is not estimable from totals. Q3 is answered by
 the recovery rates and by a model that sharpens them once the fall shows. Q1 is answered only for
-these duties, with no clear surge before collection; for the broad 2018 to 2026 tariff actions it
+these duties, with no clear surge before collection, and in part for Section 301, where a rush
+predicts a recovery; for the broad 2018 to 2026 tariff actions it
 remains open (appendix).
 
 ## 5. Statement of contributions
@@ -281,6 +296,42 @@ determination notices in the Federal Register.
 
 ## 7. Appendix
 
+[[FIG:A1|slides/fig/09_sankey.png|Copper in 2025, by heading; widths are import value. The taxed and untaxed split follows Proclamation 10962, paragraph 1 against paragraph 8, assigned from product headings, an approximation of the duty's annex.]]
+
+### A lookup for a sourcing team
+
+**Table A1.** Lookup: of 100 held-out products in each cell, the calibrated model's expected number back by month 18 / the number that came back (cases in the cell).
+
+| when the fall shows: supplier's pre-case imports | rate up to 25% | rate over 25% | rate not published |
+| --- | --- | --- | --- |
+| under USD 1M | 41 / 56 (51) | 37 / 30 (40) | 45 / 40 (28) |
+| USD 1M to USD 10M | 26 / 36 (52) | 19 / 16 (49) | 32 / 26 (28) |
+| over USD 10M | 20 / 26 (76) | 18 / 16 (69) | 25 / 22 (35) |
+
+| at the ITC vote: latest share against pre-case | duty confirmed | duty lifted |
+| --- | --- | --- |
+| under half | 14 / 13 (142) | 44 / 33 (24) |
+| half to 4/5 | 24 / 23 (67) | 57 / 40 (20) |
+| 4/5 or more | 47 / 54 (50) | 77 / 81 (18) |
+
+### Section 301 details
+
+**Table A2.** Section 301 Lists 1 to 3 (6,137 listed products, 4,908 with a pre-case share) against antidumping cases, 16-month horizon; 90 percent intervals from resampling 2-digit chapters (Section 301) or investigation groups (antidumping).
+
+| outcome | Section 301 | fake date | antidumping |
+| --- | --- | --- | --- |
+| did not fall | 35% [32, 37] | 42% [38, 45] | 25% [22, 29] |
+| fell, came back | 24% [22, 26] | 31% [29, 34] | 17% [15, 19] |
+| fell, still down | 35% [33, 37] | 23% [22, 24] | 42% [38, 46] |
+| no imports, months 11 to 16 | 6% [5, 8] | 4% [3, 5] | 16% [12, 20] |
+
+| trained on, scored on | products | AUC | Brier | gain over the target's own rate |
+| --- | --- | --- | --- | --- |
+| antidumping, all cases, to Section 301 (boosting) | 3,186 | 0.70 | 0.207 | 0.027 [0.023, 0.032] |
+| antidumping published by Sep 2018, to Section 301 (logistic) | 3,186 | 0.72 | 0.237 | -0.003 [-0.011, 0.005] |
+| Section 301, to antidumping from 2020 (logistic) | 1,245 | 0.66 | 0.186 | 0.012 [0.001, 0.022] |
+| Section 301 on itself, by chapter (reference) (boosting) | 3,186 | 0.75 | 0.191 | 0.043 [0.037, 0.049] |
+
 ### Dollars and quantity at the category level
 
 Our unusual-month score measures how far a chapter's largest 2025 month sat above a line drawn
@@ -306,7 +357,11 @@ placebo at p < 0.0001. Rebuilt on a fixed set of products with zero months kept,
 non-duty notices removed, companion notices merged and uncertainty computed over investigation
 groups, the pooled estimate is minus 0.19 (SE 0.11), and minus 0.37 (SE 0.07) for cases that became
 orders. Report 1 counted 8 notices without an affirmative finding; reading every summary gives 4,
-plus 17 other non-duty notices.
+plus 17 other non-duty notices. Report 1's "42 percent above its level before the case" came from
+pooling every month outside any case window into the reference, not from a surge before the case.
+Where Commerce finds critical circumstances, duties can reach back 90 days. An earlier descriptive
+comparison found more buying ahead in those cases, not less (+0.067 against -0.066, Welch p = 0.012,
+on the older 508-episode sample); it does not show that retroactive liability changes behavior.
 
 ### Limitations
 
@@ -314,12 +369,18 @@ The no-injury group is small (45 episodes in 18 groups) and dominated by one 202
 contrast between final outcomes is descriptive. Duty rates are missing for 29 percent of notices,
 and the model carries a missing-rate indicator. Copper, the running example, is one product with no
 comparison country, so it illustrates rather than tests. The importer use case is plausible and
-grounded in the duty timeline, but not validated with importers.
+grounded in the duty timeline, but not validated with importers. For Section 301, the product
+lists come from the 2026 tariff schedule, so about a tenth of lines renumbered since 2018 are
+missing; roughly 2,000 product exclusions, some retroactive, are not removed, so some taxed
+products were not taxed; Chinese goods shipped through third countries can inflate rivals' shares;
+and each list is one date, so the intervals cover products, not the list's common shock.
 
 All code is in the repository. The panel: `harvest_hs10.py`, `build_panel_hs8.py`. Duty notices:
 `events/harvest_adcvd.py`, `events/parse_adcvd.py`, `events/parse_margins.py`. Final outcomes:
 `events/itc_check.py`, `events/itc_audit.py`. Section 3.2: `adcvd_stacked.py`, `itc_compare.py`,
 `adcvd_stacked_qty.py`, `adcvd_analysis.py`. Section 3.3: `recovery_benchmark.py`,
-`recovery_by_final_stage.py`, `prediction_test.py`, `prediction_stage2.py`. Section 3.1: `coverage_share.py`,
+`recovery_by_final_stage.py`, `prediction_test.py`, `prediction_stage2.py`, `calibrated_lookup.py`.
+Section 3.4: `events/build_301_lists.py`, `sec301_benchmark.py`, `sec301_transfer_test.py`,
+`recovery_lib.py`. Section 3.1: `coverage_share.py`,
 `copper_split.py`. Figures: `slides/fig_sankey.py`, `slides/fig_stacked.py`. Each script writes
 the CSV its numbers come from.

@@ -160,3 +160,84 @@ ax.set_title("A few months in, a model beats the historical rates", loc="left", 
 fig.savefig("slides/fig/15_decision_points.png")
 plt.close(fig)
 print("wrote slides/fig/15_decision_points.png")
+
+# ---------------------------------------------------------------- 16: the lookup
+from matplotlib.colors import LinearSegmentedColormap, to_rgb  # noqa: E402
+
+L = pd.read_csv("calibrated_lookup.csv")
+# neutral ramp: in this deck red means losing ground, and here a darker cell means more came back
+ramp = LinearSegmentedColormap.from_list("grey", ["#FFFFFF", "#3A3F47"])
+panels = [("fall", "When the fall first shows", ["under $1M", "$1M to $10M", "over $10M"],
+           ["rate up to 25%", "rate over 25%", "rate not published"],
+           "supplier's imports, year before", "preliminary duty rate"),
+          ("ITC", "At the ITC's final vote", ["under half", "half to 4/5", "4/5 or more"],
+           ["duty confirmed", "duty lifted"], "latest share against its pre-case level", "ITC vote")]
+fig, axes = plt.subplots(1, 2, figsize=(11, 3.9), gridspec_kw={"width_ratios": [3, 2.2]})
+for ax, (pt, title, rows_, cols_, rlab, clab) in zip(axes, panels):
+    x = L[L.point == pt]
+    for i, r in enumerate(rows_):
+        for j, c in enumerate(cols_):
+            v = x[(x.row == r) & (x.col == c)].iloc[0]
+            val = v.came_back
+            col = ramp(0.08 + 0.92 * val)
+            ax.add_patch(plt.Rectangle((j + 0.03, i + 0.03), 0.94, 0.94, color=col, lw=0))
+            lum = np.dot(to_rgb(col), [0.299, 0.587, 0.114])
+            tc = "white" if lum < 0.55 else INK
+            ax.text(j + 0.5, i + 0.42, f"{100 * val:.0f}", ha="center", va="center", fontsize=20,
+                    fontweight="600", color=tc)
+            ax.text(j + 0.5, i + 0.75, f"model {100 * v.expected:.0f}, {v.cases} cases", ha="center",
+                    va="center", fontsize=10, color=tc)
+    ax.set_xlim(0, len(cols_))
+    ax.set_ylim(len(rows_), 0)
+    ax.set_xticks([j + 0.5 for j in range(len(cols_))])
+    ax.set_xticklabels(cols_, fontsize=11)
+    ax.set_yticks([i + 0.5 for i in range(len(rows_))])
+    ax.set_yticklabels([r.replace("$", r"\$") for r in rows_], fontsize=11)
+    ax.xaxis.tick_top()
+    ax.tick_params(length=0)
+    ax.grid(False)
+    for sp in ax.spines.values():
+        sp.set_visible(False)
+    ax.set_xlabel(clab, fontsize=11, color=GREY)
+    ax.set_ylabel(rlab, fontsize=11, color=GREY)
+    ax.set_title(title, loc="left", fontsize=13, fontweight="600", pad=26)
+fig.suptitle("Of 100 products that fell, how many came back by month 18 (held-out years)", x=0.01,
+             ha="left", fontweight="600", fontsize=15)
+fig.tight_layout()
+fig.savefig("slides/fig/16_lookup.png")
+plt.close(fig)
+print("wrote slides/fig/16_lookup.png")
+
+# ---------------------------------------------------------------- 17: Section 301 outcomes
+B3 = pd.read_csv("s301_benchmark.csv")
+rows3 = [("China, Section 301", "Section 301, real"), ("same products, fake date", "Section 301, placebo"),
+         ("antidumping cases", "AD/CVD, same horizon")]
+fig, ax = plt.subplots(figsize=(11, 3.6))
+for i, (lab, s) in enumerate(rows3):
+    left = 0
+    for c in cats:
+        v = 100 * float(B3[(B3["sample"] == s) & (B3.measure == c)].value.iloc[0])
+        ax.barh(i, v - 0.4, left=left + 0.2, color=cols[c], height=0.62, edgecolor="white", lw=0)
+        if v >= 3:
+            ax.text(left + v / 2, i, f"{v:.0f}%", ha="center", va="center", color=txt[c],
+                    fontsize=13 if v >= 6 else 11, fontweight="600")
+        left += v
+ax.set_yticks(range(len(rows3)))
+ax.set_yticklabels([r[0] for r in rows3])
+ax.invert_yaxis()
+ax.set_xlim(0, 100)
+ax.set_xticks([])
+ax.grid(False)
+for sp in ["left", "bottom"]:
+    ax.spines[sp].set_visible(False)
+ax.tick_params(left=False)
+x = 0
+lab3 = dict(labels, exited="no late imports")
+for c in cats:
+    v = 100 * float(B3[(B3["sample"] == "Section 301, real") & (B3.measure == c)].value.iloc[0])
+    ax.text(x + v / 2, -0.42, lab3[c], ha="center", va="bottom", color=INK, fontsize=12)
+    x += v
+ax.set_title("What happened to each taxed product within 16 months", loc="left", fontweight="600", pad=34)
+fig.savefig("slides/fig/17_s301_outcomes.png")
+plt.close(fig)
+print("wrote slides/fig/17_s301_outcomes.png")

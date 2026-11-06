@@ -403,7 +403,9 @@ if __name__ == "__main__":
         print(co.round(3).to_string())
         co.rename("coef").to_frame().assign(point=pt).to_csv(f"prediction_stage2_coef_{pt}.csv")
     pd.concat([S_f, S_i]).to_csv("prediction_stage2.csv", index=False)
+    D.to_csv("prediction_stage2_features.csv", index=False)
     pd.concat([yrs_f, yrs_i]).to_csv("prediction_stage2_years.csv", index=False)
     pd.concat([P_f.assign(point="fall"), P_i.assign(point="ITC")]).to_csv("prediction_stage2_heldout.csv",
                                                                           index=False)
-    print("wrote prediction_stage2.csv, prediction_stage2_years.csv, prediction_stage2_heldout.csv")
+    print("wrote prediction_stage2.csv, prediction_stage2_years.csv, prediction_stage2_heldout.csv, "
+          "prediction_stage2_features.csv")

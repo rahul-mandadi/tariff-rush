@@ -44,3 +44,4 @@ report1.html
 # rebuilt by adcvd_stacked.py (~20MB)
 panel/adcvd_stacks_*.parquet
 final_report.html
+panel/s301_stacks.parquet

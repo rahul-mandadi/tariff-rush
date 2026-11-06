@@ -10,7 +10,8 @@ unchanged), with the results replaced by the November corrections in FINAL_REPOR
   slide 9   notes: the antidumping result holds in physical quantity
   slide 10  discussion rewritten to the corrected numbers
   slide 11  checks: quantity, and the 21 notices removed
-  slide 12  the held-out results at three decision points (fig 15) and the next step
+  slide 12  the held-out results at three decision points (fig 15)
+  slide 13  the calibrated lookup (fig 16) and the next step
 
 Every number traces to FINAL_REPORT.md. Style and helpers are build_deck2.py's, unchanged.
 
@@ -326,10 +327,10 @@ add("What the checks confirmed.",
 # ---------------------------------------------------------------- 12 next
 add("A few months in, the odds get sharper.", fig="15_decision_points.png",
     caption="Scored on later years only. Day one: no reliable gain over the historical rates. At "
-            "the ITC's final vote: better by 0.045. Next, by December 11: calibrate it and turn it "
-            "into a lookup a sourcing team can use.",
-    notes="Close here: where the duty stays, the business does not come back, and a few months in "
-          "we can tell fairly well which products will.\n\n"
+            "the ITC's final vote: better by 0.045. Next slide: the same models as a lookup a "
+            "sourcing team can read.",
+    notes="Where the duty stays, the business does not come back, and a few months in we can tell "
+          "fairly well which products will.\n\n"
           "Numbers if asked: every model sees only trade data Census had published by then, about "
           "five weeks after a month ends, and notices published by that date, and trains only on "
           "earlier cases whose outcomes were already published. Day one: Brier 0.246 against 0.250 "
@@ -337,7 +338,19 @@ add("A few months in, the odds get sharper.", fig="15_decision_points.png",
           "shows: gradient boosting, 0.022 better (0.013 to 0.033). At the ITC's final vote: a "
           "logistic model, 0.045 better (0.031 to 0.059), ranking a product that will come back "
           "above one that will not 80% of the time. Most of that is how far the published share has "
-          "already come back; the vote by itself adds little.\n\n"
+          "already come back; the vote by itself adds little.")
+
+# ---------------------------------------------------------------- 13 the lookup
+add("Under half the old share, few come back.", fig="16_lookup.png",
+    caption="Held-out years only. Each cell: of 100 products that fell, how many came back by month "
+            "18. Next, by December 11: whether this holds for China's 2018 tariffs.",
+    take_rule=True,
+    notes="Close here: this is what a sourcing team would read. Where the duty was confirmed and "
+          "the published share is under half its old level, 13 in 100 came back; where it was "
+          "lifted and the share is back to four-fifths, 81.\n\n"
+          "Small text in each cell: the calibrated model's estimate and how many cases are behind "
+          "it. Calibration is fitted only on earlier years; at the vote the most confident third "
+          "still runs about 12 points high, so we show what happened, not just the model.\n\n"
           "If asked about the rush before tariffs like copper's: we are rebuilding that tariff "
           "list document by document before we report anything on it.")
 
