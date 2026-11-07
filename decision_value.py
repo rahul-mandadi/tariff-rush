@@ -100,10 +100,11 @@ def main():
         D = np.stack([est["model"] - est[b] for b in baselines])          # baselines x thresholds
         Dstar = np.stack([diffs[b] for b in baselines], axis=1)            # draws x baselines x T
         sd = Dstar.std(axis=0, ddof=1)
-        live = sd > 1e-12
+        live = sd > 1e-9  # below this the spread is floating-point noise
         z = np.where(live, (Dstar - D) / np.where(live, sd, 1), 0.0)
         c90 = np.quantile(z.reshape(B, -1).max(axis=1), 0.90)
-        sim_lo = np.where(live, D - c90 * sd, D)
+            # policies that act on the same products differ only by floating-point noise: a tie
+        sim_lo = np.where(np.abs(D) < 1e-12, 0.0, np.where(live, D - c90 * sd, D))
         for j, t in enumerate(T):
             row = dict(point=name, threshold=t, **{f"nb_{k}": v[j] for k, v in est.items()})
             for i, b in enumerate(baselines):
