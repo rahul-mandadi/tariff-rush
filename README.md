@@ -29,18 +29,23 @@ anyone tell?
   fall, 17 percent fall and come back, 42 percent fall and stay down, and 16 percent fall, never
   come back and have no imports in months 13 to 18 (fake date: 49 / 30 / 18 / 3).
 - **Forecasting, on held-out later years.** On the day the duty starts, case facts add no reliable
-  gain over these historical rates. Re-estimated every month from what Census has published, a model
-  ranks a product that will come back above one that will not 78 percent of the time by month 4 and
-  81 percent by month 5, beating that month's historical rate by about 0.04 in Brier score and, in
-  months 4 to 6, beating a reading of the latest share alone. At the trade commission's final vote,
-  acting on the forecast beats always qualifying a second supplier, never doing so, and the
-  historical rate for every cost ratio from 0.25 to 0.90 (decision-curve analysis).
-- **The decision is real.** In the commission's final staff reports for these cases, about half of
-  responding purchasers changed suppliers (27 of 54 for aluminum extrusions, 23 of 45 for steel
-  nails), and qualifying a new supplier took from days to 18 months. Floor & Decor's 2020 annual
-  report describes moving its Chinese tile sourcing after the 2019 preliminary duties. For the 2020
-  mattress cases our panel matches published import figures within 3 million dollars, and the
-  outcomes match the reported shift out of Vietnam into Indonesia.
+  gain over these historical rates. Among products whose fall is already visible and that are not
+  yet back, a model re-estimated every month from what Census has published ranks a product that
+  came back above one that did not in 78 percent of pairs at month 4 and 81 percent at month 5
+  (gradient boosting; logistic 75 at month 4), and in months 4 to 6 boosting outperformed a model
+  of the latest published share. The eligible products change by month, and the 16,969
+  product-month rows come from 1,735 products in 139 investigation groups.
+- **Decision value is narrower.** As potential benefit under assumed costs, tested against every
+  baseline (always or never qualify, the historical rate, the rate by vote, the latest-share model)
+  at all 17 thresholds at once, the logistic vote-time forecast is supported only at cost ratios of
+  0.75 and 0.85 of the avoidable loss; on day one, at none.
+- **Supplier switching around these cases is common and slow.** In the commission's final staff
+  reports, about half of responding purchasers changed suppliers during the investigations (27 of 54
+  for aluminum extrusions, 23 of 45 for steel nails), mostly for reasons other than the duty, and
+  qualifying a new supplier took from days to 18 months. Floor & Decor's 2020 annual report
+  describes moving its Chinese tile sourcing after the 2019 preliminary duties. This shows the
+  decision exists; it does not validate the forecasts. For the 2020 mattress cases our panel
+  matches published import figures within 3 million dollars.
 - **The model carries over to China's 2018 Section 301 tariffs** (6,844 listed products): trained on
   antidumping cases, it ranks Section 301 products correctly 67 percent of the time, against 73 for a
   model trained on Section 301 itself. There, products whose China share ran more than a quarter
@@ -62,12 +67,14 @@ repository root, in this order:
 | aftermath | `adcvd_stacked.py` (about 40 minutes), `adcvd_stacked_qty.py`, `adcvd_analysis.py` | stacked event study, quantity check, retroactivity split |
 | final outcomes | `events/itc_check.py`, `events/itc_audit.py`, `itc_compare.py` | ITC verdicts, the no-injury audit, order against no-injury |
 | outcome rates | `recovery_benchmark.py --fall 0.2` (also 0.1, 0.3), `recovery_by_final_stage.py` | the four outcome shares, Kaplan-Meier recovery |
-| forecasts | `build_decision_stacks.py`, `prediction_test.py`, `prediction_stage2.py`, `prediction_landmark.py`, `decision_value.py`, `calibrated_lookup.py` | decision-time panels; day-one, at-the-fall, ITC-vote and monthly forecasts; decision value; the lookup |
+| forecasts | `build_decision_stacks.py`, `prediction_test.py`, `prediction_stage2.py`, `prediction_landmark.py`, `calibrated_lookup.py`, `decision_value.py` | decision-time panels; day-one, at-the-fall, ITC-vote and monthly forecasts; the lookup; decision value |
 | Section 301 | `events/build_301_lists.py`, `sec301_benchmark.py`, `sec301_transfer_test.py` | product lists, outcomes, transfer tests |
 | coverage | `coverage_share.py`, `copper_split.py` | how much of a category a list names; copper |
 | outputs | `slides/fig_stacked.py`, `slides/fig_sankey.py`, `build_final_report.py`, `slides/build_deck2b.py`, `slides/build_deck_final.py` | figures, report PDF, decks |
 
-Each script writes the CSV its numbers come from. `recovery_lib.py` holds the outcome rules shared
+Each script writes the CSV its numbers come from. `python3 -m pytest tests -q` checks the timing
+rules (exact-date rival exclusions, day-one product lists, monthly eligibility, training cutoffs,
+the net-benefit formula). `HANDOFF.md` traces one case and one held-out prediction end to end. `recovery_lib.py` holds the outcome rules shared
 by the Section 301 and forecasting scripts; `sec301_benchmark.py` checks that it reproduces
 `recovery_benchmark.py` exactly.
 

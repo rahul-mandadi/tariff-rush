@@ -248,22 +248,23 @@ fig, axes = plt.subplots(1, 3, figsize=(12, 4.0), sharey=True)
 for ax, pt in zip(axes, ["duty starts", "fall first visible", "ITC final vote"]):
     x = DV[DV.point == pt]
     ax.axhline(0, color=GREY, lw=1)
-    ax.plot(x.threshold, x["always act"], color=GREY, lw=2, ls="--")
-    ax.plot(x.threshold, x["best simple"], color=INK, lw=2)
-    ax.plot(x.threshold, x.model, color=RED, lw=2.4)
-    win = x[x.lo > 0]
-    for _, r in win.iterrows():
-        ax.axvspan(r.threshold - 0.025, r.threshold + 0.025, color=RED, alpha=0.08, lw=0)
+    ax.plot(x.threshold, x["nb_always act"], color=GREY, lw=2, ls="--")
+    ax.plot(x.threshold, x["nb_history"], color=INK, lw=2)
+    if "nb_share only" in x and x["nb_share only"].notna().any():
+        ax.plot(x.threshold, x["nb_share only"], color=GREY, lw=2, ls=":")
+    ax.plot(x.threshold, x.nb_model, color=RED, lw=2.4)
+    for _, r in x[x.supported].iterrows():
+        ax.axvspan(r.threshold - 0.025, r.threshold + 0.025, color=RED, alpha=0.12, lw=0)
     ax.set_ylim(-0.1, 0.8)
-    ax.set_xlim(0.05, 0.95)
+    ax.set_xlim(0.1, 0.9)
     ax.set_title(pt, loc="left", fontsize=13, fontweight="600")
-    ax.set_xlabel("cost of qualifying a supplier,\nas a share of the loss it avoids")
+    ax.set_xlabel("assumed cost of qualifying a supplier,\nas a share of the loss it avoids")
 axes[0].set_ylabel("net benefit per product")
-lab_x = 0.12
-for lab, c, yy in [("model", RED, 0.70), ("best simple policy", INK, 0.62), ("always qualify", GREY, 0.54)]:
-    axes[0].text(0.55, yy, lab, color=c, fontsize=12, fontweight="600")
-fig.suptitle("Where acting on the forecast beats every simple policy (shaded: 90% interval above zero)",
-             x=0.01, ha="left", fontweight="600", fontsize=14)
+for lab, c, yy in [("model", RED, 0.72), ("historical rate", INK, 0.64), ("always qualify", GREY, 0.56)]:
+    axes[0].text(0.52, yy, lab, color=c, fontsize=12, fontweight="600")
+axes[2].text(0.52, 0.72, "latest share alone", color=GREY, fontsize=12, fontweight="600")
+fig.suptitle("Shaded: thresholds where the model is ahead of every baseline at once "
+             "(simultaneous 90% bound above zero)", x=0.01, ha="left", fontweight="600", fontsize=13)
 fig.tight_layout()
 fig.savefig("slides/fig/18_decision_value.png")
 plt.close(fig)
@@ -278,7 +279,7 @@ ax.plot(LM.L, LM.auc_boosting, color=RED, lw=2.4, marker="o", ms=7)
 last = LM.L.max()
 ax.annotate("model", (last, LM.auc_boosting.iloc[-1]), xytext=(8, 0), textcoords="offset points",
             va="center", color=RED, fontweight="600", fontsize=13)
-ax.annotate("latest share alone", (last, LM["auc_share only"].iloc[-1]), xytext=(8, 0),
+ax.annotate("latest share model", (last, LM["auc_share only"].iloc[-1]), xytext=(8, 0),
             textcoords="offset points", va="center", color=GREY, fontweight="600", fontsize=13)
 r4 = LM[LM.L == 4].iloc[0]
 ax.annotate(f"month 4: {100 * r4.auc_boosting:.0f}%", (4, r4.auc_boosting), xytext=(0, 14),
@@ -288,7 +289,7 @@ ax.set_xlim(2.5, last + 2.2)
 ax.set_xticks(LM.L)
 ax.set_xlabel("months since the duty started (trade data published through two months earlier)")
 ax.set_ylabel("share of pairs ranked correctly\n(back vs not back by month 18)")
-ax.set_title("Each month, the forecast tells recoveries apart; early on it beats reading the share",
+ax.set_title("Products already falling: pairwise ranking by month; early on, boosting outperformed a latest-share model",
              loc="left", fontweight="600")
 fig.savefig("slides/fig/19_monthly_forecast.png")
 plt.close(fig)

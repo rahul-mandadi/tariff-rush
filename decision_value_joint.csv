@@ -1,4 +1,4 @@
-point,lo,hi,thresholds,share_all_positive
-duty starts,0.45,0.5,2,0.95
-fall first visible,0.65,0.7,2,0.988
-ITC final vote,0.25,0.9,14,0.897
+point,baselines,critical_value,supported_thresholds,n_supported
+duty starts,"history, always act, never act",2.440886444805989,none,0
+fall first visible,"history, always act, never act",2.291649990355082,"0.65, 0.70",2
+ITC final vote,"history, history by vote, share only, always act, never act",2.5683520511159785,"0.75, 0.85",2

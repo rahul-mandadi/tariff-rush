@@ -113,6 +113,9 @@ FEAT = ["pre_share", "pre_trend", "log_pre_value", "hhi", "n_rivals", "log_rate"
 print(f"product-landmark rows {len(D):,}; products {D[['sid', 'hs8']].drop_duplicates().shape[0]:,}; "
       f"cases {D.sid.nunique()}; groups {D.cluster.nunique()}")
 print("eligible products by landmark:", D.groupby("L").size().to_dict())
+# eligible counts over all years (products, cases, groups) by landmark, for the report tables
+D.groupby("L").agg(products=("hs8", "size"), cases=("sid", "nunique"), groups=("cluster", "nunique")) \
+    .to_csv("prediction_landmark_counts.csv")
 
 
 def cv_pick(tr, grid, make):
@@ -207,4 +210,5 @@ co = pd.Series(m[-1].coef_[0], index=FEAT).sort_values()
 print("\nfull-sample logistic coefficients (standardized; positive = more likely back):")
 print(co.round(3).to_string())
 co.to_csv("prediction_landmark_coef.csv")
-print("wrote prediction_landmark.csv, prediction_landmark_heldout.csv, prediction_landmark_coef.csv")
+print("wrote prediction_landmark.csv, prediction_landmark_heldout.csv, prediction_landmark_coef.csv, "
+      "prediction_landmark_counts.csv")

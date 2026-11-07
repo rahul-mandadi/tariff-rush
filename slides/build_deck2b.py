@@ -181,11 +181,11 @@ add("Split it, and the answer appears.", fig="11_copper_split.png",
           "Both lines rose before the list of taxed products came out at the end of July. After it, "
           "only the taxed group stayed down.")
 
-# ---------------------------------------------------------------- the decision is real (public evidence)
+# ---------------------------------------------------------------- public evidence that the decision exists
 add("Importers make this call, and it is slow.",
     bullets=[
         "**They switch.** In the trade commission's own surveys, 27 of 54 aluminum extrusion "
-        "buyers and 23 of 45 steel nail buyers changed suppliers.",
+        "buyers and 23 of 45 steel nail buyers changed suppliers, mostly for other reasons.",
         "**It takes months.** Qualifying a new supplier took from days to 18 months; tin mill "
         "buyers averaged about seven.",
         "**Some move early.** Floor & Decor moved its Chinese tile sourcing to other countries "
@@ -210,7 +210,10 @@ add("Importers make this call, and it is slow.",
           "importing the covered tile from China. Mattress makers left Vietnam within weeks of the "
           "2020 preliminary rates, and our data show the same shift the trade press reported.\n\n"
           "So the decision starts early, but finishing it takes months, and deposits are refunded if "
-          "the duty is lifted. That is why a forecast that sharpens over the first months is useful.")
+          "the duty is lifted, which is why a forecast that sharpens over the first months could "
+          "help. This shows the decision and its timing exist; it does not validate our forecast "
+          "or measure what it would save. Only a few purchasers per report tie their switching to "
+          "the case itself.")
 
 # ---------------------------------------------------------------- 5 the method
 add("How we measure it, product by product.",
@@ -322,8 +325,8 @@ add("What this means.",
     bullets=[
         "**For an importer tied to one country:** weigh qualifying another supplier early. Six "
         "in ten targeted products fell without recovering; one in six also had none a year on.",
-        "**When to look again:** on day one, use the historical rates; by month 4 or 5, a model "
-        "tells recoveries apart far better.",
+        "**When to look again:** on day one, use the historical rates; once a product has fallen, "
+        "a monthly model tells recoveries apart better.",
         "**For anyone measuring tariffs:** study the products a tariff names, not the whole "
         "category, and check quantities as well as dollars.",
     ],
@@ -361,7 +364,7 @@ add("What the checks confirmed.",
 # ---------------------------------------------------------------- 12 next
 add("By month 4, the forecast tells them apart.", fig="19_monthly_forecast.png",
     caption="Held-out later years, data as published each month. Day one: no reliable gain. "
-            "Month 4: 78% ranked correctly; month 5: 81%. Next slide: the same model as a lookup.",
+            "Month 4: 78% of pairs ranked correctly; month 5: 81%. Next slide: the model as a lookup.",
     notes="Where the duty stays, the business does not come back, and within a few months we can "
           "tell fairly well which products will.\n\n"
           "Each month the model re-scores every product that has visibly fallen and is not yet "
@@ -369,10 +372,11 @@ add("By month 4, the forecast tells them apart.", fig="19_monthly_forecast.png",
           "not yet named in another case; it trains only on earlier cases whose outcomes were "
           "published.\n\n"
           "Numbers if asked: day one, Brier 0.240 against 0.249 for history, a gain of 0.008 whose "
-          "range includes zero. By month 4, boosting ranks a product that will come back above one "
-          "that will not 78% of the time, 0.040 better than that month's historical rate (0.027 to "
-          "0.052); by month 5, 81%. In months 4 to 6 it beats reading the latest share alone by "
-          "0.012 to 0.016.")
+          "range includes zero. By month 4, boosting ranks a product that came back above one that "
+          "did not in 78% of pairs, 0.040 better than that month's historical rate (0.027 to "
+          "0.052); by month 5, 81%. In months 4 to 6 it outperformed a latest-share model by 0.012 "
+          "to 0.016. These are products already falling, a set that changes month to month, and "
+          "the sample is 139 investigation groups, not the 16,969 product-month rows.")
 
 # ---------------------------------------------------------------- 13 the lookup
 add("Under half the old share, few come back.", fig="16_lookup.png",

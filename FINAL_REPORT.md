@@ -24,12 +24,11 @@ percent of targeted products did not fall, 17 percent fell and came back, 42 per
 stayed down, and 16 percent fell, never came back and had no imports at all 13 to 18 months later,
 against 3 percent on the
 fake date. On the day the duty starts, case facts add no reliable gain over these historical rates.
-Re-estimated each month as trade data are published, a model does: by the fifth month it ranks a
-product that will come back above one that will not 81 percent of the time, earlier than the
-published share alone allows, and at the trade commission's final vote acting on it beats both
-always qualifying a second supplier and always waiting across a wide range of costs. Public records
-show the decision is real: about half of purchasers in the commission's reports changed suppliers,
-and qualifying one took up to 18 months. The model carries over to China's 2018 Section 301 tariffs,
+Among products whose fall is already visible, a monthly model does better on later years: by month
+5 it ranks a product that comes back above one that does not in 81 percent of pairs. Its decision
+value is narrower: under assumed costs it beats every simple policy, tested jointly, only when
+qualifying costs about three-quarters of the avoidable loss. Public records show switching around
+these cases is common and slow, though few purchasers tie it to the duty. The model carries over to China's 2018 Section 301 tariffs,
 where a fall that follows a rush before the tariff is often borrowed. We also show that a tariff list typically names about 5 percent of the product
 category it touches, which is why this work has to be done product by product.
 
@@ -47,11 +46,13 @@ order; no, and it is lifted and the deposits are refunded.
 For an importer, the preliminary determination opens the decision. If the business with the
 targeted country is merely interrupted, waiting is cheap, and deposits are refunded if the duty is
 lifted. If it will not come back, the months spent waiting are months not spent qualifying a new
-supplier. The decision is real and slow: in the ITC's final reports for our cases, 27 of 54
-purchasers of aluminum extrusions and 23 of 45 of steel nails changed suppliers, and qualifying a
-new one took from days to 18 months, about seven on average for tin mill products [6, 7]. Firms act
-early: Floor & Decor's annual report describes moving its sourcing of Chinese ceramic tile to other
-countries after the 2019 preliminary duties [8]. This is the question in our title: after a
+supplier. Switching is common and slow: in the ITC's final reports, 27 of 54 responding purchasers
+of aluminum extrusions and 23 of 45 of steel nails changed suppliers during the investigation
+period, mostly for reasons such as shortages, with only a few per report tying it to the case; and
+qualifying a new supplier took from days to 18 months, about seven on average for tin mill products
+[6, 7]. Some firms act at the preliminary: Floor & Decor's annual report describes moving its
+sourcing of Chinese ceramic tile after the 2019 preliminary duties [8]. This shows the decision and
+its timing exist; it does not validate the forecasts here. This is the question in our title: after a
 duty, is the fall in trade borrowed, coming back once the shock passes, or real? Census publishes
 monthly trade about five weeks after each month closes, so on the day the duty starts an importer
 has only past cases to go on; a few months in, the new case's own data begin to arrive.
@@ -133,11 +134,14 @@ two-month lag), notices published by that date, the products named by the first 
 comparison panels that leave out only rivals whose own case was published by then (exact dates):
 regularized logistic regression throughout, plus
 shallow gradient boosting and a penalized Cox model at the later points. A monthly version
-re-scores every fallen, not-yet-back product at each month 3 to 14 from what is published by then.
+re-scores every fallen, not-yet-back product at each month 3 to 14 from what is published by then;
+the eligible products change from month to month, so months are not compared on the same products.
 All are validated forward in time, training only on earlier cases whose outcomes were already
-published. Decision value is measured by net benefit (decision-curve analysis [9]): the bad outcomes
-an importer prepares for by acting on the forecast, less unneeded qualifications weighted by their
-cost relative to the loss avoided, against always or never qualifying a second supplier.
+published. Decision value is potential net benefit under assumed costs (decision-curve analysis
+[9]): bad outcomes prepared for, less unneeded qualifications weighted by their cost relative to the
+avoidable loss. It assumes the country-level outcome stands in for an importer's loss and that
+qualifying at the decision date can still avoid it. All 17 thresholds (0.10 to 0.90) and all
+baselines are tested together with simultaneous 90 percent bounds, holding fitted models fixed.
 
 ## 3. Results
 
@@ -187,10 +191,9 @@ back: 25 percent never fall and 17 percent fall and recover, while 42 percent fa
 16 percent fall, never come back and have no imports at all in months 13 to 18 (counting every
 product, including a few that came back first, 19 percent have none then). On the fake date, 3
 percent fall and stop; on the 282 cases the fake date covers, the real shares are 27, 18, 42 and
-13. As an outside check, for the 2020 mattress cases our panel matches published import figures
-within 3 million dollars (Vietnam 348 million in 2020, 48 million in 2021), and the outcomes match
-the reported shift [10]: Vietnam, Thailand and Cambodia (rates 250 to 990 percent) fell and stayed
-down or stopped, while Indonesia (2.6 percent) did not stay down. Counting from the
+13. For the 2020 mattress cases our panel matches published import figures within 3 million dollars,
+and the outcomes match the reported shift [10]: Vietnam, Thailand and Cambodia (rates 250 to 990
+percent) fell and stayed down or stopped; Indonesia (2.6 percent) did not stay down. Counting from the
 month of the fall, 26 percent of products that fall are back within 18 months of falling, against
 58 percent on the fake date.
 
@@ -203,26 +206,25 @@ month of the fall, 26 percent of products that fall are back within 18 months of
 | fell, still down | 42% [37, 46] | 18% [15, 20] | 42% | 35% |
 | fell, no imports 13-18 | 16% [12, 20] | 3% [2, 5] | 18% | 3% |
 
-Built only from earlier cases, these rates beat a uniform guess in five of six test years (Brier
-0.65 to 0.72 against 0.75; 2024, dominated by cases the ITC later voted down, scores 0.752).
+Built only from earlier cases, these rates beat a uniform guess in five of six test years.
 
 On the day the duty starts, case facts add no reliable gain over the historical rate (Table 3).
-Re-estimated each month (Fig. 2), forecasts sharpen quickly: by month 4 gradient boosting ranks a
-product that will come back above one that will not 78 percent of the time (logistic: 75),
-improving on that month's historical rate by 0.040 (0.027 to 0.052), and by month 5, 81 percent. In
-months 4 to 6 boosting also beats a model of the latest published share alone by 0.012 to 0.016,
-intervals above zero (logistic's edge includes zero); later the share alone catches up. At the ITC's final vote a logistic model reaches 81 percent,
-0.018 (0.009 to 0.029) beyond the share; the vote itself adds 0.005 (-0.001 to 0.012). Large
-pre-case suppliers and high duty rates go with lower odds of coming back. Acting on the vote-time
-forecast (fixed in advance as the logistic model) beats always qualifying, never qualifying and the
-historical rate for every cost ratio from 0.25 to 0.90, at all fourteen at once in 90 percent of
-resamples (Fig. A2); on day one, only near 0.5. Recalibrating on earlier years makes later years
-worse, so we do not. Table A1 turns the models into a lookup a sourcing team can read.
+Among products whose fall is visible and that are not yet back, monthly forecasts do better (Fig.
+2). At month 4, gradient boosting ranks a product that came back above one that did not in 78
+percent of pairs (logistic, 75), 0.040 (0.027 to 0.052) better than that month's historical rate;
+at month 5, 81 percent. In months 4 to 6 boosting outperformed the tested latest-share model by
+0.012 to 0.016 (logistic's edge includes zero). At the ITC vote a logistic model reaches 81 percent,
+0.018 (0.009 to 0.029) beyond the share model; the vote itself adds 0.005 (-0.001 to 0.012). Decision
+value is narrower (Fig. A2): with logistic as the common model (a consistency choice, not
+preregistered), tested against every baseline at all thresholds together, the vote-time forecast
+leads always or never qualifying, the historical rate, the rate by vote and the share model only at
+cost ratios 0.75 and 0.85 (pointwise, the share model from 0.60 to 0.90); at the fall, 0.65 and
+0.70; on day one, none. Recalibrating on earlier years makes later years worse, so we do not. Table
+A1 turns the models into a lookup.
 
-[[FIG:2|slides/fig/19_monthly_forecast.png|Share of held-out products ranked correctly (AUC), by month since the duty: gradient boosting on everything published by then, against a model of the latest published share alone.|48]]
+[[FIG:2|slides/fig/19_monthly_forecast.png|Pairwise ranking accuracy (AUC), held-out products already fallen and not yet back; eligible products differ by month. Boosting against a latest-share model. 16,969 product-months from 1,735 products, 354 cases, 139 groups; held out 1,163 products, 222 cases.|48]]
 
-**Table 3.** Held-out Brier scores (lower is better), best of the pre-specified models (all in the CSVs). Cases: eligible, and in parentheses those in
-scored test years. Intervals resample investigation groups of scored cases, models held fixed.
+**Table 3.** Held-out Brier scores (lower is better), best pre-specified model; cases eligible (scored); intervals over groups.
 
 | decision point | cases (scored) | history | best model | improvement | AUC |
 | --- | --- | --- | --- | --- | --- |
@@ -236,8 +238,8 @@ The 2018 Section 301 tariffs taxed China alone, product by product: 6,844 produc
 compared with untaxed rivals in the same product, with windows stopped at January 2020 before
 China's COVID shutdown (16-month outcomes, Table A2). China's share of these products' imports fell
 from 14.9 to 10.4 percent (fake date: up 6 percent). The at-the-fall model trained on antidumping
-cases (logistic, fixed in advance) ranks Section 301 products correctly 67 percent of the time (a
-Section 301 model: 73) and beats even Section 301's own recovery rate by 0.015 (0.009 to 0.021); trained on Section 301 it beats later
+cases (logistic) ranks Section 301 products correctly in 67 percent of pairs (a Section 301 model:
+73) and beats even Section 301's own recovery rate by 0.015 (0.009 to 0.021); trained on Section 301 it beats later
 antidumping cases by 0.011 (0.001 to 0.020), and pooled with them it improves their forecasts
 slightly (0.005, 0.001 to 0.009). Products whose China share ran more than a quarter above normal
 just before the tariff came back 60 percent of the time, against about 30: that part of the fall
@@ -249,14 +251,15 @@ For the importer, the answer to the title is closer to real than borrowed: after
 countervailing duty, six products in ten fall without coming back within 18 months, one in six
 falls and has no imports a year on, and there is no average surge before collection to pay back.
 Where the ITC lifts the duty, the aftermath looks like the fake date. The public record suggests
-the decision is staged: importers start qualifying at or before the preliminary, and finishing can
-take months, so a forecast that sharpens by month 4 or 5 informs the costly step of committing
-volume. These are odds for a supplier country, not for one importer's own supplier.
+the decision is staged: some importers start qualifying at or before the preliminary, and
+finishing can take months, so a forecast that sharpens by month 4 or 5 could inform the later step
+of committing volume. These are odds for a supplier country, not for one importer's own supplier,
+and their value depends on assumed costs we did not measure.
 
 Unit, comparison and decision point all matter: a category is the wrong unit, and comparing a
 country with its rivals in the same product and month removes the year effects that sank level
 forecasts. Against the questions: Q2 is answered for these duties, a persistent relative decline;
-Q3 by the recovery rates and a monthly forecast that sharpens them within four to five months; Q1
+Q3 by the recovery rates and a monthly forecast that sharpens them for products already falling; Q1
 for these duties (no clear surge) and in part for Section 301, where a rush predicts recovery, but
 not for the broad 2018 to 2026 actions (appendix). Where the lost trade goes is not estimable.
 
@@ -307,7 +310,7 @@ determination notices in the Federal Register.
 
 ## 7. Appendix
 
-[[FIG:A2|slides/fig/18_decision_value.png|Net benefit per product of acting on the forecast (logistic, fixed in advance) against the best simple policy and always qualifying, by cost of qualifying as a share of the loss avoided. Shaded: pointwise 90 percent interval of the model's lead above zero.]]
+[[FIG:A2|slides/fig/18_decision_value.png|Potential net benefit per product of acting on the logistic forecast, against the historical rate, always qualifying and (at the vote) the latest-share model, by assumed cost of qualifying as a share of the avoidable loss. Shaded: thresholds where the model leads every baseline at once (simultaneous 90 percent bound above zero, max-t over all baselines and thresholds, fitted models held fixed).]]
 
 [[FIG:A3|slides/fig/14_outcomes.png|What happened to each targeted product-country pair within 18 months of the duty, real cases against the fake date.]]
 
@@ -349,7 +352,7 @@ determination notices in the Federal Register.
 | the same plus Section 301 (pooled) | 1,235 | 0.68 | 0.178 | 0.017 [0.008, 0.025] |
 | Section 301 on itself, by chapter (reference) | 3,128 | 0.73 | 0.199 | 0.034 [0.027, 0.041] |
 
-All transfer rows are the logistic model, fixed in advance (boosting in `sec301_transfer_test.csv`). Pooling (E against D, same test products): Brier better by 0.005 [0.001, 0.009].
+All transfer rows are the logistic model, the common model across tests (boosting in `sec301_transfer_test.csv`). Pooling (E against D, same test products): Brier better by 0.005 [0.001, 0.009].
 
 ### Dollars and quantity at the category level
 
