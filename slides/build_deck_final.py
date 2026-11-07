@@ -356,10 +356,9 @@ add("Under half the old share, few come back.", fig="16_lookup.png",
           "first.")
 
 # ---------------------------------------------------------------- 10b2 decision value
-add("It pays only when qualifying is costly.", fig="18_decision_value.png",
-    caption="Potential net benefit under assumed costs. Tested against every baseline at all "
-            "thresholds at once, the vote-time forecast leads only when qualifying costs about "
-            "three-quarters of the avoidable loss.",
+add("Added value is supported at two cost ratios.", fig="18_decision_value.png",
+    caption="At the ITC vote, simultaneous lower bounds exceed zero against every tested baseline "
+            "at assumed cost ratios 0.75 and 0.85.",
     notes="Accuracy is not the question a sourcing team asks; whether acting on the forecast "
           "beats their simple options is.\n\n"
           "The cost ratio is what qualifying a second supplier costs, as a share of the loss it "

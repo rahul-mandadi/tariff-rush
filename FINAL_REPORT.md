@@ -25,9 +25,9 @@ stayed down, and 16 percent fell, never came back and had no imports at all 13 t
 against 3 percent on the
 fake date. On the day the duty starts, case facts add no reliable gain over these historical rates.
 Among products whose fall is already visible, a monthly model does better on later years: by month
-5 it ranks a product that comes back above one that does not in 81 percent of pairs. Its decision
-value is narrower: under assumed costs it beats every simple policy, tested jointly, only when
-qualifying costs about three-quarters of the avoidable loss. Public records show switching around
+5 it ranks a product that comes back above one that does not in 81 percent of pairs. Its added
+decision value is narrower: tested jointly against every baseline, it is supported at two of the
+assumed cost ratios, 0.75 and 0.85 of the avoidable loss. Public records show switching around
 these cases is common and slow, though few purchasers tie it to the duty. The model carries over to China's 2018 Section 301 tariffs,
 where a fall that follows a rush before the tariff is often borrowed. We also show that a tariff list typically names about 5 percent of the product
 category it touches, which is why this work has to be done product by product.
