@@ -1,0 +1,4 @@
+point,baselines,critical_value,supported_thresholds,n_supported
+duty starts,"history, always act, never act",2.440886444805989,none,0
+fall first visible,"history, always act, never act",2.291649990355082,"0.65, 0.70",2
+ITC final vote,"history, history by vote, share only, always act, never act",2.5683520511159785,"0.75, 0.85",2
