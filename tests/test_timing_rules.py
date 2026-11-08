@@ -104,7 +104,13 @@ def test_monthly_forecast_rows_are_eligible_only_on_visible_data():
     P["hs8"] = P.hs8.str.zfill(8)
     m = P.merge(pairs[["sid", "hs8", "fell_at", "rec_at"]], on=["sid", "hs8"], how="left")
     assert m.fell_at.notna().all()
-    kv = m.L - 2
+    # visible data: through L - 2, or less if Census had not released it by the end of month L
+    rel = pd.read_csv("census_release_calendar.csv", parse_dates=["release"])
+    b = m.sid.map(pd.read_csv("adcvd_episodes_collapsed.csv").b)
+    end = [pd.Timestamp(year=(x + 1) // 12, month=(x + 1) % 12 + 1, day=1) for x in b + m.L]
+    seen = pd.Series([rel[rel.release < e].m.max() for e in end], index=m.index)
+    kv = np.minimum(m.L - 2, seen - b)
+    assert (kv < m.L - 2).sum() > 0, "the 2025 shutdown should delay some landmarks"
     assert (m.fell_at <= kv).all(), "a product scored before its fall was visible"
     assert not (m.rec_at.notna() & (m.rec_at + 2 <= kv)).any(), "a product scored after it was visibly back"
     assert ((m.y == 1) == m.rec_at.notna()).all()
@@ -118,7 +124,21 @@ def test_training_labels_are_published_before_each_test_year():
         d = D[D.point == r.point]
         tr = d[(d.b + 18 + 2) < r.year * 12]
         assert tr.sid.nunique() == r.train_episodes
-        assert (tr.b + 18 + 2 < r.year * 12).all()
+    # the scripts admit a training label when b + k + 2 < cutoff month (a fixed two-month lag); check
+    # that rule against the actual release dates, so a slipped release (2018-19 and 2025 shutdowns)
+    # cannot admit a label Census had not yet published
+    rel = pd.read_csv("census_release_calendar.csv", parse_dates=["release"]).set_index("m").release
+    # test years actually scored (prediction_stage2/_test/_landmark; calibrated_lookup reuses them). A 2026
+    # test year would fail here: October 2025 was released on January 8, 2026 (episode b = 24291)
+    years = set()
+    for f in ["prediction_stage2_heldout.csv", "prediction_test_heldout.csv", "prediction_landmark_heldout.csv"]:
+        years |= set(pd.read_csv(f, usecols=["year"]).year)
+    cutoffs = [(18, int(y) * 12) for y in sorted(years)]
+    cutoffs += [(16, 2018 * 12 + 8), (16, 2020 * 12 + 3)]         # sec301_transfer_test.py tests B and D/E
+    for k, cut in cutoffs:
+        first_day = pd.Timestamp(year=cut // 12, month=cut % 12 + 1, day=1)
+        for b in ep.b[ep.b + k + 2 < cut].unique():
+            assert b + k in rel.index and rel[b + k] < first_day, (k, cut, b)
 
 
 def test_net_benefit_formula_on_a_hand_example():

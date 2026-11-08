@@ -2,7 +2,8 @@
 
 Population in both domains: targeted products that fell (sec301_benchmark.py, horizon H = 16,
 complete follow-up). Target: back at or above the pre-case share for three months running by
-k = 16. Decision: the month the fall first shows in published data (k_fall + 2).
+k = 16. Decision: the month the fall first shows in published data (k_fall + 2, later when a Census
+release slipped; census_release_calendar.csv).
 
 Both domains use decision-time comparison panels: AD/CVD from build_decision_stacks.py, Section 301
 from the strict sample of sec301_benchmark.py (rivals left out only for cases already started).
@@ -51,6 +52,8 @@ from sklearn.preprocessing import StandardScaler
 import recovery_lib as RL
 
 H, LAG, CHINA = 16, 2, "5700"
+REL = pd.read_csv("census_release_calendar.csv", parse_dates=["release"])
+RELM = REL.set_index("m").release.to_dict()
 rng = np.random.default_rng(0)
 ep = pd.read_csv("adcvd_episodes_collapsed.csv", dtype={"cty": str})
 ev = pd.read_csv("events/adcvd_events.csv", dtype={"cty": str}).drop_duplicates("document_number")
@@ -81,7 +84,10 @@ def build(pairs, stacks, b_of, tc_of, rate_of, group_of):
         pf = RL.pre_features(raw, r.hs8, b0, tc)
         if pf is None or (r.sid, r.hs8) not in paths:
             continue
-        dm = b0 + int(r.fell_at) + LAG
+        # decision month: when Census released month k_fall (k_fall + 2, later when a release
+        # slipped, as in the 2018-19 and 2025 shutdowns; census_release_calendar.csv)
+        rel = RELM.get(b0 + int(r.fell_at))
+        dm = max(b0 + int(r.fell_at) + LAG, rel.year * 12 + rel.month - 1) if rel is not None else b0 + int(r.fell_at) + LAG
         rate = rate_of(r.sid, dm)
         rows.append(dict(sid=r.sid, hs8=r.hs8, group=group_of(r), b=b0, decision=dm,
                          y=int(pd.notna(r.rec_at)), **pf,

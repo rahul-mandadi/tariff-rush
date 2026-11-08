@@ -129,7 +129,7 @@ s.notes_slide.notes_text_frame.text = (
     "Open with one line: a tariff is a tax on imports.\n\n"
     "The story: copper looks like it came back, but only the untaxed part did. Across hundreds "
     "of antidumping cases, where the duty becomes permanent the targeted country loses about a "
-    "third of its position and does not get it back within 18 months; nearly six in ten "
+    "third of its position and does not get it back within 18 months; more than half of "
     "targeted products fall and stay down.")
 
 # ---------------------------------------------------------------- 2 the question, with copper
@@ -182,7 +182,7 @@ add("Three questions behind one decision.",
         "**Q3.** How long does recovery take, and how early can we tell?",
     ],
     bullet_size=20, bullet_top=2.15, bullet_step=0.66,
-    caption="We answer with history: 707 U.S. antidumping and countervailing duty decisions, "
+    caption="We answer with history: 704 U.S. antidumping and countervailing duty decisions, "
             "2015 to 2026.",
     take_rule=True,
     notes="This is the analytic problem Kylie asked us to make clearer.\n\n"
@@ -242,7 +242,7 @@ add("How we measure it, product by product.",
         "earlier. A real effect has to beat the fake one.",
     ],
     bullet_size=20, bullet_top=2.15, bullet_step=0.62,
-    caption="707 preliminary notices form 507 country cases; 384 have a full 18 months, 286 a fake "
+    caption="694 preliminary notices (704 country decisions) form 504 country cases; 381 have a full 18 months, 283 a fake "
             "date. Values are nominal dollars (not inflation-adjusted); shared price changes cancel.",
     take_rule=True,
     notes="This is the method Kylie asked us to explain.\n\n"
@@ -254,14 +254,14 @@ add("How we measure it, product by product.",
           "Who is in the panel is fixed from before the case, and a month with no trade stays in "
           "as zero, so a supplier that stops selling is counted, not dropped. Rivals that face a "
           "case of their own on the product around the same time are left out of the comparison.\n\n"
-          "We read every decision notice: 21 of 728 did not start a duty (negative findings, "
-          "side notices, reviews of old orders) and are out. Uncertainty is computed over whole "
+          "We read every decision notice: 24 of 728 did not start a new duty (negative findings, "
+          "side notices, reviews of old orders, circumvention findings on old orders) and are out. Uncertainty is computed over whole "
           "investigations, because one petition often names several countries.")
 
 # ---------------------------------------------------------------- 6 the aftermath (finding 2)
 add("Losses persist in cases that become orders.", fig="12_order_vs_negative.png",
     caption="These duties tax one product from one named country. Where the duty became permanent "
-            "(329 cases), that country's imports fell about 31% against rival suppliers over the 18 "
+            "(326 cases), that country's imports fell about 31% against rival suppliers over the 18 "
             "months we see. Where the trade commission found no injury (45 cases), no lasting fall.",
     notes="Define both on the way in: an antidumping duty answers a complaint that a foreign "
           "producer sells below its home price; a countervailing duty answers a complaint that it "
@@ -285,8 +285,8 @@ add("Losses persist in cases that become orders.", fig="12_order_vs_negative.png
           "the old comparison was set up, not from a surge before the case.")
 
 # ---------------------------------------------------------------- 7 outcomes (finding 3)
-add("Six in ten fall and do not recover.", fig="14_outcomes.png",
-    caption="384 cases, each counted once. 25% did not fall, 17% fell and recovered, 42% stayed "
+add("More than half fall and do not recover.", fig="14_outcomes.png",
+    caption="380 cases, each counted once. 26% did not fall, 17% fell and recovered, 42% stayed "
             "down while trading, 16% fell and had no imports in months 13 to 18 (fake date: 3%).",
     notes="This is what a buyer of one of these products can expect.\n\n"
           "Definitions: fell means the country's share of the product's imports dropped at least "
@@ -296,17 +296,17 @@ add("Six in ten fall and do not recover.", fig="14_outcomes.png",
           "months are in the shares.\n\n"
           "Counting from the month of the fall, about one in four products was back within 18 "
           "months of falling, against six in ten on the fake date. Where the commission confirmed "
-          "the duty, nearly one in five fell and stopped trading.\n\n"
+          "the duty, about one in six fell and stopped trading.\n\n"
           "Stopped trading is a subset of falling and not coming back. Counting every product, "
-          "including a few that came back first, 19% had no imports in months 13 to 18.\n\n"
+          "including a few that came back first, 18% had no imports in months 13 to 18.\n\n"
           "Robust: with a 10% or 30% definition of a fall, 16% still stop trading. On just the "
-          "282 cases that also have a fake date, 13% stop trading against 3%. And built only "
+          "277 cases that also have a fake date, 13% stop trading against 3%. And built only "
           "from earlier cases, these rates beat a blind guess on later cases in five of six "
           "years.")
 
 # ---------------------------------------------------------------- 9 time to recovery
 add("One in four that falls comes back.", fig="13_recovery_km.png",
-    caption="Counting from the month a product's share fell, 26% of products are back at their "
+    caption="Counting from the month a product's share fell, 25% of products are back at their "
             "pre-case level within 18 months of falling. On the fake date, 58%.",
     notes="This is Q3, how long. The curve is a Kaplan-Meier estimate, the standard way to "
           "answer how-long questions when some cases are still running: a case that has not "
@@ -314,13 +314,13 @@ add("One in four that falls comes back.", fig="13_recovery_km.png",
           "Back means at or above the pre-case share for three months in a row. The real curve "
           "rises slowly and flattens; most of the recovery that happens, happens in the first "
           "year.\n\n"
-          "Ranges if asked: 26% (22 to 29); fake date 58% (53 to 62). With a 10% or 30% definition "
-          "of a fall, 28% and 24%.")
+          "Ranges if asked: 25% (21 to 28); fake date 58% (54 to 62). With a 10% or 30% definition "
+          "of a fall, 27% and 24%.")
 
 # ---------------------------------------------------------------- 10 the early warning
 add("By month 4, the forecast tells them apart.", fig="19_monthly_forecast.png",
     caption="Held-out later years, products already falling. Day one: no reliable gain. Month 4: "
-            "78% of pairs ranked correctly; month 5: 81%. Early on, boosting beat a latest-share model.",
+            "79% of pairs ranked correctly; month 5: 80%. Boosting stays slightly ahead of a latest-share model.",
     notes="This is the evaluation Kylie's Methods comment asks for: a baseline, a held-out test, "
           "and an honest size, re-done every month as a sourcing team would see the data.\n\n"
           "Each month after the duty, the model re-scores every product that has visibly fallen "
@@ -329,14 +329,14 @@ add("By month 4, the forecast tells them apart.", fig="19_monthly_forecast.png",
           "trains only on earlier cases whose outcomes were already published.\n\n"
           "Day one: the gain over history is 0.008 and its range includes zero, so history is the "
           "day-one forecast. By month 4 gradient boosting ranks a product that came back above one "
-          "that did not in 78% of pairs (logistic 75%) and beats that month's historical rate by "
-          "0.040 (0.027 to 0.052); by month 5, 81%. In months 4 to 6 boosting also outperformed a "
-          "model of the latest share alone by 0.012 to 0.016; logistic's edge there includes zero, "
-          "and after month 6 the share catches up. At the ITC vote a logistic model reaches 81%, "
-          "0.018 beyond the share model.\n\n"
+          "that did not in 79% of pairs (logistic 75%) and beats that month's historical rate by "
+          "0.040 (0.028 to 0.054); by month 5, 80%. Boosting stays ahead of a model of the latest "
+          "share alone in every month from 3 to 12, by 0.004 to 0.015, but no single month clears "
+          "a test of all months together. At the ITC vote a logistic model reaches 80%, "
+          "0.012 beyond the share model.\n\n"
           "Two cautions if asked. These are products already falling and not yet back, and that "
           "set changes month to month, so the rising line is not the same products getting easier. "
-          "And the 16,969 product-month rows come from 1,735 products in 354 cases and 139 "
+          "And the 16,781 product-month rows come from 1,712 products in 349 cases and 136 "
           "investigation groups; the groups are the real sample size.\n\n"
           "If asked what changed: outside reviews found timing leaks four times; each fix moved "
           "these numbers a little and none changed the conclusion.")
@@ -349,16 +349,17 @@ add("Under half the old share, few come back.", fig="16_lookup.png",
           "Left, when the fall first shows: smaller suppliers come back more often, and a duty "
           "rate over 25% lowers the odds. Right, at the ITC vote: where the duty was confirmed and "
           "the published share is under half its old level, 13 in 100 came back; where the duty "
-          "was lifted and the share is already back to four-fifths, 82.\n\n"
+          "was lifted and the share is already back to four-fifths, 81.\n\n"
           "Calibration, if asked: we tried recalibrating on earlier years whose outcomes were "
-          "already published, and it made later years worse, so the estimates are the model's own. "
-          "At the vote the most confident third runs about 12 points high, so we show the outcome "
+          "already published; it made the vote-time estimates worse on later years and the fall-time "
+          "ones slightly better, and we kept the model's own at both, a choice made after seeing "
+          "those years. We show the outcome "
           "first.")
 
 # ---------------------------------------------------------------- 10b2 decision value
-add("Added value is supported at two cost ratios.", fig="18_decision_value.png",
-    caption="At the ITC vote, simultaneous lower bounds exceed zero against every tested baseline "
-            "at assumed cost ratios 0.75 and 0.85.",
+add("Ahead of simple rules, not the latest share.", fig="18_decision_value.png",
+    caption="At the ITC vote, simultaneous lower bounds exceed zero against always or never "
+            "qualifying and the historical rates at cost ratios 0.45 and 0.55 to 0.80; against the latest share, at none.",
     notes="Accuracy is not the question a sourcing team asks; whether acting on the forecast "
           "beats their simple options is.\n\n"
           "The cost ratio is what qualifying a second supplier costs, as a share of the loss it "
@@ -369,8 +370,9 @@ add("Added value is supported at two cost ratios.", fig="18_decision_value.png",
           "preregistered. Every policy is scored on the same resamples, and all 17 thresholds and "
           "all baselines are tested together: always and never qualifying, the historical rate, "
           "the rate split by vote, and the latest-share model. At the vote the forecast leads all "
-          "of them only at cost ratios 0.75 and 0.85; one at a time, it leads the share model from "
-          "0.60 to 0.90. At the fall, 0.65 and 0.70; on day one, none.\n\n"
+          "except the latest-share model at cost ratios 0.45 and 0.55 to 0.80, and it never leads that model "
+          "once all ratios are tested together (one at a time, from 0.70 to 0.90). At the fall it "
+          "leads every baseline at 0.70; on day one, at none.\n\n"
           "This is potential benefit under assumptions, not a measured saving: it treats the "
           "country-level outcome as the importer's loss and assumes qualifying at that date could "
           "still avoid it. The intervals hold the fitted models fixed.")
@@ -378,7 +380,7 @@ add("Added value is supported at two cost ratios.", fig="18_decision_value.png",
 # ---------------------------------------------------------------- 10c Section 301
 add("The model carries over to China's tariffs.", fig="17_s301_outcomes.png",
     caption="6,844 products on the 2018 Section 301 lists, China against untaxed rivals, to January "
-            "2020. A model trained on antidumping cases ranks 67% of pairs correctly; where "
+            "2020. A model trained on antidumping cases ranks 66% of pairs correctly; where "
             "China's share rushed before the tariff, 60% came back.",
     notes="This answers the question everyone asks about the antidumping results: does it hold for "
           "the tariffs that hit most importers' China spend?\n\n"
@@ -387,9 +389,9 @@ add("The model carries over to China's tariffs.", fig="17_s301_outcomes.png",
           "2020, before China's COVID shutdown, so outcomes run 16 months. China's share of these "
           "products fell from 14.9% to 10.4% of imports; on the fake date it rose 6%.\n\n"
           "The transfer: the at-the-fall model trained on antidumping cases, minus the China and "
-          "case-type flags (logistic, the common model), ranks 67% of Section 301 product pairs "
+          "case-type flags (logistic, the common model), ranks 66% of Section 301 product pairs "
           "correctly; a model trained on Section 301 itself gets 73%. It beats even Section 301's own "
-          "recovery rate by 0.015 (0.009 to 0.021); boosting does a little better. Trained only on the 26 antidumping cases published before September "
+          "recovery rate by 0.017 (0.011 to 0.023); boosting does a little better. Trained only on the 25 antidumping cases published before September "
           "2018 it ranks as well but expects too few recoveries.\n\n"
           "The borrowed part: where China's share ran more than a quarter above normal just "
           "before the tariff, 60% came back, against about 30% for the rest. That fall was "
@@ -399,8 +401,8 @@ add("The model carries over to China's tariffs.", fig="17_s301_outcomes.png",
 # ---------------------------------------------------------------- 10 discussion
 add("What this means.",
     bullets=[
-        "**For an importer tied to one country:** weigh qualifying another supplier early. Six "
-        "in ten targeted products fell without recovering; one in six also had none a year on.",
+        "**For an importer tied to one country:** weigh qualifying another supplier early. More "
+        "than half of targeted products fell without recovering; 16% also had none a year on.",
         "**When to look again:** on day one, use the historical rates; once a product has fallen, "
         "a monthly model tells recoveries apart better.",
         "**For anyone measuring tariffs:** study the products a tariff names, not the whole "
@@ -408,7 +410,7 @@ add("What this means.",
     ],
     bullet_size=20, bullet_top=2.15, bullet_step=0.78,
     notes="This is the Discussion. One takeaway for each audience; about a minute.\n\n"
-          "The first bullet comes from 384 past cases. It is what usually happens, not a promise "
+          "The first bullet comes from 380 past cases. It is what usually happens, not a promise "
           "for any one supplier, and we have not tested it with importers.\n\n"
           "We find no clear average surge before these duties, so little buying ahead to pay back. "
           "For cases that became orders the answer is closer to real than borrowed, over the 18 "

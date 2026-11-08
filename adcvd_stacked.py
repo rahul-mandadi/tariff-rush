@@ -11,9 +11,10 @@ Design
   episode     notices for one targeted country, initiated in the same month, with overlapping
               products (companion AD and CVD notices) collapse to one episode, dated at the
               first preliminary determination, k = 0.
-  notices     only affirmative preliminary determinations. EXCLUDE lists 21 notices that are
-              negative, critical-circumstances-only, or administrative-review / no-shipment
-              notices, each read from its own summary (review of 2026-11-06).
+  notices     only affirmative preliminary determinations. EXCLUDE lists 24 notices that are
+              negative, critical-circumstances-only, administrative-review / no-shipment, or
+              circumvention notices on existing orders, each read from its own summary (review of
+              2026-11-06; the three circumvention preliminaries added 2026-11-07).
   stack       one per episode: the episode's products, the targeted country, and every rival
               country trading those products before the case, over k = -18 to +18.
   cohort      fixed from pre-case information only. A product-country pair is in the stack if
@@ -55,6 +56,8 @@ EXCLUDE = {
     # administrative reviews / no-shipment findings on orders that already existed
     "2017-24186", "2019-12726", "2019-27030", "2019-27937", "2021-24227", "2022-08347",
     "2023-03300", "2024-20773",
+    # preliminary determinations of circumvention on existing orders (added November 2026)
+    "2018-24939", "2019-23682", "2023-24993",
 }
 
 

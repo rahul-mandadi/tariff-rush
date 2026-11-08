@@ -3,14 +3,15 @@
 prediction_stage2.py scores two fixed moments. A team sees new trade data every month, so this
 re-scores the question at every landmark month L = 3, 4, ..., 14 after the duty starts.
 
-At landmark L (data visible through k = L - 2, the Census release lag), the eligible products are
+At landmark L (data visible through k = L - 2, the Census release lag, or earlier when a release
+slipped past month L, as in the 2025 shutdown; census_release_calendar.csv), the eligible products are
 those whose fall is already visible (fall month <= L - 2) and that are not yet visibly back (no
 completed three-month run at or above the pre-case share by L - 2). Target: back by month 18.
 Comparison panels, outcomes and products are the decision-time ones (build_decision_stacks.py).
 
 Features at L, all public by then:
   day one        pre-case share, trend, size, rival count and concentration; duty rate from notices
-                 published by L, missing flag; critical circumstances; both AD and CVD; China
+                 published by L, missing flag; critical circumstances; both AD and CVD opened by then; China
   trade so far   month of the fall, months since it, deepest and latest smoothed share (ratio to
                  pre-case), change in the smoothed share over the last three visible months, share
                  of months with no trade, share in k -6..-1, unit-value change against rivals
@@ -43,8 +44,10 @@ from sklearn.preprocessing import StandardScaler
 import recovery_lib as RL
 
 K_HI, LAG, LANDMARKS = 18, 2, list(range(3, 15))
+REL = pd.read_csv("census_release_calendar.csv", parse_dates=["release"])
 rng = np.random.default_rng(0)
 ep = pd.read_csv("adcvd_episodes_collapsed.csv", dtype={"cty": str})
+BOTH = RL.both_programs_known(ep)
 fs = RL.final_stage(ep)
 ev = pd.read_csv("events/adcvd_events.csv", dtype={"cty": str}).drop_duplicates("document_number")
 pubd = pd.to_datetime(ev.set_index("document_number").publication_date)
@@ -67,7 +70,7 @@ def case_facts(s, upto):
     rates = [mg.get(d, np.nan) for d in ds]
     rate = np.nansum(rates) if any(pd.notna(r) for r in rates) else np.nan
     return dict(log_rate=float(np.log1p(rate)) if pd.notna(rate) else 0.0, rate_missing=float(pd.isna(rate)),
-                crit=float(any(crit_doc.get(d, False) for d in ds)), both=float(ep.ad[s] and ep.cvd[s]),
+                crit=float(any(crit_doc.get(d, False) for d in ds)), both=float(BOTH[s]),
                 china=float(ep.cty[s] == "5700"))
 
 
@@ -79,7 +82,9 @@ for r in pairs.itertuples():
         continue
     sh, sm, v = paths[(s, h)]
     for L in LANDMARKS:
-        kv = L - LAG
+        # data through L - 2, or less if Census had not released it by the end of month L
+        seen = REL[REL.release < pd.Timestamp(year=(b0 + L + 1) // 12, month=(b0 + L + 1) % 12 + 1, day=1)].m.max()
+        kv = min(L - LAG, int(seen) - b0)
         if r.fell_at > kv or (pd.notna(r.rec_at) and r.rec_at + 2 <= kv):
             continue
         post = sm.loc[0:kv].dropna()
@@ -197,6 +202,25 @@ for L, g in P.groupby("L"):
             row[f"lo_os_{m}"], row[f"hi_os_{m}"] = np.quantile(over_share, [0.05, 0.95])
     out.append(row)
 R = pd.DataFrame(out)
+# simultaneous one-sided 90 percent lower bounds over all landmark months (max-t), resampling
+# investigation groups jointly across months, so "ahead in some month" is tested as one claim
+cl = P.cluster.unique()
+idx = {c: np.flatnonzero(P.cluster.values == c) for c in cl}
+Ls = sorted(P.L.unique())
+for m in ["boosting", "logistic"]:
+    est = R.set_index("L").loc[Ls, f"over_share_{m}"].to_numpy()
+    draws = np.empty((1000, len(Ls)))
+    for b_ in range(1000):
+        q_ = P.iloc[np.concatenate([idx[c] for c in rng.choice(cl, len(cl), replace=True)])]
+        for j, L in enumerate(Ls):
+            g = q_[q_.L == L]
+            draws[b_, j] = (brier_score_loss(g.y, g["share only"], sample_weight=g.w)
+                            - brier_score_loss(g.y, g[m], sample_weight=g.w))
+    sd = draws.std(axis=0, ddof=1)
+    c90 = np.quantile(((draws - est) / sd).max(axis=1), 0.90)
+    R[f"simlo_os_{m}"] = est - c90 * sd
+    print(f"{m} over share-only, simultaneous over months {Ls[0]}-{Ls[-1]}: critical value {c90:.2f}; "
+          f"months with bound above zero: {[L for L, v in zip(Ls, est - c90 * sd) if v > 0] or 'none'}")
 R.to_csv("prediction_landmark.csv", index=False)
 pd.set_option("display.width", 220)
 print("\nby landmark month (held-out):")

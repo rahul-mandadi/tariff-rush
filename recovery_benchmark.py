@@ -6,8 +6,10 @@ it comes back within 18 months, how long that takes, and how often trade stops a
 
 Unit: one targeted product-country pair in one episode (stacks from adcvd_stacked.py).
 Position: the targeted country's share of the product's imports among the stack's countries
-(targeted plus eligible rivals), smoothed as a 3-month trailing mean, so a month with no trade
-counts as a share of zero rather than dropping out.
+(targeted plus eligible rivals), smoothed as a 3-month trailing mean. A month in which the targeted
+country does not trade but rivals do counts as a share of zero; a month in which none of the stack's
+countries trades has no share and is missing (the 3-month mean needs three real months). A pair with
+no measurable month in k = 0..6 gets no label.
 Benchmark: mean share over k = -18..-13, which precedes the case's initiation for 506 of 507
 episodes (see RUN_LOG S2).
 
@@ -52,7 +54,7 @@ def pairs(stacks, shift):
     d = stacks
     tot = d.groupby(["sid", "hs8", "k"]).value.sum()
     tg = d[d.treated].groupby(["sid", "hs8", "k"]).value.sum()
-    sh = (tg / tot).fillna(0.0).rename("share").reset_index()
+    sh = (tg.reindex(tot.index).fillna(0.0) / tot).where(tot > 0).rename("share").reset_index()
     out = []
     last_m = d.m.max()
     for (s, h), g in sh.groupby(["sid", "hs8"]):
@@ -65,6 +67,8 @@ def pairs(stacks, shift):
             continue
         sm = g.rolling(3, min_periods=3).mean()
         post = sm.loc[0:K_HI]
+        if not post.loc[0:6].notna().any():  # no comparison trade in months 0..6: fall not measurable
+            continue
         b0 = int(ep.b[s]) - shift
         follow = min(K_HI, int(last_m - b0))            # last observed k
         fell_at = next((k for k in range(0, 7) if k in post.index and post[k] < (1 - FALL) * bench),

@@ -10,12 +10,14 @@ complete 18-month follow-up) whose position fell within k = 0..6.
 Target: recovered = back at or above the pre-case share for three months running by k = 18.
 
 Decision points, each with the trade data a team could have seen (Census publishes a month's
-trade about five weeks after it ends, so at decision month M the last visible month is M - 2):
-  fall   decision month k_fall + 2, the first month the fall is visible. Visible data through
+trade about five weeks after it ends, so at decision month M the last visible month is usually
+M - 2; exact release dates are in census_release_calendar.csv, events/build_release_calendar.py):
+  fall   decision month: the month Census released month k_fall (k_fall + 2, later when a release
+         slipped, as in the 2025 shutdown), the first month the fall is visible. Visible data through
          k_fall. Case facts from notices published by then (the ITC vote is not yet known).
   ITC    decision month = month of the final-stage notice: the ITC's negative final
          determination, or the Commerce order that follows an affirmative vote. Visible data
-         through that month - 2. Only pairs whose fall is visible by then and that are not yet
+         through the last month Census had released on or before that notice's date. Only pairs whose fall is visible by then and that are not yet
          visibly back. Episodes whose final stage is unresolved, or whose first order notice in
          the harvest comes after k = 12 (a later continuation notice, not the order itself), are
          left out.
@@ -62,6 +64,8 @@ from sklearn.preprocessing import StandardScaler
 K_HI, LAG, MAX_K_FINAL = 18, 2, 12
 rng = np.random.default_rng(0)
 ep = pd.read_csv("adcvd_episodes_collapsed.csv", dtype={"cty": str})
+import recovery_lib as RL  # noqa: E402
+BOTH = RL.both_programs_known(ep)
 ev = pd.read_csv("events/adcvd_events.csv", dtype={"cty": str}).drop_duplicates("document_number")
 pubd = pd.to_datetime(ev.set_index("document_number").publication_date)
 mon = lambda t: t.year * 12 + t.month - 1  # noqa: E731
@@ -115,11 +119,14 @@ pairs = pd.read_csv("recovery_pairs_decision_fall20.csv", dtype={"hs8": str})
 pairs["hs8"] = pairs.hs8.str.zfill(8)
 pairs = pairs[(pairs.category != "censored") & pairs.fell_at.notna()].copy()
 pairs["recovered"] = pairs.rec_at.notna().astype(int)
+REL = pd.read_csv("census_release_calendar.csv", parse_dates=["release"])
+RELM = REL.set_index("m").release.to_dict()
+
 st = pd.read_parquet("panel/adcvd_stacks_decision.parquet")
 st = st[st.sid.isin(set(pairs.sid))]
 tot = st.groupby(["sid", "hs8", "k"]).value.sum()
 tg = st[st.treated].groupby(["sid", "hs8", "k"]).value.sum()
-share = (tg / tot).fillna(0.0)
+share = (tg.reindex(tot.index).fillna(0.0) / tot).where(tot > 0)
 tv = st[st.treated].set_index(["sid", "hs8", "k"]).value
 paths = {}
 for (s, h), g in share.groupby(level=[0, 1]):
@@ -188,7 +195,7 @@ def case_facts(s, upto):
     rate = np.nansum(rates) if any(pd.notna(r) for r in rates) else np.nan
     return dict(log_rate=float(np.log1p(rate)) if pd.notna(rate) else 0.0,
                 rate_missing=float(pd.isna(rate)), crit=float(any(crit_doc.get(d, False) for d in ds)),
-                both=float(ep.ad[s] and ep.cvd[s]), china=float(ep.cty[s] == "5700"))
+                both=float(BOTH[s]), china=float(ep.cty[s] == "5700"))
 
 
 def trade_features(s, h, bench, fell_at, kv):
@@ -215,14 +222,20 @@ for r in pairs.itertuples():
     day0 = case_facts(s, first[s])
     # decision point "fall": month k_fall + 2, data through k_fall
     kv = int(r.fell_at)
-    dt = pd.Timestamp(year=(b0 + kv + LAG) // 12, month=(b0 + kv + LAG) % 12 + 1, day=1)
+    # decision month: when Census released month k_fall (k_fall + 2, later in the 2025 shutdown)
+    rel = RELM.get(b0 + kv)
+    dm = max(b0 + kv + LAG, rel.year * 12 + rel.month - 1) if rel is not None else b0 + kv + LAG
+    dt = pd.Timestamp(year=dm // 12, month=dm % 12 + 1, day=1)
     rows.append(dict(point="fall", entry=kv, **base, **{f"d0_{k}": x for k, x in day0.items()},
                      **case_facts(s, dt - pd.Timedelta(days=1)),
                      **trade_features(s, h, r.bench, r.fell_at, kv), itc_negative=np.nan))
     # decision point "ITC"
     kf = ep.k_final[s]
     if ep.stage[s] in ("order", "negative") and pd.notna(kf) and kf <= MAX_K_FINAL:
-        kv = int(kf) - LAG
+        # F4b: last trade month Census had released by the vote notice's date (release calendar)
+        dfin = pd.Timestamp(ep.d_final[s])
+        seen = REL[REL.release <= dfin].m.max()
+        kv = min(int(kf) - LAG, int(seen) - int(ep.b[s]))
         visible_back = pd.notna(r.rec_at) and r.rec_at + 2 <= kv
         if r.fell_at <= kv and not visible_back:
             dt = ep.d_final[s]

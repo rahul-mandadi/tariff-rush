@@ -63,7 +63,7 @@ def categorize(d, H, b_of, last_m, fall=FALL):
     d needs sid, hs8, k, m, value, treated. Late window for "exited" is the last six months."""
     tot = d.groupby(["sid", "hs8", "k"]).value.sum()
     tg = d[d.treated].groupby(["sid", "hs8", "k"]).value.sum()
-    sh = (tg / tot).fillna(0.0).rename("share").reset_index()
+    sh = (tg.reindex(tot.index).fillna(0.0) / tot).where(tot > 0).rename("share").reset_index()
     out = []
     for (s, h), g in sh.groupby(["sid", "hs8"]):
         g = g.set_index("k").share.sort_index()
@@ -75,6 +75,8 @@ def categorize(d, H, b_of, last_m, fall=FALL):
             continue
         sm = g.rolling(3, min_periods=3).mean()
         post = sm.loc[0:H]
+        if not post.loc[0:6].notna().any():  # no comparison trade in months 0..6: fall not measurable
+            continue
         follow = min(H, int(last_m - b_of[s]))
         fell_at = next((k for k in range(0, 7) if k in post.index and post[k] < (1 - fall) * bench), None)
         rec_at = None
@@ -87,7 +89,9 @@ def categorize(d, H, b_of, last_m, fall=FALL):
                     rec_at = k - 2
                     break
         out.append(dict(sid=s, hs8=h, bench=bench, fell_at=fell_at, rec_at=rec_at, follow=follow))
-    p = pd.DataFrame(out)
+    p = pd.DataFrame(out, columns=["sid", "hs8", "bench", "fell_at", "rec_at", "follow"])
+    if p.empty:
+        return p.assign(traded_late=pd.Series(dtype=bool), category=pd.Series(dtype=str))
     late = (d[d.treated & d.k.between(H - 5, H)].groupby(["sid", "hs8"]).value.sum() > 0)
     p["traded_late"] = [late.get((s, h), False) for s, h in zip(p.sid, p.hs8)]
     p["category"] = np.select([p.fell_at.isna(), p.rec_at.notna(), p.traded_late],
@@ -99,7 +103,7 @@ def categorize(d, H, b_of, last_m, fall=FALL):
 def share_paths(d):
     tot = d.groupby(["sid", "hs8", "k"]).value.sum()
     tg = d[d.treated].groupby(["sid", "hs8", "k"]).value.sum()
-    share = (tg / tot).fillna(0.0)
+    share = (tg.reindex(tot.index).fillna(0.0) / tot).where(tot > 0)
     tv = d[d.treated].set_index(["sid", "hs8", "k"]).value
     paths = {}
     for (s, h), g in share.groupby(level=[0, 1]):
@@ -204,3 +208,37 @@ def final_stage(ep):
         out.append(dict(stage=st, d_final=dt, k_final=month(dt) - b if dt is not None else np.nan,
                         first=f0))
     return pd.DataFrame(out, index=ep.index)
+
+
+def both_programs_known(ep):
+    """True if both an antidumping and a countervailing investigation of the episode's country were
+    public by the episode's first preliminary: an initiation notice (same country, initiation month
+    within one month of the episode's, naming at least one of the episode's products) or one of the
+    episode's own preliminaries whose investigation was initiated on or before first_date. The old
+    flag ("ad and cvd" over every notice in the episode) read companion preliminaries published after
+    the decision; every one of those companions had been initiated by then, so all old positives
+    stay, and 51 episodes are added whose companion investigation existed but whose preliminary was
+    negative or did not join the episode. For 8 episodes the companion's initiation is known only
+    from its later preliminary (the harvest lacks the initiation notice); the fact was public at
+    first_date, but its detection relies on the later document."""
+    e = pd.read_csv("events/adcvd_events.csv", dtype={"cty": str})
+    e["date"] = pd.to_datetime(e.publication_date)
+    e["prog"] = e.case.fillna("").str[:1]
+    e["m"] = e.date.dt.year * 12 + e.date.dt.month - 1
+    ini = e[e.stage == "initiation"]
+    prods = pd.read_csv("events/adcvd_products.csv", dtype={"hs8": str})
+    prods = {d: set(g.hs8) for d, g in prods.groupby("document_number")}
+    pre = e[e.stage == "preliminary"].set_index("document_number")
+    out = {}
+    for s, r in ep.iterrows():
+        fd = pd.Timestamp(r.first_date)
+        P = set(str(r.P).split(";"))
+        i = ini[(ini.cty == str(r.cty)) & ((ini.m - int(r.ini)).abs() <= 1) & (ini.date <= fd)]
+        i = i.loc[np.array([bool(prods.get(d, set()) & P) for d in i.document_number], dtype=bool)]
+        progs = set(i.prog)
+        own = pre.loc[pre.index.isin(str(r.docs).split(";"))]
+        # a companion investigation was public once it was initiated, even if its preliminary came later
+        opened = pd.to_datetime(own.initiation_date, errors="coerce")
+        progs |= set(own[(own.date <= fd) | (opened <= fd)].prog)
+        out[s] = {"A", "C"} <= progs
+    return pd.Series(out)

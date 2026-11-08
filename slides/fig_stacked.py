@@ -287,9 +287,9 @@ ax.annotate(f"month 4: {100 * r4.auc_boosting:.0f}%", (4, r4.auc_boosting), xyte
 ax.set_ylim(0.45, 0.95)
 ax.set_xlim(2.5, last + 2.2)
 ax.set_xticks(LM.L)
-ax.set_xlabel("months since the duty started (trade data published through two months earlier)")
+ax.set_xlabel("months since the duty started (trade data as Census had released it)")
 ax.set_ylabel("share of pairs ranked correctly\n(back vs not back by month 18)")
-ax.set_title("Products already falling: pairwise ranking by month; early on, boosting outperformed a latest-share model",
+ax.set_title("Products already falling: pairwise ranking by month; boosting stays slightly ahead of a latest-share model",
              loc="left", fontweight="600")
 fig.savefig("slides/fig/19_monthly_forecast.png")
 plt.close(fig)
