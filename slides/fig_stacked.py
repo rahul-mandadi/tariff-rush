@@ -294,3 +294,33 @@ ax.set_title("Products already falling: pairwise ranking by month; boosting stay
 fig.savefig("slides/fig/19_monthly_forecast.png")
 plt.close(fig)
 print("wrote slides/fig/19_monthly_forecast.png")
+
+# ---------------------------------------------------------------- 20: the month-4 review queue
+Q = pd.read_csv("review_queue_eval.csv")
+Q = Q[(Q.weighting == "relationship") & (Q.measure == "precision")]
+order = [("forecast (boosting)", "forecast", RED), ("latest share", "latest share", GREY),
+         ("historical rate", "random order (historical rate)", LGREY)]
+caps = [0.1, 0.2, 0.3]
+fig, ax = plt.subplots(figsize=(11, 4.4))
+wbar = 0.26
+for j, (key, lab, c) in enumerate(order):
+    v = Q[Q.ranking == key].set_index("capacity").loc[caps]
+    x = np.arange(len(caps)) + (j - 1) * wbar
+    ax.bar(x, 100 * v.value, width=wbar - 0.03, color=c, label=lab, zorder=2)
+    ax.errorbar(x, 100 * v.value, yerr=[100 * (v.value - v.lo), 100 * (v.hi - v.value)], fmt="none",
+                ecolor=INK, elinewidth=1, capsize=3, zorder=3)
+    for xi, yi in zip(x, v.value):
+        ax.text(xi, 100 * yi / 2, f"{100 * yi:.0f}%", ha="center", va="center", fontsize=12,
+                fontweight="600", color="white" if c != LGREY else INK, zorder=4)
+ax.set_xticks(np.arange(len(caps)))
+ax.set_xticklabels([f"{100 * c:.0f}% reviewed" + (" (main)" if c == 0.2 else "") for c in caps])
+ax.set_xlabel("share of each month's queue the analyst reviews (assumed)")
+ax.set_ylim(0, 100)
+ax.set_ylabel("reviewed relationships that\nstayed down by month 18 (%)")
+ax.grid(axis="x", visible=False)
+ax.legend(loc="upper center", bbox_to_anchor=(0.5, -0.2), ncol=3, frameon=False, fontsize=12)
+ax.set_title("Month-4 review queues, held out 2020 to 2025: how many reviewed relationships stayed down "
+             "(90% intervals over investigation groups)", loc="left", fontweight="600", fontsize=13)
+fig.savefig("slides/fig/20_review_queue.png")
+plt.close(fig)
+print("wrote slides/fig/20_review_queue.png")

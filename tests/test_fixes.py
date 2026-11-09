@@ -61,6 +61,8 @@ def test_release_calendar_is_complete_and_ordered():
 
 
 def test_itc_vote_uses_only_released_trade_months():
+    if not os.path.isdir("events/raw"):
+        pytest.skip("needs the git-ignored notice texts (events/harvest_adcvd.py)")
     f = pd.read_csv("prediction_stage2_features.csv")
     f = f[f.point == "ITC"]
     ep = pd.read_csv("adcvd_episodes_collapsed.csv", dtype={"cty": str})
@@ -116,7 +118,8 @@ def test_both_programs_flag_uses_only_investigations_open_by_the_decision():
         # every program counted from the episode's own notices was initiated by the decision date
         opened = pd.to_datetime(own.initiation_date, errors="coerce")
         assert ((pd.to_datetime(own.publication_date) <= fd) | (opened <= fd) | opened.isna()).all(), s
-    assert both[288], "CVD case whose AD companion preliminary was negative: AD was still opened"
+    s288 = ep.index[ep.docs == "2021-06197"][0]  # Malaysia, CVD preliminary 2021-06197
+    assert both[s288], "CVD case whose AD companion preliminary was negative: AD was still opened"
     assert (both | ~(ep.ad & ep.cvd)).all(), "every episode with both programs' preliminaries keeps the flag"
 
 

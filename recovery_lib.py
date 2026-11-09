@@ -242,3 +242,24 @@ def both_programs_known(ep):
         progs |= set(own[(own.date <= fd) | (opened <= fd)].prog)
         out[s] = {"A", "C"} <= progs
     return pd.Series(out)
+
+
+def cc_side_dates(ep):
+    """Per episode, the publication dates of affirmative critical-circumstances findings in its
+    side notices (events/cc_side_notices.csv, per country, written by adcvd_stacked.py). These
+    notices never define an episode or its k = 0; a forecast may read one only once it is
+    published, like any other notice."""
+    side = pd.read_csv("events/cc_side_notices.csv", dtype={"cty": str, "sid": str})
+    side = side[side.affirmative.astype(bool)]
+    date = {(r.document_number, r.cty): pd.Timestamp(r.publication_date) for r in side.itertuples()}
+    out = {}
+    for s, r in ep.iterrows():
+        ds = [d for d in str(r.get("cc_docs", "") if pd.notna(r.get("cc_docs", "")) else "").split(";") if d]
+        out[s] = [date[(d, str(r.cty))] for d in ds if (d, str(r.cty)) in date]
+    return out
+
+
+def crit_known(own_docs, crit_doc, side_dates, upto):
+    """Whether an affirmative critical-circumstances finding was public by `upto`: in one of the
+    episode's own notices published by then (crit_doc: document -> flag) or in a side notice."""
+    return any(crit_doc.get(d, False) for d in own_docs) or any(t <= upto for t in side_dates)

@@ -28,11 +28,11 @@ def test_outcome_shares(docs):
     r = pd.read_csv("recovery_benchmark_fall20.csv").set_index(["sample", "measure"]).value
     real = [pct(r[("real", k)]) for k in ["no fall", "recovered", "not recovered", "exited"]]
     fake = [pct(r[("placebo", k)]) for k in ["no fall", "recovered", "not recovered", "exited"]]
-    assert real == ["26", "17", "42", "16"] and fake == ["50", "29", "18", "3"]
+    assert real == ["26", "17", "42", "16"] and fake == ["50", "29", "17", "3"]
     t = docs["report"]
     for v, row in zip(real, ["did not fall", "fell, came back", "fell, still down", "fell, no imports 13-18"]):
         assert f"| {row} | {v}% [" in t, row
-    assert "26 / 17 / 42 / 16" in docs["handoff"] and "50 / 29 / 18 / 3" in docs["handoff"]
+    assert "26 / 17 / 42 / 16" in docs["handoff"] and "50 / 29 / 17 / 3" in docs["handoff"]
 
 
 def test_table3_rows(docs):
@@ -56,14 +56,14 @@ def test_table3_rows(docs):
 
 def test_monthly_forecast_claims(docs):
     lm = pd.read_csv("prediction_landmark.csv").set_index("L")
-    assert pct(lm.loc[4, "auc_boosting"]) == "79" and pct(lm.loc[4, "auc_logistic"]) == "75"
+    assert pct(lm.loc[4, "auc_boosting"]) == "80" and pct(lm.loc[4, "auc_logistic"]) == "75"
     assert pct(lm.loc[5, "auc_boosting"]) == "80"
     lo, hi = lm.loc[3:12, "over_share_boosting"].min(), lm.loc[3:12, "over_share_boosting"].max()
-    assert f"{lo:.3f}" == "0.004" and f"{hi:.3f}" == "0.015"
+    assert f"{lo:.3f}" == "0.003" and f"{hi:.3f}" == "0.014"
     assert (lm.loc[3:12, "over_share_boosting"] > 0).all(), "the text says boosting was ahead in every month 3 to 12"
     for k in ["report", "readme"]:
-        assert "79 percent of pairs" in docs[k] and "80 percent" in docs[k]
-    assert "0.004 to 0.015" in docs["report"]
+        assert "80 percent of pairs" in docs[k]
+    assert "0.003 to 0.014" in docs["report"]
     assert not (lm["simlo_os_boosting"] > 0).any(), "the text says no month clears the joint test"
 
 
@@ -81,7 +81,7 @@ def test_section301_and_pooling(docs):
     t = pd.read_csv("sec301_transfer_test.csv")
     a = t[t.test.str.startswith("A:") & (t.model == "logistic")].iloc[0]
     ref = t[t.test.str.startswith("ref:") & (t.model == "logistic")].iloc[0]
-    assert pct(a.auc) == "66" and pct(ref.auc) == "73"
+    assert pct(a.auc) == "67" and pct(ref.auc) == "73"
     assert f"{a.gain_vs_target_rate:.3f} ({a.lo_t:.3f} to {a.hi_t:.3f})" in docs["report"]
     pg = pd.read_csv("sec301_pooling_gain.csv").set_index("model").loc["logistic"]
     assert f"{pg.pooling_gain:.3f}, {pg.lo:.3f} to {pg.hi:.3f}" in docs["report"]

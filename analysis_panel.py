@@ -1,4 +1,4 @@
-"""Apply the inclusion rules from DESIGN.md and write the panel the tests run on.
+"""Apply the inclusion rules from docs/history/DESIGN.md and write the panel the tests run on.
 
 Rules, fixed before any model was fit:
   - at least 36 months of history in the cell (an STL baseline needs three cycles)

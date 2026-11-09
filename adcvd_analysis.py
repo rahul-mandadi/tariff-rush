@@ -11,7 +11,7 @@ collected. Both come out of the preliminary notice itself.
 
 Baseline is the same product from origins not named by the case, in the same month. Nothing
 is extrapolated, because placebo tests showed a fitted baseline drifts far enough to
-manufacture a result (see PHASE2_RESULTS.md).
+manufacture a result (see docs/history/PHASE2_RESULTS.md).
 
 Every number is produced twice, once for the real events and once with every event shifted
 back 24 months. A result that does not separate from its own placebo is not reported as a

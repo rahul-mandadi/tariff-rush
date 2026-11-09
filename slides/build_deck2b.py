@@ -10,9 +10,9 @@ unchanged), with the results replaced by the November corrections in FINAL_REPOR
   slide 7   new: what happened to each targeted product within 18 months (fig 14)
   slide 9   notes: the antidumping result points the same way in physical quantity
   slide 10  discussion rewritten to the corrected numbers
-  slide 11  checks: quantity, and the 24 notices removed
-  slide 12  the monthly forecast (fig 19)
-  slide 13  the lookup (fig 16) and the next step
+  slide 11  checks: quantity, and the 31 notices removed
+  slide 12  the monthly forecast (fig 19), with the latest-share baseline on the slide
+  slide 13  the month-4 review queue (fig 20) and the next step; the lookup stays in the final deck
 
 Every number traces to FINAL_REPORT.md. Style and helpers are build_deck2.py's, unchanged.
 
@@ -129,7 +129,7 @@ txt(s, "When a tariff hits, does the business come back?", X0, 3.12, CW, 0.7, 25
 txt(s, "Rahul Reddy Mandadi   +   Raunaksingh Khalsa", X0, 4.18, CW, 0.5, 18, bold=True)
 txt(s, "DS 5500 Data Science Capstone   |   Presentation 2   |   November 2026",
     X0, 4.66, CW, 0.5, 13, color=GREY)
-txt(s, "For importers and lenders who depend on one supplier country.",
+txt(s, "For sourcing teams deciding which tariff-hit suppliers to review first.",
     X0, 5.52, CW, 0.9, 13, color=GREY)
 txt(s, "github.com/rahul-mandadi/tariff-rush", X0, Y_TAKE, CW, 0.4, 13, bold=True, color=RED)
 s.notes_slide.notes_text_frame.text = (
@@ -223,10 +223,10 @@ add("How we measure it, product by product.",
         "**Compared with other countries selling the same product that month,** with months of "
         "no trade counted as zero. A change shared by all of them cancels out.",
         "**Checked against a fake date.** The same calculation on the same cases two years "
-        "earlier. A real effect has to beat the fake one.",
+        "earlier, a falsification check: a pattern that also shows there is not the duty's.",
     ],
     bullet_size=20, bullet_top=2.15, bullet_step=0.62,
-    caption="694 preliminary notices (704 country decisions) form 504 country cases; 381 have a full 18 months, 283 a fake "
+    caption="687 preliminary notices (697 country decisions) form 502 country cases; 381 have a full 18 months, 283 a fake "
             "date. Values are nominal dollars (not inflation-adjusted); shared price changes cancel.",
     take_rule=True,
     notes="This is the method Kylie asked us to explain.\n\n"
@@ -238,7 +238,7 @@ add("How we measure it, product by product.",
           "Who is in the panel is fixed from before the case, and a month with no trade stays in "
           "as zero, so a supplier that stops selling is counted, not dropped. Rivals that face a "
           "case of their own on the product around the same time are left out of the comparison.\n\n"
-          "We read every decision notice: 24 of 718 did not start a new duty (negative findings, "
+          "We read every decision notice: 31 of 718 did not start a new duty (negative findings, "
           "side notices, reviews of old orders, circumvention findings on old orders) and are out. Uncertainty is computed over whole "
           "investigations, because one petition often names several countries.")
 
@@ -323,17 +323,19 @@ add("Dollars alone can fool you.", fig="08_units.png",
 # ---------------------------------------------------------------- 10 discussion
 add("What this means.",
     bullets=[
-        "**For an importer tied to one country:** weigh qualifying another supplier early. More "
-        "than half of targeted products fell without recovering; 16% also had none a year on.",
-        "**When to look again:** on day one, use the historical rates; once a product has fallen, "
-        "a monthly model tells recoveries apart better.",
+        "**For a sourcing team tied to one country:** a reason to look into other suppliers early. "
+        "More than half of targeted products fell without recovering; 16% also had none a year on.",
+        "**Which to review first:** at month 4, reviewing a fifth of each month's falling products, "
+        "the forecast's picks stayed down 82% of the time; latest share 70%, random 62%.",
         "**For anyone measuring tariffs:** study the products a tariff names, not the whole "
         "category, and check quantities as well as dollars.",
     ],
     bullet_size=20, bullet_top=2.15, bullet_step=0.78,
     notes="This is the Discussion. One takeaway for each audience; about a minute.\n\n"
-          "The first bullet comes from 380 past cases. It is what usually happens, not a promise "
-          "for any one supplier, and we have not tested it with importers.\n\n"
+          "The first bullet comes from 380 past cases. It is what usually happens to a supplier "
+          "country, not a promise for any one supplier, and we have not tested it with importers. "
+          "Whether to act also depends on the importer's exposure, its alternatives, how long "
+          "qualification takes and what it costs.\n\n"
           "We find no clear average surge before these duties, so little buying ahead to pay back. "
           "For cases that became orders the answer is closer to real than borrowed, over the 18 "
           "months we observe; that is not proof the business left for good.")
@@ -342,7 +344,7 @@ add("What this means.",
 add("What the checks confirmed.",
     bullets=[
         "**Inflation and price.** Shared price changes cancel; in months with trade, tonnes fall about as much as dollars.",
-        "**Every duty decision read.** 694 notices kept; 24 that did not start a new duty removed.",
+        "**Every duty decision read.** 687 notices kept; 31 that did not start a new duty removed.",
         "**Finer product codes.** The data uses the eight-digit codes tariffs name.",
         "**The tariff list.** 120 tariff documents, each tagged with the law it rests on.",
         "**Unusual-month score.** One consistent scale; same top ten categories.",
@@ -358,40 +360,50 @@ add("What the checks confirmed.",
           "categories (rank correlation 0.97); by non-fuel import prices, 9 of 10 (0.99). Neither "
           "touches the antidumping result, where a shared price change cancels, and the tonnes "
           "check points to lower volume rather than a price cut, though both ranges include zero.\n\n"
-          "The 24 notices removed: 4 negative findings, 9 side notices about retroactive duties, "
+          "The 31 notices removed: 4 negative findings, 16 side notices about retroactive duties, "
           "8 reviews of orders that already existed, 3 circumvention findings on existing orders.")
 
 # ---------------------------------------------------------------- 12 next
 add("By month 4, the forecast tells them apart.", fig="19_monthly_forecast.png",
-    caption="Held-out later years, data as published each month. Day one: no reliable gain. "
-            "Month 4: 79% of pairs ranked correctly; month 5: 80%. Next slide: the model as a lookup.",
-    notes="Where the duty stays, most of the lost business has not come back by month 18, and within a few months we can "
-          "tell fairly well which products will.\n\n"
+    caption="Held-out later years, products already falling. Day one: no reliable gain. Month 4: 80% of pairs "
+            "ranked correctly; the latest published share alone gives about 70% of the gain over historical rates.",
+    notes="Within a few months we can tell fairly well which falling products will come back, and most "
+          "of that comes from a number anyone can read off Census data: the latest share.\n\n"
           "Each month the model re-scores every product that has visibly fallen and is not yet "
           "back, using only trade data Census had published, notices published by then, and rivals "
           "not yet named in another case; it trains only on earlier cases whose outcomes were "
           "published.\n\n"
-          "Numbers if asked: day one, Brier 0.241 against 0.248 for history, a gain of 0.008 (-0.002 "
-          "to 0.016), not reliable. By month 4, boosting ranks a product that came back above one that "
-          "did not in 79% of pairs, 0.040 better than that month's historical rate (0.028 to "
-          "0.054); by month 5, 80%. It stays slightly ahead of a latest-share model in every month "
-          "from 3 to 12, though no month clears a joint test. These are products already falling, a set that changes month to month, and "
-          "the sample is 136 investigation groups, not the 16,781 product-month rows.")
+          "Numbers if asked: day one, Brier 0.239 against 0.248 for history, a gain of 0.010 whose "
+          "range (0.0005 to 0.018) only just clears zero and included zero in an earlier version, so "
+          "we do not rely on it. By month 4, boosting ranks a product that came back above one that "
+          "did not in 80% of pairs, 0.039 better than that month's historical rate (0.026 to 0.052); "
+          "a model of the latest share alone gets about 70% of that gain (Brier 0.165 against 0.192; "
+          "boosting 0.153). Boosting stays slightly ahead of the latest-share model in every month "
+          "from 3 to 12, though no month clears a joint test. These are gains in probability "
+          "accuracy, on products already falling, and the sample is 136 investigation groups, not "
+          "the 16,781 product-month rows.")
 
-# ---------------------------------------------------------------- 13 the lookup
-add("Under half the old share, few come back.", fig="16_lookup.png",
-    caption="Held-out years only. Each cell: of 100 products that fell, how many came back by month "
-            "18. Next, by December 11: whether this holds for China's 2018 tariffs.",
+# ---------------------------------------------------------------- 13 the review queue
+add("Review these first: 82% stayed down.", fig="20_review_queue.png",
+    caption="Month 4, products already falling, one queue per month, assumed capacity. At 20%: forecast 11.5 "
+            "points above the latest share (3.9 to 15.7). Next, by December 11: China's 2018 tariffs.",
     take_rule=True,
-    notes="Close here: this is what a sourcing team would read. Where the duty was confirmed and "
-          "the published share is under half its old level, 13 in 100 came back; where it was "
-          "lifted and the share is back to four-fifths, 81.\n\n"
-          "Small text in each cell: the model's estimate and how many cases are behind it. "
-          "Recalibrating on earlier years made the vote-time estimates worse on later years and the "
-          "fall-time ones only slightly better, so the estimates are the model's own (a choice made after seeing those years); we show what "
-          "happened first.\n\n"
-          "If asked about the rush before tariffs like copper's: we are rebuilding that tariff "
-          "list document by document before we report anything on it.")
+    notes="Close here: this is the use we can demonstrate. A sourcing analyst can review only some "
+          "of the tariff-hit product-country relationships and wants to start with those whose "
+          "decline is likely to persist, reading our ranking next to the company's own supplier "
+          "information. We predict the supplier country's recovery in a product, not one "
+          "supplier's failure.\n\n"
+          "Rules fixed before we looked: month 4; only products already falling and not yet back; "
+          "each calendar month its own queue, so no later case is ranked early; the held-out "
+          "predictions from the last slide; an assumed 20% of each queue reviewed, with 10% and 30% "
+          "as checks; ties share the reviews; intervals resample investigation groups.\n\n"
+          "Of 936 held-out relationships, 62% stayed down. At 20%, 82% of the forecast's picks "
+          "stayed down, 70% of the latest share's, 62% of a random order, which is all the "
+          "historical rate can give because it is the same for every product in a month. It holds "
+          "at 10% and 30%, weighting each case once, and without the largest case. The historical "
+          "rate stays as the benchmark: how many of a month's falling products usually stay down. "
+          "The capacities are assumptions; any benefit to an importer is a proposed use until "
+          "tested with users.")
 
 out = "slides/Mandadi_Khalsa_Presentation2_v2.pptx"
 prs.save(out)

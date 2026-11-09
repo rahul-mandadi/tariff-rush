@@ -4,7 +4,7 @@ No pandoc on this machine, so markdown -> styled HTML -> print-to-pdf. Figures a
 the markdown as [[FIG:n|file|caption]] and expanded here, so the prose and the figure order
 cannot drift apart.
 
-Usage:  python3 build_report.py      # from the repo root
+Usage:  python3 build_final_report.py      # from the repo root
 """
 import base64
 import os

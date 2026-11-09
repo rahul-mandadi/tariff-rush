@@ -53,6 +53,7 @@ ev = pd.read_csv("events/adcvd_events.csv", dtype={"cty": str}).drop_duplicates(
 pubd = pd.to_datetime(ev.set_index("document_number").publication_date)
 mg = pd.read_csv("events/adcvd_margins.csv").set_index("document_number").rate
 crit_doc = ev.set_index("document_number").critical_affirm.fillna(False).astype(bool)
+CCS = RL.cc_side_dates(ep)
 
 pairs = pd.read_csv("recovery_pairs_decision_fall20.csv", dtype={"hs8": str})
 pairs["hs8"] = pairs.hs8.str.zfill(8)
@@ -70,7 +71,7 @@ def case_facts(s, upto):
     rates = [mg.get(d, np.nan) for d in ds]
     rate = np.nansum(rates) if any(pd.notna(r) for r in rates) else np.nan
     return dict(log_rate=float(np.log1p(rate)) if pd.notna(rate) else 0.0, rate_missing=float(pd.isna(rate)),
-                crit=float(any(crit_doc.get(d, False) for d in ds)), both=float(BOTH[s]),
+                crit=float(RL.crit_known(ds, crit_doc, CCS[s], upto)), both=float(BOTH[s]),
                 china=float(ep.cty[s] == "5700"))
 
 
@@ -166,7 +167,8 @@ for Y in sorted(D.year.unique()):
     tr = D[(D.b + K_HI + LAG) < Y * 12].reset_index(drop=True)
     if te.sid.nunique() < 5 or tr.sid.nunique() < 40 or te.y.nunique() < 2:
         continue
-    p = te[["sid", "hs8", "cluster", "year", "L", "y"]].copy()
+    # b (month of k = 0) and latest (published share over pre-case) are carried for the review queue
+    p = te[["sid", "hs8", "cluster", "year", "b", "L", "y", "latest"]].copy()
     # per-landmark weights for scoring: each case counts once at each landmark
     p["w"] = 1.0 / te.groupby(["sid", "L"]).sid.transform("size")
     base = tr.groupby("L").apply(lambda g: np.average(g.y, weights=g.w), include_groups=False)

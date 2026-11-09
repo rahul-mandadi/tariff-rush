@@ -120,7 +120,7 @@ txt(s, "After a U.S. trade duty, does the business come back?", X0, 3.12, CW, 0.
 txt(s, "Rahul Reddy Mandadi   +   Raunaksingh Khalsa", X0, 4.18, CW, 0.5, 18, bold=True)
 txt(s, "DS 5500 Data Science Capstone   |   Final presentation   |   December 2026",
     X0, 4.66, CW, 0.5, 13, color=GREY)
-txt(s, "For importers who buy a product from a country named in a duty.",
+txt(s, "For sourcing teams deciding which tariff-hit suppliers to review first.",
     X0, 5.52, CW, 0.9, 13, color=GREY)
 txt(s, "github.com/rahul-mandadi/tariff-rush", X0, Y_TAKE, CW, 0.4, 13, bold=True, color=RED)
 s.notes_slide.notes_text_frame.text = (
@@ -182,7 +182,7 @@ add("Three questions behind one decision.",
         "**Q3.** How long does recovery take, and how early can we tell?",
     ],
     bullet_size=20, bullet_top=2.15, bullet_step=0.66,
-    caption="We answer with history: 704 U.S. antidumping and countervailing duty decisions, "
+    caption="We answer with history: 697 U.S. antidumping and countervailing duty decisions, "
             "2015 to 2026.",
     take_rule=True,
     notes="This is the analytic problem Kylie asked us to make clearer.\n\n"
@@ -239,10 +239,10 @@ add("How we measure it, product by product.",
         "**Compared with other countries selling the same product that month,** with months of "
         "no trade counted as zero. A change shared by all of them cancels out.",
         "**Checked against a fake date.** The same calculation on the same cases two years "
-        "earlier. A real effect has to beat the fake one.",
+        "earlier, a falsification check: a pattern that also shows there is not the duty's.",
     ],
     bullet_size=20, bullet_top=2.15, bullet_step=0.62,
-    caption="694 preliminary notices (704 country decisions) form 504 country cases; 381 have a full 18 months, 283 a fake "
+    caption="687 preliminary notices (697 country decisions) form 502 country cases; 381 have a full 18 months, 283 a fake "
             "date. Values are nominal dollars (not inflation-adjusted); shared price changes cancel.",
     take_rule=True,
     notes="This is the method Kylie asked us to explain.\n\n"
@@ -254,7 +254,7 @@ add("How we measure it, product by product.",
           "Who is in the panel is fixed from before the case, and a month with no trade stays in "
           "as zero, so a supplier that stops selling is counted, not dropped. Rivals that face a "
           "case of their own on the product around the same time are left out of the comparison.\n\n"
-          "We read every decision notice: 24 of 718 did not start a new duty (negative findings, "
+          "We read every decision notice: 31 of 718 did not start a new duty (negative findings, "
           "side notices, reviews of old orders, circumvention findings on old orders) and are out. Uncertainty is computed over whole "
           "investigations, because one petition often names several countries.")
 
@@ -319,21 +319,24 @@ add("One in four that falls comes back.", fig="13_recovery_km.png",
 
 # ---------------------------------------------------------------- 10 the early warning
 add("By month 4, the forecast tells them apart.", fig="19_monthly_forecast.png",
-    caption="Held-out later years, products already falling. Day one: no reliable gain. Month 4: "
-            "79% of pairs ranked correctly; month 5: 80%. Boosting stays slightly ahead of a latest-share model.",
+    caption="Held-out later years, products already falling. Day one: no reliable gain. Month 4: 80% of pairs "
+            "ranked correctly; the latest published share alone gives about 70% of the gain over historical rates.",
     notes="This is the evaluation Kylie's Methods comment asks for: a baseline, a held-out test, "
           "and an honest size, re-done every month as a sourcing team would see the data.\n\n"
           "Each month after the duty, the model re-scores every product that has visibly fallen "
           "and is not yet back, using only trade data Census had published (about five weeks after "
           "a month ends), notices published by then, and rivals not yet named in another case. It "
           "trains only on earlier cases whose outcomes were already published.\n\n"
-          "Day one: the gain over history is 0.008 and its range includes zero, so history is the "
-          "day-one forecast. By month 4 gradient boosting ranks a product that came back above one "
-          "that did not in 79% of pairs (logistic 75%) and beats that month's historical rate by "
-          "0.040 (0.028 to 0.054); by month 5, 80%. Boosting stays ahead of a model of the latest "
-          "share alone in every month from 3 to 12, by 0.004 to 0.015, but no single month clears "
-          "a test of all months together. At the ITC vote a logistic model reaches 80%, "
-          "0.012 beyond the share model.\n\n"
+          "Day one: the gain over history is 0.010 and its range only just clears zero (it included "
+          "zero in an earlier version), so history is the day-one benchmark. By month 4 gradient "
+          "boosting ranks a product that came back above one that did not in 80% of pairs (logistic "
+          "75%) and beats that month's historical rate by 0.039 (0.026 to 0.052); by month 5, 80%. "
+          "Most of that is the latest share: a model of the latest share alone gets about 70% of the "
+          "gain (Brier 0.165 against 0.192; boosting 0.153). Boosting stays ahead of it in every "
+          "month from 3 to 12, by 0.003 to 0.014, but no single month clears a test of all months "
+          "together. At the ITC vote a logistic model reaches 80%, 0.011 beyond the share model. "
+          "These are gains in probability accuracy; whether they change what gets reviewed is the "
+          "next slides.\n\n"
           "Two cautions if asked. These are products already falling and not yet back, and that "
           "set changes month to month, so the rising line is not the same products getting easier. "
           "And the 16,781 product-month rows come from 1,712 products in 349 cases and 136 "
@@ -357,9 +360,9 @@ add("Under half the old share, few come back.", fig="16_lookup.png",
           "first.")
 
 # ---------------------------------------------------------------- 10b2 decision value
-add("Ahead of simple rules, not the latest share.", fig="18_decision_value.png",
-    caption="At the ITC vote, simultaneous lower bounds exceed zero against always or never "
-            "qualifying and the historical rates at cost ratios 0.45 and 0.55 to 0.80; against the latest share, at none.",
+add("Under assumed costs: ahead of simple rules.", fig="18_decision_value.png",
+    caption="At the ITC vote, simultaneous lower bounds exceed zero against always or never qualifying and the "
+            "historical rates at cost ratios 0.45 and 0.55 to 0.80. Added value over the latest share: not established.",
     notes="Accuracy is not the question a sourcing team asks; whether acting on the forecast "
           "beats their simple options is.\n\n"
           "The cost ratio is what qualifying a second supplier costs, as a share of the loss it "
@@ -370,17 +373,43 @@ add("Ahead of simple rules, not the latest share.", fig="18_decision_value.png",
           "preregistered. Every policy is scored on the same resamples, and all 17 thresholds and "
           "all baselines are tested together: always and never qualifying, the historical rate, "
           "the rate split by vote, and the latest-share model. At the vote the forecast leads all "
-          "except the latest-share model at cost ratios 0.45 and 0.55 to 0.80, and it never leads that model "
-          "once all ratios are tested together (one at a time, from 0.70 to 0.90). At the fall it "
+          "except the latest-share model at cost ratios 0.45 and 0.55 to 0.80. Additional decision "
+          "value over the latest-share model was not established under the simultaneous test (one "
+          "ratio at a time, it leads at 0.70, 0.75, 0.85 and 0.90). At the fall it "
           "leads every baseline at 0.70; on day one, at none.\n\n"
           "This is potential benefit under assumptions, not a measured saving: it treats the "
           "country-level outcome as the importer's loss and assumes qualifying at that date could "
           "still avoid it. The intervals hold the fitted models fixed.")
 
+# ---------------------------------------------------------------- 10b3 the review queue
+add("Review these first: 82% stayed down.", fig="20_review_queue.png",
+    caption="Month 4, products already falling, one queue per month, assumed capacity. At 20%: forecast 11.5 "
+            "points above the latest share (3.9 to 15.7); it holds at 10% and 30% and without the largest case.",
+    notes="This is the use we can actually demonstrate: a sourcing analyst with limited review time, "
+          "who wants to look first at the tariff-hit product-country relationships whose decline is "
+          "likely to persist, and reads our ranking next to the company's own supplier information. "
+          "We predict the supplier country's recovery in a product, not whether one supplier fails.\n\n"
+          "The rules were fixed before we looked. Month 4 after the duty. Only products whose fall is "
+          "already visible and that have not come back, the monthly model's own population. Each "
+          "calendar month is its own queue, so nothing from a later case gets ranked early. The "
+          "predictions are the held-out ones from the last slide, unchanged. The analyst reviews an "
+          "assumed 20% of each month's queue; 10% and 30% are checks. Ties share the reviews "
+          "equally. Each relationship counts once, and intervals resample investigation groups.\n\n"
+          "Result: 936 held-out relationships, 2020 to 2025; 62% of them stayed down. At 20%, 82% of "
+          "the forecast's picks stayed down, 70% of the latest share's, 62% of a random order, which "
+          "is what the historical rate gives because it is one number for every product in a month. "
+          "The forecast reached 26% of all lasting declines, where the most possible at that capacity "
+          "is 32%. Weighting each case once: 90 against 81. Without 2024 aluminum extrusions, which "
+          "holds nearly half the relationships: 89 against 77.\n\n"
+          "So the forecast is the ranking, and the historical rate stays as the benchmark: it tells "
+          "the analyst how many of this month's falling products usually stay down. The capacities "
+          "are assumptions, and any benefit to an importer's operations is a proposed use until "
+          "tested with users.")
+
 # ---------------------------------------------------------------- 10c Section 301
 add("The model carries over to China's tariffs.", fig="17_s301_outcomes.png",
     caption="6,844 products on the 2018 Section 301 lists, China against untaxed rivals, to January "
-            "2020. A model trained on antidumping cases ranks 66% of pairs correctly; of products "
+            "2020. A model trained on antidumping cases ranks 67% of pairs correctly; of products "
             "that fell, 60% came back where China's share had rushed first, 30% otherwise.",
     notes="This answers the question everyone asks about the antidumping results: does it hold for "
           "the tariffs that hit most importers' China spend?\n\n"
@@ -389,29 +418,31 @@ add("The model carries over to China's tariffs.", fig="17_s301_outcomes.png",
           "2020, before China's COVID shutdown, so outcomes run 16 months. China's share of these "
           "products fell from 14.9% to 10.4% of imports; on the fake date it rose 6%.\n\n"
           "The transfer: the at-the-fall model trained on antidumping cases, minus the China and "
-          "case-type flags (logistic, the common model), ranks 66% of Section 301 product pairs "
+          "case-type flags (logistic, the common model), ranks 67% of Section 301 product pairs "
           "correctly; a model trained on Section 301 itself gets 73%. It beats even Section 301's own "
           "recovery rate by 0.017 (0.011 to 0.023); boosting does a little better. Trained only on the 25 antidumping cases published before September "
           "2018 it ranks as well but expects too few recoveries.\n\n"
           "The borrowed part: where China's share ran more than a quarter above normal just "
-          "before the tariff, 60% came back, against about 30% for the rest. That fall was "
-          "payback for buying ahead. Each list is one date, so this describes products; it does "
+          "before the tariff, 60% came back, against about 30% for the rest, as payback for "
+          "buying ahead would. Each list is one date, so this describes products; it does "
           "not estimate a list's effect, and product exclusions are not removed.")
 
 # ---------------------------------------------------------------- 10 discussion
 add("What this means.",
     bullets=[
-        "**For an importer tied to one country:** weigh qualifying another supplier early. More "
-        "than half of targeted products fell without recovering; 16% also had none a year on.",
-        "**When to look again:** on day one, use the historical rates; once a product has fallen, "
-        "a monthly model tells recoveries apart better.",
+        "**For a sourcing team tied to one country:** a reason to look into other suppliers early. "
+        "More than half of targeted products fell without recovering; 16% also had none a year on.",
+        "**Which to review first:** at month 4, reviewing a fifth of each month's falling products, "
+        "the forecast's picks stayed down 82% of the time; latest share 70%, random 62%.",
         "**For anyone measuring tariffs:** study the products a tariff names, not the whole "
         "category, and check quantities as well as dollars.",
     ],
     bullet_size=20, bullet_top=2.15, bullet_step=0.78,
     notes="This is the Discussion. One takeaway for each audience; about a minute.\n\n"
-          "The first bullet comes from 380 past cases. It is what usually happens, not a promise "
-          "for any one supplier, and we have not tested it with importers.\n\n"
+          "The first bullet comes from 380 past cases. It is what usually happens to a supplier "
+          "country, not a promise for any one supplier, and we have not tested it with importers. "
+          "Whether to act also depends on the importer's exposure, its alternatives, how long "
+          "qualification takes and what it costs.\n\n"
           "We find no clear average surge before these duties, so little buying ahead to pay back. "
           "For cases that became orders the answer is closer to real than borrowed, over the 18 "
           "months we observe; that is not proof the business left for good.")
@@ -420,11 +451,11 @@ add("What this means.",
 add("What we answered, and what is open.",
     bullets=[
         "**Q1, a rush before the duty:** none on average for antidumping; under China's 2018 "
-        "tariffs, a rush means the fall is often borrowed.",
+        "tariffs, a fall after a rush came back more often, as borrowed trade would.",
         "**Q2, borrowed or real:** closer to real where the duty becomes an order: about a 31% "
         "fall over the 18 months we see.",
         "**Q3, how long:** most fallen products are still down at 18 months; for those already "
-        "falling, a monthly model picks out which will come back.",
+        "falling, a monthly forecast orders which to review first.",
         "**Open:** where the lost trade goes. Gains spread across many rival countries.",
     ],
     bullet_size=20, bullet_top=2.15, bullet_step=0.66,

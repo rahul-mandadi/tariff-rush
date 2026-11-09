@@ -187,6 +187,7 @@ def uv_change(s, h, kv):
 
 mg = pd.read_csv("events/adcvd_margins.csv").set_index("document_number").rate
 crit_doc = ev.set_index("document_number").critical_affirm.fillna(False).astype(bool)
+CCS = RL.cc_side_dates(ep)
 
 
 def case_facts(s, upto):
@@ -194,7 +195,7 @@ def case_facts(s, upto):
     rates = [mg.get(d, np.nan) for d in ds]
     rate = np.nansum(rates) if any(pd.notna(r) for r in rates) else np.nan
     return dict(log_rate=float(np.log1p(rate)) if pd.notna(rate) else 0.0,
-                rate_missing=float(pd.isna(rate)), crit=float(any(crit_doc.get(d, False) for d in ds)),
+                rate_missing=float(pd.isna(rate)), crit=float(RL.crit_known(ds, crit_doc, CCS[s], upto)),
                 both=float(BOTH[s]), china=float(ep.cty[s] == "5700"))
 
 

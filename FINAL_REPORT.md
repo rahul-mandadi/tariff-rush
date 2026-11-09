@@ -3,35 +3,39 @@
 **Authors.** Rahul Reddy Mandadi, Raunaksingh Khalsa
 
 **Sponsor.** No external sponsor. Stakeholder: the sourcing team at a U.S. importer that buys a
-product from a country just named in a trade duty; secondarily, lenders exposed to that supplier.
+product from a country just named in a trade duty.
 
 **Github.** https://github.com/rahul-mandadi/tariff-rush
 
 ## Abstract
 
-When the United States puts a duty on one product from one country, an importer buying that
-product has to decide whether to start qualifying another supplier or wait for the business to
-come back. We answer that question with history. From U.S. import records at the eight-digit
-product level, 2015 to 2026, matched to 694 antidumping and countervailing duty notices (704 notice-country decisions) read from
-their Federal Register notices, we compare each targeted country with the other countries selling
-the same product in the same month, counting months with no trade as zero and checking every
-estimate against the same cases moved two years earlier. Where the duty became permanent, the
-targeted country's imports fell about 31 percent against its rivals, kept falling for the 18 months
-we observe; where the trade commission found no injury and the duty was lifted, there was no
-lasting fall. A separate check on physical quantity is consistent with a fall in volume rather than
-price, but is imprecise. Across 380 past cases, 26
-percent of targeted products did not fall, 17 percent fell and came back, 42 percent fell and
-stayed down, and 16 percent fell, never came back and had no imports at all 13 to 18 months later,
-against 3 percent on the
-fake date. On the day the duty starts, case facts add little over these historical rates.
-Among products whose fall is already visible, a monthly model does better on later years: by month
-5 it ranks a product that comes back above one that does not in 80 percent of pairs. Its added
-decision value is narrower: tested jointly over all assumed cost ratios, the forecast at the
-trade commission's vote beats always or never qualifying and the historical rates at most ratios
-from 0.45 to 0.80 of the avoidable loss, but not a simple rule built on the latest published share. Public records show switching around
-these cases is common and slow, though few purchasers tie it to the duty. The model carries over to China's 2018 Section 301 tariffs,
-where a fall that follows a rush before the tariff is often borrowed. We also show that a tariff list typically names about 5 percent of the product
-category it touches, which is why this work has to be done product by product.
+When the United States puts an antidumping or countervailing duty on one product from one
+country, a sourcing team buying that product has more tariff-hit relationships to look at than it
+can review at once. We help it decide which product-country relationships to review first: those
+whose trade decline is likely to persist. From U.S. import records at the eight-digit product level,
+2015 to 2026, matched to 687 duty notices (697 notice-country decisions) read from the Federal
+Register, we compare each targeted country with the other countries selling the same product in the
+same month, counting months with no trade as zero and checking every estimate against the same
+cases moved two years earlier. Where the duty became permanent, the targeted country's imports fell
+about 31 percent against its rivals and kept falling for the 18 months we observe; where the trade
+commission found no injury and the duty was lifted, there was no lasting fall. Across 380 past
+cases, 26 percent of targeted products did not fall, 17 percent fell and came back, 42 percent fell
+and stayed down, and 16 percent fell, never came back and had no imports at all 13 to 18 months
+later, against 3 percent on the fake date. These historical rates are the benchmark; on the day the
+duty starts, case facts add little to them. Four months in, among products whose fall is already
+visible and that have not come back, a forecast built only from published data ranks a product
+that comes back above one that does not in 80 percent of pairs, and much of its gain over the
+historical rate comes from the latest published share alone. Used to order held-out review queues,
+with an assumed capacity of 20 percent of each month's queue, the forecast's picks stayed down 82
+percent of the time, against 70 percent ordering by the latest share and 62 percent in a random
+order (11.5 points over the latest share, 90 percent interval 3.9 to 15.7). Its decision value under
+assumed costs at the trade commission's vote is narrower: it beats always or never qualifying and
+the historical rates, but additional decision value over the latest share was not established. The
+model carries over to China's 2018 Section 301 tariffs, where a fall that follows a rush before the
+tariff more often comes back, as borrowed trade would. We also show that a tariff list typically
+names about 5 percent of the product category it touches, which is why this work has to be done
+product by product. The benefit to an importer's operations is a proposed use, not yet validated
+with users.
 
 ## 1. Introduction
 
@@ -47,7 +51,9 @@ order; no, and it is lifted and the deposits are refunded.
 For an importer, the preliminary determination opens the decision. If the business with the
 targeted country is merely interrupted, waiting is cheap, and deposits are refunded if the duty is
 lifted. If it will not come back, the months spent waiting are months not spent qualifying a new
-supplier. Switching is common and slow: in the ITC's final reports, 27 of 54 responding purchasers
+supplier. Country-level recovery informs that decision but does not settle it: the right action
+also depends on the importer's exposure, its alternatives, how long qualification takes and what
+it costs. Switching is common and slow: in the ITC's final reports, 27 of 54 responding purchasers
 of aluminum extrusions and 23 of 45 of steel nails changed suppliers during the investigation
 period, mostly for reasons such as shortages, with only a few per report tying it to the case; and
 qualifying a new supplier took from days to 18 months, about seven on average for tin mill products
@@ -55,12 +61,20 @@ qualifying a new supplier took from days to 18 months, about seven on average fo
 sourcing of Chinese ceramic tile after the 2019 preliminary duties [8]. This shows the decision and
 its timing exist; it does not validate the forecasts here. This is the question in our title: after a
 duty, is the fall in trade borrowed, coming back once the shock passes, or real? Census publishes
-monthly trade about five weeks after each month closes, so on the day the duty starts an importer
-has only past cases to go on; a few months in, the new case's own data begin to arrive.
+monthly trade about five weeks after each month closes, so on the day the duty starts the public
+record on the new case is its notices and past cases; a few months in, the new case's own data
+begin to arrive. An importer's own orders and supplier contacts can tell it more about its own
+supplier; our benchmarks describe the supplier country.
+
+We frame the use as prioritization. A company exposed to several duties at once has more affected
+product-country relationships than an analyst can review, and wants to start with those whose
+decline is likely to persist. Our output orders them for review, alongside the company's own
+supplier information; it predicts the supplier country's recovery in a product, not whether one
+supplier fails, and whether to act on a reviewed relationship remains the company's decision.
 
 We set three questions. **Q1: is there a rush to buy before the duty, and when?** **Q2: after the
 duty, does the targeted country's trade fall, and does it stay down?** **Q3: how long does
-recovery take, and how early can it be anticipated?** The proposal framed these
+recovery take, and how early can it be anticipated, well enough to order a review queue?** The proposal framed these
 as forecasting problems. Forecasting the level of trade failed, because the year a case happens
 explains more than anything about the case (section 4), so the project became a measurement study
 with held-out prediction tests, built on a comparison that removes those year effects.
@@ -81,15 +95,17 @@ and 234 partners. The panel reconciles to published totals in every month (2.34 
 
 Duty decisions come from the Federal Register. We harvested every antidumping and countervailing
 notice and kept preliminary determinations, the notices that start collection. We then read each
-one's own summary and removed 24 that do not start a new duty: 4 negative findings, 9 side notices about
-retroactive duties issued separately from the case's preliminary, 8 reviews of orders that
-already existed, and 3 circumvention findings on existing orders. The 704 notice-country decisions
-that remain (694 notices) collapse to 504 episodes, one targeted country in one
-investigation, with companion antidumping and countervailing notices merged; they fall into 205
+one's own summary and removed 31 that do not start a new duty: 4 negative findings, 16 side notices
+about retroactive duties (critical circumstances) issued separately from the case's preliminary, 8
+reviews of orders that already existed, and 3 circumvention findings on existing orders. Side
+notices never date an episode; they are kept as dated facts about the case and enter a forecast
+only once published. The 697 notice-country decisions that remain (687 notices) collapse to 502
+episodes, one targeted country in one investigation, with companion antidumping and countervailing
+notices merged; they fall into 204
 investigation groups, because one petition often names several countries. Each case's final outcome
 comes from the order notices in our harvest and, where none links, from the ITC's own determination
 notice for that country. Preliminary duty rates are read from each notice's rate table (the "all
-others" or country-wide rate) for 507 of the 694 notices.
+others" or country-wide rate) for 507 of the 687 notices.
 
 ### 2.2 Measuring the aftermath
 
@@ -107,10 +123,13 @@ including general inflation and demand, cancels. The coefficient reads as a prop
 against rivals; we report it in log points, where minus 0.37 is about minus 31 percent. Uncertainty
 is computed over investigation groups, not individual product rows, because one petition's
 countries and products are not independent. The reference period is months 18 to 13 before the
-duty, which precedes the investigation's opening for 503 of 504 episodes.
+duty, which precedes the investigation's opening for 501 of 502 episodes.
 
 Every estimate is repeated with the cases moved 24 months earlier, when nothing happened: the fake
-date, which a real effect has to beat (283 of the 381 episodes have the 42 months of data it needs).
+date (283 of the 381 episodes have the 42 months of data it needs). It is a falsification check: a
+pattern that also appears on the fake date is not specific to the duty. Passing it does not rule
+out selection (which suppliers face a petition) or other changes at the same time, so the results
+describe what followed these duties; they do not isolate the duty's effect.
 
 ### 2.3 Recovery and evaluation
 
@@ -145,6 +164,28 @@ published. Decision value is potential net benefit under assumed costs (decision
 avoidable loss. It assumes the country-level outcome stands in for an importer's loss and that
 qualifying at the decision date can still avoid it. All 17 thresholds (0.10 to 0.90) and all
 baselines are tested together with simultaneous 90 percent bounds, holding fitted models fixed.
+
+### 2.4 A review queue for a sourcing analyst
+
+The proposed use is prioritization: an analyst who can review only some of the product-country
+relationships hit by duties wants to look first at those whose decline is likely to persist, and
+reads our ranking alongside the company's own supplier information. We predict the supplier
+country's recovery in a product, not one supplier's failure. The rules were fixed before the results
+were seen (`review_queue.py`). The checkpoint is month 4, and the queue holds only the monthly
+model's eligible products: the fall is already visible and the product has not visibly come back.
+Products that never fell, or were already back, are not in it. Each calendar month is its own
+queue, so a relationship is ranked only against others at their month-4 checkpoint in the same
+month, never against later cases. The predictions are the held-out ones above, unchanged (forward in
+time, published data only). Three orderings are compared: the forecast (boosting, the month-4 model
+of Table 3), the latest published share relative to its pre-case level (lowest first), and the
+historical rate, which is one number for every relationship in a month and so amounts to a random
+order. The analyst reviews an assumed 20 percent of each month's queue (10 and 30 percent as
+checks); these are assumptions, not documented budgets. Tied scores share the remaining reviews
+equally. Each relationship counts once, as the unit reviewed; a version weighting each case once is
+a check. We report the share of reviewed relationships that remained down by month 18 and the share
+of all persistent declines that were reviewed, with 90 percent intervals from resampling
+investigation groups. The forecast was to replace the latest share as the ordering only if it beat
+it at 20 percent with an interval above zero.
 
 ## 3. Results
 
@@ -182,7 +223,7 @@ log points, standard errors over investigation groups.
 | cases | episodes (groups) | months 0-18 | months 13-18 | 12-7 before |
 | --- | --- | --- | --- | --- |
 | all, full follow-up | 381 (147) | **-0.19** (0.11) | -0.22 (0.13) | +0.02 (0.04) |
-| became an order | 326 (125) | **-0.37** (0.06) | -0.46 (0.08) | +0.08 (0.06) |
+| became an order | 326 (125) | **-0.37** (0.06) | -0.46 (0.08) | +0.07 (0.06) |
 | ITC found no injury | 45 (18) | +0.06 (0.03) | +0.09 (0.02) | -0.05 (0.02) |
 | fake date | 283 (107) | +0.06 (0.03) | +0.08 (0.07) | +0.04 (0.03) |
 
@@ -205,29 +246,35 @@ month of the fall, 25 percent of products that fall are back within 18 months of
 
 | outcome | real (380) | fake date | order | no injury |
 | --- | --- | --- | --- | --- |
-| did not fall | 26% [22, 30] | 50% [45, 55] | 24% | 35% |
+| did not fall | 26% [22, 30] | 50% [45, 54] | 24% | 35% |
 | fell, came back | 17% [15, 19] | 29% [26, 33] | 16% | 26% |
-| fell, still down | 42% [38, 46] | 18% [15, 21] | 42% | 36% |
+| fell, still down | 42% [38, 46] | 17% [15, 20] | 42% | 36% |
 | fell, no imports 13-18 | 16% [11, 20] | 3% [2, 4] | 18% | 3% |
 
 Built only from earlier cases, these rates beat a uniform guess in five of six test years.
 
-On the day the duty starts, case facts add little over the historical rate (Table 3); the gain's
-interval includes zero.
+On the day the duty starts, case facts add little over the historical rate (Table 3): a gain of
+0.010 whose 90 percent interval only just clears zero (0.0005 to 0.018), and included zero in an
+earlier version of the data, so we do not treat it as reliable.
 Among products whose fall is visible and that are not yet back, monthly forecasts do better (Fig.
-2). At month 4, gradient boosting ranks a product that came back above one that did not in 79
-percent of pairs (logistic, 75), 0.040 (0.028 to 0.054) better than that month's historical rate;
-at month 5, 80 percent. Boosting was ahead of the tested latest-share model in every month from 3
-to 12, by 0.004 to 0.015 (pointwise intervals above zero in months 4 to 6 and 10 to 12), but no
-month clears a test of all months together. At the ITC vote
-a logistic model reaches 80 percent, 0.012 (0.003 to 0.021) beyond the share model; the vote itself
-adds 0.004 (-0.002 to 0.011). Decision value is narrower (Fig. A2): with logistic as the common model
-(a consistency choice, not preregistered), tested against every baseline at all thresholds
-together, the vote-time forecast leads always or never qualifying, the historical rate and the rate
-by vote at cost ratios 0.45 and 0.55 to 0.80, but at no ratio does it also lead the share model (pointwise,
-it leads the share model from 0.70 to 0.90); at the fall it leads every baseline at 0.70; on day
-one, at none. Recalibrating on earlier years made the vote-time forecasts worse on held-out years (Brier 0.155 against 0.146) and the fall-time ones slightly better (0.204 against 0.207); we report the raw model at both, a choice made after seeing those years. Table
-A1 turns the models into a lookup.
+2). At month 4, gradient boosting ranks a product that came back above one that did not in 80
+percent of pairs (logistic, 75), 0.039 (0.026 to 0.052) better than that month's historical rate;
+at month 5, also 80 percent. Much of that improvement comes from the latest published share alone:
+a model of the latest share reaches a Brier score of 0.165 against 0.192 for the historical rate and
+0.153 for boosting, about 70 percent of the gain. Boosting was ahead of that latest-share model in
+every month from 3 to 12, by 0.003 to 0.014 (pointwise intervals above zero in months 4 to 6 and
+11), but no month clears a test of all months together. At the ITC vote a logistic model reaches
+80 percent, 0.011 (0.003 to 0.020) beyond the share model, which again supplies about 70 percent of
+the gain over history; the vote itself adds 0.004 (-0.002 to 0.011). These are gains in probability
+accuracy. Decision value is a separate question (Fig. A2): with logistic as the common model (a
+consistency choice, not preregistered), tested against every baseline at all thresholds together,
+the vote-time forecast leads always or never qualifying, the historical rate and the rate by vote
+at cost ratios 0.45 and 0.55 to 0.80, but additional decision value over the latest-share model was
+not established under the simultaneous test at any ratio (pointwise, it leads the share model at
+0.70, 0.75, 0.85 and 0.90); at the fall it leads every baseline at 0.70; on day one, at none.
+Recalibrating on earlier years made the vote-time forecasts worse on held-out years (Brier 0.157
+against 0.146) and the fall-time ones slightly better (0.204 against 0.205); we report the raw model
+at both, a choice made after seeing those years. Table A1 turns the models into a lookup.
 
 [[FIG:2|slides/fig/19_monthly_forecast.png|Pairwise ranking accuracy (AUC), held-out products already fallen and not yet back; eligible products differ by month. Boosting against a latest-share model. 16,781 product-months from 1,712 products, 349 cases, 136 groups; held out 1,157 products, 219 cases.|48]]
 
@@ -235,47 +282,80 @@ A1 turns the models into a lookup.
 
 | decision point | cases (scored) | history | best model | improvement | AUC |
 | --- | --- | --- | --- | --- | --- |
-| duty starts | 381 (241) | 0.248 | logistic, 0.241 | 0.008 [-0.002, 0.016] | 0.62 |
-| month 4 | 315 (198) | 0.192 | boosting, 0.152 | 0.040 [0.028, 0.054] | 0.79 |
-| ITC final vote | 329 (207) | 0.174 | logistic, 0.134 | 0.040 [0.028, 0.052] | 0.80 |
+| duty starts | 381 (241) | 0.248 | logistic, 0.239 | 0.010 [0.0005, 0.018] | 0.64 |
+| month 4 | 315 (198) | 0.192 | boosting, 0.153 | 0.039 [0.026, 0.052] | 0.80 |
+| ITC final vote | 329 (207) | 0.174 | logistic, 0.135 | 0.039 [0.027, 0.051] | 0.80 |
 
-### 3.4 The same model on China's Section 301 tariffs
+### 3.4 Which relationships to review first
+
+The month-4 queues hold 936 held-out relationships (198 cases, 66 investigation groups, 44
+decision months, 2020 to 2025); 62 percent of them remained down by month 18. Reviewing 20
+percent of each month's queue in the forecast's order, 82 percent of reviewed relationships
+remained down, against 70 percent in the latest-share order and 62 percent in a random order
+(Table 4): 11.5 points more than the latest share (90 percent interval 3.9 to 15.7). The forecast's
+reviews reached 26 percent of all persistent declines, where the most any order could reach at
+that capacity is 32 percent; the latest share reached 23 and a random order 20. The result holds at
+10 and 30 percent, weighting each case once (90 against 81 percent), and without the largest
+investigation group (2024 aluminum extrusions, 14 countries and nearly half the relationships; 89
+against 77 percent, a check added after the first results). The forecast is therefore the ranking;
+the historical rate stays as the benchmark that says how many of a month's falling relationships
+usually stay down (Table A3 shows one month's queue).
+
+**Table 4.** Month-4 review queues, held-out 2020 to 2025: share of reviewed relationships that
+remained down (share of all persistent declines reviewed); last column, forecast minus latest share,
+percentage points, 90 percent interval over investigation groups.
+
+| review capacity | forecast | latest share | historical rate (random) | forecast minus latest share |
+| --- | --- | --- | --- | --- |
+| 10% | 85% (14%) | 69% (11%) | 62% (10%) | +15.6 [7.6, 20.3] |
+| 20% | 82% (26%) | 70% (23%) | 62% (20%) | +11.5 [3.9, 15.7] |
+| 30% | 81% (39%) | 71% (34%) | 62% (30%) | +10.0 [3.4, 12.7] |
+
+### 3.5 The same model on China's Section 301 tariffs
 
 The 2018 Section 301 tariffs taxed China alone, product by product: 6,844 products on Lists 1 to 3,
 compared with untaxed rivals in the same product, with windows stopped at January 2020 before
 China's COVID shutdown (16-month outcomes, Table A2). China's share of these products' imports fell
 from 14.9 to 10.4 percent (fake date: up 6 percent). The at-the-fall model trained on antidumping
-cases (logistic) ranks Section 301 products correctly in 66 percent of pairs (a Section 301 model:
+cases (logistic) ranks Section 301 products correctly in 67 percent of pairs (a Section 301 model:
 73) and beats even Section 301's own recovery rate by 0.017 (0.011 to 0.023); trained on Section 301 it beats later
 antidumping cases by 0.011 (0.001 to 0.020), and pooled with them it improves their forecasts
 slightly (0.005, 0.001 to 0.010). Products whose China share ran more than a quarter above normal
 just before the tariff came back 60 percent of the time, against about 30: that part of the fall
-was borrowed. Each list is one date, so these describe products, not a list's effect.
+was consistent with borrowing. Each list is one date, so these describe products, not a list's effect.
 
 ## 4. Discussion
 
-For the importer, the answer to the title is closer to real than borrowed: after an antidumping or
-countervailing duty, more than half of targeted products (57 percent) fall without coming back
-within 18 months, and 16 percent fall and have no imports a year on, and there is no average surge before collection to pay back.
-Where the ITC lifts the duty, the aftermath looks like the fake date. The public record suggests
-the decision is staged: some importers start qualifying at or before the preliminary, and
-finishing can take months, so a forecast that sharpens by month 4 or 5 could inform the later step
-of committing volume. These are odds for a supplier country, not for one importer's own supplier,
-and their value depends on assumed costs we did not measure.
+For a sourcing team, the answer to the title is closer to real than borrowed: after an
+antidumping or countervailing duty, more than half of targeted products (57 percent) fall without
+coming back within 18 months, 16 percent fall and have no imports a year on, and there is no average
+surge before collection to pay back. Where the ITC lifts the duty, the aftermath looks like the fake
+date. What we demonstrated for the proposed use is prioritization of persistent trade declines: at
+month 4, among relationships already falling, ordering a fixed share of each month's queue by the
+forecast puts more persistent declines in front of the analyst than ordering by the latest
+published share, which itself beats a random order. In probability accuracy the latest share does
+most of the work, and under assumed costs at the vote the forecast's added decision value over it
+was not established; the gain we can show is in ordering, at assumed review capacities. These are
+odds for a supplier country in a product, not for one importer's supplier, and whether to act on a
+reviewed relationship also depends on the importer's exposure, its alternatives, how long
+qualification takes and what it costs. That an importer's operations benefit is a proposed use
+until it is tested with users.
 
 Unit, comparison and decision point all matter: a category is the wrong unit, and comparing a
 country with its rivals in the same product and month removes the year effects that sank level
 forecasts. Against the questions: Q2 is answered for these duties, a persistent relative decline;
-Q3 by the recovery rates and a monthly forecast that sharpens them for products already falling; Q1
-for these duties (no clear surge) and in part for Section 301, where a rush predicts recovery, but
-not for the broad 2018 to 2026 actions (appendix). Where the lost trade goes is not estimable.
+Q3 by the recovery rates, which are the benchmark, and a monthly forecast that orders review of
+products already falling; Q1 for these duties (no clear surge) and in part for Section 301, where a
+rush predicts recovery, but not for the broad 2018 to 2026 actions (appendix). Where the lost trade
+goes is not estimable.
 
 ## 5. Statement of contributions
 
-Both authors contributed equally. Rahul Reddy Mandadi led data collection, the eight-digit panel
-and the event tables. Raunaksingh Khalsa led exploratory analysis, anomaly detection and the first
-presentation. Both set the research questions, chose the identification strategy, and wrote this
-report.
+Both authors contributed equally. Rahul Reddy Mandadi led data collection, the eight-digit panel,
+the duty-notice tables, the stacked event study, the recovery and forecasting tests, the Section 301
+test and the code repository. Raunaksingh Khalsa led exploratory analysis, anomaly detection (the
+dollars and quantity comparison in the appendix) and the first presentation. Both set the research
+questions, chose the identification strategy, and wrote this report.
 
 ## 6. References
 
@@ -329,15 +409,37 @@ determination notices in the Federal Register.
 
 | when the fall shows: supplier's pre-case imports | rate up to 25% | rate over 25% | rate not published |
 | --- | --- | --- | --- |
-| under USD 1M | 36 / 52 (49) | 29 / 30 (38) | 37 / 44 (26) |
-| USD 1M to USD 10M | 24 / 35 (50) | 17 / 16 (51) | 27 / 21 (27) |
+| under USD 1M | 35 / 52 (49) | 30 / 30 (38) | 35 / 44 (26) |
+| USD 1M to USD 10M | 24 / 35 (50) | 16 / 16 (51) | 26 / 21 (27) |
 | over USD 10M | 21 / 24 (78) | 15 / 15 (71) | 20 / 28 (36) |
 
 | at the ITC vote: latest share against pre-case | duty confirmed | duty lifted |
 | --- | --- | --- |
-| under half | 11 / 13 (143) | 38 / 32 (24) |
+| under half | 12 / 13 (143) | 39 / 32 (24) |
 | half to 4/5 | 22 / 20 (66) | 52 / 27 (19) |
-| 4/5 or more | 46 / 54 (49) | 79 / 81 (17) |
+| 4/5 or more | 45 / 54 (49) | 79 / 81 (17) |
+
+### A review queue, one month
+
+**Table A3.** The month-4 queue for January 2025 (36 relationships from ten cases in five investigation
+groups, all held out), first nine rows,
+ranked by the forecast; at 20 percent capacity the analyst reviews the first 7.2. Columns are what
+the analyst sees on the decision date, plus the outcome, known only later. Of the reviewed
+relationships, 83 percent stayed down, against 80 percent in the latest-share order and 56 percent
+in a random order; the historical rate (79 percent not back, from earlier years) is the same for
+every row and overstated this month's 56 percent. One month is an illustration, not evidence.
+
+| rank | product | HS code | country | chance not back by month 18 | latest share / pre-case | historical rate not back | stayed down |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 1 | Ferrosilicon | 7202.21.10 | Brazil | 0.93 | 0.00 | 0.79 | yes |
+| 2 | Epoxy resins | 3907.30.00 | Taiwan | 0.91 | 0.42 | 0.79 | yes |
+| 3 | Ferrosilicon | 7202.21.50 | Kazakhstan | 0.91 | 0.43 | 0.79 | yes |
+| 4 | Epoxy resins | 2910.90.91 | India | 0.90 | 0.58 | 0.79 | yes |
+| 5 | Ferrosilicon | 7202.21.50 | Brazil | 0.89 | 0.48 | 0.79 | yes |
+| 6 | 2,4-D acid | 3808.93.15 | India | 0.88 | 0.59 | 0.79 | no |
+| 7 | Ceramic tile | 6914.10.80 | India | 0.88 | 0.03 | 0.79 | yes |
+| 8 | Ceramic tile | 6907.40.90 | India | 0.87 | 0.17 | 0.79 | no |
+| 9 | Epoxy resins | 3907.29.00 | Taiwan | 0.86 | 0.69 | 0.79 | no |
 
 ### Section 301 details
 
@@ -352,7 +454,7 @@ determination notices in the Federal Register.
 
 | trained on, scored on | products | AUC | Brier | gain over the target's own rate |
 | --- | --- | --- | --- | --- |
-| antidumping, all cases, to Section 301 | 3,128 | 0.66 | 0.216 | 0.017 [0.011, 0.023] |
+| antidumping, all cases, to Section 301 | 3,128 | 0.67 | 0.216 | 0.017 [0.011, 0.023] |
 | antidumping published by Sep 2018, to Section 301 | 3,128 | 0.70 | 0.240 | -0.007 [-0.015, 0.001] |
 | Section 301, to antidumping from April 2020 | 1,229 | 0.67 | 0.181 | 0.011 [0.001, 0.020] |
 | antidumping published by Mar 2020, to antidumping from April 2020 | 1,229 | 0.68 | 0.180 | 0.011 [0.005, 0.016] |
@@ -369,8 +471,8 @@ pharmaceuticals rank first of 63 comparable chapters (2.26); on quantity, 62nd (
 March jump is a shift toward Swiss medicines at about 5,185 dollars a kilogram, which lifts dollars
 far more than tonnes. Cocoa scores 1.00 on dollars and 0.69 on quantity; its import value per unit
 roughly doubled from 2022 to 2025. A category's dollar total alone misleads in both directions.
-Deflating by the BLS import price index keeps 8 of the top 10 chapters; by the non-fuel index,
-9 of 10.
+Deflating the dollar ranking over all 96 product chapters by the BLS import price index keeps 8 of
+its top 10 chapters; by the nonfuel index, 9 of 10 (on the 63 chapters with quantity data, 7 and 8).
 
 ### The tariff-action rush (Q1 for broad tariffs)
 
@@ -395,10 +497,13 @@ on the older 508-episode sample); it does not show that retroactive liability ch
 ### Limitations
 
 The no-injury group is small (45 episodes in 18 groups) and dominated by one 2024 case, so the
-contrast between final outcomes is descriptive. Duty rates are missing for 27 percent of notices,
+contrast between final outcomes is descriptive. Duty rates are missing for 26 percent of notices,
 and the model carries a missing-rate indicator. Copper, the running example, is one product with no
 comparison country, so it illustrates rather than tests. The importer use case is plausible and
-grounded in the duty timeline, but not validated with importers. For Section 301, the product
+grounded in the duty timeline, but not validated with importers. The review capacities (10, 20 and
+30 percent of a month's queue) are assumptions; the queues are small (median 8 relationships,
+6 of 44 months with one), and one investigation group holds nearly half the relationships, which
+is why intervals resample groups and the result is also shown without it. For Section 301, the product
 lists come from the 2026 tariff schedule, so about a tenth of lines renumbered since 2018 are
 missing; roughly 2,000 product exclusions, some retroactive, are not removed, so some taxed
 products were not taxed; Chinese goods shipped through third countries can inflate rivals' shares;
@@ -413,8 +518,9 @@ All code is in the repository. The panel: `harvest_hs10.py`, `build_panel_hs8.py
 `events/itc_check.py`, `events/itc_audit.py`. Section 3.2: `adcvd_stacked.py`, `itc_compare.py`,
 `adcvd_stacked_qty.py`, `adcvd_analysis.py`. Section 3.3: `recovery_benchmark.py`,
 `recovery_by_final_stage.py`, `events/build_release_calendar.py`, `build_decision_stacks.py`, `prediction_test.py`, `prediction_stage2.py`,
-`prediction_landmark.py`, `decision_value.py`, `calibrated_lookup.py`.
-Section 3.4: `events/build_301_lists.py`, `sec301_benchmark.py`, `sec301_transfer_test.py`,
-`recovery_lib.py`. Section 3.1: `coverage_share.py`,
+`prediction_landmark.py`, `decision_value.py`, `calibrated_lookup.py`, `review_queue.py` (section 3.4).
+Section 3.5: `events/build_301_lists.py`, `sec301_benchmark.py`, `sec301_transfer_test.py`,
+`recovery_lib.py`. Appendix, dollars and quantity: `eda_summary.py`, `chapter_quantity.py`,
+`slides/fig_units.py`, `pharma_mix.py`, `deflation_check.py`. Section 3.1: `coverage_share.py`,
 `copper_split.py`. Figures: `slides/fig_sankey.py`, `slides/fig_stacked.py`. Each script writes
 the CSV its numbers come from.

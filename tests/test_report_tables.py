@@ -71,13 +71,13 @@ def test_itc_vote_text():
     assert f"the vote itself adds {v.gain_vs_history:.3f} ({v.lo_vs_history:.3f} to {v.hi_vs_history:.3f})" in REPORT
     d = pd.read_csv("decision_value.csv")
     x = d[(d.point == "ITC final vote") & (d["lo_share only"] > 0)].threshold
-    assert f"the share model from {x.min():.2f} to {x.max():.2f}" in REPORT
-    assert np.allclose(np.diff(x.values), 0.05), "pointwise support over the share model is not one unbroken range"
+    listed = ", ".join(f"{t:.2f}" for t in x.values[:-1]) + f" and {x.values[-1]:.2f}"
+    assert f"it leads the share model at {listed}" in REPORT, listed
 
 
 def test_sample_counts():
     ep = pd.read_csv("adcvd_episodes_collapsed.csv")
-    assert len(ep) == 504 and ep.cluster.nunique() == 205
+    assert len(ep) == 502 and ep.cluster.nunique() == 204
     assert f"{(ep.k_ini > -13).sum()} of {len(ep)} episodes" in REPORT
 
 

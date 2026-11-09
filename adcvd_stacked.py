@@ -3,7 +3,7 @@
 adcvd_event_study.py pools every cell-month into one regression. Its treated cohort changes with
 event time (975 cells at k = 0, 1,437 at k = 18), product-country pairs that stop trading leave
 the panel, months outside any window act as reference alongside the baseline, and companion
-notices for one case claim the same months and get dropped. adcvd_cohort_check.py showed the
+notices for one case claim the same months and get dropped. archive/adcvd_cohort_check.py showed the
 headline fall is sensitive to all of that. This script rebuilds the estimate so none of it
 applies.
 
@@ -11,10 +11,18 @@ Design
   episode     notices for one targeted country, initiated in the same month, with overlapping
               products (companion AD and CVD notices) collapse to one episode, dated at the
               first preliminary determination, k = 0.
-  notices     only affirmative preliminary determinations. EXCLUDE lists 24 notices that are
+  notices     only affirmative preliminary determinations. EXCLUDE lists 31 notices that are
               negative, critical-circumstances-only, administrative-review / no-shipment, or
               circumvention notices on existing orders, each read from its own summary (review of
-              2026-11-06; the three circumvention preliminaries added 2026-11-07).
+              2026-11-06; the three circumvention preliminaries added 2026-11-07; the last seven
+              critical-circumstances-only notices added 2026-11-09).
+  side        critical-circumstances-only notices (CC_ONLY) never define k = 0 or an episode. They
+              are kept as dated information: events/cc_side_notices.csv holds one row per notice
+              and country (affirmative or not, read from each summary), attached to the episode of
+              the same country whose own notices name the same product in their titles, share
+              one of its product codes and were initiated on or before it (if several, the one
+              whose notices cite its case number). The forecasts read critical circumstances from the
+              episode's own notices and these side notices, each only once it was published.
   stack       one per episode: the episode's products, the targeted country, and every rival
               country trading those products before the case, over k = -18 to +18.
   cohort      fixed from pre-case information only. A product-country pair is in the stack if
@@ -38,6 +46,8 @@ Design
 Usage:  python3 adcvd_stacked.py
 """
 import glob
+import json
+import re
 
 import sys
 
@@ -50,15 +60,49 @@ SHIFT = 24
 EXCLUDE = {
     # negative preliminary determinations: no duty
     "2016-19867", "2018-23719", "2019-10283", "2021-10918",
-    # critical-circumstances-only notices, separate from the case's own preliminary
+    # critical-circumstances-only notices, separate from the case's own preliminary (CC_ONLY)
     "2015-28252", "2015-31083", "2016-15132", "2016-21501", "2017-08469", "2020-02696",
     "2020-24135", "2023-15392", "2025-14337",
+    "2018-19335", "2019-08275", "2019-23732", "2025-13323", "2025-14338", "2025-18231",
+    "2026-19518",
     # administrative reviews / no-shipment findings on orders that already existed
     "2017-24186", "2019-12726", "2019-27030", "2019-27937", "2021-24227", "2022-08347",
     "2023-03300", "2024-20773",
     # preliminary determinations of circumvention on existing orders (added November 2026)
     "2018-24939", "2019-23682", "2023-24993",
 }
+# Preliminary notices whose only determination is critical circumstances, from the rule in
+# tests/test_critical_side_notices.py (the title mentions critical circumstances and names no
+# dumping or subsidy determination); four titles that match the words but carry a CVD preliminary
+# (2015-20124, 2015-32215, 2018-08391, 2024-12114) are not side notices. The first 16 pass the
+# notice filters below and are also in EXCLUDE; the other 14 fail them (no product list or no
+# initiation date read) and could never define an episode, but they are dated information too.
+CC_ONLY = {
+    "2015-28252", "2015-31083", "2016-15132", "2016-21501", "2017-08469", "2020-02696",
+    "2020-24135", "2023-15392", "2025-14337",
+    "2018-19335", "2019-08275", "2019-23732", "2025-13323", "2025-14338", "2025-18231",
+    "2026-19518",
+    "2015-28112", "2018-08692", "2018-24941", "2019-08956", "2019-11589", "2020-22179",
+    "2021-14755", "2024-05937", "2024-07346", "2024-07903", "2024-19393", "2025-05694",
+    "2026-15890", "2026-20162",
+}
+# Countries a multi-country side notice found NO critical circumstances for, from each summary.
+# Every other country on a side notice was found affirmative, at least in part.
+CC_NEGATIVE = {
+    "2015-28252": {"INDIA"},                      # exist for Italy, the PRC, Korea and Taiwan
+    "2015-31083": {"AUSTRALIA", "NETHERLANDS"},   # exist for Brazil and Japan
+    "2016-21501": {"KOREA, SOUTH"},               # exist for Austria, Belgium, Brazil, Taiwan, Turkey
+    "2020-02696": {"CANADA", "VIETNAM"},          # exist for Indonesia
+    "2025-05694": {"SOUTH AFRICA"},               # exist for the United Arab Emirates
+    # amendments that withdraw an earlier finding, in part: they add no affirmative finding
+    "2020-22179": {"CHINA"},                      # do not exist for Zongshen
+    "2024-05937": {"TAIWAN"},                     # do not exist for all other producers
+}
+# Initiation dates misstated in a notice's own text, corrected from the initiation notice it cites.
+# 2025-16653 (monomers and oligomers, Taiwan, CVD preliminary) says "On April 23, 2024", but its
+# footnote 1 cites the initiation at 90 FR 17032 (April 23, 2025); the 2024 date merged it into the
+# 2024 epoxy resins case from Taiwan.
+INI_FIX = {"2025-16653": "2025-04-23"}
 
 
 def mi(ts):
@@ -69,10 +113,14 @@ def mi(ts):
 
 # ---------------------------------------------------------------- events -> episodes
 e = pd.read_csv("events/adcvd_events.csv", dtype={"cty": str})
+for _d, _ini in INI_FIX.items():
+    _r = e.document_number == _d
+    e.loc[_r, "initiation_date"] = _ini
+    e.loc[_r, "window_days"] = (pd.to_datetime(e.loc[_r, "publication_date"]) - pd.Timestamp(_ini)).dt.days
 p = pd.read_csv("events/adcvd_products.csv", dtype={"hs8": str})
 prods = {d: set(g.hs8) for d, g in p.groupby("document_number")}
 e = e[(e.stage == "preliminary") & e.window_days.notna() & (e.window_days >= 60)]
-e = e[e.document_number.isin(prods) & ~e.document_number.isin(EXCLUDE)].copy()
+e = e[e.document_number.isin(prods) & ~e.document_number.isin(EXCLUDE | CC_ONLY)].copy()
 e["b"] = mi(e.publication_date)
 e["date"] = pd.to_datetime(e.publication_date)
 e["ini"] = mi(e.initiation_date)
@@ -120,7 +168,58 @@ ep = pd.DataFrame(eps)
 root = union_find(range(len(ep)), lambda i, j: ep.ini[i] == ep.ini[j] and bool(ep.P[i] & ep.P[j]))
 ep["cluster"] = pd.factorize(pd.Series(root))[0]
 ep["k_ini"] = ep.ini - ep.b
-print(f"notices kept {len(e)}, excluded {len(EXCLUDE)}; episodes {len(ep)}; "
+
+# critical-circumstances side notices: dated information attached to their episode (see Design)
+_CASE = re.compile(r"\b([AC])-(\d{3})-(\d{3})\b")
+
+
+def _cases(d):
+    try:
+        return {"-".join(m) for m in _CASE.findall(open(f"events/raw/{d}.txt", errors="ignore").read())}
+    except OSError:
+        return set()
+
+
+_titles = {d["document_number"]: d.get("title") or ""
+           for d in json.load(open("events/adcvd_index.json"))}
+
+
+def _product(d):
+    """The product named in a notice's title: the words before ' From ', without the
+    'Antidumping ... Investigations of' prefix or 'Certain'."""
+    t = _titles.get(d, "").split(" From ")[0].lower()
+    t = re.sub(r"^.*investigations? of ", "", t)
+    return re.sub(r"^certain ", "", t).strip(" ,")
+
+
+_all = pd.read_csv("events/adcvd_events.csv", dtype={"cty": str})
+side = _all[_all.document_number.isin(CC_ONLY)].drop_duplicates(["document_number", "cty"]).copy()
+side["affirmative"] = [r.country not in CC_NEGATIVE.get(r.document_number, set())
+                       for r in side.itertuples()]
+side["m"] = mi(side.publication_date)
+side_cases = {d: _cases(d) for d in side.document_number.unique()}
+ep_cases = [set().union(*[_cases(d) for d in ds.split(";")]) for ds in ep.docs]
+attach = {s_: [] for s_ in ep.index}
+side["sid"] = ""
+for i, r in side.iterrows():
+    sp_ = prods.get(r.document_number, set()) & in_panel
+    # same country, same product (title), initiated on or before the side notice, sharing a product
+    cand = [s_ for s_ in ep.index if ep.cty[s_] == r.cty and ep.ini[s_] <= r.m
+            and (not sp_ or sp_ & ep.P[s_])
+            and _product(r.document_number) in {_product(d) for d in ep.docs[s_].split(";")}]
+    # several such episodes (a repeat case on the same product): the one citing its case number
+    hit = [s_ for s_ in cand if side_cases[r.document_number] & ep_cases[s_]] if len(cand) > 1 else cand
+    side.at[i, "sid"] = ";".join(map(str, hit))
+    for s_ in hit:
+        attach[s_].append(r.document_number)
+ep["cc_docs"] = [";".join(attach[s_]) for s_ in ep.index]
+side[["document_number", "country", "cty", "case", "publication_date", "affirmative", "sid"]].to_csv(
+    "events/cc_side_notices.csv", index=False)
+print(f"critical-circumstances side notices: {side.document_number.nunique()} notices, "
+      f"{len(side)} notice-country rows, {(side.sid != '').sum()} attached to an episode, "
+      f"{sum(';' in x for x in side.sid)} to more than one")
+print(f"notice-country rows kept {len(e)} ({e.document_number.nunique()} notices), notices excluded "
+      f"{len(EXCLUDE)}; episodes {len(ep)}; "
       f"investigation groups {ep.cluster.nunique()}")
 print(f"episodes with both AD and CVD: {(ep.ad & ep.cvd).sum()}")
 print(f"initiation month relative to k = 0: median {ep.k_ini.median():.0f}, "

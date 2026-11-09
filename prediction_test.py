@@ -81,7 +81,8 @@ crit = ev.set_index("document_number").critical_affirm.fillna(False).astype(bool
 mg = pd.read_csv("events/adcvd_margins.csv").set_index("document_number").rate
 first = [min(pubd[d] for d in ds.split(";")) for ds in ep.docs]
 docs0 = [[d for d in ds.split(";") if pubd[d] <= f0] for ds, f0 in zip(ep.docs, first)]
-ep["crit"] = [any(crit.get(d, False) for d in ds) for ds in docs0]
+CCS = RL.cc_side_dates(ep)
+ep["crit"] = [RL.crit_known(ds, crit, CCS[s_], f0) for s_, ds, f0 in zip(ep.index, docs0, first)]
 ep["rate"] = [np.nansum([mg.get(d, np.nan) for d in ds])
               if any(pd.notna(mg.get(d, np.nan)) for d in ds) else np.nan for ds in docs0]
 ep["both"] = RL.both_programs_known(ep)

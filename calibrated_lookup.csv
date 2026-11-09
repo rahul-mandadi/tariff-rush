@@ -1,16 +1,16 @@
 point,row_by,row,col_by,col,products,cases,expected,came_back,too_few
-fall,"pre-case imports, 12 months",under $1M,preliminary duty rate,rate not published,121,26,0.37454168858275155,0.4391052834382837,False
-fall,"pre-case imports, 12 months",under $1M,preliminary duty rate,rate over 25%,94,38,0.2934319808922222,0.30042122216112854,False
-fall,"pre-case imports, 12 months",under $1M,preliminary duty rate,rate up to 25%,224,49,0.36261554114910033,0.5170860488433131,False
-fall,"pre-case imports, 12 months",$1M to $10M,preliminary duty rate,rate not published,73,27,0.26534102230089196,0.20966475733093504,False
-fall,"pre-case imports, 12 months",$1M to $10M,preliminary duty rate,rate over 25%,93,51,0.16506301633456288,0.16115523538102314,False
-fall,"pre-case imports, 12 months",$1M to $10M,preliminary duty rate,rate up to 25%,151,50,0.24255040938611364,0.34833769414744853,False
-fall,"pre-case imports, 12 months",over $10M,preliminary duty rate,rate not published,87,36,0.19548041887125125,0.2808577603485778,False
-fall,"pre-case imports, 12 months",over $10M,preliminary duty rate,rate over 25%,144,71,0.15091361071921647,0.14942542703235098,False
-fall,"pre-case imports, 12 months",over $10M,preliminary duty rate,rate up to 25%,170,78,0.20734486535373534,0.2436965429902449,False
-ITC,latest share vs pre-case,under half,ITC vote,duty confirmed,355,143,0.11471561004384288,0.12737586472694631,False
-ITC,latest share vs pre-case,under half,ITC vote,duty lifted,213,24,0.3807827356392863,0.3173408191712629,False
-ITC,latest share vs pre-case,half to 4/5,ITC vote,duty confirmed,89,66,0.21812390714678875,0.20461452941473732,False
-ITC,latest share vs pre-case,half to 4/5,ITC vote,duty lifted,153,19,0.5206356897237945,0.2744934303785198,False
-ITC,latest share vs pre-case,4/5 or more,ITC vote,duty confirmed,61,49,0.4605500876674495,0.539919303596391,False
-ITC,latest share vs pre-case,4/5 or more,ITC vote,duty lifted,127,17,0.7860961788838478,0.8111261452780189,False
+fall,"pre-case imports, 12 months",under $1M,preliminary duty rate,rate not published,121,26,0.3549336130958521,0.4391052834382837,False
+fall,"pre-case imports, 12 months",under $1M,preliminary duty rate,rate over 25%,94,38,0.3003384062176924,0.30042122216112854,False
+fall,"pre-case imports, 12 months",under $1M,preliminary duty rate,rate up to 25%,224,49,0.354410950431047,0.5170860488433131,False
+fall,"pre-case imports, 12 months",$1M to $10M,preliminary duty rate,rate not published,73,27,0.26262935650273866,0.20966475733093504,False
+fall,"pre-case imports, 12 months",$1M to $10M,preliminary duty rate,rate over 25%,93,51,0.1643519108428629,0.16115523538102314,False
+fall,"pre-case imports, 12 months",$1M to $10M,preliminary duty rate,rate up to 25%,151,50,0.23612610677256884,0.34833769414744853,False
+fall,"pre-case imports, 12 months",over $10M,preliminary duty rate,rate not published,87,36,0.1967125592125469,0.2808577603485778,False
+fall,"pre-case imports, 12 months",over $10M,preliminary duty rate,rate over 25%,144,71,0.15181722823154906,0.14942542703235098,False
+fall,"pre-case imports, 12 months",over $10M,preliminary duty rate,rate up to 25%,170,78,0.20520027351460665,0.2436965429902449,False
+ITC,latest share vs pre-case,under half,ITC vote,duty confirmed,355,143,0.11753644605902891,0.12737586472694631,False
+ITC,latest share vs pre-case,under half,ITC vote,duty lifted,213,24,0.3867386807886934,0.3173408191712629,False
+ITC,latest share vs pre-case,half to 4/5,ITC vote,duty confirmed,89,66,0.21903363655827188,0.20461452941473732,False
+ITC,latest share vs pre-case,half to 4/5,ITC vote,duty lifted,153,19,0.5205656288890633,0.2744934303785198,False
+ITC,latest share vs pre-case,4/5 or more,ITC vote,duty confirmed,61,49,0.4535341234297867,0.539919303596391,False
+ITC,latest share vs pre-case,4/5 or more,ITC vote,duty lifted,127,17,0.7861382029227622,0.8111261452780189,False

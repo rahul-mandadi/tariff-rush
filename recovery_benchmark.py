@@ -10,8 +10,8 @@ Position: the targeted country's share of the product's imports among the stack'
 country does not trade but rivals do counts as a share of zero; a month in which none of the stack's
 countries trades has no share and is missing (the 3-month mean needs three real months). A pair with
 no measurable month in k = 0..6 gets no label.
-Benchmark: mean share over k = -18..-13, which precedes the case's initiation for 506 of 507
-episodes (see RUN_LOG S2).
+Benchmark: mean share over k = -18..-13, which precedes the case's initiation for all but one of
+the 502 episodes (adcvd_stacked.py prints the count).
 
 Categories, mutually exclusive, each pair in exactly one:
   no fall        smoothed share never below (1 - FALL) x benchmark in k = 0..6

@@ -1,43 +1,43 @@
 sample,outcome,contrast,est,se,n
-final stage: order,"PPML value, zeros in",after (0..18) vs reference (-18..-13),-0.37224923767004076,0.06497357358767185,1425073
-final stage: order,"PPML value, zeros in",months 13..18 vs reference (-18..-13),-0.4614610695227577,0.07856030467577789,1425073
-final stage: order,"PPML value, zeros in",pre-case (-12..-7) vs reference (-18..-13),0.07511879866066276,0.05671298195616747,1425073
-final stage: order,"PPML value, zeros in",petition (-6..-1) vs pre-case (-12..-7),-0.019056438301100015,0.02512192390083281,1425073
-final stage: order,"PPML value, zeros in",after (0..18) vs pre-case (-12..-7),-0.4473680363307035,0.076181046245315,1425073
-final stage: order,"PPML value, zeros in",months 13..18 vs pre-case (-12..-7),-0.5365798681834205,0.10603982491953605,1425073
-final stage: order,"PPML value, zeros in",after (0..18) vs old 'before' (-12..-4),-0.44771788339148655,0.07497252536560706,1425073
-final stage: order,trades at all (LPM),after (0..18) vs reference (-18..-13),-0.0880564558021588,0.01565748404876299,1428755
-final stage: order,trades at all (LPM),months 13..18 vs reference (-18..-13),-0.09541002025714433,0.016906059196606534,1428755
-final stage: order,trades at all (LPM),pre-case (-12..-7) vs reference (-18..-13),-0.006459757976475613,0.006928245740811236,1428755
-final stage: order,trades at all (LPM),petition (-6..-1) vs pre-case (-12..-7),0.003013461409506585,0.005983128132757365,1428755
-final stage: order,trades at all (LPM),after (0..18) vs pre-case (-12..-7),-0.0815966978256832,0.014153649105877991,1428755
-final stage: order,trades at all (LPM),months 13..18 vs pre-case (-12..-7),-0.08895026228066873,0.015551023070907641,1428755
-final stage: order,trades at all (LPM),after (0..18) vs old 'before' (-12..-4),-0.08530958250633895,0.01377280458603832,1428755
-final stage: order,"log value, positive only",after (0..18) vs reference (-18..-13),-0.6428784989832582,0.07796539197032165,761384
-final stage: order,"log value, positive only",months 13..18 vs reference (-18..-13),-0.7369464970189901,0.08600224160699477,761384
-final stage: order,"log value, positive only",pre-case (-12..-7) vs reference (-18..-13),-0.03200334287326457,0.027877232541770554,761384
-final stage: order,"log value, positive only",petition (-6..-1) vs pre-case (-12..-7),-0.028898545129145636,0.02463044655353785,761384
-final stage: order,"log value, positive only",after (0..18) vs pre-case (-12..-7),-0.6108751561099937,0.07802651566500803,761384
-final stage: order,"log value, positive only",months 13..18 vs pre-case (-12..-7),-0.7049431541457255,0.08759394285294221,761384
-final stage: order,"log value, positive only",after (0..18) vs old 'before' (-12..-4),-0.6133087955544917,0.07502513835505639,761384
-final stage: negative,"PPML value, zeros in",after (0..18) vs reference (-18..-13),0.05674171142857329,0.027207807746578827,1796407
-final stage: negative,"PPML value, zeros in",months 13..18 vs reference (-18..-13),0.09013652878574928,0.01769548166946067,1796407
-final stage: negative,"PPML value, zeros in",pre-case (-12..-7) vs reference (-18..-13),-0.05032784489423858,0.016959759268966042,1796407
-final stage: negative,"PPML value, zeros in",petition (-6..-1) vs pre-case (-12..-7),0.08364014531927473,0.007972345645002174,1796407
-final stage: negative,"PPML value, zeros in",after (0..18) vs pre-case (-12..-7),0.10706955632281188,0.01935606768292413,1796407
-final stage: negative,"PPML value, zeros in",months 13..18 vs pre-case (-12..-7),0.14046437367998788,0.016286156299174376,1796407
-final stage: negative,"PPML value, zeros in",after (0..18) vs old 'before' (-12..-4),0.07521083181880679,0.02199828491103297,1796407
-final stage: negative,trades at all (LPM),after (0..18) vs reference (-18..-13),0.036697067396074735,0.003014355330889003,1797407
-final stage: negative,trades at all (LPM),months 13..18 vs reference (-18..-13),0.051217459267666375,0.0017917814153415525,1797407
-final stage: negative,trades at all (LPM),pre-case (-12..-7) vs reference (-18..-13),0.008610936829109309,0.001299146357990039,1797407
-final stage: negative,trades at all (LPM),petition (-6..-1) vs pre-case (-12..-7),0.01649762355945382,0.002468386545540136,1797407
-final stage: negative,trades at all (LPM),after (0..18) vs pre-case (-12..-7),0.028086130566965416,0.0035925855063252063,1797407
-final stage: negative,trades at all (LPM),months 13..18 vs pre-case (-12..-7),0.042606522438557067,0.0019501677585550242,1797407
-final stage: negative,trades at all (LPM),after (0..18) vs old 'before' (-12..-4),0.02117473716635465,0.0032115031704235495,1797407
-final stage: negative,"log value, positive only",after (0..18) vs reference (-18..-13),0.09884094313687339,0.019018916068503932,1003153
-final stage: negative,"log value, positive only",months 13..18 vs reference (-18..-13),0.15822032068325073,0.016209057118003935,1003153
-final stage: negative,"log value, positive only",pre-case (-12..-7) vs reference (-18..-13),-0.03427819449383783,0.014284868663051519,1003153
-final stage: negative,"log value, positive only",petition (-6..-1) vs pre-case (-12..-7),0.08679219224134838,0.024060657500447898,1003153
-final stage: negative,"log value, positive only",after (0..18) vs pre-case (-12..-7),0.1331191376307112,0.028758540451486216,1003153
-final stage: negative,"log value, positive only",months 13..18 vs pre-case (-12..-7),0.19249851517708857,0.02576885649907348,1003153
-final stage: negative,"log value, positive only",after (0..18) vs old 'before' (-12..-4),0.11055986598415157,0.024725143292598246,1003153
+final stage: order,"PPML value, zeros in",after (0..18) vs reference (-18..-13),-0.3729898519047443,0.06496444724653384,1421891
+final stage: order,"PPML value, zeros in",months 13..18 vs reference (-18..-13),-0.4620853038357485,0.07858135437974566,1421891
+final stage: order,"PPML value, zeros in",pre-case (-12..-7) vs reference (-18..-13),0.07461375821288602,0.05676175531059259,1421891
+final stage: order,"PPML value, zeros in",petition (-6..-1) vs pre-case (-12..-7),-0.018940602665281747,0.025142958660158955,1421891
+final stage: order,"PPML value, zeros in",after (0..18) vs pre-case (-12..-7),-0.44760361011763034,0.07620271173470042,1421891
+final stage: order,"PPML value, zeros in",months 13..18 vs pre-case (-12..-7),-0.5366990620486345,0.10607802083532081,1421891
+final stage: order,"PPML value, zeros in",after (0..18) vs old 'before' (-12..-4),-0.4480475940702141,0.0749898215366089,1421891
+final stage: order,trades at all (LPM),after (0..18) vs reference (-18..-13),-0.08866311031048746,0.015543594900556264,1425573
+final stage: order,trades at all (LPM),months 13..18 vs reference (-18..-13),-0.09614107518407501,0.016786972967500206,1425573
+final stage: order,trades at all (LPM),pre-case (-12..-7) vs reference (-18..-13),-0.00677595289293193,0.00691051129464851,1425573
+final stage: order,trades at all (LPM),petition (-6..-1) vs pre-case (-12..-7),0.0027846061818374212,0.005975941778135763,1425573
+final stage: order,trades at all (LPM),after (0..18) vs pre-case (-12..-7),-0.08188715741755553,0.014127333724226115,1425573
+final stage: order,trades at all (LPM),months 13..18 vs pre-case (-12..-7),-0.08936512229114307,0.015515269427657147,1425573
+final stage: order,trades at all (LPM),after (0..18) vs old 'before' (-12..-4),-0.08555759074534315,0.01375552287213783,1425573
+final stage: order,"log value, positive only",after (0..18) vs reference (-18..-13),-0.6501824679167546,0.07592271701335687,759763
+final stage: order,"log value, positive only",months 13..18 vs reference (-18..-13),-0.7438043167653997,0.0845052510786327,759763
+final stage: order,"log value, positive only",pre-case (-12..-7) vs reference (-18..-13),-0.034142943069702614,0.027886789621000288,759763
+final stage: order,"log value, positive only",petition (-6..-1) vs pre-case (-12..-7),-0.029311246197763968,0.024578435072188726,759763
+final stage: order,"log value, positive only",after (0..18) vs pre-case (-12..-7),-0.616039524847052,0.07664090292471847,759763
+final stage: order,"log value, positive only",months 13..18 vs pre-case (-12..-7),-0.7096613736956972,0.08668668998688034,759763
+final stage: order,"log value, positive only",after (0..18) vs old 'before' (-12..-4),-0.6185137418159389,0.0736265226570387,759763
+final stage: negative,"PPML value, zeros in",after (0..18) vs reference (-18..-13),0.0567417114285732,0.027207807746579167,1796407
+final stage: negative,"PPML value, zeros in",months 13..18 vs reference (-18..-13),0.0901365287857477,0.017695481669462308,1796407
+final stage: negative,"PPML value, zeros in",pre-case (-12..-7) vs reference (-18..-13),-0.05032784489423882,0.016959759268966524,1796407
+final stage: negative,"PPML value, zeros in",petition (-6..-1) vs pre-case (-12..-7),0.08364014531927497,0.007972345645002142,1796407
+final stage: negative,"PPML value, zeros in",after (0..18) vs pre-case (-12..-7),0.10706955632281201,0.019356067682923864,1796407
+final stage: negative,"PPML value, zeros in",months 13..18 vs pre-case (-12..-7),0.14046437367998654,0.016286156299174806,1796407
+final stage: negative,"PPML value, zeros in",after (0..18) vs old 'before' (-12..-4),0.07521083181880689,0.021998284911033013,1796407
+final stage: negative,trades at all (LPM),after (0..18) vs reference (-18..-13),0.03669706739607448,0.003014355330889432,1797407
+final stage: negative,trades at all (LPM),months 13..18 vs reference (-18..-13),0.05121745926766507,0.001791781415342004,1797407
+final stage: negative,trades at all (LPM),pre-case (-12..-7) vs reference (-18..-13),0.008610936829108013,0.0012991463579893109,1797407
+final stage: negative,trades at all (LPM),petition (-6..-1) vs pre-case (-12..-7),0.01649762355944528,0.00246838654554446,1797407
+final stage: negative,trades at all (LPM),after (0..18) vs pre-case (-12..-7),0.02808613056696646,0.0035925855063243845,1797407
+final stage: negative,trades at all (LPM),months 13..18 vs pre-case (-12..-7),0.04260652243855706,0.0019501677585551016,1797407
+final stage: negative,trades at all (LPM),after (0..18) vs old 'before' (-12..-4),0.021174737166358787,0.0032115031704204452,1797407
+final stage: negative,"log value, positive only",after (0..18) vs reference (-18..-13),0.0988409431368725,0.01901891606850429,1003153
+final stage: negative,"log value, positive only",months 13..18 vs reference (-18..-13),0.15822032068324943,0.01620905711800453,1003153
+final stage: negative,"log value, positive only",pre-case (-12..-7) vs reference (-18..-13),-0.03427819449383827,0.01428486866305119,1003153
+final stage: negative,"log value, positive only",petition (-6..-1) vs pre-case (-12..-7),0.0867921922413485,0.02406065750044753,1003153
+final stage: negative,"log value, positive only",after (0..18) vs pre-case (-12..-7),0.1331191376307108,0.028758540451486476,1003153
+final stage: negative,"log value, positive only",months 13..18 vs pre-case (-12..-7),0.19249851517708771,0.025768856499074105,1003153
+final stage: negative,"log value, positive only",after (0..18) vs old 'before' (-12..-4),0.11055986598415116,0.024725143292598572,1003153

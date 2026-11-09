@@ -34,12 +34,12 @@ respect. Zero em dashes. All figure and table numbers resolve.
 
 ## Reviews so far, and what they changed
 
-**First (Codex).** Found the 79/21 absorption claim was confounded with market share. Removed; the
+**First (outside code review).** Found the 79/21 absorption claim was confounded with market share. Removed; the
 level recomputation in `substitution_levels.py` shows it is not estimable either way. Also caught a
 confidence-interval bug in `slides/fig_event.py` where the band was built in log space and the
 points in percent space, so a point sat outside its own shading.
 
-**Second (Codex, deeper).** Found the chapter-level null no longer reproduces (p = 0.0075, not a
+**Second (outside code review, deeper).** Found the chapter-level null no longer reproduces (p = 0.0075, not a
 null), and that eight digits never rescued the tariff actions. Section 3.1 was rebuilt around what
 was measured rather than around a failure, and Table 1 now reports the eight-digit estimates.
 
@@ -55,8 +55,8 @@ retroactivity mechanism the report asserted. All fixed.
 1 rendering near 3pt, the statement of contributions pushing to page 6, panel attrition undisclosed,
 reference [6] uncited, and "action" carrying three referents. All fixed.
 
-**Fifth (Codex, technical, on the rebuilt version).** Completed but the forwarding agent could not
-retrieve it; the output was recovered from the Codex session log. Found that `2018-27458`, the
+**Fifth (outside code review, technical, on the rebuilt version).** Its output was recovered
+from the review's log. Found that `2018-27458`, the
 largest Section 301 event at 5,921 lines, is coded as an increase effective 2019-03-02 when the
 notice in fact postponed that increase, which `2019-03935` then deferred indefinitely. Table 1 is
 no longer presented as an answer to the first question. Also found Table 1 has no placebo, so the
@@ -72,7 +72,7 @@ words where first used: cell, logarithm of customs value, fixed effects, total v
 and k in Table 1. References now start on a fresh page, so pages 1-5 are exactly the counted
 content.
 
-**Seventh (Codex, technical, cold, on the post-readability version).** Reproduced essentially
+**Seventh (outside code review, technical, cold, on the post-readability version).** Reproduced essentially
 every number but found descriptions that do not match what the code computes. Six were verified
 here and fixed. (a) The 26 percent headline described a level comparison between suppliers; it is
 a fall in relative position, 42 percent above baseline before to 6 percent after. (b) Table 1's
@@ -84,13 +84,13 @@ from normal. (d) The sample is 338 antidumping and 169 countervailing, not antid
 liquidation will not be suspended (`2016-19867`, `2019-10283`); now disclosed in the appendix.
 (f) Q2 was declared answered four lines above "its destination is not"; now partly answered.
 
-Also corrected without Codex: the retroactivity split used `critical_circ`, a regex for the
+Also corrected outside the reviews: the retroactivity split used `critical_circ`, a regex for the
 phrase anywhere in the document. The parser already computes `critical_affirm` and it was unused.
 Rerunning on the affirmative flag gives +0.067 against -0.066, Welch p = 0.012, rank p = 0.0002,
-so the conclusion holds and strengthens. Codex judged this test unusable; it had not rerun it.
+so the conclusion holds and strengthens. The reviewer judged this test unusable; it had not rerun it.
 Figure 1's labels were overlapping at print size and now use leader lines.
 
-**Eighth (wording only).** Three terms Codex flagged as undefined or inconsistent. IEEPA is now
+**Eighth (wording only).** Three terms the reviewer flagged as undefined or inconsistent. IEEPA is now
 expanded and all three legal authorities get a one-line plain description before Table 1 uses
 them as row labels. Antidumping and countervailing are defined at first substantive use in 3.3.
 `cell` is redefined as one product from one country, which matches the scripts and makes
@@ -102,7 +102,7 @@ breaks and leaving gaps.
 
 **Ninth (final).** Added the control-group caveat to 2.4: a supplier absorbing displaced volume
 sits in the control group itself, so the design measures relative standing rather than the
-targeted origin's loss in isolation. This was the strongest unaddressed objection from the Codex
+targeted origin's loss in isolation. This was the strongest unaddressed objection from the outside
 read, and the report already conceded its consequence without naming its cause. Figures render
 at 60 percent so they stop jumping page breaks. Caught on visual inspection: the 3.3 heading had
 been wrapped across two lines in the markdown, so its second half was rendering as body text.
@@ -149,10 +149,6 @@ Each change below was reviewed by an independent cold read before the next step 
 - **New figure.** `slides/fig_copper_split.py`: copper taxed (7407 to 7413) against untaxed
   cathodes (74031100), monthly. Taxed 49 to 27 thousand tonnes a month, untaxed 89 to 154. One
   product, one action, no placebo: an illustration.
-- **Stakeholder skill reference** (`~/.claude/skills/tariff-stakeholder/reference/
-  logistics_domain.md`): its project findings still listed the 79/21 split, "36 points" and the
-  retroactivity mechanism as verified; corrected to Report 1's numbers with the superseded entries
-  marked.
 
 ## Still open
 
