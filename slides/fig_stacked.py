@@ -60,7 +60,7 @@ for s, lab, c, dy in [(o, "became a permanent duty", RED, 0), (n, "ITC found no 
 ax.annotate("duty starts", (0, 30), xytext=(5, 0), textcoords="offset points", color=RED,
             fontsize=12, fontweight="600", va="top")
 ax.set_xlim(-12.5, 18.5)
-ax.set_ylim(-50, 32)
+ax.set_ylim(-56, 32)
 ax.set_xlabel("months from the month duties start being collected")
 ax.set_ylabel("targeted country vs rivals\nselling the same product, %")
 ax.set_title("The targeted country loses ground in cases that became permanent duties",

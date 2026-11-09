@@ -1,36 +1,36 @@
-notices kept 707, excluded 21; episodes 507; investigation groups 208
+notices kept 704, excluded 24; episodes 504; investigation groups 205
 episodes with both AD and CVD: 191
 initiation month relative to k = 0: median -6, min -27, max -2
 episodes initiated at or before k = -13 (reference window not wholly pre-case): 1
-episodes whose initiation falls at or before k = -7, so the -12..-7 benchmark is not wholly pre-case: 154
+episodes whose initiation falls at or before k = -7, so the -12..-7 benchmark is not wholly pre-case: 153
 verdict
-order         370
+order         367
 negative       47
 unresolved     11
 Name: count, dtype: int64
 
-[final stage: order] rows 1,437,413  stacks 329  targeted pairs 1,565  clusters 128  share of rows zero 0.47
-  PPML value, zeros in       after (0..18) vs reference (-18..-13)      -0.371 (0.065)
-  PPML value, zeros in       months 13..18 vs reference (-18..-13)      -0.460 (0.078)
+[final stage: order] rows 1,428,755  stacks 326  targeted pairs 1,559  clusters 125  share of rows zero 0.47
+  PPML value, zeros in       after (0..18) vs reference (-18..-13)      -0.372 (0.065)
+  PPML value, zeros in       months 13..18 vs reference (-18..-13)      -0.461 (0.079)
   PPML value, zeros in       pre-case (-12..-7) vs reference (-18..-13) +0.075 (0.057)
   PPML value, zeros in       petition (-6..-1) vs pre-case (-12..-7)    -0.019 (0.025)
-  PPML value, zeros in       after (0..18) vs pre-case (-12..-7)        -0.446 (0.076)
-  PPML value, zeros in       months 13..18 vs pre-case (-12..-7)        -0.535 (0.106)
-  PPML value, zeros in       after (0..18) vs old 'before' (-12..-4)    -0.446 (0.075)
+  PPML value, zeros in       after (0..18) vs pre-case (-12..-7)        -0.447 (0.076)
+  PPML value, zeros in       months 13..18 vs pre-case (-12..-7)        -0.537 (0.106)
+  PPML value, zeros in       after (0..18) vs old 'before' (-12..-4)    -0.448 (0.075)
   trades at all (LPM)        after (0..18) vs reference (-18..-13)      -0.088 (0.016)
   trades at all (LPM)        months 13..18 vs reference (-18..-13)      -0.095 (0.017)
   trades at all (LPM)        pre-case (-12..-7) vs reference (-18..-13) -0.006 (0.007)
   trades at all (LPM)        petition (-6..-1) vs pre-case (-12..-7)    +0.003 (0.006)
-  trades at all (LPM)        after (0..18) vs pre-case (-12..-7)        -0.081 (0.014)
-  trades at all (LPM)        months 13..18 vs pre-case (-12..-7)        -0.089 (0.015)
+  trades at all (LPM)        after (0..18) vs pre-case (-12..-7)        -0.082 (0.014)
+  trades at all (LPM)        months 13..18 vs pre-case (-12..-7)        -0.089 (0.016)
   trades at all (LPM)        after (0..18) vs old 'before' (-12..-4)    -0.085 (0.014)
-  log value, positive only   after (0..18) vs reference (-18..-13)      -0.641 (0.078)
-  log value, positive only   months 13..18 vs reference (-18..-13)      -0.735 (0.085)
-  log value, positive only   pre-case (-12..-7) vs reference (-18..-13) -0.033 (0.028)
-  log value, positive only   petition (-6..-1) vs pre-case (-12..-7)    -0.030 (0.024)
-  log value, positive only   after (0..18) vs pre-case (-12..-7)        -0.608 (0.078)
-  log value, positive only   months 13..18 vs pre-case (-12..-7)        -0.702 (0.087)
-  log value, positive only   after (0..18) vs old 'before' (-12..-4)    -0.611 (0.075)
+  log value, positive only   after (0..18) vs reference (-18..-13)      -0.643 (0.078)
+  log value, positive only   months 13..18 vs reference (-18..-13)      -0.737 (0.086)
+  log value, positive only   pre-case (-12..-7) vs reference (-18..-13) -0.032 (0.028)
+  log value, positive only   petition (-6..-1) vs pre-case (-12..-7)    -0.029 (0.025)
+  log value, positive only   after (0..18) vs pre-case (-12..-7)        -0.611 (0.078)
+  log value, positive only   months 13..18 vs pre-case (-12..-7)        -0.705 (0.088)
+  log value, positive only   after (0..18) vs old 'before' (-12..-4)    -0.613 (0.075)
 
 [final stage: negative] rows 1,797,407  stacks 45  targeted pairs 1,159  clusters 18  share of rows zero 0.44
   PPML value, zeros in       after (0..18) vs reference (-18..-13)      +0.057 (0.027)

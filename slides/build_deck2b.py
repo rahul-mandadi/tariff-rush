@@ -8,7 +8,7 @@ unchanged), with the results replaced by the November corrections in FINAL_REPOR
   slide 6   the aftermath split by whether the duty became permanent (fig 12), replacing "the
             targeted country does not bounce back" and its "42 percent above its usual level"
   slide 7   new: what happened to each targeted product within 18 months (fig 14)
-  slide 9   notes: the antidumping result holds in physical quantity
+  slide 9   notes: the antidumping result points the same way in physical quantity
   slide 10  discussion rewritten to the corrected numbers
   slide 11  checks: quantity, and the 24 notices removed
   slide 12  the monthly forecast (fig 19)
@@ -154,8 +154,8 @@ add("Copper rushed in, crashed, then came back.", fig="01_context.png",
 # ---------------------------------------------------------------- 3 coverage (finding 1)
 add("But most copper was outside this duty.", fig="09_sankey.png",
     caption="The 50% duty named wire, tubes and sheets: 29% of copper imports by value. Refined "
-            "cathodes, copper sold as a raw input and 67% of the total, were outside it. That is "
-            "typical: a tariff usually names about 5 dollars of every 100 its category imports.",
+            "cathodes, copper sold as a raw input and 67% of the total, were outside it. Most of a "
+            "category outside the tariff is typical: the median list names about 5 dollars in 100.",
     notes="Say this, it answers Kylie's note '1% coverage means ...': 1% coverage means the "
           "products a tariff names made up one dollar in every hundred that the category imported. "
           "The other ninety-nine were in products outside that tariff's list.\n\n"
@@ -238,7 +238,7 @@ add("How we measure it, product by product.",
           "Who is in the panel is fixed from before the case, and a month with no trade stays in "
           "as zero, so a supplier that stops selling is counted, not dropped. Rivals that face a "
           "case of their own on the product around the same time are left out of the comparison.\n\n"
-          "We read every decision notice: 24 of 728 did not start a new duty (negative findings, "
+          "We read every decision notice: 24 of 718 did not start a new duty (negative findings, "
           "side notices, reviews of old orders, circumvention findings on old orders) and are out. Uncertainty is computed over whole "
           "investigations, because one petition often names several countries.")
 
@@ -279,12 +279,12 @@ add("More than half fall and do not recover.", fig="14_outcomes.png",
           "imports at all in months 13 to 18. Each case counts once, and only cases with a full 18 "
           "months are in the shares.\n\n"
           "Counting from the month of the fall, about one in four products was back within 18 "
-          "months of falling, against six in ten on the fake date. Where the commission confirmed "
-          "the duty, about one in six fell and stopped trading.\n\n"
+          "months of falling, against 58% on the fake date. Where the commission confirmed "
+          "the duty, nearly one in five (18%) fell and stopped trading.\n\n"
           "Stopped trading is a subset of falling and not coming back. Counting every product, "
           "including a few that came back first, 18% had no imports in months 13 to 18.\n\n"
           "Robust: with a 10% or 30% definition of a fall, 16% still stop trading. On just the "
-          "277 cases that also have a fake date, 13% stop trading against 3%. And built only "
+          "277 cases that also have a fake date, 13% stop trading, against 3% on the fake date. And built only "
           "from earlier cases, these rates beat a blind guess on later cases in five of six "
           "years.")
 
@@ -315,8 +315,8 @@ add("Dollars alone can fool you.", fig="08_units.png",
           "(62nd). In the medicine line "
           "with the biggest March jump, Swiss shipments ran about $5,185 a kilo against $183 for "
           "Indian ones, so a shift toward Swiss product lifts dollars far more than tonnes.\n\n"
-          "This check applies to the category rankings. The antidumping result holds in physical "
-          "quantity: among months with trade, quantity and value estimates are similar (minus 0.31 "
+          "This check applies to the category rankings. The antidumping result points the same way in "
+          "physical quantity: among months with trade, quantity and value estimates are similar (minus 0.31 "
           "and minus 0.30 log points). Both ranges include zero, so this is consistent with lower "
           "volume but does not rule out price changes.")
 
@@ -341,8 +341,8 @@ add("What this means.",
 # ---------------------------------------------------------------- 11 what the checks confirmed
 add("What the checks confirmed.",
     bullets=[
-        "**Inflation and price.** Shared price changes cancel; in tonnes the fall matches dollars.",
-        "**Every duty decision read.** 704 kept; 24 that did not start a new duty removed.",
+        "**Inflation and price.** Shared price changes cancel; in months with trade, tonnes fall about as much as dollars.",
+        "**Every duty decision read.** 694 notices kept; 24 that did not start a new duty removed.",
         "**Finer product codes.** The data uses the eight-digit codes tariffs name.",
         "**The tariff list.** 120 tariff documents, each tagged with the law it rests on.",
         "**Unusual-month score.** One consistent scale; same top ten categories.",
@@ -365,7 +365,7 @@ add("What the checks confirmed.",
 add("By month 4, the forecast tells them apart.", fig="19_monthly_forecast.png",
     caption="Held-out later years, data as published each month. Day one: no reliable gain. "
             "Month 4: 79% of pairs ranked correctly; month 5: 80%. Next slide: the model as a lookup.",
-    notes="Where the duty stays, the business does not come back, and within a few months we can "
+    notes="Where the duty stays, most of the lost business has not come back by month 18, and within a few months we can "
           "tell fairly well which products will.\n\n"
           "Each month the model re-scores every product that has visibly fallen and is not yet "
           "back, using only trade data Census had published, notices published by then, and rivals "
@@ -387,8 +387,8 @@ add("Under half the old share, few come back.", fig="16_lookup.png",
           "the published share is under half its old level, 13 in 100 came back; where it was "
           "lifted and the share is back to four-fifths, 81.\n\n"
           "Small text in each cell: the model's estimate and how many cases are behind it. "
-          "Recalibrating on earlier years made the vote-time estimates worse on later years, so the "
-          "estimates are the model's own (a choice made after seeing those years); we show what "
+          "Recalibrating on earlier years made the vote-time estimates worse on later years and the "
+          "fall-time ones only slightly better, so the estimates are the model's own (a choice made after seeing those years); we show what "
           "happened first.\n\n"
           "If asked about the rush before tariffs like copper's: we are rebuilding that tariff "
           "list document by document before we report anything on it.")

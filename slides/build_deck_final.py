@@ -145,8 +145,8 @@ add("Copper rushed in, crashed, then came back.", fig="01_context.png",
 # ---------------------------------------------------------------- 3 coverage (finding 1)
 add("But most copper was outside this duty.", fig="09_sankey.png",
     caption="The 50% duty named wire, tubes and sheets: 29% of copper imports by value. Refined "
-            "cathodes, copper sold as a raw input and 67% of the total, were outside it. That is "
-            "typical: a tariff usually names about 5 dollars of every 100 its category imports.",
+            "cathodes, copper sold as a raw input and 67% of the total, were outside it. Most of a "
+            "category outside the tariff is typical: the median list names about 5 dollars in 100.",
     notes="Say this, it answers Kylie's note '1% coverage means ...': 1% coverage means the "
           "products a tariff names made up one dollar in every hundred that the category imported. "
           "The other ninety-nine were in products outside that tariff's list.\n\n"
@@ -254,7 +254,7 @@ add("How we measure it, product by product.",
           "Who is in the panel is fixed from before the case, and a month with no trade stays in "
           "as zero, so a supplier that stops selling is counted, not dropped. Rivals that face a "
           "case of their own on the product around the same time are left out of the comparison.\n\n"
-          "We read every decision notice: 24 of 728 did not start a new duty (negative findings, "
+          "We read every decision notice: 24 of 718 did not start a new duty (negative findings, "
           "side notices, reviews of old orders, circumvention findings on old orders) and are out. Uncertainty is computed over whole "
           "investigations, because one petition often names several countries.")
 
@@ -295,12 +295,12 @@ add("More than half fall and do not recover.", fig="14_outcomes.png",
           "imports at all in months 13 to 18. Each case counts once, and only cases with a full 18 "
           "months are in the shares.\n\n"
           "Counting from the month of the fall, about one in four products was back within 18 "
-          "months of falling, against six in ten on the fake date. Where the commission confirmed "
-          "the duty, about one in six fell and stopped trading.\n\n"
+          "months of falling, against 58% on the fake date. Where the commission confirmed "
+          "the duty, nearly one in five (18%) fell and stopped trading.\n\n"
           "Stopped trading is a subset of falling and not coming back. Counting every product, "
           "including a few that came back first, 18% had no imports in months 13 to 18.\n\n"
           "Robust: with a 10% or 30% definition of a fall, 16% still stop trading. On just the "
-          "277 cases that also have a fake date, 13% stop trading against 3%. And built only "
+          "277 cases that also have a fake date, 13% stop trading, against 3% on the fake date. And built only "
           "from earlier cases, these rates beat a blind guess on later cases in five of six "
           "years.")
 
@@ -380,8 +380,8 @@ add("Ahead of simple rules, not the latest share.", fig="18_decision_value.png",
 # ---------------------------------------------------------------- 10c Section 301
 add("The model carries over to China's tariffs.", fig="17_s301_outcomes.png",
     caption="6,844 products on the 2018 Section 301 lists, China against untaxed rivals, to January "
-            "2020. A model trained on antidumping cases ranks 66% of pairs correctly; where "
-            "China's share rushed before the tariff, 60% came back.",
+            "2020. A model trained on antidumping cases ranks 66% of pairs correctly; of products "
+            "that fell, 60% came back where China's share had rushed first, 30% otherwise.",
     notes="This answers the question everyone asks about the antidumping results: does it hold for "
           "the tariffs that hit most importers' China spend?\n\n"
           "Section 301 taxed China alone, product by product, so China can be compared with "
@@ -467,8 +467,8 @@ add("Dollars alone can fool you.", fig="08_units.png",
           "(62nd). In the medicine line "
           "with the biggest March jump, Swiss shipments ran about $5,185 a kilo against $183 for "
           "Indian ones, so a shift toward Swiss product lifts dollars far more than tonnes.\n\n"
-          "This check applies to the category rankings. The antidumping result holds in physical "
-          "quantity: among months with trade, quantity and value estimates are similar (minus 0.31 "
+          "This check applies to the category rankings. The antidumping result points the same way in "
+          "physical quantity: among months with trade, quantity and value estimates are similar (minus 0.31 "
           "and minus 0.30 log points). Both ranges include zero, so this is consistent with lower "
           "volume but does not rule out price changes.")
 

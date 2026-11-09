@@ -255,7 +255,7 @@ was borrowed. Each list is one date, so these describe products, not a list's ef
 ## 4. Discussion
 
 For the importer, the answer to the title is closer to real than borrowed: after an antidumping or
-countervailing duty, more than half of targeted products (58 percent) fall without coming back
+countervailing duty, more than half of targeted products (57 percent) fall without coming back
 within 18 months, and 16 percent fall and have no imports a year on, and there is no average surge before collection to pay back.
 Where the ITC lifts the duty, the aftermath looks like the fake date. The public record suggests
 the decision is staged: some importers start qualifying at or before the preliminary, and
