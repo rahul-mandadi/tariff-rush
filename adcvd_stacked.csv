@@ -1,0 +1,85 @@
+sample,outcome,contrast,est,se,n
+"real, complete follow-up","PPML value, zeros in",after (0..18) vs reference (-18..-13),-0.18741373883276088,0.1084304956736711,3267841
+"real, complete follow-up","PPML value, zeros in",months 13..18 vs reference (-18..-13),-0.22480192092219242,0.13142001645783294,3267841
+"real, complete follow-up","PPML value, zeros in",pre-case (-12..-7) vs reference (-18..-13),0.02186049628777812,0.042107520980501176,3267841
+"real, complete follow-up","PPML value, zeros in",petition (-6..-1) vs pre-case (-12..-7),0.024203516033329858,0.028902235322424166,3267841
+"real, complete follow-up","PPML value, zeros in",after (0..18) vs pre-case (-12..-7),-0.20927423512053903,0.13401420273888656,3267841
+"real, complete follow-up","PPML value, zeros in",months 13..18 vs pre-case (-12..-7),-0.24666241720997054,0.16062271510150178,3267841
+"real, complete follow-up","PPML value, zeros in",after (0..18) vs old 'before' (-12..-4),-0.22199494014467244,0.12805624139330365,3267841
+"real, complete follow-up",trades at all (LPM),after (0..18) vs reference (-18..-13),-0.031902491587588164,0.03061726001779571,3272523
+"real, complete follow-up",trades at all (LPM),months 13..18 vs reference (-18..-13),-0.02926645592781488,0.03480304713550731,3272523
+"real, complete follow-up",trades at all (LPM),pre-case (-12..-7) vs reference (-18..-13),0.00043158095725328834,0.005108072993645241,3272523
+"real, complete follow-up",trades at all (LPM),petition (-6..-1) vs pre-case (-12..-7),0.009040039752480232,0.005021621412137907,3272523
+"real, complete follow-up",trades at all (LPM),after (0..18) vs pre-case (-12..-7),-0.032334072544841455,0.027224808800773676,3272523
+"real, complete follow-up",trades at all (LPM),months 13..18 vs pre-case (-12..-7),-0.02969803688506817,0.031414738921031214,3272523
+"real, complete follow-up",trades at all (LPM),after (0..18) vs old 'before' (-12..-4),-0.03741386777481902,0.0262623803224192,3272523
+"real, complete follow-up","log value, positive only",after (0..18) vs reference (-18..-13),-0.27248588081292274,0.18416684036531025,1788631
+"real, complete follow-up","log value, positive only",months 13..18 vs reference (-18..-13),-0.28229338571736257,0.21720093871877658,1788631
+"real, complete follow-up","log value, positive only",pre-case (-12..-7) vs reference (-18..-13),-0.032355611358822894,0.01670718668565267,1788631
+"real, complete follow-up","log value, positive only",petition (-6..-1) vs pre-case (-12..-7),0.024023865796914387,0.039822428801402875,1788631
+"real, complete follow-up","log value, positive only",after (0..18) vs pre-case (-12..-7),-0.24013026945409988,0.18995280470093268,1788631
+"real, complete follow-up","log value, positive only",months 13..18 vs pre-case (-12..-7),-0.24993777435853962,0.2230980046427799,1788631
+"real, complete follow-up","log value, positive only",after (0..18) vs old 'before' (-12..-4),-0.25108913978998354,0.1832894039094688,1788631
+"real, placebo-matched","PPML value, zeros in",after (0..18) vs reference (-18..-13),-0.14752258790858305,0.10718412629412306,2916051
+"real, placebo-matched","PPML value, zeros in",months 13..18 vs reference (-18..-13),-0.18410976579291516,0.13380974226716605,2916051
+"real, placebo-matched","PPML value, zeros in",pre-case (-12..-7) vs reference (-18..-13),0.028336163489355113,0.0492954538821839,2916051
+"real, placebo-matched","PPML value, zeros in",petition (-6..-1) vs pre-case (-12..-7),0.03437211199409845,0.029047680123835844,2916051
+"real, placebo-matched","PPML value, zeros in",after (0..18) vs pre-case (-12..-7),-0.1758587513979382,0.13988330819852773,2916051
+"real, placebo-matched","PPML value, zeros in",months 13..18 vs pre-case (-12..-7),-0.21244592928227024,0.1707742728199763,2916051
+"real, placebo-matched","PPML value, zeros in",after (0..18) vs old 'before' (-12..-4),-0.191408022957231,0.13437558227149782,2916051
+"real, placebo-matched",trades at all (LPM),after (0..18) vs reference (-18..-13),-0.012959720806781027,0.028375677176278594,2918382
+"real, placebo-matched",trades at all (LPM),months 13..18 vs reference (-18..-13),-0.008393333785127655,0.032664592770171565,2918382
+"real, placebo-matched",trades at all (LPM),pre-case (-12..-7) vs reference (-18..-13),0.007942068702957921,0.003031613381317054,2918382
+"real, placebo-matched",trades at all (LPM),petition (-6..-1) vs pre-case (-12..-7),0.010571016990941349,0.00448071149821843,2918382
+"real, placebo-matched",trades at all (LPM),after (0..18) vs pre-case (-12..-7),-0.020901789509738946,0.028004261049364078,2918382
+"real, placebo-matched",trades at all (LPM),months 13..18 vs pre-case (-12..-7),-0.016335402488085578,0.0323558671592799,2918382
+"real, placebo-matched",trades at all (LPM),after (0..18) vs old 'before' (-12..-4),-0.026763005607106514,0.02734223967907671,2918382
+"real, placebo-matched","log value, positive only",after (0..18) vs reference (-18..-13),-0.20827416737068213,0.18398357326925927,1600276
+"real, placebo-matched","log value, positive only",months 13..18 vs reference (-18..-13),-0.2048417732298774,0.21535375125346184,1600276
+"real, placebo-matched","log value, positive only",pre-case (-12..-7) vs reference (-18..-13),-0.027902971336441932,0.018603560010682234,1600276
+"real, placebo-matched","log value, positive only",petition (-6..-1) vs pre-case (-12..-7),0.042691209784672834,0.037047977611538906,1600276
+"real, placebo-matched","log value, positive only",after (0..18) vs pre-case (-12..-7),-0.1803711960342402,0.19397989962956944,1600276
+"real, placebo-matched","log value, positive only",months 13..18 vs pre-case (-12..-7),-0.17693880189343547,0.2255863987266193,1600276
+"real, placebo-matched","log value, positive only",after (0..18) vs old 'before' (-12..-4),-0.19533013336016705,0.18811852269430016,1600276
+"placebo, 24 months earlier","PPML value, zeros in",after (0..18) vs reference (-18..-13),0.055282345814011806,0.03150049912649233,2411752
+"placebo, 24 months earlier","PPML value, zeros in",months 13..18 vs reference (-18..-13),0.07919267805061816,0.06922778805529473,2411752
+"placebo, 24 months earlier","PPML value, zeros in",pre-case (-12..-7) vs reference (-18..-13),0.038035108142810435,0.03462227446431456,2411752
+"placebo, 24 months earlier","PPML value, zeros in",petition (-6..-1) vs pre-case (-12..-7),0.008688613802584112,0.0416779755204262,2411752
+"placebo, 24 months earlier","PPML value, zeros in",after (0..18) vs pre-case (-12..-7),0.017247237671201374,0.026840966469906545,2411752
+"placebo, 24 months earlier","PPML value, zeros in",months 13..18 vs pre-case (-12..-7),0.04115756990780773,0.057116326019399616,2411752
+"placebo, 24 months earlier","PPML value, zeros in",after (0..18) vs old 'before' (-12..-4),0.016317957692437924,0.024734423693220074,2411752
+"placebo, 24 months earlier",trades at all (LPM),after (0..18) vs reference (-18..-13),0.030656498194594713,0.007499151868157375,2413569
+"placebo, 24 months earlier",trades at all (LPM),months 13..18 vs reference (-18..-13),0.038253434408587084,0.008203125717439523,2413569
+"placebo, 24 months earlier",trades at all (LPM),pre-case (-12..-7) vs reference (-18..-13),-0.001744388705060624,0.004249657844760002,2413569
+"placebo, 24 months earlier",trades at all (LPM),petition (-6..-1) vs pre-case (-12..-7),0.014983486850392209,0.003966060034599527,2413569
+"placebo, 24 months earlier",trades at all (LPM),after (0..18) vs pre-case (-12..-7),0.03240088689965534,0.006102036822898131,2413569
+"placebo, 24 months earlier",trades at all (LPM),months 13..18 vs pre-case (-12..-7),0.039997823113647704,0.007209934029759688,2413569
+"placebo, 24 months earlier",trades at all (LPM),after (0..18) vs old 'before' (-12..-4),0.02833537473455542,0.005743797792866503,2413569
+"placebo, 24 months earlier","log value, positive only",after (0..18) vs reference (-18..-13),0.13319467862570422,0.060259935406886685,1343567
+"placebo, 24 months earlier","log value, positive only",months 13..18 vs reference (-18..-13),0.10117652234921476,0.07310113186165902,1343567
+"placebo, 24 months earlier","log value, positive only",pre-case (-12..-7) vs reference (-18..-13),0.06442750622213927,0.03677024803973961,1343567
+"placebo, 24 months earlier","log value, positive only",petition (-6..-1) vs pre-case (-12..-7),0.062444158424958957,0.016590458604658402,1343567
+"placebo, 24 months earlier","log value, positive only",after (0..18) vs pre-case (-12..-7),0.06876717240356495,0.036930007187189744,1343567
+"placebo, 24 months earlier","log value, positive only",months 13..18 vs pre-case (-12..-7),0.036749016127075484,0.04890622637307673,1343567
+"placebo, 24 months earlier","log value, positive only",after (0..18) vs old 'before' (-12..-4),0.06235622415009936,0.03394154869164194,1343567
+"real, benchmark wholly before initiation","PPML value, zeros in",after (0..18) vs reference (-18..-13),-0.246194129449625,0.08497908872094748,1627372
+"real, benchmark wholly before initiation","PPML value, zeros in",months 13..18 vs reference (-18..-13),-0.30525605457404914,0.10395875826233886,1627372
+"real, benchmark wholly before initiation","PPML value, zeros in",pre-case (-12..-7) vs reference (-18..-13),0.022050534544114826,0.05039974055854831,1627372
+"real, benchmark wholly before initiation","PPML value, zeros in",petition (-6..-1) vs pre-case (-12..-7),0.009149125956338731,0.022875231061679196,1627372
+"real, benchmark wholly before initiation","PPML value, zeros in",after (0..18) vs pre-case (-12..-7),-0.2682446639937398,0.10852399832068743,1627372
+"real, benchmark wholly before initiation","PPML value, zeros in",months 13..18 vs pre-case (-12..-7),-0.32730658911816396,0.13555911827351239,1627372
+"real, benchmark wholly before initiation","PPML value, zeros in",after (0..18) vs old 'before' (-12..-4),-0.2739882870418332,0.10702520134793458,1627372
+"real, benchmark wholly before initiation",trades at all (LPM),after (0..18) vs reference (-18..-13),-0.04895203946291201,0.025946630487738924,1630167
+"real, benchmark wholly before initiation",trades at all (LPM),months 13..18 vs reference (-18..-13),-0.05255856421138147,0.029231214597606175,1630167
+"real, benchmark wholly before initiation",trades at all (LPM),pre-case (-12..-7) vs reference (-18..-13),-0.004026216808676336,0.005775279823584327,1630167
+"real, benchmark wholly before initiation",trades at all (LPM),petition (-6..-1) vs pre-case (-12..-7),0.01445812251885883,0.008176064276305375,1630167
+"real, benchmark wholly before initiation",trades at all (LPM),after (0..18) vs pre-case (-12..-7),-0.04492582265423568,0.02534944374234722,1630167
+"real, benchmark wholly before initiation",trades at all (LPM),months 13..18 vs pre-case (-12..-7),-0.04853234740270513,0.02859834663979012,1630167
+"real, benchmark wholly before initiation",trades at all (LPM),after (0..18) vs old 'before' (-12..-4),-0.05190424506057104,0.024046972974052564,1630167
+"real, benchmark wholly before initiation","log value, positive only",after (0..18) vs reference (-18..-13),-0.3988381253955675,0.12814210882553922,873590
+"real, benchmark wholly before initiation","log value, positive only",months 13..18 vs reference (-18..-13),-0.44812493872515125,0.14420118478169644,873590
+"real, benchmark wholly before initiation","log value, positive only",pre-case (-12..-7) vs reference (-18..-13),-0.036660731383179546,0.025474696045323677,873590
+"real, benchmark wholly before initiation","log value, positive only",petition (-6..-1) vs pre-case (-12..-7),0.01456727816600782,0.03303498177240669,873590
+"real, benchmark wholly before initiation","log value, positive only",after (0..18) vs pre-case (-12..-7),-0.36217739401238797,0.13432917343764658,873590
+"real, benchmark wholly before initiation","log value, positive only",months 13..18 vs pre-case (-12..-7),-0.4114642073419717,0.1516011134886354,873590
+"real, benchmark wholly before initiation","log value, positive only",after (0..18) vs old 'before' (-12..-4),-0.36906966111425143,0.1288124608419539,873590
