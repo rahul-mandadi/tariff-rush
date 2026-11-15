@@ -1,22 +1,10 @@
-"""Preliminary duty rate per AD/CVD preliminary notice, read from the notice's own rate table.
+"""Read the preliminary duty rate from each notice's rate table.
 
-Commerce publishes each preliminary determination with a table of company rates in percent: an
-estimated weighted-average dumping margin (AD) or an ad valorem subsidy rate (CVD). Most tables
-end with an "All Others" row, the rate for exporters not individually examined; non-market
-economy cases instead carry a country-wide entity rate (for example "China-wide entity"). That
-row is the rate most of the country's trade faces, so it is the feature:
+Uses the rate for all other exporters, or the country-wide rate.
 
-  rate      All Others row if present, else the country-wide entity row, else the largest rate
-            in the table
-  rate_src  which of the three it came from; blank if no table was found
-  rate_max  the largest company rate in the table(s)
-
-Read from the fixed-width text the Federal Register serves (events/raw/), where each table row
-ends in its rate(s). Page markers and footnote markers are ignored. Rates above 500 percent are
-kept only if they sit on an All Others or entity row, since a bare number that large in a table is
-more often a page number than a rate.
-
-Usage:  python3 events/parse_margins.py      # from the repo root
+Reads:  events/adcvd_events.csv, events/raw/
+Writes: events/adcvd_margins.csv
+Run:    python3 events/parse_margins.py      (after events/parse_adcvd.py)
 """
 import re
 

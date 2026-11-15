@@ -1,15 +1,8 @@
-"""Figure: the same chapters, ranked on dollars and on quantity.
+"""Figure 8: chapters ranked on dollars and on quantity.
 
-Kylie Bemis asked for Fig. 4 in kilograms. The honest answer is not a redrawn ranking but a
-comparison, because neither measure is right on its own: dollars confuse a price rise with a
-volume surge (cocoa), quantity confuses a mix shift with no surge at all (pharmaceuticals).
-Showing both at once is the finding.
-
-Deliberately no colour split by "is this a tariff story". That was a judgement call in the
-presentation version and it did not hold up when she looked at it. Interpretation belongs in
-the text, where it can be hedged; the figure shows what was measured.
-
-Usage:  python3 slides/fig_units.py      # from the repo root
+Reads:  eda/chapter_month_qty.csv
+Writes: slides/fig/08_units.png
+Run:    python3 slides/fig_units.py
 """
 import matplotlib
 matplotlib.use("Agg")

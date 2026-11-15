@@ -1,16 +1,8 @@
-"""How much of a chapter does each tariff action actually touch?
+"""How much of a 2-digit chapter's imports each tariff list actually names.
 
-The earlier analysis treated a whole HS chapter as treated whenever an action named
-anything inside it. If an action names five HS8 lines out of four hundred, the chapter
-series is mostly untreated trade and any real response is averaged away. That is the
-dilution the HS8 panel exists to remove, and this measures it in dollars rather than
-in line counts: a chapter can have few lines named and still be nearly fully covered
-if those lines carry the value.
-
-Reads the HS8 panel and coverage/product_lines.csv. Value shares are computed over a
-reference window so they describe the trade mix before the tariffs, not after.
-
-Usage:  python3 coverage_share.py [--ref 2017]
+Reads:  coverage/product_lines.csv, panel/hs8/
+Writes: coverage/coverage_share.csv
+Run:    python3 coverage_share.py
 """
 import glob, sys, os
 import pandas as pd

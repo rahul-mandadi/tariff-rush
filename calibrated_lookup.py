@@ -1,23 +1,8 @@
-"""Calibrated lookup: the second-decision-point models (prediction_stage2.py) as a table a sourcing
-team can read, "of 100 products like yours, about N came back".
+"""Turn the fall-time and vote-time forecasts into a lookup table (Table A1).
 
-Calibration: the held-out predictions run high in places. For each test year Y, a Platt scaling
-(logistic regression on the logit of the model's probability) is fitted only on held-out predictions
-of earlier years whose month 18 had been published before January of Y (at least 50 products), and
-applied to year Y. Earlier test years have too little published history and stay uncalibrated. Compared on the years
-that can be calibrated: Brier score and calibration by predicted tercile, raw against calibrated.
-
-Lookup cells, using facts visible at each decision:
-  at the fall      the targeted supplier's pre-case imports (12 months, k -18..-7) under $1M, $1M to
-                   $10M, over $10M; and the preliminary duty rate missing, up to 25 percent, over 25
-  at the ITC vote  the latest published share against the pre-case level (under half, half to
-                   four-fifths, four-fifths or more); and the vote (duty confirmed or lifted)
-Each cell: held-out products and cases, the model's average prediction, and the share that actually
-came back. The cells use the uncalibrated prediction, because the calibration test above made later
-years worse once it was restricted to labels already published. Cells with fewer than 20 products or 5 cases are marked too few.
-Episode-weighted, as everywhere else.
-
-Usage:  python3 calibrated_lookup.py      # after prediction_stage2.py
+Reads:  prediction_stage2_features.csv, prediction_stage2_heldout.csv, prediction_stage2_years.csv
+Writes: calibrated_lookup.csv, calibrated_lookup_eval.csv
+Run:    python3 calibrated_lookup.py      (after prediction_stage2.py)
 """
 import numpy as np
 import pandas as pd

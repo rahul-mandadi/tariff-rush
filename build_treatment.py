@@ -1,22 +1,8 @@
-"""Resolve each tariff event to the panel cells it actually treats.
+"""Match each broad tariff action to the products and countries it covers (Report 1).
 
-Three mechanisms, because the orders are written three different ways, and they do not
-carry the same amount of dilution:
-
-  ENUMERATED     the order lists HS8 subheadings. Exact match, no dilution.
-  COUNTRY_WIDE   IEEPA hits everything from a partner. Also exact: every product from
-                 that origin is treated, so there is no product dilution either.
-  MATERIAL_CLASS Section 232 names a material, not a list. Resolved to chapters, so this
-                 is the one group that still carries dilution and is reported separately.
-
-Dates come from events/tariff_events_dates.csv, which corrected 17 impossible effective
-dates. The announcement-to-effective window is the period a rush could happen in.
-
-Outputs
-  events_resolved.csv   one row per event x partner, with mechanism and dates
-  event_products.csv    one row per enumerated event x HS8 line
-
-Usage:  python3 build_treatment.py
+Reads:  events/tariff_events.csv, events/tariff_events_dates.csv, coverage/product_lines.csv
+Writes: events_resolved.csv, event_products.csv
+Run:    python3 build_treatment.py
 """
 import re
 import pandas as pd

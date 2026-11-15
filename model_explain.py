@@ -1,35 +1,20 @@
-"""Why does the month-4 forecast flag what it flags? (docs/SCOPE.md, item 2)
+"""Which inputs drive the month-4 forecast, and how (item 2).
 
-The forecast is the boosting model of prediction_landmark.py, unchanged. Fixed before running
-(2026-11-10); exploratory, because the held-out years have been looked at before.
+Permutation importance on the held-out years, and partial dependence from one model fit on all
+cases.
 
-  importance    permutation importance on held-out data: for each test year, the model trained for
-                that year is scored on that year's month-4 relationships with one input shuffled
-                (20 shuffles); importance = how much worse the Brier score gets, pooled over years,
-                each case weighted once. 90 percent ranges from 1,000 resamples of investigation
-                groups of the per-relationship change. The refit models must reproduce
-                prediction_landmark_heldout.csv, or the script stops.
-  dependence    partial dependence of the chance of coming back on the most important inputs and on
-                the duty rate, from one boosting model fitted on all cases (tuned the same way),
-                evaluated on the month-4 rows.
-
-Inputs that move together (the latest share, the depth of the fall and the months since it) share
-credit under permutation, so a small importance for one of them does not mean the information is
-unused.
-
-Writes model_importance.csv, model_partial_dependence.csv and slides/fig/22_model_explain.png.
-
-Usage:  python3 model_explain.py      # after prediction_landmark.py
+Reads:  panel/landmark_features.parquet, prediction_landmark_heldout.csv
+Writes: model_importance.csv, model_partial_dependence.csv, slides/fig/22_model_explain.png
+Run:    python3 model_explain.py      (after prediction_landmark.py)
 """
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 import numpy as np  # noqa: E402
 import pandas as pd  # noqa: E402
-from sklearn.ensemble import HistGradientBoostingClassifier  # noqa: E402
 from sklearn.inspection import partial_dependence  # noqa: E402
-from sklearn.metrics import brier_score_loss  # noqa: E402
-from sklearn.model_selection import GroupKFold  # noqa: E402
+
+import modeling as M  # noqa: E402
 
 K_HI, LAG, L_EVAL, REPEATS, B = 18, 2, 4, 20, 1000
 rng = np.random.default_rng(0)
@@ -48,27 +33,14 @@ LABEL = {"pre_share": "pre-case share", "pre_trend": "pre-case trend", "log_pre_
 D = pd.read_parquet("panel/landmark_features.parquet")
 
 
-def cv_pick(tr, grid):
-    gkf = GroupKFold(n_splits=min(5, tr.cluster.nunique()))
-    best, bp = None, None
-    for n in grid:
-        sc = []
-        for a, b in gkf.split(tr, groups=tr.cluster):
-            m = fit(n, tr.iloc[a])
-            sc.append(brier_score_loss(tr.y.iloc[b], m.predict_proba(tr.iloc[b][FEAT])[:, 1],
-                                       sample_weight=tr.w.iloc[b]))
-        if best is None or np.mean(sc) < best:
-            best, bp = np.mean(sc), n
-    return bp
+def fit(n_trees, tr):
+    return M.boosting_model(n_trees).fit(tr[FEAT], tr.y, sample_weight=tr.w)
 
 
-def fit(n, tr):
-    m = HistGradientBoostingClassifier(max_depth=2, learning_rate=0.05, max_iter=n, l2_regularization=1.0,
-                                       min_samples_leaf=40, random_state=0)
-    return m.fit(tr[FEAT], tr.y, sample_weight=tr.w)
+def tuned(tr):
+    return M.tune(tr, M.BOOSTING_GRID, M.boosting(FEAT))
 
 
-GRID = [50, 100, 200, 400]
 ref = pd.read_csv("prediction_landmark_heldout.csv", dtype={"hs8": str})
 rows, base_all = [], []
 for Y in sorted(D.year.unique()):
@@ -76,7 +48,7 @@ for Y in sorted(D.year.unique()):
     tr = D[(D.b + K_HI + LAG) < Y * 12].reset_index(drop=True)
     if te.sid.nunique() < 5 or tr.sid.nunique() < 40 or te.y.nunique() < 2:
         continue
-    m = fit(cv_pick(tr, GRID), tr)
+    m = fit(tuned(tr), tr)
     full = m.predict_proba(te[FEAT])[:, 1]
     r_ = ref[ref.year == Y].boosting.to_numpy()
     assert np.abs(full - r_).max() < 1e-9, f"refit for {Y} does not reproduce prediction_landmark"
@@ -114,7 +86,7 @@ print("\npermutation importance at month 4 (held out; Brier increase when shuffl
 print(I.round(4).to_string(index=False))
 
 # ---------------------------------------------------------------- partial dependence, one model on all cases
-mall = fit(cv_pick(D.reset_index(drop=True), GRID), D)
+mall = fit(tuned(D.reset_index(drop=True)), D)
 X4 = D[D.L == L_EVAL][FEAT]
 show = [f for f in I.feature if f not in ("L", "vote_unknown", "vote_confirmed", "vote_lifted")][:5]
 if "log_rate" not in show:

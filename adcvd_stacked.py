@@ -1,49 +1,16 @@
-"""AD/CVD aftermath on a fixed cohort that keeps zero-trade months: a stacked event study.
+"""The main measurement: what happens to the targeted country's imports after a duty.
 
-adcvd_event_study.py pools every cell-month into one regression. Its treated cohort changes with
-event time (975 cells at k = 0, 1,437 at k = 18), product-country pairs that stop trading leave
-the panel, months outside any window act as reference alongside the baseline, and companion
-notices for one case claim the same months and get dropped. archive/adcvd_cohort_check.py showed the
-headline fall is sensitive to all of that. This script rebuilds the estimate so none of it
-applies.
+Builds the cases from the duty notices, then compares the targeted country with other countries
+selling the same product in the same month, 18 months before and after the duty, with months of
+no trade counted as zero. The same cases moved 24 months earlier give the fake-date check.
 
-Design
-  episode     notices for one targeted country, initiated in the same month, with overlapping
-              products (companion AD and CVD notices) collapse to one episode, dated at the
-              first preliminary determination, k = 0.
-  notices     only affirmative preliminary determinations. EXCLUDE lists 31 notices that are
-              negative, critical-circumstances-only, administrative-review / no-shipment, or
-              circumvention notices on existing orders, each read from its own summary (review of
-              2026-11-06; the three circumvention preliminaries added 2026-11-07; the last seven
-              critical-circumstances-only notices added 2026-11-09).
-  side        critical-circumstances-only notices (CC_ONLY) never define k = 0 or an episode. They
-              are kept as dated information: events/cc_side_notices.csv holds one row per notice
-              and country (affirmative or not, read from each summary), attached to the episode of
-              the same country whose own notices name the same product in their titles, share
-              one of its product codes and were initiated on or before it (if several, the one
-              whose notices cite its case number). The forecasts read critical circumstances from the
-              episode's own notices and these side notices, each only once it was published.
-  stack       one per episode: the episode's products, the targeted country, and every rival
-              country trading those products before the case, over k = -18 to +18.
-  cohort      fixed from pre-case information only. A product-country pair is in the stack if
-              it traded at least once in k = -18 to -7 and before the case's initiation month.
-              It stays in for every later month whether or not it trades.
-  zeros       a month with no reported trade is zero. A product-month with no imports from any
-              country is dropped (the code was not in use). Months past the data end are not
-              observed and are not filled.
-  controls    rivals that are themselves named on that product by an episode with k = 0 within
-              36 months before to 18 months after are dropped from the stack.
-  estimators  PPML on value (zeros included; the coefficient is a proportional change in the
-              targeted country's expected imports against rivals of the same product and month),
-              a linear probability model on whether the pair trades at all, and OLS on log value
-              among positive months (the original outcome, for comparison only).
-              Fixed effects: stack x product x month and stack x product x country.
-              Event-time indicators for the targeted country, k = -12 to 18; k = -18 to -13 is
-              the reference. Standard errors clustered on investigation groups (episodes sharing
-              an initiation month and products, i.e. one petition across countries).
-  placebo     the same stacks with k = 0 moved 24 months earlier.
+Reads:  events/adcvd_events.csv, events/adcvd_products.csv, events/adcvd_index.json, panel/hs8/
+Writes: adcvd_episodes_collapsed.csv (the cases), adcvd_stacked.csv, adcvd_stacked_paths.csv,
+        adcvd_stacked_transitions.csv, events/cc_side_notices.csv, panel/adcvd_stacks_*.parquet
+Run:    python3 adcvd_stacked.py      (about 10 to 40 minutes)
 
-Usage:  python3 adcvd_stacked.py
+Note: EXCLUDE and CC_ONLY list notices that start no new duty; each was read by hand.
+Design notes: docs/METHODS.md.
 """
 import glob
 import json

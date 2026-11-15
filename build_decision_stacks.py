@@ -1,20 +1,12 @@
-"""Comparison panels for the prediction tests, built only from what was known at the decision.
+"""Comparison panels limited to what was known on each decision date, for the forecasts.
 
-adcvd_stacked.py drops rival countries that another case names on the same product from 36 months
-before to 18 months after the duty. That is right for measuring the aftermath, but a forecaster at
-the fall or at the ITC vote could not know about cases filed later. Here a rival is left out only
-if its own first preliminary was published on or before this episode's first preliminary (exact
-dates, not months), and the products are only those named in notices published by that date, not
-ones a later companion notice adds. Both are known at every later decision point and both rules are
-asserted below. Everything a prediction test uses (the visible share path,
-whether a product has fallen, the trade features and the outcome labels) is computed on these
-panels; the descriptive results keep adcvd_stacked.py's panels.
+A rival country is left out only if its own duty was public by the case's first preliminary, and
+products count only if named by then.
 
-Writes panel/adcvd_stacks_decision.parquet (ignored by git, rebuilt here) and the outcome files
-recovery_pairs_decision_fall20.csv (H = 18) and s301_adcvd_pairs_h16_decision.csv (H = 16), with
-recovery_lib.categorize, the rule recovery_benchmark.py uses.
-
-Usage:  python3 build_decision_stacks.py      # from the repo root
+Reads:  everything adcvd_stacked.py reads (it imports that script)
+Writes: panel/adcvd_stacks_decision.parquet, recovery_pairs_decision_fall20.csv,
+        s301_adcvd_pairs_h16_decision.csv
+Run:    python3 build_decision_stacks.py      (after adcvd_stacked.py)
 """
 import sys
 

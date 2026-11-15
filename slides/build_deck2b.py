@@ -1,22 +1,8 @@
-"""Build the Presentation 2 resubmission (v2) as an editable .pptx.
+"""Build Presentation 2 (resubmission) as an editable .pptx.
 
-Same deck as slides/build_deck2.py (which built the version submitted on 2026-11-06 and is kept
-unchanged), with the results replaced by the November corrections in FINAL_REPORT.md:
-
-  slide 5   new: the public evidence that importers make this decision
-  slide 6   method now says months with no trade count as zero, and how many notices were read
-  slide 6   the aftermath split by whether the duty became permanent (fig 12), replacing "the
-            targeted country does not bounce back" and its "42 percent above its usual level"
-  slide 7   new: what happened to each targeted product within 18 months (fig 14)
-  slide 9   notes: the antidumping result points the same way in physical quantity
-  slide 10  discussion rewritten to the corrected numbers
-  slide 11  checks: quantity, and the 31 notices removed
-  slide 12  the monthly forecast (fig 19), with the latest-share baseline on the slide
-  slide 13  the month-4 review queue (fig 20) and the next step; the lookup stays in the final deck
-
-Every number traces to FINAL_REPORT.md. Style and helpers are build_deck2.py's, unchanged.
-
-Usage:  python3 slides/build_deck2b.py      # from the repo root
+Reads:  slides/fig/
+Writes: slides/Mandadi_Khalsa_Presentation2_v2.pptx
+Run:    python3 slides/build_deck2b.py
 """
 from pptx import Presentation
 from pptx.util import Inches, Pt

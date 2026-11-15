@@ -1,19 +1,8 @@
-"""The stacked AD/CVD aftermath, on physical quantity instead of dollar value.
+"""The main measurement again, on physical quantity instead of dollars.
 
-Kylie asked whether the data are inflation-adjusted. In the within-product design a price change
-shared by every supplier cancels, but a price change specific to the targeted country does not:
-if the duty makes the targeted exporter cut its price, value falls even when tonnage holds. This
-reruns adcvd_stacked.py's estimator on quantity, and on value for exactly the same rows, so the two
-can be compared on one sample.
-
-A stack's product is kept only if every trading row in its window reports quantity in one unit,
-the same unit for every country and month (qty_ok in the panel, one unit across the product's
-ten-digit lines). A month with no trade is zero quantity, as for value.
-
-Reads panel/adcvd_stacks_real.parquet and panel/adcvd_stacks_placebo.parquet, written by
-adcvd_stacked.py.
-
-Usage:  python3 adcvd_stacked_qty.py
+Reads:  panel/adcvd_stacks_real.parquet, panel/adcvd_stacks_placebo.parquet, panel/hs8/
+Writes: adcvd_stacked_qty.csv, adcvd_stacked_qty_paths.csv
+Run:    python3 adcvd_stacked_qty.py      (after adcvd_stacked.py)
 """
 import glob
 import sys

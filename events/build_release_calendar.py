@@ -1,14 +1,7 @@
-"""Census release date of each month's detailed trade data (FT-900), for "published by the decision".
+"""The date Census published each month's trade data, so forecasts use only released months.
 
-Source: ALFRED (St. Louis Fed), vintage dates of series BOPGSTB, the trade balance published in each
-FT-900 release (https://alfred.stlouisfed.org/series?seid=BOPGSTB, read 2026-11-07). Each release adds
-one new data month, in order. ALFRED has no vintage for the March 2020 release; it was May 5, 2020
-(BEA 20-21 / CB 20-66, archived on FRASER as bea_newsreleases_20200505). Gaps in the list are real:
-no release in January 2019 or October 2025 (federal shutdowns), with catch-up releases after.
-Months before October 2014 are assumed released on day 5 of month m + 2; no decision in the
-project depends on them.
-
-Usage:  python3 events/build_release_calendar.py      # writes census_release_calendar.csv
+Writes: census_release_calendar.csv
+Run:    python3 events/build_release_calendar.py
 """
 import pandas as pd
 

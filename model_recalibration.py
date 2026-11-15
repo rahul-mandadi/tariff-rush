@@ -1,43 +1,24 @@
-"""Can the month-4 forecast's probabilities be fixed using earlier years only? (calibration fix)
+"""Correct the month-4 chances using earlier years only (item 7).
 
-model_calibration.py found the forecast too pessimistic at month 4: it predicts a 19 percent chance of
-coming back on average where 26 percent came back, most of the gap in the middle of the range. This
-recalibrates it without touching the test years. Fixed before running (2026-11-15); exploratory,
-because the held-out years have been looked at before.
+Each test year's model is recalibrated on its own training years (Platt scaling) and scored on
+the test year. The order within a year does not change, so the review list does not either.
 
-  method      for each test year, the boosting model of prediction_landmark.py (same training cases,
-              same tuning, same settings) makes out-of-fold predictions on its own training cases
-              (grouped 5-fold by investigation group, the number of trees fixed at the value tuned on
-              the whole training set). A logistic recalibration (Platt scaling: the outcome on the
-              log-odds of the prediction, each case weighted once) is fitted to those out-of-fold
-              predictions and applied to the test year's predictions.
-              primary    fitted on the training cases' month-4 rows
-              secondary  fitted on all checkpoints 3 to 14 (reported, not used to choose)
-  scored      at month 4, held out 2020 to 2025: mean predicted against realized, calibration slope,
-              Brier score (and its change from the raw model), AUC, reliability in five bins, and the
-              same by thirds of pre-case size; 90 percent ranges from 1,000 resamples of
-              investigation groups. The recalibration preserves the order of predictions within a test
-              year, and every review queue lies within one year, so the review ranking cannot change.
-              AUC, which pools all years, can move slightly, because each year gets its own
-              recalibration. (Corrected after the first run, which showed AUC 0.795 to 0.790.)
-  check       the raw predictions must reproduce prediction_landmark_heldout.csv, or the script stops.
-
-Writes model_recalibration.csv, model_recalibration_heldout.csv and slides/fig/24_recalibration.png.
-
-Usage:  python3 model_recalibration.py      # after prediction_landmark.py
+Reads:  panel/landmark_features.parquet, prediction_landmark_heldout.csv
+Writes: model_recalibration.csv, model_recalibration_heldout.csv, slides/fig/24_recalibration.png
+Run:    python3 model_recalibration.py      (after prediction_landmark.py)
 """
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 import numpy as np  # noqa: E402
 import pandas as pd  # noqa: E402
-from sklearn.ensemble import HistGradientBoostingClassifier  # noqa: E402
 from sklearn.linear_model import LogisticRegression  # noqa: E402
 from sklearn.metrics import brier_score_loss, roc_auc_score  # noqa: E402
 from sklearn.model_selection import GroupKFold  # noqa: E402
 
+import modeling as M  # noqa: E402
+
 K_HI, LAG, L_EVAL, B = 18, 2, 4, 1000
-GRID = [50, 100, 200, 400]
 rng = np.random.default_rng(0)
 FEAT = ["pre_share", "pre_trend", "log_pre_value", "hhi", "n_rivals", "log_rate", "rate_missing", "crit",
         "both", "china", "k_fall", "since_fall", "depth", "latest", "slope", "zero_months", "rush",
@@ -45,30 +26,8 @@ FEAT = ["pre_share", "pre_trend", "log_pre_value", "hhi", "n_rivals", "log_rate"
 D = pd.read_parquet("panel/landmark_features.parquet")
 
 
-def fit(n, tr):
-    m = HistGradientBoostingClassifier(max_depth=2, learning_rate=0.05, max_iter=n, l2_regularization=1.0,
-                                       min_samples_leaf=40, random_state=0)
-    return m.fit(tr[FEAT], tr.y, sample_weight=tr.w)
-
-
-def cv_pick(tr):
-    gkf = GroupKFold(n_splits=min(5, tr.cluster.nunique()))
-    best, bp = None, None
-    for n in GRID:
-        sc = [brier_score_loss(tr.y.iloc[b], fit(n, tr.iloc[a]).predict_proba(tr.iloc[b][FEAT])[:, 1],
-                               sample_weight=tr.w.iloc[b]) for a, b in gkf.split(tr, groups=tr.cluster)]
-        if best is None or np.mean(sc) < best:
-            best, bp = np.mean(sc), n
-    return bp
-
-
-def logit(p):
-    p = np.clip(p, 1e-4, 1 - 1e-4)
-    return np.log(p / (1 - p)).reshape(-1, 1)
-
-
-def platt(p, y, w):
-    return LogisticRegression(C=1e6, max_iter=1000).fit(logit(p), y, sample_weight=w)
+def fit(n_trees, tr):
+    return M.boosting_model(n_trees).fit(tr[FEAT], tr.y, sample_weight=tr.w)
 
 
 ref = pd.read_csv("prediction_landmark_heldout.csv")
@@ -78,20 +37,20 @@ for Y in sorted(D.year.unique()):
     tr = D[(D.b + K_HI + LAG) < Y * 12].reset_index(drop=True)
     if te.sid.nunique() < 5 or tr.sid.nunique() < 40 or te.y.nunique() < 2:
         continue
-    n = cv_pick(tr)
+    n = M.tune(tr, M.BOOSTING_GRID, M.boosting(FEAT))
     raw = fit(n, tr).predict_proba(te[FEAT])[:, 1]
     assert np.abs(raw - ref[ref.year == Y].boosting.to_numpy()).max() < 1e-9, f"raw {Y} differs"
     oof = np.zeros(len(tr))
     for a, b in GroupKFold(n_splits=min(5, tr.cluster.nunique())).split(tr, groups=tr.cluster):
         oof[b] = fit(n, tr.iloc[a]).predict_proba(tr.iloc[b][FEAT])[:, 1]
     t4 = (tr.L == L_EVAL).to_numpy()
-    cal4 = platt(oof[t4], tr.y[t4], tr.w[t4])
-    calall = platt(oof, tr.y, tr.w)
+    cal4 = M.platt(oof[t4], tr.y[t4], tr.w[t4])
+    calall = M.platt(oof, tr.y, tr.w)
     p = te[["sid", "hs8", "cluster", "year", "b", "L", "y", "log_pre_value"]].copy()
     p["w"] = 1.0 / te.groupby(["sid", "L"]).sid.transform("size")
     p["raw"] = raw
-    p["calibrated"] = cal4.predict_proba(logit(raw))[:, 1]
-    p["calibrated_all_checkpoints"] = calall.predict_proba(logit(raw))[:, 1]
+    p["calibrated"] = cal4.predict_proba(M.log_odds(raw))[:, 1]
+    p["calibrated_all_checkpoints"] = calall.predict_proba(M.log_odds(raw))[:, 1]
     out.append(p[p.L == L_EVAL])
     print(f"  {Y}: training out-of-fold at month 4 predicted {np.average(oof[t4], weights=tr.w[t4]):.3f}, "
           f"realized {np.average(tr.y[t4], weights=tr.w[t4]):.3f}")
@@ -105,7 +64,7 @@ COLS = ["raw", "calibrated", "calibrated_all_checkpoints"]
 def stats(g):
     r = {}
     for c in COLS:
-        lr = LogisticRegression(C=1e6, max_iter=1000).fit(logit(g[c].to_numpy()), g.y, sample_weight=g.w)
+        lr = LogisticRegression(C=1e6, max_iter=1000).fit(M.log_odds(g[c].to_numpy()), g.y, sample_weight=g.w)
         r[c] = dict(mean_pred=np.average(g[c], weights=g.w), slope=lr.coef_[0][0],
                     brier=brier_score_loss(g.y, g[c], sample_weight=g.w),
                     auc=roc_auc_score(g.y, g[c], sample_weight=g.w) if g.y.nunique() > 1 else np.nan)

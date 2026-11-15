@@ -10,6 +10,10 @@ import pandas as pd
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 os.chdir(ROOT)
+import sys  # noqa: E402
+
+sys.path.insert(0, ROOT)
+import modeling as M  # noqa: E402
 
 
 def _fn(path, name, ns=None):
@@ -24,17 +28,19 @@ def _fn(path, name, ns=None):
 
 
 def test_review_rule_is_the_same_in_every_script():
-    # review_queue.py's rule (weights all one) against the copies in the study scripts
-    base = _fn("review_queue.py", "reviewed")
-    copies = [_fn("feature_ladder.py", "reviewed"), _fn("review_queue_curves.py", "reviewed")]
+    # the shared rule (modeling.py) against the one copy kept on purpose: frozen_forecast_check.py,
+    # whose code is part of the frozen forecast's record and is not edited
+    shared = M.review_shares
+    frozen = _fn("frozen_forecast_check.py", "reviewed")
     r = np.random.default_rng(1)
     for _ in range(200):
         n = int(r.integers(1, 30))
         s = np.round(r.random(n), 1)  # rounding makes ties
         cap = float(r.choice([0.05, 0.1, 0.2, 0.3, 0.5]))
-        want = base(s, np.ones(n), cap)
-        for f in copies:
-            assert np.allclose(f(s, cap), want)
+        want = shared(s, cap)
+        assert np.allclose(frozen(s, cap), want)
+        assert np.allclose(shared(s, cap, np.ones(n)), want)  # unweighted equals weights of one
+        assert np.isclose(want.sum(), cap * n)  # exactly the capacity is reviewed
 
 
 def test_ladder_step_c_is_the_current_model():
@@ -98,7 +104,7 @@ def test_recalibration_changes_probabilities_not_the_ranking():
     for _, g in R.groupby("year"):  # order preserved within each test year
         a, b = g.raw.rank(method="min").to_numpy(), g.calibrated.rank(method="min").to_numpy()
         assert (a == b).all()
-    rev = _fn("review_queue_curves.py", "reviewed")
+    rev = M.review_shares
     R["queue"] = R.b + 4
     for col in ["raw", "calibrated"]:
         r = np.zeros(len(R))

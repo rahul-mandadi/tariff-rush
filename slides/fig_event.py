@@ -1,19 +1,8 @@
-"""Figure: what happens to the named country's imports around an antidumping case.
+"""Figure 10: imports from the targeted country around an antidumping duty (Report 1 version).
 
-k = 0 is the month duties start being collected; the baseline is k in [-18,-13]. Product-month
-and product-origin fixed effects mean each point is the named country relative to other suppliers
-of the same product in the same month, not a level series.
-
-The shape matters more than any single number, and it is not the one we expected. Imports from
-the named country are already about 37 percent above baseline a year out and still climbing to
-k = -5. They then fall steadily, cross baseline two months after duties start, and stay there.
-
-Two readings follow. There is no rush: the decline begins long before the duty, which fits the
-fact that these duties can be applied retroactively to the initiation notice, so buying ahead
-buys nothing. And the elevated pre-period is not noise, it is part of the story, because a surge
-in imports is often what triggers the petition in the first place.
-
-Usage:  python3 slides/fig_event.py      # from the repo root
+Reads:  adcvd_event_study.csv, adcvd_event_study_placebo.csv
+Writes: slides/fig/10_event.png, or slides/fig/10_event_plain.png with --plain (deck wording)
+Run:    python3 slides/fig_event.py [--plain]
 """
 import matplotlib
 matplotlib.use("Agg")

@@ -1,65 +1,21 @@
-"""A review queue for a sourcing analyst: which tariff-hit product-country relationships to look at first?
+"""Rank each month's falling, not-yet-back relationships for review, and test the ranking.
 
-Proposed use (not validated with users). A sourcing analyst can review only some of the product-country
-relationships hit by antidumping or countervailing duties, and wants to start with those whose trade
-decline is likely to persist. The output ranks relationships for review alongside the company's own
-supplier information. It predicts the supplier country's recovery in the product (its share of U.S.
-imports of that product), not whether any one supplier fails.
+Each calendar month's month-4 relationships form one list. A team reviews an assumed 20 percent
+(also 10 and 30). Measures: the share of reviewed relationships still not back at month 18, and
+the share of all of those it caught, for the forecast, the latest share and a random order.
 
-Rules, fixed before the results were seen (2026-11-09)
-
-  checkpoint   month 4 after the duty starts (landmark L = 4 of prediction_landmark.py). Data visible
-               through month 2, or less when a Census release slipped (census_release_calendar.csv).
-  population   the landmark model's eligible products at L = 4: the fall is already visible (share
-               below four-fifths of its pre-case level, smoothed, by the last visible month) and the
-               product has not visibly come back. Products that never fell, or fell and were already
-               back by then, are not in the queue.
-  queue        one queue per decision month (the calendar month k = 4): only relationships at their
-               month-4 checkpoint in that same month are ranked against each other. No later case
-               enters an earlier queue.
-  predictions  the held-out predictions in prediction_landmark_heldout.csv, unchanged: forward-chained
-               by year of k = 0, each model trained only on cases whose month 18 was published before
-               the test year, features limited to what was published by the decision date.
-  target       remains down: not back at or above the pre-case share for three months running by
-               month 18 (y = 0 in the held-out file).
-  rankings     forecast   gradient boosting, the month-4 model of Table 3 (primary); logistic is
-                          reported alongside it, not used to choose.
-               latest     the latest published share over its pre-case level, lowest first: what an
-                          analyst reads off Census data without a model (the landmark "share only"
-                          benchmark is a monotone function of it at a fixed landmark).
-               history    the training cases' recovery rate at month 4. It is one number for every
-                          relationship in a queue, so ranking by it is a random order: its expected
-                          result is the queue's own rate of persistent declines.
-  capacity     20 percent of each queue (primary); 10 and 30 percent as sensitivity checks. These
-               are assumed review capacities, not documented company budgets. A queue of n gets
-               c x n reviews; where the boundary falls inside one relationship, that relationship
-               counts as reviewed in part (the expected value of a random tie-break).
-  ties         relationships with equal scores share the remaining capacity equally (a block of
-               k tied relationships with m reviews left gives each m / k). This matters for the
-               latest share, where several relationships can sit at exactly zero.
-  weighting    each relationship counts once: it is the unit an analyst reviews. One case naming
-               many products can dominate a queue, so intervals resample whole investigation groups.
-               A case-weighted version (each case's eligible products share one unit) is reported as
-               a check, and so (added after the first results) is a run without the largest
-               investigation group, which holds nearly half the relationships.
-  measures     precision: share of reviewed relationships that remain down. Capture: share of all
-               persistent declines in the queues that were reviewed. Differences between rankings
-               with 90 percent intervals from 1,000 resamples of investigation groups (whole groups
-               drawn with replacement, queues rebuilt, fitted predictions held fixed).
-  decision     the forecast replaces the latest share as the ranking only if, at 20 percent capacity,
-               its precision is higher with the 90 percent interval above zero. Otherwise the latest
-               share is the ranking, and the historical rate is reported as the benchmark it is.
-
-Writes review_queue_eval.csv and review_queue_watchlist.csv (every held-out month-4 queue, ranked
-by the chosen method; the report shows one month as an example).
-
-Usage:  python3 review_queue.py      # after prediction_landmark.py
+Reads:  prediction_landmark_heldout.csv, adcvd_episodes_collapsed.csv, events/adcvd_index.json,
+        panel/hs8/2024-06.parquet (country names)
+Writes: review_queue_eval.csv, review_queue_watchlist.csv
+Run:    python3 review_queue.py      (after prediction_landmark.py)
 """
 import json
 import re
 
 import numpy as np
 import pandas as pd
+
+import modeling as M
 
 L, CAPS, PRIMARY, B = 4, [0.2, 0.1, 0.3], 0.2, 1000
 rng = np.random.default_rng(0)
@@ -79,30 +35,13 @@ RANKS = {"forecast (boosting)": "s_forecast", "logistic": "s_logistic", "latest 
          "historical rate": "s_history"}
 
 
-def reviewed(score, w, cap):
-    """Review share in [0, 1] for each row of one queue: fill c x total weight in score order;
-    tied scores share what is left equally."""
-    score, w = np.asarray(score, float), np.asarray(w, float)
-    left = cap * w.sum()
-    r = np.zeros(len(score))
-    for v in np.unique(score)[::-1]:
-        idx = np.where(score == v)[0]
-        need = w[idx].sum()
-        if left <= 0:
-            break
-        take = min(1.0, left / need)
-        r[idx] = take
-        left -= take * need
-    return r
-
-
 def evaluate(D, cap, wcol=None):
     out = {}
     w_all = D[wcol].to_numpy() if wcol else np.ones(len(D))
     for name, col in RANKS.items():
         r = np.zeros(len(D))
         for _, ix in D.groupby("queue").indices.items():
-            r[ix] = reviewed(D[col].to_numpy()[ix], w_all[ix], cap)
+            r[ix] = M.review_shares(D[col].to_numpy()[ix], cap, w_all[ix])
         rw, dn = r * w_all, D.down.to_numpy()
         out[name] = (float((rw * dn).sum() / rw.sum()), float((rw * dn).sum() / (w_all * dn).sum()))
     return out

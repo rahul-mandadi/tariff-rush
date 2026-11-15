@@ -1,58 +1,22 @@
-"""Feature ladder at month 4: where does the forecast's information come from? (docs/SCOPE.md, item 1)
+"""Retrain the month-4 model five times, adding one group of inputs each time (methodology item 1).
 
-The month-4 model is retrained five times, each time with one more group of inputs, and every version
-is scored the same way. Everything else is exactly as in prediction_landmark.py: one model pooled
-over checkpoints 3 to 14, the same forward-chained test years, the same rule for which training
-cases are allowed, the same tuning grids and models, each case counted once per checkpoint. Only the
-inputs change. Rules fixed before any step was run (2026-11-10); every step is reported whatever it
-shows; results are exploratory, because the held-out years have been looked at before.
+Steps: (a) facts about the case, (b) plus the latest share, (c) plus how the fall has gone (the
+current model), (d) plus other countries' pickup, (e) plus rivals already under a duty. Each step
+is scored on the review list, Brier score and AUC, on the held-out years.
 
-Steps (each adds to the one before)
-  a  case facts known by the decision date: pre-case share, its trend, pre-case size (log value),
-     market concentration, number of rival suppliers, duty rate and its missing flag, critical
-     circumstances, both kinds of duty, China
-  b  + the latest published share over its pre-case level
-  c  + how the fall has gone: month of the fall, months since, depth, recent slope, share of months
-     with no imports, pre-case rush, unit-value change and its missing flag.  This is the current
-     model; the script stops unless step c reproduces prediction_landmark_heldout.csv exactly.
-  d  + other countries' pickup, from all countries' imports of the product (including countries left
-     out of the comparison group), comparing the visible months after the duty (0 to kv) with the
-     same calendar months a year earlier (so seasons cancel):
-       rival_growth  log change in every other country's imports of the product
-       total_growth  log change in the product's total U.S. imports
-     Together they say whether the lost volume moved to other countries or disappeared.
-  e  + dutied_rivals: the share of rivals' pre-case imports (months -18 to -7) that came from
-     countries already facing their own duty on the same product by the decision date (their first
-     preliminary published by the end of month 3, products named at that preliminary)
-  Every step also carries the checkpoint inputs the pooled model needs (the month L and the three
-  ITC-vote indicators). At month 4 the vote is never public, so those are constant there.
-
-Scoring at month 4 (held-out years 2020 to 2025)
-  main     share of reviewed relationships not back by month 18, reviewing 20 percent of each
-           calendar month's queue (review_queue.py's rule: ties share reviews, each relationship
-           counts once); also the share of all persistent declines reviewed
-  others   Brier score and AUC, each case weighted once (as prediction_landmark.py)
-  ranges   90 percent, from 1,000 resamples of investigation groups, fitted models held fixed;
-           differences against the latest-share ranking and against the previous step
-
-Writes feature_ladder.csv and feature_ladder_heldout.csv (every step's held-out predictions at
-every checkpoint, for items 3, 4 and 6).
-
-Limit: duties from before 2015 are not in the notice table, so step e misses rivals under older orders.
-
-Usage:  python3 feature_ladder.py      # after prediction_landmark.py
+Reads:  panel/landmark_features.parquet, panel/hs8/, adcvd_episodes_collapsed.csv,
+        prediction_landmark_heldout.csv
+Writes: feature_ladder.csv, feature_ladder_heldout.csv
+Run:    python3 feature_ladder.py      (after prediction_landmark.py; stops if step c does not
+        reproduce prediction_landmark_heldout.csv)
 """
 import re
 
 import numpy as np
 import pandas as pd
-from sklearn.ensemble import HistGradientBoostingClassifier
-from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import brier_score_loss, roc_auc_score
-from sklearn.model_selection import GroupKFold
-from sklearn.pipeline import make_pipeline
-from sklearn.preprocessing import StandardScaler
 
+import modeling as M
 import recovery_lib as RL
 
 K_HI, LAG, L_EVAL, CAP, B = 18, 2, 4, 0.2, 1000
@@ -110,33 +74,7 @@ print(f"month-4 rows {len(m4):,}: rival_growth median {m4.rival_growth.median():
 
 
 # ---------------------------------------------------------------- models, exactly as prediction_landmark.py
-def cv_pick(tr, grid, make, feat):
-    gkf = GroupKFold(n_splits=min(5, tr.cluster.nunique()))
-    best, bp = None, None
-    for p in grid:
-        sc = []
-        for a, b in gkf.split(tr, groups=tr.cluster):
-            pr = make(p, tr.iloc[a], feat)(tr.iloc[b])
-            sc.append(brier_score_loss(tr.y.iloc[b], pr, sample_weight=tr.w.iloc[b]))
-        if best is None or np.mean(sc) < best:
-            best, bp = np.mean(sc), p
-    return bp
-
-
-def logit_make(Cc, tr, feat):
-    m = make_pipeline(StandardScaler(), LogisticRegression(C=Cc, max_iter=3000))
-    m.fit(tr[feat], tr.y, logisticregression__sample_weight=tr.w)
-    return lambda te: m.predict_proba(te[feat])[:, 1]
-
-
-def gbm_make(n, tr, feat):
-    m = HistGradientBoostingClassifier(max_depth=2, learning_rate=0.05, max_iter=n, l2_regularization=1.0,
-                                       min_samples_leaf=40, random_state=0)
-    m.fit(tr[feat], tr.y, sample_weight=tr.w)
-    return lambda te: m.predict_proba(te[feat])[:, 1]
-
-
-MODELS = {"logistic": (logit_make, [0.03, 0.1, 0.3, 1.0]), "boosting": (gbm_make, [50, 100, 200, 400])}
+MODELS = {"logistic": (M.logistic, M.LOGISTIC_GRID), "boosting": (M.boosting, M.BOOSTING_GRID)}
 preds = []
 for Y in sorted(D.year.unique()):
     te = D[D.year == Y]
@@ -147,8 +85,9 @@ for Y in sorted(D.year.unique()):
     p["w"] = 1.0 / te.groupby(["sid", "L"]).sid.transform("size")
     for step, cols in STEPS.items():
         feat = cols + CTX
-        for name, (make, grid) in MODELS.items():
-            p[f"{step} | {name}"] = make(cv_pick(tr, grid, make, feat), tr, feat)(te)
+        for name, (maker, grid) in MODELS.items():
+            make = maker(feat)
+            p[f"{step} | {name}"] = make(M.tune(tr, grid, make), tr)(te)
     preds.append(p)
     print(f"  test {Y}: {te.sid.nunique()} cases, {len(te):,} rows")
 P = pd.concat(preds, ignore_index=True)
@@ -164,25 +103,12 @@ print("check passed: step c reproduces prediction_landmark_heldout.csv")
 
 
 # ---------------------------------------------------------------- scoring at month 4
-def reviewed(score, cap):
-    score = np.asarray(score, float)
-    left, r = cap * len(score), np.zeros(len(score))
-    for v in np.unique(score)[::-1]:
-        idx = np.where(score == v)[0]
-        if left <= 0:
-            break
-        take = min(1.0, left / len(idx))
-        r[idx] = take
-        left -= take * len(idx)
-    return r
-
-
 def queue_measures(g, col):
     """(share of reviewed not back, share of all not-back reviewed) at CAP; col scored higher = review first."""
     down = 1 - g.y.to_numpy()
     r = np.zeros(len(g))
     for _, ix in g.groupby("queue").indices.items():
-        r[ix] = reviewed(g[col].to_numpy()[ix], CAP)
+        r[ix] = M.review_shares(g[col].to_numpy()[ix], CAP)
     return (r * down).sum() / r.sum(), (r * down).sum() / down.sum()
 
 

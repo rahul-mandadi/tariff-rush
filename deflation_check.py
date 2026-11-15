@@ -1,17 +1,9 @@
-"""Does the dollar ranking of unusual 2025 months survive deflating by import prices?
+"""Check whether the chapter ranking of unusual 2025 months holds after removing import price changes.
 
-The appendix ("Dollars and quantity at the category level") ranks chapters by how far their
-largest 2025 month sat above a line drawn from their own trend and seasonal pattern, the score of
-slides/fig_units.py, repeated here. A dollar series mixes price and volume, so this recomputes the
-score on dollars divided by the BLS import price index, for all imports (EIUIR) and for nonfuel
-imports (EIUIREXFUELS), and counts how many of the top 10 chapters stay in the top 10: over every
-product chapter with a full dollar history (96, the figure the appendix reports) and over the 63
-that also have quantity data.
-
-The two BLS series are fetched once from the public BLS API and kept in eda/bls_import_prices.csv,
-so later runs work offline.
-
-Writes deflation_check.csv.    Usage:  python3 deflation_check.py      # from the repo root
+Reads:  eda/chapter_month.csv, eda/chapter_month_qty.csv, eda/bls_import_prices.csv
+        (fetched once from the public BLS API if missing)
+Writes: deflation_check.csv
+Run:    python3 deflation_check.py
 """
 import json
 import os

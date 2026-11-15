@@ -1,28 +1,8 @@
-"""Parse antidumping and countervailing duty notices into tariff events with windows.
+"""Read each duty notice: its stage, case number, country, products and dates.
 
-These are the largest source of product-specific, single-country tariff actions available,
-and the project needs them: 21 Section 232/301/IEEPA events is too few to estimate repayment,
-and their median announcement-to-effective window is days, which monthly data cannot resolve.
-An AD/CVD case runs for months between becoming public and duties being collected.
-
-What is extracted
-  case number   A-570-053 / C-580-891. Letter is the programme, middle three digits
-                Commerce's country code, so it links the stages of one case.
-  stage         initiation -> preliminary -> final -> order. The preliminary determination
-                is when duties start being collected, so it is the operative date.
-  initiation    read out of the preliminary notice's own background section, because the
-                initiation notice itself often falls outside the harvest window. Text is
-                whitespace-normalised first: the source is hard-wrapped, which splits dates
-                across lines and otherwise loses a third of them.
-  scope         HTSUS numbers in the notice, truncated to HS8 to match the panel.
-  country       from the title, which reads "<Product> From <Country>: <Action>". Titles
-                naming several countries are split, since each is a separate treatment.
-
-Outputs
-  events/adcvd_events.csv     one row per document: case, stage, country, dates, window
-  events/adcvd_products.csv   one row per document and HS8 line
-
-Usage:  python3 events/parse_adcvd.py      # from the repo root
+Reads:  events/adcvd_index.json, events/raw/, panel/hs8/2024-06.parquet (country names)
+Writes: events/adcvd_events.csv, events/adcvd_products.csv
+Run:    python3 events/parse_adcvd.py      (after events/harvest_adcvd.py)
 """
 import json, os, re
 import pandas as pd

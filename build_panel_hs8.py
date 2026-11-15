@@ -1,21 +1,11 @@
-"""Roll the HS10 month checkpoints up to the analysis grid: HS8 x partner x month.
+"""Add the 10-digit import records up to 8-digit products, the level duties are written at.
 
-HS10 is the pull level because it nests exactly under the HS8 lines the tariff
-orders name. HS8 is the analysis level because that is what the orders name.
+Reads:  panel/hs10/
+Writes: panel/hs8/ (one file per month)
+Run:    python3 build_panel_hs8.py      (after harvest_hs10.py)
 
-Quantity needs care. UNIT_QY1 is the unit native to each HS10 line, so two lines
-under the same HS8 can be measured in different units (KG and NO, say) and
-summing them would be meaningless. Where that happens the quantity is set to
-null and the cell is flagged, so those cells fall back to value rather than
-silently carrying a nonsense number.
-
-CTY_CODE "-" is a TOTAL FOR ALL COUNTRIES row sitting in the same response as
-the countries it sums. Left in, it doubles every total. Dropped and kept aside,
-it is a free reconciliation check: the 226 real partners must add back to it.
-
-Writes one parquet per month so memory stays flat and a rerun is cheap.
-
-Usage:  python3 build_panel_hs8.py
+Note: quantity is left empty where the 10-digit lines under one 8-digit product use different
+units, and the "all countries" total row is dropped (it would double every sum).
 """
 import json, gzip, os, glob, sys
 import pandas as pd

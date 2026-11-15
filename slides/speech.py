@@ -1,12 +1,7 @@
-"""The words to actually say, one entry per talk slide.
+"""The words to say for each talk slide.
 
-Single source of truth. build_deck.py puts these into the speaker notes and write_script.py
-writes slides/SCRIPT.md from them, so the deck and the script cannot drift apart. Earlier they
-were two copies and they did drift: the notes pointed at a 9:15 script that was 9:03.
-
-Written to be spoken, not read. Contractions throughout, because nobody says "it does not wait
-for July" out loud. Every figure is named by number because the communication rubric asks for
-figures to be referenced and interpreted, and in a talk that is something you say.
+build_deck.py puts them in the speaker notes and write_script.py writes slides/SCRIPT.md from
+them, so the two cannot drift apart.
 """
 
 WPM = 130          # a steady speaking pace, used for every timing in the deck

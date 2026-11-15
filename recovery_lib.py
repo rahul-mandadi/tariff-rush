@@ -1,13 +1,6 @@
-"""Shared pieces for the recovery outcomes and the at-the-fall features, so AD/CVD cases and the
-Section 301 lists go through exactly the same rules.
-
-categorize()   per targeted product: pre-case share, month of the fall, month of recovery, and the
-               four outcome categories, for any horizon H (recovery_benchmark.py uses H = 18).
-               Run on panel/adcvd_stacks_real.parquet with H = 18 it reproduces
-               recovery_pairs_real_fall20.csv (checked in sec301_benchmark.py).
-build_stack()  a stack in the format of adcvd_stacked.py for one targeted country and a product list
-fall_features() what the published data show when the fall first becomes visible (k_fall + 2),
-               the same definitions as prediction_stage2.py
+"""Shared pieces for the outcomes and the forecast inputs: the fall and recovery rules, share
+paths, case facts and how each case ended. Imported by the recovery, forecast and Section 301
+scripts.
 """
 import glob
 

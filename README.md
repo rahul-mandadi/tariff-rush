@@ -23,6 +23,7 @@ The write-up is [FINAL_REPORT.md](FINAL_REPORT.md) (built to `Mandadi_Khalsa_Fin
 | `slides/` | figure scripts (`fig/`), deck builders and decks |
 | `tests/` | `python3 -m pytest tests -q`: timing rules, report tables against the CSVs, the November 2026 fixes |
 | `archive/` | approaches tried and dropped, with why (`archive/README.md`); nothing in the final pipeline reads it |
+| `docs/SCOPE.md`, `docs/METHODS.md` | the agreed scope; the design notes behind each script, moved out of the script headers |
 | `docs/history/` | design notes, the phase-two results and the review log from earlier stages |
 | `REPORT1.md` | Report 1 as submitted (unchanged) |
 
@@ -108,7 +109,7 @@ repository root, in this order:
 
 Each script writes the CSV its numbers come from. `python3 -m pytest tests -q` checks the timing
 rules (exact-date rival exclusions, day-one product lists, monthly eligibility, training cutoffs,
-the net-benefit formula). `HANDOFF.md` traces one case and one held-out prediction end to end. `recovery_lib.py` holds the outcome rules shared
+the net-benefit formula). `HANDOFF.md` traces one case and one held-out prediction end to end. `modeling.py` holds what the forecasting scripts share (the two models and their settings, tuning, the review rule, recalibration). `recovery_lib.py` holds the outcome rules shared
 by the Section 301 and forecasting scripts; `sec301_benchmark.py` checks that it reproduces
 `recovery_benchmark.py` exactly.
 

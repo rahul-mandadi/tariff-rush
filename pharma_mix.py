@@ -1,15 +1,7 @@
-"""Why pharmaceuticals look opposite on dollars and on quantity.
+"""Why pharmaceuticals rank high on dollars and low on quantity: a shift in product mix.
 
-chapter_quantity.py ranks chapter 30 at 2.86 on dollars and -0.33 on quantity, which reads at
-first like the dollar signal was an illusion. It is not. The surge is real; it is a shift in
-product mix rather than in tonnage, and tonnage cannot see it.
-
-This matters beyond pharmaceuticals. Cocoa shows that dollars confuse a price rise with a volume
-surge. Pharmaceuticals shows that quantity confuses a mix shift with no surge at all. Neither
-measure is safe at chapter level, which is the same argument as the coverage dilution: one HS8
-line is one product with one unit, and both problems go away there.
-
-Usage:  python3 pharma_mix.py      # from the repo root
+Reads:  eda/chapter_month_qty.csv, panel/hs8/
+Run:    python3 pharma_mix.py
 """
 import numpy as np
 import pandas as pd

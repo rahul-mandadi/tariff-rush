@@ -1,18 +1,8 @@
-"""Copper, split into the part the duty taxed and the part it did not.
+"""Figure 11: copper imports split into the taxed and untaxed parts.
 
-The total copper line (01_context.png) rushes before the 2025 Section 232 duty, crashes, then
-climbs back to new highs, which reads as "borrowed": the business came back. It did not, for the
-part that was taxed. Proclamation 10962 taxed semi-finished copper (headings 7407 to 7413) and,
-in paragraph 8, left refined cathodes (74031100) untaxed as an input material. Split that way,
-the taxed series falls to about half its old level and stays there; the untaxed series is what
-recovers.
-
-One product and one action, with no placebo, so this is an illustration of the question rather
-than a result. The monthly lines are drawn in full rather than as window averages so the shape is
-visible and nothing depends on the chosen windows. Kilogram-reported rows only, as in
-copper_split.py, which prints the window averages quoted in REPORT1.md.
-
-Usage:  python3 slides/fig_copper_split.py      # from the repo root
+Reads:  panel/hs8/
+Writes: slides/fig/11_copper_split.png
+Run:    python3 slides/fig_copper_split.py
 """
 import glob
 

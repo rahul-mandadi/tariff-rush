@@ -1,18 +1,8 @@
-"""Sankey: what a tariff action actually names inside the chapter it touches.
+"""Figure 9: how much of a chapter a tariff list actually names.
 
-Kylie Bemis suggested this in the presentation on 2026-10-16, to show "what these different
-chapters are and what things are actually affected". Copper is the right case because it is the
-example the deck already uses, and because the answer is counter-intuitive: the 50 percent duty
-missed two thirds of the chapter by value.
-
-The split comes from Proclamation 10962 itself, not from a parsed annex. Paragraph 1 applies the
-duty to "semi-finished copper products and intensive copper derivative products, as set forth in
-the Annex". Paragraph 8 handles "copper input materials and high-quality copper scrap"
-separately, under the Defense Production Act, with no tariff. The annex table is not in the
-Federal Register text we hold, so headings are assigned to those two categories by their standard
-meaning and the figure says so. Treat the shares as close, not exact.
-
-Usage:  python3 slides/fig_sankey.py      # from the repo root
+Reads:  panel/hs8/ (2025 months)
+Writes: slides/fig/09_sankey.png
+Run:    python3 slides/fig_sankey.py
 """
 import glob
 

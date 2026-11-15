@@ -1,20 +1,9 @@
-"""Bounded check: which preliminaries with no linked order were negative at the ITC?
+"""Find how each case ended at the ITC: a permanent order, or rejected.
 
-A preliminary whose case numbers appear in no harvested order notice is either a case that ended
-without an order (usually a negative final injury vote at the ITC) or a harvest gap. This script
-classifies each unlinked investigation group (product family x initiation month) by searching the
-Federal Register API for (a) the ITC's final determination notice and (b) a Commerce order notice
-the harvest missed. Responses are cached in events/raw/itc_cache/ so the result can be retraced.
-
-Classes per group:
-  verified order       a Commerce order notice exists, or the ITC final is affirmative for all
-  verified negative    the ITC final determination is negative for every country named
-  mixed                the ITC final is affirmative for some countries and negative for others
-  unresolved           nothing found, or the text could not be read
-
-Descriptive only: whether a case becomes an order is itself selected.
-
-Usage:  python3 events/itc_check.py      # from the repo root
+Reads:  adcvd_episodes_collapsed.csv, events/adcvd_events.csv, events/raw/, panel/hs8/2018-01.parquet
+        (country names); downloads the ITC notices it needs once and keeps them in events/raw/itc_cache/
+Writes: events/itc_check.csv, events/itc_check_by_country.csv
+Run:    python3 events/itc_check.py      (after adcvd_stacked.py)
 """
 import json
 import os

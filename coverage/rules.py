@@ -1,16 +1,8 @@
-"""Coverage rules for tariff actions that do not enumerate product lists.
+"""Coverage rules for tariff actions that do not list products.
 
-Three authorities define scope three different ways:
-
-  Section 301   enumerates HS8 subheadings in a U.S. note. Parsed directly; see build_coverage.py.
-  Section 232   names a material or product class ("articles of aluminum"). The schedule itself
-                states the core chapters: heading 9903.82.03 reads "Except for articles
-                classifiable in chapters 72, 73, 74 or 76", which fixes the metals scope.
-                Derivatives reach beyond those chapters and are listed separately.
-  IEEPA         applies to a whole country with named carve-outs, so coverage is every chapter
-                for that partner rather than a product list.
-
-Each rule records where it comes from so it can be audited.
+Section 301 lists 8-digit products (parsed in build_coverage.py). Section 232 names a material,
+so its chapters come from the schedule's own text. IEEPA covers whole countries. Each rule records
+its source. Imported by build_coverage.py.
 """
 
 # Section 232: surcharge prefix -> core HS chapters, with the source of the assignment

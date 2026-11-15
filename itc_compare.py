@@ -1,15 +1,8 @@
-"""Aftermath for AD/CVD cases that became orders against cases the ITC voted negative.
+"""The main measurement, split by how the case ended: permanent order or rejected by the ITC.
 
-Uses the stacks and estimator from adcvd_stacked.py, split by what happened at the final stage:
-  order      the episode's case numbers appear in a harvested order notice, or events/itc_check.py
-             found an order notice or an affirmative ITC final for that country
-  negative   events/itc_check.py found a negative ITC final determination for that country
-Unresolved episodes are left out. Preliminary dated before mid-2025 and full 18-month follow-up.
-
-Descriptive only. Whether a case ends in an order is decided by the ITC on the record, which
-includes the import trend itself, so the two groups are selected, not randomly assigned.
-
-Usage:  python3 itc_compare.py      # from the repo root
+Reads:  panel/adcvd_stacks_real.parquet, events/adcvd_events.csv, events/itc_check_by_country.csv
+Writes: itc_compare.csv, itc_compare_paths.csv
+Run:    python3 itc_compare.py      (after events/itc_check.py)
 """
 import re
 import sys

@@ -1,27 +1,10 @@
-"""One held-out test: can facts known at the preliminary beat the historical recovery benchmark?
+"""The day-one forecast: can facts known when the duty starts beat the historical rate?
 
-Target, per targeted product-country pair with complete follow-up (recovery_benchmark.py):
-  bad = fell by 20 percent or more and had not recovered by k = 18 (categories "not recovered"
-  or "exited"); good = "no fall" or "recovered".
-Features, all known by the preliminary determination (k = 0), none from later months:
-  from the raw panel, every country trading the product in k -18..-7: the targeted country's
-  share, its monthly share trend (slope), log of its pre-case value, number of rival countries
-  (log), concentration of shares (HHI); from the notices published by k = 0 only: affirmative
-  critical circumstances and the preliminary duty rate (sum of the AD and CVD all-others or
-  country-wide rates, events/parse_margins.py; log of one plus the rate) with a missing
-  indicator; whether both AD and CVD investigations had been opened by the decision (RL.both_programs_known); China as the
-  targeted country.
-Model: L2-regularized logistic regression on standardized features, C chosen by grouped
-cross-validation inside the training years.
-Validation: forward-chaining by year of k = 0. Training uses only episodes whose month k = 18
-had been released by Census before the test year began, so every training label was observable
-at test time.
-Baseline: the benchmark, i.e. the episode-weighted share of bad outcomes in those training
-episodes. Every score is episode-weighted, as in recovery_benchmark.py.
-Scores: Brier score (lower is better), log loss, and AUC. The test passes only if the model's
-pooled Brier is below the benchmark's.
-
-Usage:  python3 prediction_test.py
+Reads:  recovery_pairs_decision_fall20.csv, panel/hs8/, adcvd_episodes_collapsed.csv,
+        events/adcvd_events.csv, events/adcvd_margins.csv
+Writes: prediction_test.csv, prediction_test_heldout.csv, prediction_test_bootstrap.csv,
+        prediction_test_calibration.csv, prediction_test_coef.csv
+Run:    python3 prediction_test.py      (after build_decision_stacks.py)
 """
 import glob
 

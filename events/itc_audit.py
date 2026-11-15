@@ -1,15 +1,12 @@
-"""Audit of the episodes events/itc_check.py classed as "verified negative".
+"""Re-check each case marked as rejected by the ITC against the ITC notice behind it.
 
-For each one, re-reads the cached ITC notices behind the verdict and records the evidence: the
-investigation numbers the notice covers, its issue date, and the sentence that names the country
-and carries the negative vote. Flags any case where that sentence also mentions critical
-circumstances (where "negative" can refer to retroactivity rather than injury) and any case where
-the notice's investigation numbers do not match the case numbers in our preliminary notices.
+Records the notice's investigation numbers, its date and the sentence with the vote, and flags
+cases where that sentence is about retroactive duties or the case numbers do not match.
 
-Reads only the cache in events/raw/itc_cache/; run events/itc_check.py and adcvd_stacked.py
-first.
-
-Usage:  python3 events/itc_audit.py      # from the repo root
+Reads:  events/raw/itc_cache/, events/itc_check.csv, events/itc_check_by_country.csv,
+        adcvd_episodes_collapsed.csv, events/adcvd_events.csv, panel/adcvd_stacks_real.parquet
+Writes: events/itc_negative_audit.csv
+Run:    python3 events/itc_audit.py      (after events/itc_check.py)
 """
 import json
 import os

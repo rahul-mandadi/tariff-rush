@@ -1,15 +1,7 @@
-"""Census intltrade imports, HS10 x partner x month, 2015 onward.
+"""Download monthly U.S. imports from the Census API: 10-digit product x partner country, 2015 on.
 
-HS10 is the finest published level and nests exactly under the HS8 lines the
-tariff orders are written at, so product matching is exact rather than
-approximate. GEN_QY1_MO is carried because it is only populated at this level
-and, unlike the weight fields, it counts truck and rail arrivals.
-
-One API call per month, each checkpointed to its own gzip, so a restart skips
-whatever is already on disk. Written atomically via .tmp + os.replace so an
-interrupted run never leaves a half file that looks cached.
-
-Usage:  CK=<census key> python3 harvest_hs10.py
+Writes: panel/hs10/ (one file per month; a rerun skips months already on disk)
+Run:    CK=<your Census API key> python3 harvest_hs10.py
 """
 import json, urllib.request, urllib.error, os, time, gzip, sys
 from concurrent.futures import ThreadPoolExecutor, as_completed

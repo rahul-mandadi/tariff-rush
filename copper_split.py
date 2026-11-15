@@ -1,16 +1,9 @@
-"""The copper tonnage split either side of the Section 232 duty.
+"""Copper imports in tonnes, split into the products the 2025 duty taxed and those it did not.
 
-Reported in the appendix of REPORT1.md. Committed because the figures were first computed
-interactively and nothing in the repository reproduced them, which is not a standard we want to
-apply to other people's work and not our own.
+Prints the numbers behind the copper example (Report 1 appendix).
 
-Headings 7407 to 7413 are the semi-finished products the duty names; 74031100 is refined cathodes,
-which paragraph 8 of Proclamation 10962 treats as an input material and does not tax. Both series
-count only rows reported in kilograms. Windows are stated explicitly because the result moves with
-them: a pre-action baseline of August 2024 to January 2025, the peak month of March to July 2025,
-and a settled average over March to August 2026.
-
-Usage:  python3 copper_split.py      # from the repo root
+Reads:  panel/hs8/
+Run:    python3 copper_split.py
 """
 import glob
 

@@ -1,54 +1,22 @@
-"""Does the at-the-fall recovery model learned on AD/CVD cases transfer to Section 301?
+"""Does the forecast trained on antidumping cases work on the 2018 Section 301 tariffs?
 
-Population in both domains: targeted products that fell (sec301_benchmark.py, horizon H = 16,
-complete follow-up). Target: back at or above the pre-case share for three months running by
-k = 16. Decision: the month the fall first shows in published data (k_fall + 2, later when a Census
-release slipped; census_release_calendar.csv).
+Five tests, A to E, in both directions, plus pooling the two kinds of case.
 
-Both domains use decision-time comparison panels: AD/CVD from build_decision_stacks.py, Section 301
-from the strict sample of sec301_benchmark.py (rivals left out only for cases already started).
-
-Features, as prediction_stage2.py at the fall, minus three that cannot transfer: China (always 1
-under Section 301), both AD and CVD, and critical circumstances (always 0). Kept: pre-case share,
-trend, size, rival count and concentration (every country trading in k -18..-7), the duty rate
-known at the decision (AD/CVD: notices published by then; Section 301: 25 percent for Lists 1 and
-2, 10 percent for List 3 until the May 2019 increase is public, 25 after) with a missing flag, and
-the trade so far: month of the fall, deepest and latest smoothed share, months with no trade,
-share in k -6..-1, unit-value change against rivals.
-
-Tests:
-  A  regime transfer     train on every AD/CVD case, score Section 301. Not a forecast anyone
-                         could have made in 2018, since most AD/CVD training cases come later; it
-                         asks whether the relationship carries across laws.
-  B  strict, in time     train only on AD/CVD cases whose month 16 was published before the first
-                         Section 301 decision (September 2018), score Section 301.
-  C  strict, reverse     train on Section 301 (published by March 2020), score AD/CVD cases whose
-                         fall decision comes after that.
-  D, E  pooling         AD/CVD cases published by March 2020 forecast AD/CVD cases decided from
-                         April 2020, without (D) and with (E) Section 301 added to the training set
-                         (whose labels are published by March 2020); hyperparameters for E are chosen
-                         by cross-validation on the pooled set; the paired E minus D Brier difference
-                         carries a 90 percent interval from resampling investigation groups
-  ref in-domain         Section 301 scored by a model trained on other Section 301 chapters
-                         (5-fold, grouped by chapter): how predictable it is from its own data.
-Baselines: the training domain's historical recovery rate (what you would use with no model) and,
-for reference only, the target domain's own rate, which no one knows in advance.
-Weights: AD/CVD products weighted 1 / products in the case, Section 301 products 1 each.
-Intervals: 90 percent, 2,000 resamples of chapters (Section 301) or investigation groups (AD/CVD)
-of the scored products, with the fitted models held fixed: they cover which products are scored,
-not how the model would change with other training cases or other tariff dates.
-
-Usage:  python3 sec301_transfer_test.py      # after sec301_benchmark.py
+Reads:  panel/s301_stacks.parquet, panel/adcvd_stacks_decision.parquet, s301_adcvd_pairs_h16_decision.csv,
+        adcvd_episodes_collapsed.csv, events/ (notices and rates), census_release_calendar.csv
+Writes: sec301_transfer_test.csv, sec301_transfer_heldout_*.csv, sec301_transfer_coef.csv,
+        sec301_pooling_gain.csv, s301_pairs_real_strict.csv
+Run:    python3 sec301_transfer_test.py      (after sec301_benchmark.py and build_decision_stacks.py)
 """
 import numpy as np
 import pandas as pd
-from sklearn.ensemble import HistGradientBoostingClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import brier_score_loss, roc_auc_score
 from sklearn.model_selection import GroupKFold
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 
+import modeling as M
 import recovery_lib as RL
 
 H, LAG, CHINA = 16, 2, "5700"
@@ -147,33 +115,8 @@ print(pd.DataFrame({"AD/CVD": np.average(AD[FEAT], axis=0, weights=AD.w), "Secti
 
 
 # ---------------------------------------------------------------- models
-def cv_pick(tr, grid, make):
-    gkf = GroupKFold(n_splits=min(5, tr.group.nunique()))
-    best, bp = None, None
-    for p in grid:
-        sc = []
-        for a, b in gkf.split(tr, groups=tr.group):
-            pr = make(p, tr.iloc[a])(tr.iloc[b])
-            sc.append(brier_score_loss(tr.y.iloc[b], pr, sample_weight=tr.w.iloc[b]))
-        if best is None or np.mean(sc) < best:
-            best, bp = np.mean(sc), p
-    return bp
-
-
-def logit_make(C, tr):
-    m = make_pipeline(StandardScaler(), LogisticRegression(C=C, max_iter=3000))
-    m.fit(tr[FEAT], tr.y, logisticregression__sample_weight=tr.w)
-    return lambda te: m.predict_proba(te[FEAT])[:, 1]
-
-
-def gbm_make(n, tr):
-    m = HistGradientBoostingClassifier(max_depth=2, learning_rate=0.05, max_iter=n, l2_regularization=1.0,
-                                       min_samples_leaf=40, random_state=0)
-    m.fit(tr[FEAT], tr.y, sample_weight=tr.w)
-    return lambda te: m.predict_proba(te[FEAT])[:, 1]
-
-
-MODELS = {"logistic": (logit_make, [0.01, 0.03, 0.1, 0.3, 1.0]), "boosting": (gbm_make, [25, 50, 100, 200])}
+MODELS = {"logistic": (M.logistic(FEAT), [0.01, 0.03, 0.1, 0.3, 1.0]),
+          "boosting": (M.boosting(FEAT), [25, 50, 100, 200])}
 
 
 def score(te, preds, base_src, base_tgt):
@@ -208,7 +151,7 @@ def transfer(label, tr, te):
     tr, te = tr.reset_index(drop=True), te.reset_index(drop=True)
     preds = {}
     for name, (make, grid) in MODELS.items():
-        par = cv_pick(tr, grid, make)
+        par = M.tune(tr, grid, make, group="group")
         preds[name] = make(par, tr)(te)
     s = score(te, preds, np.average(tr.y, weights=tr.w), np.average(te.y, weights=te.w))
     te.assign(**{f"pred_{k}": v for k, v in preds.items()}).to_csv(
@@ -243,7 +186,7 @@ oof = {k: np.zeros(len(S3)) for k in MODELS}
 for a, b in GroupKFold(n_splits=5).split(S3, groups=S3.group):
     tr, te = S3.iloc[a].reset_index(drop=True), S3.iloc[b]
     for name, (make, grid) in MODELS.items():
-        oof[name][b] = make(cv_pick(tr, grid, make), tr)(te)
+        oof[name][b] = make(M.tune(tr, grid, make, group="group"), tr)(te)
 s = score(S3, oof, S3.y.mean(), S3.y.mean())
 s.insert(0, "test", "ref: Section 301 in-domain, by chapter")
 s.insert(1, "train_n", len(S3))
@@ -273,7 +216,7 @@ pd.concat(R).to_csv("sec301_transfer_test.csv", index=False)
 # coefficients in each domain, for the comparison of what predicts recovery
 co = {}
 for lab, d in [("AD/CVD", AD), ("Section 301", S3)]:
-    m = make_pipeline(StandardScaler(), LogisticRegression(C=cv_pick(d, MODELS["logistic"][1], logit_make),
+    m = make_pipeline(StandardScaler(), LogisticRegression(C=M.tune(d, MODELS["logistic"][1], MODELS["logistic"][0], group="group"),
                                                            max_iter=3000))
     m.fit(d[FEAT], d.y, logisticregression__sample_weight=d.w)
     co[lab] = m[-1].coef_[0]

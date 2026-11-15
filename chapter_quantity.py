@@ -1,20 +1,10 @@
-"""Rebuild the chapter anomaly ranking on quantity instead of dollars.
+"""Monthly imports by 2-digit chapter in each chapter's main unit of quantity.
 
-Kylie Bemis asked for this in the presentation on 2026-10-16, after the cocoa example: a dollar
-series cannot tell a price spike from a volume surge, so the detector on slide 6 was measuring
-the wrong thing for at least two of the ten chapters it flagged.
+Only chapters where one unit covers most of the value get a quantity series.
 
-It is not a simple swap. Quantity is reported in the unit native to each product, and at chapter
-level those units are mixed: apparel is in dozens, footwear in pairs, ships in units, and 56 of
-98 chapters report kilograms for under 70% of their value. The anomaly measure is scale-free,
-since it asks how far a chapter went outside its OWN band, so the unit does not have to match
-across chapters. It does have to be stable within one.
-
-So this keeps only the dominant unit per chapter, and only chapters where that unit covers at
-least MIN_COVER of chapter value. Everything else has no usable quantity series at chapter level
-and is reported as such rather than silently dropped.
-
-Usage:  python3 chapter_quantity.py      # from the repo root
+Reads:  panel/hs8/
+Writes: eda/chapter_month_qty.csv
+Run:    python3 chapter_quantity.py
 """
 import collections
 import glob

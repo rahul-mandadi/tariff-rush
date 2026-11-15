@@ -1,40 +1,9 @@
-"""Recovery benchmark: after an AD/CVD preliminary, what usually happens to the targeted supplier?
+"""The four outcomes after a duty (no fall, fell and came back, stayed down, stopped) and recovery times.
 
-For a sourcing team buying one product from a country just named in a preliminary AD/CVD
-determination, the useful historical facts are: how often the supplier's position falls, how often
-it comes back within 18 months, how long that takes, and how often trade stops altogether.
-
-Unit: one targeted product-country pair in one episode (stacks from adcvd_stacked.py).
-Position: the targeted country's share of the product's imports among the stack's countries
-(targeted plus eligible rivals), smoothed as a 3-month trailing mean. A month in which the targeted
-country does not trade but rivals do counts as a share of zero; a month in which none of the stack's
-countries trades has no share and is missing (the 3-month mean needs three real months). A pair with
-no measurable month in k = 0..6 gets no label.
-Benchmark: mean share over k = -18..-13, which precedes the case's initiation for all but one of
-the 502 episodes (adcvd_stacked.py prints the count).
-
-Categories, mutually exclusive, each pair in exactly one:
-  no fall        smoothed share never below (1 - FALL) x benchmark in k = 0..6
-  recovered      fell, then smoothed share at or above the benchmark for 3 consecutive months by
-                 k = 18; recovery time is the first month of that run, counted from the fall
-  not recovered  fell, not recovered by 18, traded at least once in k = 13..18
-  exited         fell, not recovered, no trade in any month of k = 13..18
-Recovered pairs that then stop trading in k = 13..18 are counted separately; they stay
-"recovered" (ever recovered within 18 months).
-
-Follow-up: pairs whose 18 months run past the data end are left out of the four-category shares
-whatever their outcome so far, and censored at their last observed month for the Kaplan-Meier
-estimate. The Kaplan-Meier clock starts at the month of the fall, and events are observed only up
-to k = 18 after the duty.
-Weighting: each episode counts once (each of its pairs weighted 1 / pairs in the episode). By pair,
-the ten largest episodes, all 2024 aluminum extrusions cases, hold 30 percent of the pairs.
-Uncertainty: 1,000 bootstrap draws of investigation groups.
-Placebo: the same on stacks dated 24 months earlier.
-Benchmark evaluation: for each year Y, category rates from episodes whose 18 months had finished
-before Y began, scored against the realised categories of episodes with k = 0 in Y (multiclass
-Brier score), against the rates from all years (in-sample, optimistic) and a uniform guess.
-
-Usage:  python3 recovery_benchmark.py [--fall 0.2]
+Reads:  panel/adcvd_stacks_real.parquet, panel/adcvd_stacks_placebo.parquet, adcvd_episodes_collapsed.csv
+Writes: recovery_benchmark_fall20.csv, recovery_benchmark_eval_fall20.csv, recovery_pairs_*_fall20.csv
+        (the suffix follows --fall)
+Run:    python3 recovery_benchmark.py --fall 0.2      (also 0.1 and 0.3; after adcvd_stacked.py)
 """
 import sys
 

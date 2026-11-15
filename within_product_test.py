@@ -1,27 +1,7 @@
-"""Did treated imports rise between announcement and effective date, relative to the
-same product from origins that were not tariffed?
+"""Did taxed imports rise between a tariff's announcement and its start, against untaxed countries? (Report 1)
 
-This is the comparison the chapter-level work could not make. A commodity price shock
-moves every origin of a product together. A tariff moves one origin relative to the
-others. So the control for "aluminum from Canada in March 2018" is aluminum from every
-origin not tariffed, in March 2018.
-
-Two-way fixed effects by iterative demeaning:
-  product x month   absorbs anything that moved a product globally that month
-  product x origin  absorbs the fact that some origins are simply bigger suppliers
-
-Terms, all relative to the same product from untreated origins in the same month:
-  pre    three months before announcement. Should be flat. This is the placebo: if it
-         is large, the design is picking up trends rather than the tariff.
-  rush   announcement month through effective month, when buying ahead can happen
-  post   six months after it took effect, where payback would show up
-
-On action_kind: the classifier labels most real impositions SCOPE_CHANGE, including the
-original Section 301 action and the 2025 reciprocal tariffs. Filtering to IMPOSE left two
-events. So direction is taken the other way round, by excluding the actions that plainly
-reduce exposure (REVOKE, DECREASE, SUSPEND) and keeping the rest.
-
-Usage:  python3 within_product_test.py [--outcome lv|lq]
+Reads:  panel/analysis.parquet, events_resolved.csv, event_products.csv
+Run:    python3 within_product_test.py [--outcome lv|lq]
 """
 import sys
 import numpy as np

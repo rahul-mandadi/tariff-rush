@@ -1,17 +1,9 @@
-"""Figures for the corrected AD/CVD results (stacked design, November 2026).
+"""Figures 12 to 20 for the final results.
 
-  12_order_vs_negative.png  targeted country vs rival suppliers, month by month, for cases that
-                            became permanent orders, cases the ITC voted down, and the fake date
-  13_recovery_km.png        of products whose position fell, the share back at the pre-case level
-                            by months since the fall, real cases vs the fake date
-  14_outcomes.png           what happened to each targeted product within 18 months, real vs fake
-
-Palette is the deck's own: red for the focal series, ink for the comparison, grey dashed for the
-fake-date baseline. Every line is labelled directly (grey is low-contrast on white, so it never
-carries identity by colour alone).
-
-Usage:  python3 slides/fig_stacked.py      # from the repo root, after adcvd_stacked.py,
-                                           # itc_compare.py and recovery_benchmark.py
+Reads:  the result CSVs of adcvd_stacked.py, itc_compare.py, recovery_benchmark.py, the forecast
+        scripts, decision_value.py, calibrated_lookup.py, sec301_benchmark.py and review_queue.py
+Writes: slides/fig/12_order_vs_negative.png to slides/fig/20_review_queue.png
+Run:    python3 slides/fig_stacked.py      (after the scripts above)
 """
 import sys
 

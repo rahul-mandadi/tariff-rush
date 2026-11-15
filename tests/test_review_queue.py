@@ -9,25 +9,24 @@ import pandas as pd
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 os.chdir(ROOT)
+import sys  # noqa: E402
+
+sys.path.insert(0, ROOT)
+import modeling as M  # noqa: E402
+
 REPORT = " ".join(open("FINAL_REPORT.md").read().split())
 
 
-def _reviewed():
-    src = open("review_queue.py").read()
-    start = src.index("def reviewed(")
-    ns = {"np": np}
-    exec(src[start:src.index("\ndef evaluate(")], ns)
-    return ns["reviewed"]
-
-
 def test_capacity_is_exact_and_ties_share_it():
-    reviewed = _reviewed()
-    r = reviewed([0.9, 0.5, 0.5, 0.5, 0.1], np.ones(5), 0.2)       # one review for five
+    reviewed = M.review_shares  # the rule review_queue.py uses
+    r = reviewed([0.9, 0.5, 0.5, 0.5, 0.1], 0.2)       # one review for five
     assert np.isclose(r.sum(), 1.0) and r[0] == 1.0 and (r[1:] == 0).all()
-    r = reviewed([0.9, 0.5, 0.5, 0.5, 0.1], np.ones(5), 0.4)       # two reviews: one left for three tied
+    r = reviewed([0.9, 0.5, 0.5, 0.5, 0.1], 0.4)       # two reviews: one left for three tied
     assert np.allclose(r, [1, 1 / 3, 1 / 3, 1 / 3, 0])
-    r = reviewed([0.0] * 4, np.ones(4), 0.2)                          # all tied, as the historical rate is
+    r = reviewed([0.0] * 4, 0.2)                          # all tied, as the historical rate is
     assert np.allclose(r, 0.2)
+    r = reviewed([0.9, 0.5, 0.1], 0.5, [2.0, 1.0, 1.0])  # weights: capacity 2 of 4 units, all on the first
+    assert np.allclose(r, [1, 0, 0])
 
 
 def test_queues_rank_only_relationships_at_the_same_checkpoint():

@@ -1,23 +1,8 @@
-"""Rush and repayment around antidumping and countervailing duty cases.
+"""Imports before and after antidumping and countervailing duties, from the Report 1 analysis.
 
-Why these events and not the Section 232/301/IEEPA set: there are far more of them, each
-names one country and an explicit product scope, and the window between a case becoming
-public and duties being collected is months rather than days. Monthly import data cannot
-resolve a four day window, which is the median in the other event set. It can resolve six.
-
-The clock runs from the initiation date, which is when the case becomes public and importers
-can begin buying ahead, to the preliminary determination, which is when duties start being
-collected. Both come out of the preliminary notice itself.
-
-Baseline is the same product from origins not named by the case, in the same month. Nothing
-is extrapolated, because placebo tests showed a fitted baseline drifts far enough to
-manufacture a result (see docs/history/PHASE2_RESULTS.md).
-
-Every number is produced twice, once for the real events and once with every event shifted
-back 24 months. A result that does not separate from its own placebo is not reported as a
-result.
-
-Usage:  python3 adcvd_analysis.py [--h 9] [--min-window 60]
+Reads:  panel/analysis.parquet, events/adcvd_events.csv, events/adcvd_products.csv
+Writes: adcvd_episodes_real.csv, adcvd_episodes_placebo.csv
+Run:    python3 adcvd_analysis.py
 """
 import sys
 import numpy as np

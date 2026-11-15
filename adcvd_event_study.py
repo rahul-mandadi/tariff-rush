@@ -1,23 +1,10 @@
-"""Month-by-month path of imports around an AD/CVD preliminary determination.
+"""Month-by-month imports from the targeted country around a duty (Report 1 version).
 
-The episode test says imports from a targeted origin fall about 27 percent against other
-origins of the same product, and that there is no rush beforehand. Two summary numbers cannot
-show whether that drop is a step at the determination or a trend that was already running, and
-the difference decides whether it can be read as caused by the duty.
+Its output draws figure 10 (slides/fig_event.py), used in Report 1 and Presentation 2.
 
-k = 0 is the month duties start being collected. Fixed effects are product-month and
-product-origin, so what is left is one origin moving against the others supplying the same
-product that month. Baseline is k in [-18,-13].
-
-A cell-month that falls inside more than one case's event window is dropped, since China and
-Korea cells in particular are named by many cases and a contaminated observation cannot be
-attributed to one of them. An earlier version assigned such a month to whichever case it met
-first and dropped nothing, which left overlapping treatments pooled.
-
-The same estimation is run on events shifted back 24 months, where no determination occurred, so
-the path can be read against a placebo rather than against zero.
-
-Usage:  python3 adcvd_event_study.py [--min-window 60]
+Reads:  panel/analysis.parquet, events/adcvd_events.csv, events/adcvd_products.csv
+Writes: adcvd_event_study.csv, adcvd_event_study_placebo.csv
+Run:    python3 adcvd_event_study.py
 """
 import sys
 import numpy as np

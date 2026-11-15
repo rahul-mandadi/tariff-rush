@@ -1,13 +1,8 @@
 """Build the final presentation as an editable .pptx.
 
-Built from slides/build_deck2b.py (the Presentation 2 resubmission draft) with its helpers and
-style unchanged. Adds the three-questions slide (Kylie: "Analytic problem is given but lacks
-clarity"), the time-to-recovery curve (fig 13), the held-out results at three decision points (fig
-15), and a closing
-slide on what each question's answer is. Every number traces to FINAL_REPORT.md and the CSVs
-written by the scripts it cites.
-
-Usage:  python3 slides/build_deck_final.py      # from the repo root
+Reads:  slides/fig/
+Writes: slides/Mandadi_Khalsa_Final_Presentation.pptx
+Run:    python3 slides/build_deck_final.py
 """
 from pptx import Presentation
 from pptx.util import Inches, Pt

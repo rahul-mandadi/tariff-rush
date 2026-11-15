@@ -1,30 +1,17 @@
-"""Does the review-queue result depend on the assumed capacity or on month 4? (docs/SCOPE.md, items 4 and 6)
+"""The review-list test at every capacity from 5 to 50 percent, and at months 6 and 8 (items 4 and 6).
 
-Item 4, capacity curve. The month-4 queues of review_queue.py, scored at every capacity from 5 to 50
-percent in steps of 5. Item 6, later checkpoints. The same queue rule at months 6 and 8 as a
-secondary check; month 4 stays the main decision point.
-
-Fixed before running (2026-11-10), as in review_queue.py: held-out predictions from
-prediction_landmark_heldout.csv, unchanged; one queue per calendar month (the month of the
-checkpoint), ranking only relationships at that checkpoint in that month; ties share reviews equally;
-each relationship counts once; rankings: the forecast (boosting, named in advance), logistic
-(reported, not used to choose), the latest published share (lowest first) and the historical rate (one
-number per month, so a random order). Main measure: share of reviewed relationships not back by
-month 18; also the share of all persistent declines reviewed, and the most any order could reach.
-90 percent ranges from 1,000 resamples of investigation groups, fitted models held fixed. At months
-6 and 8 the eligible relationships are those still falling and not yet back at that month, so the
-three checkpoints are not compared on the same products.
-
-Writes review_queue_capacity.csv, review_queue_checkpoints.csv and slides/fig/21_capacity_curve.png.
-Results are exploratory: the held-out years have been looked at before.
-
-Usage:  python3 review_queue_curves.py      # after prediction_landmark.py and review_queue.py
+Reads:  prediction_landmark_heldout.csv, review_queue_eval.csv
+Writes: review_queue_capacity.csv, review_queue_checkpoints.csv, slides/fig/21_capacity_curve.png
+Run:    python3 review_queue_curves.py      (after review_queue.py; stops if it does not reproduce
+        review_queue_eval.csv at 20 percent)
 """
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 import numpy as np  # noqa: E402
 import pandas as pd  # noqa: E402
+
+import modeling as M  # noqa: E402
 
 B = 1000
 CAPS = [round(0.05 * i, 2) for i in range(1, 11)]
@@ -34,19 +21,6 @@ rng = np.random.default_rng(0)
 H = pd.read_csv("prediction_landmark_heldout.csv", dtype={"hs8": str})
 RANKS = {"forecast (boosting)": lambda g: 1 - g.boosting, "logistic": lambda g: 1 - g.logistic,
          "latest share": lambda g: -g.latest, "historical rate": lambda g: 1 - g.history}
-
-
-def reviewed(score, cap):
-    score = np.asarray(score, float)
-    left, r = cap * len(score), np.zeros(len(score))
-    for v in np.unique(score)[::-1]:
-        idx = np.where(score == v)[0]
-        if left <= 0:
-            break
-        take = min(1.0, left / len(idx))
-        r[idx] = take
-        left -= take * len(idx)
-    return r
 
 
 def measures(g, caps):
@@ -59,7 +33,7 @@ def measures(g, caps):
         for cap in caps:
             r = np.zeros(len(g))
             for ix in qi:
-                r[ix] = reviewed(s[ix], cap)
+                r[ix] = M.review_shares(s[ix], cap)
             out[(name, cap)] = ((r * down).sum() / r.sum(), (r * down).sum() / down.sum())
     for cap in caps:
         out[("ceiling", cap)] = (np.nan, sum(min(cap * len(ix), down[ix].sum()) for ix in qi) / down.sum())

@@ -1,16 +1,8 @@
-"""Attach product and partner scope to each tariff event, then flag treated panel cells.
+"""Attach products and countries to each broad tariff action.
 
-Scope is resolved by three routes, in order of reliability:
-  1. the event cites a 9903 code that exists in the current schedule  -> use its coverage
-  2. the event is Section 232, which names a material class           -> use the chapter rule
-  3. the event is IEEPA, which is country-wide                        -> every chapter the partner ships
-
-Route 1 fails for older Section 232 actions because the schedule has since renumbered those
-headings, which is why route 2 exists.
-
-Outputs
-  coverage/event_scope.csv    one row per event and chapter, with partner scope and dates
-  coverage/treated_cells.csv  one row per chapter, partner and month that sits inside a window
+Reads:  coverage/coverage_final.csv, events/tariff_events.csv
+Writes: coverage/event_scope.csv
+Run:    python3 coverage/join_events.py
 """
 import re
 import pandas as pd

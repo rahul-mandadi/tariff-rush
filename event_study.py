@@ -1,21 +1,11 @@
-"""Month-by-month version of the within-product test.
+"""Month-by-month imports around broad tariff actions, against untaxed countries (Report 1).
 
-The three-bin test said the enumerated events had a +64.6% "pre" period, which is larger
-than its own rush. A pre-period that big means the design is tracking something already in
-motion, so the rush number cannot be read. Three bins cannot show what. This traces the
-coefficient month by month around the announcement instead.
+Reads:  panel/analysis.parquet, events_resolved.csv, event_products.csv
+Writes: event_study_*.csv (one per group of actions and outcome)
+Run:    python3 event_study.py [--outcome lv|lq]
 
-What a genuine rush looks like: flat before the announcement, a spike between announcement
-and effective date, a dip after. What contamination looks like: already climbing well
-before the announcement.
-
-Contamination control: a cell-month is dropped if it sits inside the window of any OTHER
-event, so one tariff's rush cannot be read as another's pre-period. China alone has
-roughly twenty actions, so without this the windows overlap constantly.
-
-Baseline is k in [-12,-7], i.e. a year to half a year before announcement.
-
-Usage:  python3 event_study.py [--mech ENUMERATED] [--outcome lv|lq]
+Note: the source documents behind these events were later found unreliable (13 of 19 wrong), so
+the final report does not use these results.
 """
 import sys
 import numpy as np

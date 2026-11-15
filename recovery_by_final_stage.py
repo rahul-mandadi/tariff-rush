@@ -1,12 +1,9 @@
-"""Recovery categories (recovery_benchmark.py) split by how the case ended at the final stage.
+"""The four outcomes split by how the case ended at the ITC.
 
-The ITC's final injury vote comes a few months after the preliminary and is public, so it is a
-second point at which a sourcing team can update. Final stage per episode as in
-itc_compare.py: order (linked to an order notice, or verified order) or negative (verified
-negative ITC final for that country). Episode-weighted, 90 percent bootstrap intervals over
-investigation groups. Fall threshold 20 percent.
-
-Usage:  python3 recovery_by_final_stage.py      # after itc_compare.py has written its log
+Reads:  recovery_pairs_real_fall20.csv, adcvd_episodes_collapsed.csv, events/adcvd_events.csv,
+        events/itc_check_by_country.csv
+Writes: recovery_by_final_stage.csv
+Run:    python3 recovery_by_final_stage.py      (after recovery_benchmark.py --fall 0.2)
 """
 import re
 

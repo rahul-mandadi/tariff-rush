@@ -1,16 +1,8 @@
-"""Export the actual HS8 lines behind each surcharge code, not just a count per chapter.
+"""List the 8-digit products behind each surcharge code.
 
-build_coverage.py already resolves every 9903 code to its enumerated subheadings, but it
-collapses them to n_products_in_chapter on the way out. Chapter-level counts are what forced
-the earlier analysis to treat a whole chapter as treated when the median action names about
-five lines in it, which is the dilution the HS8 panel exists to remove.
-
-This re-runs the same resolution and keeps the codes.
-
-Output
-  coverage/product_lines.csv   one row per (9903 code, HS8 line)
-
-Usage:  python3 coverage/explode_products.py      # from the repo root
+Reads:  coverage/raw/hts/
+Writes: coverage/product_lines.csv
+Run:    python3 coverage/explode_products.py
 """
 import json, re, sys, os
 import pandas as pd

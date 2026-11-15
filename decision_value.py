@@ -1,36 +1,12 @@
-"""Decision value: potential net benefit of acting on the forecasts, under assumed costs.
+"""Net benefit of acting on the forecasts under assumed costs (decision curves).
 
-The decision: start qualifying an alternative supplier (act) or wait. Acting is right if the
-targeted country's position in the product falls and does not come back by month 18 ("bad").
-With an assumed qualification cost C and an assumed avoidable loss L when the outcome is bad,
-acting pays when P(bad) >= t = C / L. This is a potential benefit under those assumptions, not a
-measured saving. It assumes (i) the country-level outcome stands in for the loss to an importer
-buying from that country, and (ii) qualifying at the decision date can still avoid that loss
-(qualification takes days to about 18 months, see evidence/USE_EVIDENCE.md).
+Compares the forecast with always qualifying a new supplier, never doing so, the historical rate
+and the latest-share model, at cost ratios 0.10 to 0.90, with bounds that hold for all of them at
+once.
 
-Net benefit (decision-curve analysis, Vickers and Elkin 2006) of a policy at threshold t, per
-product:  NB(t) = share acted on that turned out bad - share acted on that did not x t / (1 - t).
-
-Policies, all as probabilities of the bad outcome (non-recovery):
-  model           logistic regression, the common model at every decision point (chosen for
-                  consistency across points, not preregistered); P(bad) = 1 - P(recover) for the
-                  stage-2 files, P(bad) directly for day one
-  history         the training-years base rate; act on everything if >= t, else nothing
-  history by vote at the ITC vote only, the base rate split by the vote
-  share only      at the ITC vote only, the logistic model of the latest published share
-  always / never  qualify for every product / for none (NB = 0)
-Boosting and Cox are reported as sensitivity columns and do not enter any comparison.
-
-Inference. The threshold grid is fixed in advance: 0.10 to 0.90 in steps of 0.05 (17 points).
-Every policy is scored on the same 2,000 paired resamples of investigation groups. For each
-baseline b and threshold t, D(b, t) = NB(model) - NB(b). Pointwise 90 percent intervals are the
-5th and 95th percentiles of D. Simultaneous one-sided 90 percent lower bounds over all (b, t) use
-the max-t method: with s(b, t) the bootstrap standard deviation of D, c is the 90th percentile of
-max over (b, t) of (D* - D) / s, and the bound is D - c x s. The model is supported at t only if
-its simultaneous bound is above zero against every baseline at t. All intervals hold the fitted
-models fixed; they do not reflect refitting on other training data.
-
-Usage:  python3 decision_value.py      # after prediction_test.py and prediction_stage2.py
+Reads:  prediction_test_heldout.csv, prediction_stage2_heldout.csv
+Writes: decision_value.csv, decision_value_joint.csv
+Run:    python3 decision_value.py      (after prediction_test.py and prediction_stage2.py)
 """
 import numpy as np
 import pandas as pd

@@ -1,25 +1,9 @@
-"""When a tariff displaces volume from one origin, which origins absorb it?
+"""Which other countries gain when a duty pushes trade away from the targeted one.
 
-This decides the project's stakeholder. If a few named origins absorb the volume, there is a
-lane story: same US port, different ocean leg, different transit time and service string, and
-carriers and forwarders plan exactly that. If absorption is spread thinly across dozens of
-origins, no single lane changes enough to matter and the exposure sits with suppliers and
-lenders instead.
-
-For each AD/CVD case, within the products it names:
-  share(origin) before = that origin's share of the product basket, 12 months pre-initiation
-  share(origin) after  = the same, 12 months from the preliminary determination
-  delta                = after - before, so the treated origin's loss is spread over the rest
-
-Concentration of the positive deltas is the whole question:
-  top1, top3   fraction of all gains taken by the largest one and three absorbers
-  1/HHI        effective number of absorbers. Near 1 means one country took it, near 20
-               means it dissolved into the background.
-
-Paired with the usual 24 month placebo, because share churn happens anyway. The placebo is the
-benchmark for "how concentrated do share shifts look when nothing happened".
-
-Usage:  python3 q3_absorbers.py [--h 12]
+Reads:  panel/analysis.parquet, panel/hs8/2024-06.parquet (country names), events/adcvd_events.csv,
+        events/adcvd_products.csv
+Writes: q3_absorbers.csv, q3_top_gainers.csv
+Run:    python3 q3_absorbers.py
 """
 import sys
 import numpy as np

@@ -1,14 +1,8 @@
-"""Map each HTS chapter 99 surcharge code to the products and countries it covers.
+"""Map each tariff surcharge code in chapter 99 of the tariff schedule to the products and countries it covers.
 
-A surcharge code says a duty exists. What it applies to is either written in the code's own
-description or delegated to a U.S. note published separately. Chapter 99 has several subchapters
-with independent note numbering, and the tariff actions live in subchapter III, so notes are
-parsed within that span only.
-
-Outputs
-  coverage/surcharge_codes.csv   one row per 9903 code: rate, countries, note reference, status
-  coverage/coverage_map.csv      one row per 9903 code and HS chapter it touches
-  coverage/unresolved.csv        codes whose product scope could not be determined
+Reads:  coverage/raw/hts/ (from coverage/pull_hts99.py), coverage/rules.py
+Writes: coverage/coverage_map.csv, coverage/surcharge_codes.csv, coverage/unresolved.csv
+Run:    python3 coverage/build_coverage.py
 """
 import json, re
 import pandas as pd

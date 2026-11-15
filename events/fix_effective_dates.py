@@ -1,14 +1,8 @@
-"""Re-extract effective dates from document text.
+"""Read the effective date of each broad tariff action from the document text (Report 1).
 
-The original parser took the first date near an effective-date phrase. Proclamations recite the
-history of earlier rate changes using the same phrasing, so it often picked a date from years
-earlier. Two rules fix almost all of it:
-
-  1. an effective date cannot precede the announcement
-  2. among the dates that survive, the operative one is the date the document repeats most often
-
-Announcement dates are taken from the Federal Register signing_date where present, which is the
-date the President actually signed, and from the publication date otherwise.
+Reads:  events/tariff_events.csv, events/raw/
+Writes: events/tariff_events_dates.csv
+Run:    python3 events/fix_effective_dates.py
 """
 import json, re, os
 from collections import Counter

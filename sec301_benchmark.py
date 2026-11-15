@@ -1,28 +1,10 @@
-"""Section 301 Lists 1 to 3: what happened to China's position in each taxed product.
+"""What happened to China's share in each product of the 2018 Section 301 tariffs.
 
-Same design as the AD/CVD work: for each list, a stack of its products with China and every rival
-country that traded them in k -18..-7, months with no trade kept as zeros, reference k -18..-13.
-Rivals named on the same product by an AD/CVD case with k = 0 within 36 months before to 18 after
-are left out, and so are products where China itself had such a case, so the comparison isolates
-Section 301. Fake date: the same lists 24 months earlier, cohort rebuilt from its own window. A
-third, strict sample uses only AD/CVD cases whose first preliminary was published on or before the
-list's start date (exact dates) for those exclusions,
-so the in-time transfer test (sec301_transfer_test.py, test B) selects nothing on later cases.
-
-Horizon: every window stops at January 2020, before China's COVID shutdown, which would otherwise
-read as a tariff effect. List 3 (September 2018) then has 16 months, so the outcomes use H = 16
-throughout, with "stopped trading" meaning no imports in months 11 to 16, and the AD/CVD rates are
-recomputed at the same horizon for the comparison.
-
-Unit: one product. Each list is one tariff date, so there is no honest standard error for the
-list-level effect; the shares carry 90 percent intervals from resampling 2-digit chapters, which
-covers product heterogeneity but not the common shock of each list date.
-
-First, a check that recovery_lib.categorize reproduces recovery_pairs_real_fall20.csv on the AD/CVD
-stacks at H = 18: same category, pre-case share, fall month, recovery month and follow-up for every
-pair. Both share the calendar-month rule, so this checks the shared code, not the rule itself.
-
-Usage:  python3 sec301_benchmark.py
+Reads:  events/s301_products.csv, panel/hs8/, panel/adcvd_stacks_real.parquet,
+        adcvd_episodes_collapsed.csv, recovery_pairs_real_fall20.csv
+Writes: s301_benchmark.csv, s301_pairs_*.csv, s301_adcvd_pairs_h16.csv, s301_stacks_info.csv,
+        panel/s301_stacks.parquet
+Run:    python3 sec301_benchmark.py      (after events/build_301_lists.py and recovery_benchmark.py)
 """
 import numpy as np
 import pandas as pd

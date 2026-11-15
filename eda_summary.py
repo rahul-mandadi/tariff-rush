@@ -1,15 +1,8 @@
-"""Small summary tables so the EDA notebook runs without the 1 GB panel cache.
+"""Small chapter-level tables so the EDA notebook runs without the large panel.
 
-panel/hs10 and panel/hs8 are gitignored and rebuilt by the acquisition scripts, which takes
-about an hour. A teammate opening the notebook should not have to do that first, so the views
-the notebook actually plots are written out here as CSVs small enough to commit.
-
-Outputs
-  eda/chapter_month.csv     chapter x month totals, value and quantity
-  eda/chapter_partner.csv   chapter x partner totals, for the share-of-trade views
-  eda/featured_series.csv   chapter x partner x month for the chapters the notebook features
-
-Usage:  python3 eda_summary.py
+Reads:  panel/hs8/
+Writes: eda/chapter_month.csv, eda/chapter_partner.csv, eda/featured_series.csv
+Run:    python3 eda_summary.py
 """
 import glob, os
 import pandas as pd

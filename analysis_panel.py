@@ -1,14 +1,11 @@
-"""Apply the inclusion rules from docs/history/DESIGN.md and write the panel the tests run on.
+"""Build the trimmed panel used by the Report 1 tests.
 
-Rules, fixed before any model was fit:
-  - at least 36 months of history in the cell (an STL baseline needs three cycles)
-  - median monthly value at least $100,000 (drops cells that are noise)
-The third rule, that an untreated origin must exist for the same product and month,
-is applied inside the test because it depends on which event is being looked at.
+Keeps product-country series with at least 36 months of history and a median month of at least
+$100,000.
 
-Output: panel/analysis.parquet
-
-Usage:  python3 analysis_panel.py
+Reads:  panel/hs8/
+Writes: panel/analysis.parquet
+Run:    python3 analysis_panel.py
 """
 import glob
 import numpy as np

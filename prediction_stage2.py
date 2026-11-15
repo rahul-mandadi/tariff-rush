@@ -1,51 +1,10 @@
-"""Second decision point: once a targeted product has visibly fallen, can we tell whether it recovers?
+"""Forecasts at two fixed points: the month a fall first shows, and the ITC's final vote.
 
-prediction_test.py asks the hardest version of the question, on the day the duty starts, and
-finds no reliable gain over the historical rates. A sourcing team gets two later looks: when the
-fall shows up in the published trade data, and when the ITC votes on the final injury
-determination a few months later. This script tests both.
-
-Population: targeted product-country pairs from recovery_benchmark.py (20 percent fall rule,
-complete 18-month follow-up) whose position fell within k = 0..6.
-Target: recovered = back at or above the pre-case share for three months running by k = 18.
-
-Decision points, each with the trade data a team could have seen (Census publishes a month's
-trade about five weeks after it ends, so at decision month M the last visible month is usually
-M - 2; exact release dates are in census_release_calendar.csv, events/build_release_calendar.py):
-  fall   decision month: the month Census released month k_fall (k_fall + 2, later when a release
-         slipped, as in the 2025 shutdown), the first month the fall is visible. Visible data through
-         k_fall. Case facts from notices published by then (the ITC vote is not yet known).
-  ITC    decision month = month of the final-stage notice: the ITC's negative final
-         determination, or the Commerce order that follows an affirmative vote. Visible data
-         through the last month Census had released on or before that notice's date. Only pairs whose fall is visible by then and that are not yet
-         visibly back. Episodes whose final stage is unresolved, or whose first order notice in
-         the harvest comes after k = 12 (a later continuation notice, not the order itself), are
-         left out.
-
-Information sets compared on the ITC population:
-  day 0      the 10 facts prediction_test.py uses (pre-case structure, preliminary rate, case type)
-  + trade    adds what the published data show by the decision: month of the fall, deepest
-             smoothed share so far and the latest one (both as a ratio to the pre-case level),
-             share of months with no trade since the duty, the share in k -6..-1 against the
-             pre-case level (any rush before the duty), and the targeted exporter's change in
-             import unit value against rivals (same product, one reporting unit), with a
-             missing flag
-  + vote     adds whether the ITC found no injury
-
-Baselines: the historical recovery rate in the training cases (same population), and the same
-rate split by the ITC vote.
-Models (on the fullest information set): L2 logistic regression; shallow gradient boosting
-(depth 2, learning rate 0.05, strong L2); penalized Cox proportional hazards on months to
-recovery with delayed entry at the decision, converted to a probability of recovery by k = 18.
-Hyperparameters by 5-fold cross-validation grouped by investigation group inside the training
-cases.
-Validation as prediction_test.py: forward-chaining by year of k = 0; training cases only once
-their month 18 had been published before the test year began. Every score episode-weighted.
-Brier gains carry 90 percent intervals from 2,000 resamples of investigation groups.
-
-Descriptive and predictive only: the ITC's vote rests on the import record itself.
-
-Usage:  python3 prediction_stage2.py
+Reads:  recovery_pairs_decision_fall20.csv, panel/adcvd_stacks_decision.parquet, panel/hs8/,
+        adcvd_episodes_collapsed.csv, events/ (notices, rates, ITC outcomes), census_release_calendar.csv
+Writes: prediction_stage2.csv, prediction_stage2_heldout.csv, prediction_stage2_features.csv,
+        prediction_stage2_years.csv, prediction_stage2_coef_*.csv
+Run:    python3 prediction_stage2.py      (after build_decision_stacks.py)
 """
 import glob
 import json
@@ -54,16 +13,15 @@ import re
 import numpy as np
 import pandas as pd
 from scipy.optimize import minimize
-from sklearn.ensemble import HistGradientBoostingClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import brier_score_loss, roc_auc_score
-from sklearn.model_selection import GroupKFold
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 
 K_HI, LAG, MAX_K_FINAL = 18, 2, 12
 rng = np.random.default_rng(0)
 ep = pd.read_csv("adcvd_episodes_collapsed.csv", dtype={"cty": str})
+import modeling as M  # noqa: E402
 import recovery_lib as RL  # noqa: E402
 BOTH = RL.both_programs_known(ep)
 ev = pd.read_csv("events/adcvd_events.csv", dtype={"cty": str}).drop_duplicates("document_number")
@@ -258,34 +216,12 @@ SETS = {"day 0": DAY0, "+ trade": PRE + CASE_NOW + TRADE, "+ vote": PRE + CASE_N
 
 
 # ---------------------------------------------------------------- models
-def cv_pick(tr, grid, make):
-    gkf = GroupKFold(n_splits=min(5, tr.cluster.nunique()))
-    best, bp = None, None
-    for p in grid:
-        sc = []
-        for a, b in gkf.split(tr, groups=tr.cluster):
-            pr = make(p, tr.iloc[a])(tr.iloc[b])
-            sc.append(brier_score_loss(tr.recovered.iloc[b], pr, sample_weight=tr.w.iloc[b]))
-        if best is None or np.mean(sc) < best:
-            best, bp = np.mean(sc), p
-    return bp
-
-
 def logit(feat):
-    def make(C, tr):
-        m = make_pipeline(StandardScaler(), LogisticRegression(C=C, max_iter=3000))
-        m.fit(tr[feat], tr.recovered, logisticregression__sample_weight=tr.w)
-        return lambda te: m.predict_proba(te[feat])[:, 1]
-    return make, [0.01, 0.03, 0.1, 0.3, 1.0]
+    return M.logistic(feat, label="recovered"), [0.01, 0.03, 0.1, 0.3, 1.0]
 
 
 def gbm(feat):
-    def make(n, tr):
-        m = HistGradientBoostingClassifier(max_depth=2, learning_rate=0.05, max_iter=n,
-                                           l2_regularization=1.0, min_samples_leaf=40, random_state=0)
-        m.fit(tr[feat], tr.recovered, sample_weight=tr.w)
-        return lambda te: m.predict_proba(te[feat])[:, 1]
-    return make, [25, 50, 100, 200]
+    return M.boosting(feat, label="recovered"), [25, 50, 100, 200]
 
 
 def cox_fit(X, entry, t, ev_, w, lam):
@@ -343,7 +279,7 @@ def run(pt, specs):
             rate = {v: np.average(g.recovered, weights=g.w) for v, g in tr.groupby("itc_negative")}
             p["history by vote"] = te.itc_negative.map(rate).fillna(p["history"].iloc[0]).values
         for name, (make, grid) in specs.items():
-            par = cv_pick(tr, grid, make)
+            par = M.tune(tr, grid, make, label="recovered")
             p[name] = make(par, tr)(te)
         preds.append(p)
         out.append(dict(point=pt, year=Y, train_episodes=tr.sid.nunique(), test_episodes=te.sid.nunique(),
@@ -416,7 +352,7 @@ if __name__ == "__main__":
     for pt, feat in [("fall", SETS["+ trade"]), ("ITC", SETS["+ vote"])]:
         d = D[D.point == pt]
         mk, grid = logit(feat)
-        C = cv_pick(d.reset_index(drop=True), grid, mk)
+        C = M.tune(d.reset_index(drop=True), grid, mk, label="recovered")
         m = make_pipeline(StandardScaler(), LogisticRegression(C=C, max_iter=3000))
         m.fit(d[feat], d.recovered, logisticregression__sample_weight=d.w)
         co = pd.Series(m[-1].coef_[0], index=feat).sort_values()

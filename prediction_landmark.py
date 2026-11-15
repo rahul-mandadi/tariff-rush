@@ -1,46 +1,24 @@
-"""A forecast that updates every month: how soon can a sourcing team tell which products come back?
+"""The monthly forecast: at months 3 to 14 after a duty, which falling products will come back?
 
-prediction_stage2.py scores two fixed moments. A team sees new trade data every month, so this
-re-scores the question at every landmark month L = 3, 4, ..., 14 after the duty starts.
+One model is trained across all months, tested year by year on later cases, and compared with the
+historical rate and a model of the latest share alone. Inputs use only data released by each
+decision date.
 
-At landmark L (data visible through k = L - 2, the Census release lag, or earlier when a release
-slipped past month L, as in the 2025 shutdown; census_release_calendar.csv), the eligible products are
-those whose fall is already visible (fall month <= L - 2) and that are not yet visibly back (no
-completed three-month run at or above the pre-case share by L - 2). Target: back by month 18.
-Comparison panels, outcomes and products are the decision-time ones (build_decision_stacks.py).
-
-Features at L, all public by then:
-  day one        pre-case share, trend, size, rival count and concentration; duty rate from notices
-                 published by L, missing flag; critical circumstances; both AD and CVD opened by then; China
-  trade so far   month of the fall, months since it, deepest and latest smoothed share (ratio to
-                 pre-case), change in the smoothed share over the last three visible months, share
-                 of months with no trade, share in k -6..-1, unit-value change against rivals
-  ITC vote       duty confirmed / lifted / not yet public by the decision date (the last day
-                 before landmark month L, the same date used for notices)
-  landmark       L itself
-One model pools all landmarks (a "landmark supermodel"); each product-landmark row is weighted
-1 / (eligible products in its case at that landmark), so each case counts once at each landmark.
-At the fall itself the deepest and latest smoothed share are equal by construction, and since_fall
-is L - 2 - k_fall, so those coefficients cannot be read separately.
-
-Validation: forward-chaining by year of k = 0, training only on cases whose month 18 was published
-before the test year (as prediction_stage2.py). Models: L2 logistic regression, shallow gradient
-boosting, and a benchmark using only the latest published share and the landmark month (what a team
-could read off the data without a model). Baseline at each landmark: the training cases' recovery rate among products eligible at
-that same landmark. Scored per landmark (Brier, AUC) with 90 percent intervals from 1,000 resamples
-of investigation groups, holding fitted models fixed.
-
-Usage:  python3 prediction_landmark.py      # after build_decision_stacks.py
+Reads:  recovery_pairs_decision_fall20.csv, panel/adcvd_stacks_decision.parquet, panel/hs8/,
+        adcvd_episodes_collapsed.csv, events/adcvd_events.csv, events/adcvd_margins.csv,
+        census_release_calendar.csv
+Writes: prediction_landmark.csv, prediction_landmark_heldout.csv, prediction_landmark_coef.csv,
+        prediction_landmark_counts.csv, panel/landmark_features.parquet, panel/landmark_open.parquet
+Run:    python3 prediction_landmark.py      (after build_decision_stacks.py; about 80 seconds)
 """
 import numpy as np
 import pandas as pd
-from sklearn.ensemble import HistGradientBoostingClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import brier_score_loss, roc_auc_score
-from sklearn.model_selection import GroupKFold
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 
+import modeling as M
 import recovery_lib as RL
 
 K_HI, LAG, LANDMARKS = 18, 2, list(range(3, 15))
@@ -140,43 +118,10 @@ D.groupby("L").agg(products=("hs8", "size"), cases=("sid", "nunique"), groups=("
     .to_csv("prediction_landmark_counts.csv")
 
 
-def cv_pick(tr, grid, make):
-    gkf = GroupKFold(n_splits=min(5, tr.cluster.nunique()))
-    best, bp = None, None
-    for p in grid:
-        sc = []
-        for a, b in gkf.split(tr, groups=tr.cluster):
-            pr = make(p, tr.iloc[a])(tr.iloc[b])
-            sc.append(brier_score_loss(tr.y.iloc[b], pr, sample_weight=tr.w.iloc[b]))
-        if best is None or np.mean(sc) < best:
-            best, bp = np.mean(sc), p
-    return bp
-
-
-def logit_make(C, tr):
-    m = make_pipeline(StandardScaler(), LogisticRegression(C=C, max_iter=3000))
-    m.fit(tr[FEAT], tr.y, logisticregression__sample_weight=tr.w)
-    return lambda te: m.predict_proba(te[FEAT])[:, 1]
-
-
-def gbm_make(n, tr):
-    m = HistGradientBoostingClassifier(max_depth=2, learning_rate=0.05, max_iter=n, l2_regularization=1.0,
-                                       min_samples_leaf=40, random_state=0)
-    m.fit(tr[FEAT], tr.y, sample_weight=tr.w)
-    return lambda te: m.predict_proba(te[FEAT])[:, 1]
-
-
-def share_only_make(C, tr):
-    """Benchmark: only the latest published share and the landmark month, what a team could read
-    off the published data without a model."""
-    f = ["latest", "L"]
-    m = make_pipeline(StandardScaler(), LogisticRegression(C=C, max_iter=3000))
-    m.fit(tr[f], tr.y, logisticregression__sample_weight=tr.w)
-    return lambda te: m.predict_proba(te[f])[:, 1]
-
-
-MODELS = {"logistic": (logit_make, [0.03, 0.1, 0.3, 1.0]), "boosting": (gbm_make, [50, 100, 200, 400]),
-          "share only": (share_only_make, [0.1, 1.0])}
+# the benchmark: only the latest published share and the landmark month, what a team could read off
+# the published data without a model
+MODELS = {"logistic": (M.logistic(FEAT), M.LOGISTIC_GRID), "boosting": (M.boosting(FEAT), M.BOOSTING_GRID),
+          "share only": (M.logistic(["latest", "L"]), [0.1, 1.0])}
 preds = []
 for Y in sorted(D.year.unique()):
     te = D[D.year == Y]
@@ -190,7 +135,7 @@ for Y in sorted(D.year.unique()):
     base = tr.groupby("L").apply(lambda g: np.average(g.y, weights=g.w), include_groups=False)
     p["history"] = te.L.map(base).fillna(np.average(tr.y, weights=tr.w)).values
     for name, (make, grid) in MODELS.items():
-        p[name] = make(cv_pick(tr, grid, make), tr)(te)
+        p[name] = make(M.tune(tr, grid, make), tr)(te)
     preds.append(p)
     print(f"  test {Y}: train cases {tr.sid.nunique()}, test cases {te.sid.nunique()}, rows {len(te):,}")
 P = pd.concat(preds, ignore_index=True)
@@ -246,7 +191,7 @@ print(R.round(3).to_string(index=False))
 # importance: drop-column-group effect on pooled held-out Brier would need refits; report the
 # full-sample logistic coefficients for reading instead
 mk, grid = MODELS["logistic"]
-m = make_pipeline(StandardScaler(), LogisticRegression(C=cv_pick(D, grid, mk), max_iter=3000))
+m = make_pipeline(StandardScaler(), LogisticRegression(C=M.tune(D, grid, mk), max_iter=3000))
 m.fit(D[FEAT], D.y, logisticregression__sample_weight=D.w)
 co = pd.Series(m[-1].coef_[0], index=FEAT).sort_values()
 print("\nfull-sample logistic coefficients (standardized; positive = more likely back):")

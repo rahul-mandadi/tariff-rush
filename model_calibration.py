@@ -1,22 +1,8 @@
-"""When can the month-4 forecast be trusted? (docs/SCOPE.md, item 3)
+"""Check whether the month-4 forecast's chances match what happened, and where it errs (item 3).
 
-Held-out month-4 predictions of the forecast (boosting, prediction_landmark_heldout.csv), unchanged.
-Fixed before running (2026-11-10); exploratory, because the held-out years have been looked at before.
-Every measure weights each case once, as prediction_landmark.py does.
-
-  reliability   predicted chance of coming back, in five bins of equal weight, against what happened;
-                calibration in the large (mean predicted against realized) and calibration slope
-                (logistic regression of the outcome on the log-odds of the prediction; 1 is ideal)
-  errors        Brier score of the forecast and of the historical rate, and AUC, by kind of product
-                (HS section, groups with at least 30 relationships) and by how much the country sold
-                before the case (thirds of pre-case value); also by test year
-  largest case  all of the above with and without the largest investigation group (2024 aluminum
-                extrusions, nearly half the month-4 relationships)
-  ranges        90 percent, from 1,000 resamples of investigation groups
-
-Writes model_calibration.csv, model_errors.csv and slides/fig/23_reliability.png.
-
-Usage:  python3 model_calibration.py      # after prediction_landmark.py
+Reads:  prediction_landmark_heldout.csv, panel/landmark_features.parquet
+Writes: model_calibration.csv, model_errors.csv, slides/fig/23_reliability.png
+Run:    python3 model_calibration.py      (after prediction_landmark.py)
 """
 import matplotlib
 matplotlib.use("Agg")
