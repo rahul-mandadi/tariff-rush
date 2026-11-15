@@ -141,6 +141,72 @@ def init_date(txt, pub):
     return None
 
 
+
+# ---------------------------------------------------------------- critical circumstances
+# Commerce writes its own finding with the phrase in lower case ("critical circumstances do not
+# exist for ..."); names of other cases it cites carry it in Title Case ("...Affirmative
+# Preliminary Determination of Critical Circumstances, 79 FR 1234"), so those are not read.
+# Sentences that only report an allegation, quote the statute or describe a later step are skipped.
+# Until November 2026 one pattern read the whole text and was wrong both ways: "critical
+# circumstances do not exist" counted as affirmative, and so did any cited title or allegation.
+CC = r"(?:critical|Critical) circumstances"
+CC_SKIP = re.compile(r"\balleg|\bwhether\b|provides that|\bwill (?:preliminarily )?determine\b"
+                     r"|\bmay exist\b|\brequest", re.I)
+CC_VERB = re.compile(r"\b(?:find|finds|found|finding|determine|determines|determined|reached|"
+                     r"determination)\b", re.I)
+CC_NEG = re.compile(rf"{CC} (?:do|does|did) not exist|not (?:find|found|determine) that {CC} exist"
+                    rf"|\bnegative\b[^.]{{0,40}}{CC}|{CC}[^.]{{0,15}}\bnegative\b|\bno {CC}"
+                    r"|\b(?:do|does|did) not exist\b")
+CC_AFF = re.compile(rf"{CC} (?:do |does |did )?exist(?:s|ed)?\b|\b(?:they|it) do(?:es)? exist\b"
+                    r"|\b(?:but|while|and) do(?:es)? exist\b"
+                    rf"|\baffirmative\b[^.]{{0,40}}{CC}|{CC}[^.]{{0,15}}\baffirmative\b"
+                    rf"|reason to believe or suspect that {CC} exist")
+CC_TITLE_NEG = re.compile(r"Negative (?:Preliminary )?(?:Determinations? (?:of )?)?Critical Circumstances", re.I)
+CC_TITLE_AFF = re.compile(r"Affirmative (?:Preliminary )?(?:Determinations? (?:of )?)?Critical Circumstances", re.I)
+# words a notice uses for a country whose panel name differs
+CC_WORDS = {"CHINA": ["China", "PRC", "Chinese"], "KOREA, SOUTH": ["Korea", "Korean"], "RUSSIA": ["Russia"],
+            "TURKEY": ["Turkey", "Türkiye", "Turkiye"], "UNITED ARAB EMIRATES": ["United Arab Emirates", "UAE"],
+            "BOSNIA AND HERZEGOVINA": ["Bosnia"], "VIETNAM": ["Vietnam"]}
+
+
+def cc_sentences(txt):
+    # footnote markers (\9\) and rule lines (-----) glue sentences together; break on them first
+    txt = re.sub(r"-{5,}", ". ", re.sub(r"\\\d+\\", " ", re.sub(r"\s+", " ", txt)))
+    return re.split(r"(?<=[.;])\s+(?=[A-Z(`'\[])", txt)
+
+
+def cc_names(country, text):
+    words = CC_WORDS.get(country, [country.title().split(",")[0]])
+    return any(re.search(rf"\b{re.escape(w)}\b", text) for w in words)
+
+
+def critical_findings(txt, title, countries):
+    """This notice's own critical-circumstances finding for each country: "affirmative",
+    "negative", "mixed" (affirmative for some exporters, negative for others) or "none".
+    With several countries in one notice, a clause counts only for the countries it names."""
+    multi = len(countries) > 1
+    found = {c: [False, False] for c in countries}
+    for s in cc_sentences(txt):
+        if not re.search(CC, s) or CC_SKIP.search(s) or not CC_VERB.search(s):
+            continue
+        parts = re.split(r";|\bwhile\b|\bbut\b|,? and (?=(?:that )?(?:they |critical circumstances )?(?:do|does|did) not\b)",
+                         s) if multi else [s]
+        for part in parts:
+            neg = bool(CC_NEG.search(part))
+            aff = bool(CC_AFF.search(CC_NEG.sub("", part)))
+            for c in ([c for c in countries if cc_names(c, part)] if multi else countries):
+                found[c][0] |= aff
+                found[c][1] |= neg
+    if not multi and countries:
+        t = re.sub(r"\s+", " ", title)
+        ta, tn = bool(CC_TITLE_AFF.search(t)), bool(CC_TITLE_NEG.search(t))
+        c = countries[0]
+        found[c][0] |= ta
+        found[c][1] |= tn or (ta and bool(re.search(r"in part", t, re.I)))
+    return {c: "mixed" if a and n else "affirmative" if a else "negative" if n else "none"
+            for c, (a, n) in found.items()}
+
+
 def main():
     idx = json.load(open("events/adcvd_index.json"))
     docs = [d for d in idx
@@ -172,12 +238,11 @@ def main():
         # the whole front-loading window is exposed, so buying ahead is taxed anyway. This
         # flag lets the rush be compared across cases that do and do not carry that risk.
         crit = bool(re.search(r"critical circumstances", txt, re.I))
-        crit_aff = bool(re.search(r"critical circumstances (?:do |does )?(?!do not|does not)"
-                                  r"[^.]{0,60}?(?:exist|affirmative)|affirmative[^.]{0,40}?"
-                                  r"critical circumstances", txt, re.I))
         retro = bool(re.search(r"90 days (?:prior|before)|retroactiv", txt, re.I))
 
-        for nm in countries_of(title, name2cty):
+        named = countries_of(title, name2cty)
+        finding = critical_findings(raw, title, [n for n in named if not isinstance(n, tuple)])
+        for nm in named:
             if isinstance(nm, tuple):
                 miss.append(nm[1])
                 continue
@@ -188,7 +253,8 @@ def main():
             rows.append(dict(document_number=dn, title=title[:110], stage=stage,
                              case=cases[0] if cases else "", n_cases=len(cases),
                              country=nm, cty=cty, n_hs8=len(hs8),
-                             critical_circ=crit, critical_affirm=crit_aff, retroactive=retro,
+                             critical_circ=crit, critical_affirm=finding[nm] in ("affirmative", "mixed"),
+                             critical_finding=finding[nm], retroactive=retro,
                              publication_date=pub.date(),
                              initiation_date=ini.date() if ini is not None else None,
                              window_days=(pub - ini).days if ini is not None else None))

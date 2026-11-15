@@ -24,11 +24,11 @@ and stayed down, and 16 percent fell, never came back and had no imports at all 
 later, against 3 percent on the fake date. These historical rates are the benchmark; on the day the
 duty starts, case facts add little to them. Four months in, among products whose fall is already
 visible and that have not come back, a forecast built only from published data ranks a product
-that comes back above one that does not in 80 percent of pairs, and much of its gain over the
+that comes back above one that does not in 79.5 percent of pairs (AUC 0.795), and much of its gain over the
 historical rate comes from the latest published share alone. Used to order held-out review queues,
 with an assumed capacity of 20 percent of each month's queue, the forecast's picks stayed down 82
 percent of the time, against 70 percent ordering by the latest share and 62 percent in a random
-order (11.5 points over the latest share, 90 percent interval 3.9 to 15.7). Its decision value under
+order (12.0 points over the latest share, 90 percent interval 3.9 to 15.7). Its decision value under
 assumed costs at the trade commission's vote is narrower: it beats always or never qualifying and
 the historical rates, but additional decision value over the latest share was not established. The
 model carries over to China's 2018 Section 301 tariffs, where a fall that follows a rush before the
@@ -254,26 +254,25 @@ month of the fall, 25 percent of products that fall are back within 18 months of
 Built only from earlier cases, these rates beat a uniform guess in five of six test years.
 
 On the day the duty starts, case facts add little over the historical rate (Table 3): a gain of
-0.010 whose 90 percent interval only just clears zero (0.0005 to 0.018), and included zero in an
-earlier version of the data, so we do not treat it as reliable.
+0.007 whose 90 percent interval includes zero (-0.001 to 0.014), so we do not treat it as reliable.
 Among products whose fall is visible and that are not yet back, monthly forecasts do better (Fig.
-2). At month 4, gradient boosting ranks a product that came back above one that did not in 80
-percent of pairs (logistic, 75), 0.039 (0.026 to 0.052) better than that month's historical rate;
-at month 5, also 80 percent. Much of that improvement comes from the latest published share alone:
+2). At month 4, gradient boosting ranks a product that came back above one that did not in 79.5
+percent of pairs (AUC 0.795; logistic, 0.753), 0.039 (0.026 to 0.052) better than that month's historical rate;
+at month 5, 0.797. Much of that improvement comes from the latest published share alone:
 a model of the latest share reaches a Brier score of 0.165 against 0.192 for the historical rate and
-0.153 for boosting, about 70 percent of the gain. Boosting was ahead of that latest-share model in
-every month from 3 to 12, by 0.003 to 0.014 (pointwise intervals above zero in months 4 to 6 and
+0.154 for boosting, about 70 percent of the gain. Boosting was ahead of that latest-share model in
+every month from 3 to 12, by 0.003 to 0.013 (pointwise intervals above zero in months 4 to 6 and
 11), but no month clears a test of all months together. At the ITC vote a logistic model reaches
-80 percent, 0.011 (0.003 to 0.020) beyond the share model, which again supplies about 70 percent of
+80 percent, 0.012 (0.003 to 0.021) beyond the share model, which again supplies about 70 percent of
 the gain over history; the vote itself adds 0.004 (-0.002 to 0.011). These are gains in probability
 accuracy. Decision value is a separate question (Fig. A2): with logistic as the common model (a
 consistency choice, not preregistered), tested against every baseline at all thresholds together,
 the vote-time forecast leads always or never qualifying, the historical rate and the rate by vote
-at cost ratios 0.45 and 0.55 to 0.80, but additional decision value over the latest-share model was
+at cost ratios 0.45, 0.50 and 0.60 to 0.80, but additional decision value over the latest-share model was
 not established under the simultaneous test at any ratio (pointwise, it leads the share model at
-0.70, 0.75, 0.85 and 0.90); at the fall it leads every baseline at 0.70; on day one, at none.
-Recalibrating on earlier years made the vote-time forecasts worse on held-out years (Brier 0.157
-against 0.146) and the fall-time ones slightly better (0.204 against 0.205); we report the raw model
+0.70, 0.75, 0.85 and 0.90); at the fall and on day one, at none.
+Recalibrating on earlier years made the vote-time forecasts worse on held-out years (Brier 0.155
+against 0.145) and the fall-time ones slightly better (0.204 against 0.205); we report the raw model
 at both, a choice made after seeing those years. Table A1 turns the models into a lookup.
 
 [[FIG:2|slides/fig/19_monthly_forecast.png|Pairwise ranking accuracy (AUC), held-out products already fallen and not yet back; eligible products differ by month. Boosting against a latest-share model. 16,781 product-months from 1,712 products, 349 cases, 136 groups; held out 1,157 products, 219 cases.|48]]
@@ -282,9 +281,9 @@ at both, a choice made after seeing those years. Table A1 turns the models into 
 
 | decision point | cases (scored) | history | best model | improvement | AUC |
 | --- | --- | --- | --- | --- | --- |
-| duty starts | 381 (241) | 0.248 | logistic, 0.239 | 0.010 [0.0005, 0.018] | 0.64 |
-| month 4 | 315 (198) | 0.192 | boosting, 0.153 | 0.039 [0.026, 0.052] | 0.80 |
-| ITC final vote | 329 (207) | 0.174 | logistic, 0.135 | 0.039 [0.027, 0.051] | 0.80 |
+| duty starts | 381 (241) | 0.248 | logistic, 0.242 | 0.007 [-0.001, 0.014] | 0.633 |
+| month 4 | 315 (198) | 0.192 | boosting, 0.154 | 0.039 [0.026, 0.052] | 0.795 |
+| ITC final vote | 329 (207) | 0.174 | logistic, 0.134 | 0.039 [0.027, 0.052] | 0.796 |
 
 ### 3.4 Which relationships to review first
 
@@ -292,7 +291,7 @@ The month-4 queues hold 936 held-out relationships (198 cases, 66 investigation 
 decision months, 2020 to 2025); 62 percent of them remained down by month 18. Reviewing 20
 percent of each month's queue in the forecast's order, 82 percent of reviewed relationships
 remained down, against 70 percent in the latest-share order and 62 percent in a random order
-(Table 4): 11.5 points more than the latest share (90 percent interval 3.9 to 15.7). The forecast's
+(Table 4): 12.0 points more than the latest share (90 percent interval 3.9 to 15.7). The forecast's
 reviews reached 26 percent of all persistent declines, where the most any order could reach at
 that capacity is 32 percent; the latest share reached 23 and a random order 20. The result holds at
 10 and 30 percent, weighting each case once (90 against 81 percent), and without the largest
@@ -307,9 +306,9 @@ percentage points, 90 percent interval over investigation groups.
 
 | review capacity | forecast | latest share | historical rate (random) | forecast minus latest share |
 | --- | --- | --- | --- | --- |
-| 10% | 85% (14%) | 69% (11%) | 62% (10%) | +15.6 [7.6, 20.3] |
-| 20% | 82% (26%) | 70% (23%) | 62% (20%) | +11.5 [3.9, 15.7] |
-| 30% | 81% (39%) | 71% (34%) | 62% (30%) | +10.0 [3.4, 12.7] |
+| 10% | 85% (14%) | 69% (11%) | 62% (10%) | +16.0 [7.6, 20.4] |
+| 20% | 82% (26%) | 70% (23%) | 62% (20%) | +12.0 [3.9, 15.7] |
+| 30% | 81% (39%) | 71% (34%) | 62% (30%) | +10.3 [3.4, 12.8] |
 
 ### 3.5 The same model on China's Section 301 tariffs
 
@@ -411,13 +410,13 @@ determination notices in the Federal Register.
 | --- | --- | --- | --- |
 | under USD 1M | 35 / 52 (49) | 30 / 30 (38) | 35 / 44 (26) |
 | USD 1M to USD 10M | 24 / 35 (50) | 16 / 16 (51) | 26 / 21 (27) |
-| over USD 10M | 21 / 24 (78) | 15 / 15 (71) | 20 / 28 (36) |
+| over USD 10M | 21 / 24 (78) | 15 / 15 (71) | 19 / 28 (36) |
 
 | at the ITC vote: latest share against pre-case | duty confirmed | duty lifted |
 | --- | --- | --- |
-| under half | 12 / 13 (143) | 39 / 32 (24) |
+| under half | 12 / 13 (143) | 38 / 32 (24) |
 | half to 4/5 | 22 / 20 (66) | 52 / 27 (19) |
-| 4/5 or more | 45 / 54 (49) | 79 / 81 (17) |
+| 4/5 or more | 46 / 54 (49) | 78 / 81 (17) |
 
 ### A review queue, one month
 
@@ -432,14 +431,14 @@ every row and overstated this month's 56 percent. One month is an illustration, 
 | rank | product | HS code | country | chance not back by month 18 | latest share / pre-case | historical rate not back | stayed down |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | Ferrosilicon | 7202.21.10 | Brazil | 0.93 | 0.00 | 0.79 | yes |
-| 2 | Epoxy resins | 3907.30.00 | Taiwan | 0.91 | 0.42 | 0.79 | yes |
+| 2 | Epoxy resins | 3907.30.00 | Taiwan | 0.92 | 0.42 | 0.79 | yes |
 | 3 | Ferrosilicon | 7202.21.50 | Kazakhstan | 0.91 | 0.43 | 0.79 | yes |
 | 4 | Epoxy resins | 2910.90.91 | India | 0.90 | 0.58 | 0.79 | yes |
-| 5 | Ferrosilicon | 7202.21.50 | Brazil | 0.89 | 0.48 | 0.79 | yes |
-| 6 | 2,4-D acid | 3808.93.15 | India | 0.88 | 0.59 | 0.79 | no |
+| 5 | 2,4-D acid | 3808.93.15 | India | 0.89 | 0.59 | 0.79 | no |
+| 6 | Ferrosilicon | 7202.21.50 | Brazil | 0.89 | 0.48 | 0.79 | yes |
 | 7 | Ceramic tile | 6914.10.80 | India | 0.88 | 0.03 | 0.79 | yes |
 | 8 | Ceramic tile | 6907.40.90 | India | 0.87 | 0.17 | 0.79 | no |
-| 9 | Epoxy resins | 3907.29.00 | Taiwan | 0.86 | 0.69 | 0.79 | no |
+| 9 | Ceramic tile | 6907.30.40 | India | 0.87 | 0.00 | 0.79 | yes |
 
 ### Section 301 details
 

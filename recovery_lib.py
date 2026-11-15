@@ -252,7 +252,16 @@ def cc_side_dates(ep):
     return out
 
 
+def crit_flags(path="events/adcvd_events.csv"):
+    """Whether each notice found critical circumstances (affirmative or mixed) for each country it
+    covers, keyed by (document, country code): one notice can cover several countries with
+    different findings."""
+    e = pd.read_csv(path, dtype={"cty": str})
+    return {(d, c): bool(f) for d, c, f in zip(e.document_number, e.cty, e.critical_affirm.fillna(False))}
+
+
 def crit_known(own_docs, crit_doc, side_dates, upto):
     """Whether an affirmative critical-circumstances finding was public by `upto`: in one of the
-    episode's own notices published by then (crit_doc: document -> flag) or in a side notice."""
+    episode's own notices published by then (crit_doc: key -> flag, keys as in own_docs, normally
+    (document, country) from crit_flags) or in a side notice."""
     return any(crit_doc.get(d, False) for d in own_docs) or any(t <= upto for t in side_dates)

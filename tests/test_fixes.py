@@ -84,7 +84,7 @@ def test_decision_value_claims_match_the_bounds(point):
     if point == "ITC final vote":
         other = [c for c in cols if c != "simlo_share only"]
         ahead = x.threshold[(x[other] > 0).all(axis=1)].round(2).tolist()
-        assert ahead == [0.45, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8], ahead
+        assert ahead == [0.45, 0.5, 0.6, 0.65, 0.7, 0.75, 0.8], ahead
 
 
 def test_deck_numbers_match_the_csv():

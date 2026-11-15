@@ -43,36 +43,38 @@ def test_table3_rows(docs):
     lm = pd.read_csv("prediction_landmark.csv").set_index("L").loc[4]
     cnt = pd.read_csv("prediction_landmark_counts.csv").set_index("L").loc[4]
     row4 = (f"| month 4 | {cnt.cases} ({int(lm.cases)}) | {lm.brier_history:.3f} | boosting, {lm.brier_boosting:.3f} | "
-            f"{lm.gain_boosting:.3f} [{lm.lo_boosting:.3f}, {lm.hi_boosting:.3f}] | {lm.auc_boosting:.2f} |")
+            f"{lm.gain_boosting:.3f} [{lm.lo_boosting:.3f}, {lm.hi_boosting:.3f}] | {lm.auc_boosting:.3f} |")
     assert row4 in t, row4
     s2 = pd.read_csv("prediction_stage2.csv").set_index(["point", "model"])
     m, h = s2.loc[("ITC", "logit, + vote")], s2.loc[("ITC", "history")]
     yrs = pd.read_csv("prediction_stage2_years.csv")
     scored = int(yrs[yrs.point == "ITC"].test_episodes.sum())
     rowi = (f"| ITC final vote | 329 ({scored}) | {h.brier:.3f} | logistic, {m.brier:.3f} | "
-            f"{m.gain_vs_history:.3f} [{m.lo_vs_history:.3f}, {m.hi_vs_history:.3f}] | {m.auc:.2f} |")
+            f"{m.gain_vs_history:.3f} [{m.lo_vs_history:.3f}, {m.hi_vs_history:.3f}] | {m.auc:.3f} |")
     assert rowi in t, rowi
 
 
 def test_monthly_forecast_claims(docs):
     lm = pd.read_csv("prediction_landmark.csv").set_index("L")
-    assert pct(lm.loc[4, "auc_boosting"]) == "80" and pct(lm.loc[4, "auc_logistic"]) == "75"
-    assert pct(lm.loc[5, "auc_boosting"]) == "80"
+    # three decimals: 0.795 is the stated value, so a change in the third decimal is not read as a full point
+    assert f"{lm.loc[4, 'auc_boosting']:.3f}" == "0.795" and f"{lm.loc[4, 'auc_logistic']:.3f}" == "0.753"
+    assert f"{lm.loc[5, 'auc_boosting']:.3f}" == "0.797"
     lo, hi = lm.loc[3:12, "over_share_boosting"].min(), lm.loc[3:12, "over_share_boosting"].max()
-    assert f"{lo:.3f}" == "0.003" and f"{hi:.3f}" == "0.014"
+    assert f"{lo:.3f}" == "0.003" and f"{hi:.3f}" == "0.013"
     assert (lm.loc[3:12, "over_share_boosting"] > 0).all(), "the text says boosting was ahead in every month 3 to 12"
     for k in ["report", "readme"]:
-        assert "80 percent of pairs" in docs[k]
-    assert "0.003 to 0.014" in docs["report"]
+        assert "AUC 0.795" in docs[k]
+    assert "0.003 to 0.013" in docs["report"]
     assert not (lm["simlo_os_boosting"] > 0).any(), "the text says no month clears the joint test"
 
 
 def test_decision_value_support(docs):
     j = pd.read_csv("decision_value_joint.csv").set_index("point")
     assert j.loc["ITC final vote", "supported_thresholds"] == "none"
-    assert j.loc["fall first visible", "supported_thresholds"] == "0.70"
+    assert j.loc["fall first visible", "supported_thresholds"] == "none"
     assert j.loc["duty starts", "supported_thresholds"] == "none"
-    assert "0.45 and 0.55 to 0.80" in docs["report"] and "0.45 to 0.80" in docs["readme"] and "0.45 and 0.55 to 0.80" in docs["handoff"]
+    assert "0.45, 0.50 and 0.60 to 0.80" in docs["report"] and "0.45 to 0.80" in docs["readme"] \
+        and "0.45, 0.50 and 0.60 to 0.80" in docs["handoff"]
     for stale in ["0.25 to 0.90", "fixed in advance", "0.75 and 0.85"]:
         assert stale not in docs["report"] and stale not in docs["readme"], stale
 

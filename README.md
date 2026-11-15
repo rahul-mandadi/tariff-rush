@@ -56,17 +56,17 @@ information, and its benefit to an importer is a proposed use not yet validated 
   fall and come back, 42 percent fall and stay down, and 16 percent fall, never come back and have
   no imports in months 13 to 18 (fake date: 50 / 29 / 17 / 3).
 - **Forecasting, on held-out later years.** On the day the duty starts, case facts add little over
-  these historical rates (a gain whose interval only just clears zero). Among products whose fall is
+  these historical rates (a gain whose interval includes zero). Among products whose fall is
   already visible and that are not yet back, a model re-estimated every month from what Census has
-  published ranks a product that came back above one that did not in 80 percent of pairs at month 4
-  and at month 5 (gradient boosting; logistic 75 at month 4). Most of the gain over the historical
+  published ranks a product that came back above one that did not in 79.5 percent of pairs at month 4
+  (AUC 0.795) and 79.7 at month 5 (gradient boosting; logistic 0.753 at month 4). Most of the gain over the historical
   rate comes from the latest published share alone (about 70 percent at month 4); the model stays
   slightly ahead of a latest-share model in every month from 3 to 12, though no single month clears
   a joint test. The 16,781 product-month rows come from 1,712 products in 136 investigation groups.
 - **A month-4 review queue** (`forecast/review_queue.py`). Each month's falling, not-yet-back relationships
   form one queue; with an assumed capacity of 20 percent of each queue, the forecast's picks
   remained down 82 percent of the time, against 70 percent ordering by the latest share and 62
-  percent in a random order (the historical rate ranks nothing); 11.5 points over the latest share,
+  percent in a random order (the historical rate ranks nothing); 12.0 points over the latest share,
   90 percent interval 3.9 to 15.7 over investigation groups, and similar at 10 and 30 percent.
 - **Decision value under assumed costs is narrower.** Tested against every baseline at all 17
   thresholds at once, the logistic vote-time forecast beats always or never qualifying and the
