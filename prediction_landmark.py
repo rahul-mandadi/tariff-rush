@@ -57,11 +57,13 @@ CCS = RL.cc_side_dates(ep)
 
 pairs = pd.read_csv("recovery_pairs_decision_fall20.csv", dtype={"hs8": str})
 pairs["hs8"] = pairs.hs8.str.zfill(8)
+# open pairs: month 18 not yet in the data; scored only by frozen_forecast.py, never trained or tested on
+pairs_open = pairs[(pairs.category == "censored") & pairs.fell_at.notna()].reset_index(drop=True)
 pairs = pairs[(pairs.category != "censored") & pairs.fell_at.notna()].reset_index(drop=True)
 st = pd.read_parquet("panel/adcvd_stacks_decision.parquet")
-st = st[st.sid.isin(set(pairs.sid))]
+st = st[st.sid.isin(set(pairs.sid) | set(pairs_open.sid))]
 paths = RL.share_paths(st)
-q = RL.load_raw(set(pairs.hs8), int(ep.b.min()) - 18, int(ep.b.max()) + 16, qty=True)
+q = RL.load_raw(set(pairs.hs8) | set(pairs_open.hs8), int(ep.b.min()) - 18, int(ep.b.max()) + 16, qty=True)
 raw = {h: g[["cty", "m", "value"]] for h, g in q.groupby("hs8")}
 uvq = RL.one_unit_qty(q)
 
@@ -75,44 +77,58 @@ def case_facts(s, upto):
                 china=float(ep.cty[s] == "5700"))
 
 
-rows = []
-for r in pairs.itertuples():
-    s, h, b0 = r.sid, r.hs8, int(ep.b[r.sid])
-    pf = RL.pre_features(raw, h, b0, ep.cty[s])
-    if pf is None or (s, h) not in paths:
-        continue
-    sh, sm, v = paths[(s, h)]
-    for L in LANDMARKS:
-        # data through L - 2, or less if Census had not released it by the end of month L
-        seen = REL[REL.release < pd.Timestamp(year=(b0 + L + 1) // 12, month=(b0 + L + 1) % 12 + 1, day=1)].m.max()
-        kv = min(L - LAG, int(seen) - b0)
-        if r.fell_at > kv or (pd.notna(r.rec_at) and r.rec_at + 2 <= kv):
+M_DATA = int(q.m.max())  # the last month in the harvested panel
+
+
+def build_rows(pairs_, landmarks, open_=False):
+    rows = []
+    for r in pairs_.itertuples():
+        s, h, b0 = r.sid, r.hs8, int(ep.b[r.sid])
+        pf = RL.pre_features(raw, h, b0, ep.cty[s])
+        if pf is None or (s, h) not in paths:
             continue
-        post = sm.loc[0:kv].dropna()
-        if post.empty:
-            continue
-        recent = sm.loc[kv - 3:kv].dropna()
-        vv = v.reindex(range(0, kv + 1), fill_value=0)
-        uvc = RL.uv_change(uvq, h, b0, ep.cty[s], kv)
-        dec = pd.Timestamp(year=(b0 + L) // 12, month=(b0 + L) % 12 + 1, day=1) - pd.Timedelta(days=1)
-        # the vote counts as known only if its notice was published by the decision date
-        df_, stg = fs.d_final[s], fs.stage[s]
-        vote = stg if (df_ is not None and pd.notna(df_) and df_ <= dec and stg in ("order", "negative")) \
-            else "not yet"
-        rows.append(dict(sid=s, hs8=h, cluster=r.cluster, year=b0 // 12, b=b0, L=L, y=int(pd.notna(r.rec_at)),
-                         **pf, **case_facts(s, dec),
-                         k_fall=float(r.fell_at), since_fall=float(kv - r.fell_at),
-                         depth=float(post.min() / r.bench), latest=float(post.iloc[-1] / r.bench),
-                         slope=float((recent.iloc[-1] - recent.iloc[0]) / r.bench) if len(recent) > 1 else 0.0,
-                         zero_months=float((vv == 0).mean()), rush=float(sh.loc[-6:-1].mean() / r.bench),
-                         uv_change=0.0 if pd.isna(uvc) else float(np.clip(uvc, -3, 3)), uv_missing=float(pd.isna(uvc)),
-                         vote_confirmed=float(vote == "order"), vote_lifted=float(vote == "negative"),
-                         vote_unknown=float(vote == "not yet")))
-D = pd.DataFrame(rows)
+        sh, sm, v = paths[(s, h)]
+        for L in landmarks:
+            # data through L - 2, or less if Census had not released it by the end of month L
+            seen = REL[REL.release < pd.Timestamp(year=(b0 + L + 1) // 12, month=(b0 + L + 1) % 12 + 1, day=1)].m.max()
+            if open_ and int(seen) > M_DATA:
+                continue  # the decision would use a released month we have not harvested
+            kv = min(L - LAG, int(seen) - b0)
+            if r.fell_at > kv or (pd.notna(r.rec_at) and r.rec_at + 2 <= kv):
+                continue
+            post = sm.loc[0:kv].dropna()
+            if post.empty:
+                continue
+            recent = sm.loc[kv - 3:kv].dropna()
+            vv = v.reindex(range(0, kv + 1), fill_value=0)
+            uvc = RL.uv_change(uvq, h, b0, ep.cty[s], kv)
+            dec = pd.Timestamp(year=(b0 + L) // 12, month=(b0 + L) % 12 + 1, day=1) - pd.Timedelta(days=1)
+            # the vote counts as known only if its notice was published by the decision date
+            df_, stg = fs.d_final[s], fs.stage[s]
+            vote = stg if (df_ is not None and pd.notna(df_) and df_ <= dec and stg in ("order", "negative")) \
+                else "not yet"
+            rows.append(dict(sid=s, hs8=h, cluster=r.cluster, year=b0 // 12, b=b0, L=L, kv=kv, dec=dec,
+                             y=np.nan if open_ else int(pd.notna(r.rec_at)),
+                             **pf, **case_facts(s, dec),
+                             k_fall=float(r.fell_at), since_fall=float(kv - r.fell_at),
+                             depth=float(post.min() / r.bench), latest=float(post.iloc[-1] / r.bench),
+                             slope=float((recent.iloc[-1] - recent.iloc[0]) / r.bench) if len(recent) > 1 else 0.0,
+                             zero_months=float((vv == 0).mean()), rush=float(sh.loc[-6:-1].mean() / r.bench),
+                             uv_change=0.0 if pd.isna(uvc) else float(np.clip(uvc, -3, 3)), uv_missing=float(pd.isna(uvc)),
+                             vote_confirmed=float(vote == "order"), vote_lifted=float(vote == "negative"),
+                             vote_unknown=float(vote == "not yet")))
+    return pd.DataFrame(rows)
+
+
+D = build_rows(pairs, LANDMARKS)
+# open relationships at month 4, inputs as of their own decision date (frozen_forecast.py)
+build_rows(pairs_open, [4], open_=True).to_parquet("panel/landmark_open.parquet")
 D = D.dropna().reset_index(drop=True)
 # each case counts once at each landmark (the same weights used for scoring), so the training
 # rate at a landmark is not tilted toward products that stay eligible longer
 D["w"] = 1.0 / D.groupby(["sid", "L"]).sid.transform("size")
+# the feature table, with each row's last visible month (kv) and decision date, for feature_ladder.py
+D.to_parquet("panel/landmark_features.parquet")
 FEAT = ["pre_share", "pre_trend", "log_pre_value", "hhi", "n_rivals", "log_rate", "rate_missing", "crit",
         "both", "china", "k_fall", "since_fall", "depth", "latest", "slope", "zero_months", "rush",
         "uv_change", "uv_missing", "vote_confirmed", "vote_lifted", "vote_unknown", "L"]

@@ -45,3 +45,7 @@ panel/adcvd_stacks_*.parquet
 final_report.html
 panel/s301_stacks.parquet
 panel/adcvd_stacks_decision.parquet
+
+# rebuilt by prediction_landmark.py (feature table for feature_ladder.py and model_explain.py)
+panel/landmark_features.parquet
+panel/landmark_open.parquet

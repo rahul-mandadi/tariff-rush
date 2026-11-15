@@ -96,6 +96,8 @@ repository root, in this order:
 | final outcomes | `events/itc_check.py`, `events/itc_audit.py`, `itc_compare.py` | ITC verdicts, the no-injury audit, order against no-injury |
 | outcome rates | `recovery_benchmark.py --fall 0.2` (also 0.1, 0.3), `recovery_by_final_stage.py` | the four outcome shares, Kaplan-Meier recovery |
 | forecasts | `events/build_release_calendar.py`, `build_decision_stacks.py`, `prediction_test.py`, `prediction_stage2.py`, `prediction_landmark.py`, `calibrated_lookup.py`, `decision_value.py`, `review_queue.py` | decision-time panels; day-one, at-the-fall, ITC-vote and monthly forecasts; the lookup; decision value; the month-4 review queue |
+| methodology study (`docs/SCOPE.md` section 5) | `feature_ladder.py`, `review_queue_curves.py`, `model_explain.py`, `model_calibration.py`, `model_recalibration.py` | where the forecast's information comes from; the capacity curve and months 6 and 8; what drives it; calibration and errors; recalibration on earlier years (exploratory) |
+| frozen forecast | `frozen_forecast.py` (made 2026-11-15, do not rerun), `frozen_forecast_check.py` (run as outcomes arrive) | a ranking of 197 relationships whose outcome was unknown when committed, and its scoring: the one test not run on years already looked at |
 | Section 301 | `events/build_301_lists.py`, `sec301_benchmark.py`, `sec301_transfer_test.py` | product lists, outcomes, transfer tests |
 | coverage | `coverage_share.py`, `copper_split.py` | how much of a category a list names; copper |
 | outputs | `slides/fig_stacked.py`, `slides/fig_sankey.py`, `build_final_report.py`, `slides/build_deck2b.py`, `slides/build_deck_final.py` | figures, report PDF, decks |

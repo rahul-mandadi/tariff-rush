@@ -35,12 +35,12 @@ From the repository root. Raw caches are git-ignored and rebuilt by the first st
 4. `events/itc_check.py`, `events/itc_audit.py`, `itc_compare.py`: final ITC outcomes and the order against no-injury split.
 5. `recovery_benchmark.py --fall 0.2` (also 0.1, 0.3), `recovery_by_final_stage.py`: the four outcomes.
 6. `events/build_release_calendar.py` (Census release date of each data month, from ALFRED), `build_decision_stacks.py`: decision-time panels (only rivals and products known by the first preliminary, exact dates).
-7. `prediction_test.py`, `prediction_stage2.py`, `prediction_landmark.py`, `calibrated_lookup.py`, `decision_value.py`, `review_queue.py`: the forecasts, their evaluation and the month-4 review queue.
+7. `prediction_test.py`, `prediction_stage2.py`, `prediction_landmark.py`, `calibrated_lookup.py`, `decision_value.py`, `review_queue.py`: the forecasts, their evaluation and the month-4 review queue; then the methodology study: `feature_ladder.py`, `review_queue_curves.py`, `model_explain.py`, `model_calibration.py`, `model_recalibration.py`. `frozen_forecast.py` made the frozen forecast on 2026-11-15 and must not be rerun over it; `frozen_forecast_check.py` scores it as outcomes arrive.
 8. `events/build_301_lists.py`, `sec301_benchmark.py`, `sec301_transfer_test.py`: Section 301.
 9. `coverage_share.py`, `copper_split.py`: coverage and copper.
 10. `slides/fig_stacked.py`, `slides/fig_sankey.py`, `build_final_report.py`, `slides/build_deck2b.py`, `slides/build_deck_final.py`: figures, report PDF, decks.
 
-Checks: `python3 -m pytest tests -q` (39 tests: timing rules, headline and table numbers, the November 2026 fixes, critical-circumstances side notices, the review queue; the panel-based ones skip if the
+Checks: `python3 -m pytest tests -q` (47 tests: timing rules, headline and table numbers, the November 2026 fixes, critical-circumstances side notices, the review queue, the methodology study; the panel-based ones skip if the
 ignored parquet files are absent). One of them was confirmed to fail on the hindsight panels, so it
 does detect the leak it guards against.
 
