@@ -15,7 +15,7 @@ cites some of them at their old root paths.
 | --- | --- | --- |
 | `decomp.py` | STL counterfactual for tariff front-loading at the chapter level | its extrapolated baseline drifts when placebo-tested; replaced by comparisons with rival countries |
 | `surges.py` | surge episodes and their reversal ratio, trailing-only baseline | the ratio of two noisy cumulative sums is unstable |
-| `label_bands.py` | ordinal bands of the reversal ratio as a prediction target | depends on the ratio above |
+| `label_bands.py` (now in `report1/`, which still uses it) | ordinal bands of the reversal ratio as a prediction target | depends on the ratio above |
 | `counterfactual_hs8.py` | the same counterfactual per product-country cell at HS8 | placebo cells sit 0.115 log points below their own projection after 12 months; the baseline manufactures reversals |
 | `reversal_control.py` | the ratio against untreated origins instead of a projected trend | fake events 24 months earlier produced more surges than real ones |
 | `event_reversal.py` | the ratio per tariff event instead of per cell | calibration fixed, but too few events for power |

@@ -18,7 +18,7 @@ __pycache__/
 .DS_Store
 .venv/
 
-# HS10 month checkpoints (~1GB, rebuilt by harvest_hs10.py)
+# HS10 month checkpoints (~1GB, rebuilt by data/harvest_hs10.py)
 panel/hs10/
 panel/hs8/
 panel/*.log
@@ -40,12 +40,15 @@ slides/view/
 slides/*.pdf
 report1.html
 
-# rebuilt by adcvd_stacked.py (~20MB)
+# rebuilt by measure/adcvd_stacked.py (~20MB)
 panel/adcvd_stacks_*.parquet
 final_report.html
 panel/s301_stacks.parquet
 panel/adcvd_stacks_decision.parquet
 
-# rebuilt by prediction_landmark.py (feature table for feature_ladder.py and model_explain.py)
+# rebuilt by forecast/prediction_landmark.py (feature table for forecast/feature_ladder.py and model_explain.py)
 panel/landmark_features.parquet
 panel/landmark_open.parquet
+
+# per-step logs of run_all.py
+logs/

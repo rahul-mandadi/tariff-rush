@@ -17,7 +17,7 @@ import recovery_lib as RL  # noqa: E402
 
 
 def _literal(name):
-    tree = ast.parse(open("adcvd_stacked.py").read())
+    tree = ast.parse(open("measure/adcvd_stacked.py").read())
     for node in tree.body:
         if isinstance(node, ast.Assign) and getattr(node.targets[0], "id", "") == name:
             return ast.literal_eval(node.value)

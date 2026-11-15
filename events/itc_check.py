@@ -3,7 +3,7 @@
 Reads:  adcvd_episodes_collapsed.csv, events/adcvd_events.csv, events/raw/, panel/hs8/2018-01.parquet
         (country names); downloads the ITC notices it needs once and keeps them in events/raw/itc_cache/
 Writes: events/itc_check.csv, events/itc_check_by_country.csv
-Run:    python3 events/itc_check.py      (after adcvd_stacked.py)
+Run:    python3 events/itc_check.py      (after measure/adcvd_stacked.py)
 """
 import json
 import os

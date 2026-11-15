@@ -28,7 +28,8 @@ Usage:  python3 reversal_control.py [--placebo]
 import sys
 import numpy as np
 import pandas as pd
-from label_bands import assign, BANDS
+sys.path.insert(0, "report1")  # label_bands.py moved there
+from label_bands import assign, BANDS  # noqa: E402
 
 PLACEBO = "--placebo" in sys.argv
 H, PRE = 9, 12

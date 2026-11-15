@@ -18,7 +18,7 @@ answers cite the changed clause, then do one consistency read and stop.
 
 What the data says:
 - [A] A month's queue across all U.S. imports has a median of 8 relationships (44 months, 6 with a
-  single one; `review_queue.py` log). One importer sees only the products it buys, so its own queue
+  single one; `forecast/review_queue.py` log). One importer sees only the products it buys, so its own queue
   is usually a few relationships or none.
 - [A] Across 2016 to 2025, the targeted relationships carried about 20 billion dollars of imports a
   year in the 12 months before their duty, 0.71 percent of U.S. imports (check run today).

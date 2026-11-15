@@ -5,7 +5,7 @@ were shortened to what the script does, reads, writes and how to run it, and the
 moved here unchanged, one section per script. These are source notes to be rewritten in plain
 words; they are not edited.
 
-## adcvd_analysis.py
+## report1/adcvd_analysis.py
 
 ```text
 Rush and repayment around antidumping and countervailing duty cases.
@@ -30,7 +30,7 @@ result.
 Usage:  python3 adcvd_analysis.py [--h 9] [--min-window 60]
 ```
 
-## adcvd_event_study.py
+## report1/adcvd_event_study.py
 
 ```text
 Month-by-month path of imports around an AD/CVD preliminary determination.
@@ -55,7 +55,7 @@ the path can be read against a placebo rather than against zero.
 Usage:  python3 adcvd_event_study.py [--min-window 60]
 ```
 
-## adcvd_stacked.py
+## measure/adcvd_stacked.py
 
 ```text
 AD/CVD aftermath on a fixed cohort that keeps zero-trade months: a stacked event study.
@@ -106,7 +106,7 @@ Design
 Usage:  python3 adcvd_stacked.py
 ```
 
-## adcvd_stacked_qty.py
+## measure/adcvd_stacked_qty.py
 
 ```text
 The stacked AD/CVD aftermath, on physical quantity instead of dollar value.
@@ -127,7 +127,7 @@ adcvd_stacked.py.
 Usage:  python3 adcvd_stacked_qty.py
 ```
 
-## analysis_panel.py
+## data/analysis_panel.py
 
 ```text
 Apply the inclusion rules from docs/history/DESIGN.md and write the panel the tests run on.
@@ -143,7 +143,7 @@ Output: panel/analysis.parquet
 Usage:  python3 analysis_panel.py
 ```
 
-## build_decision_stacks.py
+## measure/build_decision_stacks.py
 
 ```text
 Comparison panels for the prediction tests, built only from what was known at the decision.
@@ -165,7 +165,7 @@ recovery_lib.categorize, the rule recovery_benchmark.py uses.
 Usage:  python3 build_decision_stacks.py      # from the repo root
 ```
 
-## build_panel_hs8.py
+## data/build_panel_hs8.py
 
 ```text
 Roll the HS10 month checkpoints up to the analysis grid: HS8 x partner x month.
@@ -188,7 +188,7 @@ Writes one parquet per month so memory stays flat and a rerun is cheap.
 Usage:  python3 build_panel_hs8.py
 ```
 
-## build_treatment.py
+## report1/build_treatment.py
 
 ```text
 Resolve each tariff event to the panel cells it actually treats.
@@ -212,7 +212,7 @@ Outputs
 Usage:  python3 build_treatment.py
 ```
 
-## calibrated_lookup.py
+## forecast/calibrated_lookup.py
 
 ```text
 Calibrated lookup: the second-decision-point models (prediction_stage2.py) as a table a sourcing
@@ -237,7 +237,7 @@ Episode-weighted, as everywhere else.
 Usage:  python3 calibrated_lookup.py      # after prediction_stage2.py
 ```
 
-## chapter_quantity.py
+## data/chapter_quantity.py
 
 ```text
 Rebuild the chapter anomaly ranking on quantity instead of dollars.
@@ -259,7 +259,7 @@ and is reported as such rather than silently dropped.
 Usage:  python3 chapter_quantity.py      # from the repo root
 ```
 
-## copper_split.py
+## data/copper_split.py
 
 ```text
 The copper tonnage split either side of the Section 232 duty.
@@ -347,7 +347,7 @@ Three authorities define scope three different ways:
 Each rule records where it comes from so it can be audited.
 ```
 
-## coverage_share.py
+## measure/coverage_share.py
 
 ```text
 How much of a chapter does each tariff action actually touch?
@@ -365,7 +365,7 @@ reference window so they describe the trade mix before the tariffs, not after.
 Usage:  python3 coverage_share.py [--ref 2017]
 ```
 
-## decision_value.py
+## forecast/decision_value.py
 
 ```text
 Decision value: potential net benefit of acting on the forecasts, under assumed costs.
@@ -403,7 +403,7 @@ models fixed; they do not reflect refitting on other training data.
 Usage:  python3 decision_value.py      # after prediction_test.py and prediction_stage2.py
 ```
 
-## deflation_check.py
+## data/deflation_check.py
 
 ```text
 Does the dollar ranking of unusual 2025 months survive deflating by import prices?
@@ -422,7 +422,7 @@ so later runs work offline.
 Writes deflation_check.csv.    Usage:  python3 deflation_check.py      # from the repo root
 ```
 
-## eda_summary.py
+## data/eda_summary.py
 
 ```text
 Small summary tables so the EDA notebook runs without the 1 GB panel cache.
@@ -439,7 +439,7 @@ Outputs
 Usage:  python3 eda_summary.py
 ```
 
-## event_study.py
+## report1/event_study.py
 
 ```text
 Month-by-month version of the within-product test.
@@ -636,7 +636,7 @@ more often a page number than a rate.
 Usage:  python3 events/parse_margins.py      # from the repo root
 ```
 
-## feature_ladder.py
+## forecast/feature_ladder.py
 
 ```text
 Feature ladder at month 4: where does the forecast's information come from? (docs/SCOPE.md, item 1)
@@ -684,7 +684,7 @@ Limit: duties from before 2015 are not in the notice table, so step e misses riv
 Usage:  python3 feature_ladder.py      # after prediction_landmark.py
 ```
 
-## harvest_hs10.py
+## data/harvest_hs10.py
 
 ```text
 Census intltrade imports, HS10 x partner x month, 2015 onward.
@@ -701,7 +701,7 @@ interrupted run never leaves a half file that looks cached.
 Usage:  CK=<census key> python3 harvest_hs10.py
 ```
 
-## itc_compare.py
+## measure/itc_compare.py
 
 ```text
 Aftermath for AD/CVD cases that became orders against cases the ITC voted negative.
@@ -718,7 +718,7 @@ includes the import trend itself, so the two groups are selected, not randomly a
 Usage:  python3 itc_compare.py      # from the repo root
 ```
 
-## model_calibration.py
+## forecast/model_calibration.py
 
 ```text
 When can the month-4 forecast be trusted? (docs/SCOPE.md, item 3)
@@ -742,7 +742,7 @@ Writes model_calibration.csv, model_errors.csv and slides/fig/23_reliability.png
 Usage:  python3 model_calibration.py      # after prediction_landmark.py
 ```
 
-## model_explain.py
+## forecast/model_explain.py
 
 ```text
 Why does the month-4 forecast flag what it flags? (docs/SCOPE.md, item 2)
@@ -769,7 +769,7 @@ Writes model_importance.csv, model_partial_dependence.csv and slides/fig/22_mode
 Usage:  python3 model_explain.py      # after prediction_landmark.py
 ```
 
-## model_recalibration.py
+## forecast/model_recalibration.py
 
 ```text
 Can the month-4 forecast's probabilities be fixed using earlier years only? (calibration fix)
@@ -801,7 +801,7 @@ Writes model_recalibration.csv, model_recalibration_heldout.csv and slides/fig/2
 Usage:  python3 model_recalibration.py      # after prediction_landmark.py
 ```
 
-## pharma_mix.py
+## data/pharma_mix.py
 
 ```text
 Why pharmaceuticals look opposite on dollars and on quantity.
@@ -818,7 +818,7 @@ line is one product with one unit, and both problems go away there.
 Usage:  python3 pharma_mix.py      # from the repo root
 ```
 
-## prediction_landmark.py
+## forecast/prediction_landmark.py
 
 ```text
 A forecast that updates every month: how soon can a sourcing team tell which products come back?
@@ -856,7 +856,7 @@ of investigation groups, holding fitted models fixed.
 Usage:  python3 prediction_landmark.py      # after build_decision_stacks.py
 ```
 
-## prediction_stage2.py
+## forecast/prediction_stage2.py
 
 ```text
 Second decision point: once a targeted product has visibly fallen, can we tell whether it recovers?
@@ -909,7 +909,7 @@ Descriptive and predictive only: the ITC's vote rests on the import record itsel
 Usage:  python3 prediction_stage2.py
 ```
 
-## prediction_test.py
+## forecast/prediction_test.py
 
 ```text
 One held-out test: can facts known at the preliminary beat the historical recovery benchmark?
@@ -938,7 +938,7 @@ pooled Brier is below the benchmark's.
 Usage:  python3 prediction_test.py
 ```
 
-## q3_absorbers.py
+## report1/q3_absorbers.py
 
 ```text
 When a tariff displaces volume from one origin, which origins absorb it?
@@ -965,7 +965,7 @@ benchmark for "how concentrated do share shifts look when nothing happened".
 Usage:  python3 q3_absorbers.py [--h 12]
 ```
 
-## recovery_benchmark.py
+## measure/recovery_benchmark.py
 
 ```text
 Recovery benchmark: after an AD/CVD preliminary, what usually happens to the targeted supplier?
@@ -1007,7 +1007,7 @@ Brier score), against the rates from all years (in-sample, optimistic) and a uni
 Usage:  python3 recovery_benchmark.py [--fall 0.2]
 ```
 
-## recovery_by_final_stage.py
+## measure/recovery_by_final_stage.py
 
 ```text
 Recovery categories (recovery_benchmark.py) split by how the case ended at the final stage.
@@ -1036,7 +1036,7 @@ fall_features() what the published data show when the fall first becomes visible
                the same definitions as prediction_stage2.py
 ```
 
-## review_queue.py
+## forecast/review_queue.py
 
 ```text
 A review queue for a sourcing analyst: which tariff-hit product-country relationships to look at first?
@@ -1097,7 +1097,7 @@ by the chosen method; the report shows one month as an example).
 Usage:  python3 review_queue.py      # after prediction_landmark.py
 ```
 
-## review_queue_curves.py
+## forecast/review_queue_curves.py
 
 ```text
 Does the review-queue result depend on the assumed capacity or on month 4? (docs/SCOPE.md, items 4 and 6)
@@ -1123,7 +1123,7 @@ Results are exploratory: the held-out years have been looked at before.
 Usage:  python3 review_queue_curves.py      # after prediction_landmark.py and review_queue.py
 ```
 
-## sec301_benchmark.py
+## section301/sec301_benchmark.py
 
 ```text
 Section 301 Lists 1 to 3: what happened to China's position in each taxed product.
@@ -1153,7 +1153,7 @@ pair. Both share the calendar-month rule, so this checks the shared code, not th
 Usage:  python3 sec301_benchmark.py
 ```
 
-## sec301_transfer_test.py
+## section301/sec301_transfer_test.py
 
 ```text
 Does the at-the-fall recovery model learned on AD/CVD cases transfer to Section 301?
@@ -1349,7 +1349,7 @@ for July" out loud. Every figure is named by number because the communication ru
 figures to be referenced and interpreted, and in a talk that is something you say.
 ```
 
-## within_product_test.py
+## report1/within_product_test.py
 
 ```text
 Did treated imports rise between announcement and effective date, relative to the

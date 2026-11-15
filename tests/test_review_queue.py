@@ -1,4 +1,4 @@
-"""The month-4 review queue (review_queue.py): tie handling, same-month queues, and Table 4.
+"""The month-4 review queue (forecast/review_queue.py): tie handling, same-month queues, and Table 4.
 
 Run from the repository root:  python3 -m pytest tests -q
 """

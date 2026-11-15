@@ -1,4 +1,4 @@
-"""Render FINAL_REPORT.md to a PDF (copy of build_report.py with the file names changed) with the figures placed, via Chrome headless.
+"""Render FINAL_REPORT.md to a PDF (copy of report1/build_report.py with the file names changed) with the figures placed, via Chrome headless.
 
 No pandoc on this machine, so markdown -> styled HTML -> print-to-pdf. Figures are referenced in
 the markdown as [[FIG:n|file|caption]] and expanded here, so the prose and the figure order

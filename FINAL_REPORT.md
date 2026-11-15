@@ -171,7 +171,7 @@ The proposed use is prioritization: an analyst who can review only some of the p
 relationships hit by duties wants to look first at those whose decline is likely to persist, and
 reads our ranking alongside the company's own supplier information. We predict the supplier
 country's recovery in a product, not one supplier's failure. The rules were fixed before the results
-were seen (`review_queue.py`). The checkpoint is month 4, and the queue holds only the monthly
+were seen (`forecast/review_queue.py`). The checkpoint is month 4, and the queue holds only the monthly
 model's eligible products: the fall is already visible and the product has not visibly come back.
 Products that never fell, or were already back, are not in it. Each calendar month is its own
 queue, so a relationship is ranked only against others at their month-4 checkpoint in the same
@@ -513,14 +513,14 @@ Trade data are Census's current revised values, not the figures first published,
 available at the decision" means the months released by then, at today's values. Simultaneous
 bounds for decision value control error within each decision point, not across the three.
 
-All code is in the repository. The panel: `harvest_hs10.py`, `build_panel_hs8.py`. Duty notices:
+All code is in the repository. The panel: `data/harvest_hs10.py`, `data/build_panel_hs8.py`. Duty notices:
 `events/harvest_adcvd.py`, `events/parse_adcvd.py`, `events/parse_margins.py`. Final outcomes:
-`events/itc_check.py`, `events/itc_audit.py`. Section 3.2: `adcvd_stacked.py`, `itc_compare.py`,
-`adcvd_stacked_qty.py`, `adcvd_analysis.py`. Section 3.3: `recovery_benchmark.py`,
-`recovery_by_final_stage.py`, `events/build_release_calendar.py`, `build_decision_stacks.py`, `prediction_test.py`, `prediction_stage2.py`,
-`prediction_landmark.py`, `decision_value.py`, `calibrated_lookup.py`, `review_queue.py` (section 3.4).
-Section 3.5: `events/build_301_lists.py`, `sec301_benchmark.py`, `sec301_transfer_test.py`,
-`recovery_lib.py`. Appendix, dollars and quantity: `eda_summary.py`, `chapter_quantity.py`,
-`slides/fig_units.py`, `pharma_mix.py`, `deflation_check.py`. Section 3.1: `coverage_share.py`,
-`copper_split.py`. Figures: `slides/fig_sankey.py`, `slides/fig_stacked.py`. Each script writes
+`events/itc_check.py`, `events/itc_audit.py`. Section 3.2: `measure/adcvd_stacked.py`, `measure/itc_compare.py`,
+`measure/adcvd_stacked_qty.py`, `report1/adcvd_analysis.py`. Section 3.3: `measure/recovery_benchmark.py`,
+`measure/recovery_by_final_stage.py`, `events/build_release_calendar.py`, `measure/build_decision_stacks.py`, `forecast/prediction_test.py`, `forecast/prediction_stage2.py`,
+`forecast/prediction_landmark.py`, `forecast/decision_value.py`, `forecast/calibrated_lookup.py`, `forecast/review_queue.py` (section 3.4).
+Section 3.5: `events/build_301_lists.py`, `section301/sec301_benchmark.py`, `section301/sec301_transfer_test.py`,
+`recovery_lib.py`. Appendix, dollars and quantity: `data/eda_summary.py`, `data/chapter_quantity.py`,
+`slides/fig_units.py`, `data/pharma_mix.py`, `data/deflation_check.py`. Section 3.1: `measure/coverage_share.py`,
+`data/copper_split.py`. Figures: `slides/fig_sankey.py`, `slides/fig_stacked.py`. Each script writes
 the CSV its numbers come from.

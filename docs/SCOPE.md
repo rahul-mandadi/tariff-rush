@@ -52,19 +52,19 @@ same thing.
 
 | item | rule | where in the code |
 |---|---|---|
-| cases | 502 cases in 204 investigation groups, with preliminary duties from January 2015 to October 2026, read from 687 Federal Register notices | `adcvd_stacked.py` |
+| cases | 502 cases in 204 investigation groups, with preliminary duties from January 2015 to October 2026, read from 687 Federal Register notices | `measure/adcvd_stacked.py` |
 | share | the targeted country's share of the product's U.S. imports, among the countries that sold it before the case, as a 3-month average. Its "before" level is the average 18 to 13 months before the duty | `recovery_lib.py` |
 | fall | within 6 months of the duty, the share drops below four-fifths of its before level | `recovery_lib.py` |
 | back | between the fall and month 18, the share is at or above its before level for three months in a row. Otherwise not back, which is what the model predicts. Relationships without 18 months of data are left out | `recovery_lib.py` |
-| month 4 | the decision point. Census data count if published by the end of month 4, which usually means data through month 2; duty notices and the ITC vote count only if published by the end of month 3 | `prediction_landmark.py` |
-| who is ranked | at month 4, relationships whose fall is already visible and that are not yet back: 1,376 relationships in 315 cases over all years; 936 in 198 cases and 66 groups in the held-out years 2020 to 2025 | `prediction_landmark.py`, `review_queue.py` |
-| no peeking | the model sees only Census months on their real release dates, notices only once published, and compares the targeted country only with countries not already hit by their own case at the start | `build_decision_stacks.py`, `tests/` |
-| testing | each year is predicted by a model trained only on earlier cases whose 18 months had been published; a test checks this against real release dates; settings are chosen within the training cases only | `prediction_landmark.py`, `tests/` |
-| models now | two standard ones: logistic regression and gradient boosting (many small decision trees added together), trained once across months 3 to 14, with each case counted once per month | `prediction_landmark.py` |
-| baselines | (a) the latest published share, lowest first: what an analyst can read off Census data without a model; (b) the historical rate, how often similar past cases came back, which is the same for everyone in a month and so ranks no better than random | `review_queue.py` |
-| main measure | of the relationships a team reviews when it looks at an assumed 20 percent of each month's list, the share that were really not back by month 18. Each month's list is ranked on its own; each relationship counts once; ties share reviews equally | `review_queue.py` |
-| other measures | the share of all lasting declines the reviews reached; two standard scores of how good the predicted chances are (Brier score: lower is better; AUC: how often a lasting decline is ranked above one that comes back); 90 percent ranges, computed by re-sampling whole investigation groups | `review_queue.py`, `prediction_landmark.py` |
-| how a model wins | it replaces the latest-share ranking only if it beats it on the main measure and the 90 percent range of the difference stays above zero | `review_queue.py` |
+| month 4 | the decision point. Census data count if published by the end of month 4, which usually means data through month 2; duty notices and the ITC vote count only if published by the end of month 3 | `forecast/prediction_landmark.py` |
+| who is ranked | at month 4, relationships whose fall is already visible and that are not yet back: 1,376 relationships in 315 cases over all years; 936 in 198 cases and 66 groups in the held-out years 2020 to 2025 | `forecast/prediction_landmark.py`, `forecast/review_queue.py` |
+| no peeking | the model sees only Census months on their real release dates, notices only once published, and compares the targeted country only with countries not already hit by their own case at the start | `measure/build_decision_stacks.py`, `tests/` |
+| testing | each year is predicted by a model trained only on earlier cases whose 18 months had been published; a test checks this against real release dates; settings are chosen within the training cases only | `forecast/prediction_landmark.py`, `tests/` |
+| models now | two standard ones: logistic regression and gradient boosting (many small decision trees added together), trained once across months 3 to 14, with each case counted once per month | `forecast/prediction_landmark.py` |
+| baselines | (a) the latest published share, lowest first: what an analyst can read off Census data without a model; (b) the historical rate, how often similar past cases came back, which is the same for everyone in a month and so ranks no better than random | `forecast/review_queue.py` |
+| main measure | of the relationships a team reviews when it looks at an assumed 20 percent of each month's list, the share that were really not back by month 18. Each month's list is ranked on its own; each relationship counts once; ties share reviews equally | `forecast/review_queue.py` |
+| other measures | the share of all lasting declines the reviews reached; two standard scores of how good the predicted chances are (Brier score: lower is better; AUC: how often a lasting decline is ranked above one that comes back); 90 percent ranges, computed by re-sampling whole investigation groups | `forecast/review_queue.py`, `forecast/prediction_landmark.py` |
+| how a model wins | it replaces the latest-share ranking only if it beats it on the main measure and the 90 percent range of the difference stays above zero | `forecast/review_queue.py` |
 
 **Where it stands now (held-out years).** Reviewing 20 percent of each month's list, the boosting
 model's picks were not back 82 percent of the time, against 70 percent ranking by the latest share
@@ -134,8 +134,8 @@ the 936 held-out relationships); the model still uses it at later months.
   were written before any of its outcomes existed, and queues whose outcome month was already
   public when it was frozen are left out of its test.
 - Status (2026-11-15): items 1, 2, 3, 4, 6, 7 and 8 done, run by Rahul; item 5 not run. Scripts:
-  `feature_ladder.py` (1), `model_explain.py` (2), `model_calibration.py` (3),
-  `review_queue_curves.py` (4 and 6), `model_recalibration.py` (7), `frozen_forecast.py` and
+  `forecast/feature_ladder.py` (1), `forecast/model_explain.py` (2), `forecast/model_calibration.py` (3),
+  `forecast/review_queue_curves.py` (4 and 6), `forecast/model_recalibration.py` (7), `frozen_forecast.py` and
   `frozen_forecast_check.py` (8).
 - Raunak's part of the remaining work, and the statement of who did what, are still to be agreed
   between us.

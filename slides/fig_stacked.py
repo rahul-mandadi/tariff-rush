@@ -1,7 +1,8 @@
 """Figures 12 to 20 for the final results.
 
-Reads:  the result CSVs of adcvd_stacked.py, itc_compare.py, recovery_benchmark.py, the forecast
-        scripts, decision_value.py, calibrated_lookup.py, sec301_benchmark.py and review_queue.py
+Reads:  the result CSVs of measure/adcvd_stacked.py, measure/itc_compare.py,
+        measure/recovery_benchmark.py, the forecast scripts, forecast/decision_value.py,
+        forecast/calibrated_lookup.py, section301/sec301_benchmark.py and forecast/review_queue.py
 Writes: slides/fig/12_order_vs_negative.png to slides/fig/20_review_queue.png
 Run:    python3 slides/fig_stacked.py      (after the scripts above)
 """
@@ -13,7 +14,7 @@ import matplotlib.pyplot as plt  # noqa: E402
 import numpy as np  # noqa: E402
 import pandas as pd  # noqa: E402
 
-sys.path.insert(0, ".")
+sys.path.insert(0, "measure")  # recovery_benchmark.py; run from the repo root
 import recovery_benchmark as R  # noqa: E402
 
 plt.rcParams.update({

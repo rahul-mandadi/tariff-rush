@@ -2,11 +2,12 @@
 
 Run from the repository root:  python3 -m pytest tests -q
 
-The panel-based checks need the git-ignored parquet files (rebuilt by adcvd_stacked.py,
-build_decision_stacks.py and sec301_benchmark.py) and skip if they are absent.
+The panel-based checks need the git-ignored parquet files (rebuilt by measure/adcvd_stacked.py,
+measure/build_decision_stacks.py and section301/sec301_benchmark.py) and skip if they are absent.
 """
 import ast
 import os
+import sys
 
 import numpy as np
 import pandas as pd
@@ -17,7 +18,7 @@ os.chdir(ROOT)
 
 
 def _exclude():
-    tree = ast.parse(open("adcvd_stacked.py").read())
+    tree = ast.parse(open("measure/adcvd_stacked.py").read())
     for node in tree.body:
         if isinstance(node, ast.Assign) and getattr(node.targets[0], "id", "") == "EXCLUDE":
             return set(ast.literal_eval(node.value))
@@ -142,6 +143,7 @@ def test_training_labels_are_published_before_each_test_year():
 
 
 def test_net_benefit_formula_on_a_hand_example():
+    sys.path.insert(0, os.path.join(ROOT, "forecast"))
     import decision_value as DV
     d = pd.DataFrame({"bad": [1, 1, 0, 0], "w": [1.0, 1.0, 1.0, 1.0], "model": [0.9, 0.2, 0.8, 0.1]})
     nb = DV.nb_matrix(d, ["model"])

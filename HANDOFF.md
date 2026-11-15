@@ -29,15 +29,15 @@ effective sample. Held out: 1,157 products, 219 cases.
 
 From the repository root. Raw caches are git-ignored and rebuilt by the first steps.
 
-1. `harvest_hs10.py`, `build_panel_hs8.py`: the import panel (`panel/hs8/`).
+1. `data/harvest_hs10.py`, `data/build_panel_hs8.py`: the import panel (`panel/hs8/`).
 2. `events/harvest_adcvd.py`, `events/parse_adcvd.py`, `events/parse_margins.py`: duty notices, products, rates.
-3. `adcvd_stacked.py` (about 40 minutes): measurement panels with hindsight comparison groups and the stacked estimates; `adcvd_stacked_qty.py`, `analysis_panel.py` (writes `panel/analysis.parquet`), `adcvd_analysis.py`.
-4. `events/itc_check.py`, `events/itc_audit.py`, `itc_compare.py`: final ITC outcomes and the order against no-injury split.
-5. `recovery_benchmark.py --fall 0.2` (also 0.1, 0.3), `recovery_by_final_stage.py`: the four outcomes.
-6. `events/build_release_calendar.py` (Census release date of each data month, from ALFRED), `build_decision_stacks.py`: decision-time panels (only rivals and products known by the first preliminary, exact dates).
-7. `prediction_test.py`, `prediction_stage2.py`, `prediction_landmark.py`, `calibrated_lookup.py`, `decision_value.py`, `review_queue.py`: the forecasts, their evaluation and the month-4 review queue; then the methodology study: `feature_ladder.py`, `review_queue_curves.py`, `model_explain.py`, `model_calibration.py`, `model_recalibration.py`. `frozen_forecast.py` made the frozen forecast on 2026-11-15 and must not be rerun over it; `frozen_forecast_check.py` scores it as outcomes arrive.
-8. `events/build_301_lists.py`, `sec301_benchmark.py`, `sec301_transfer_test.py`: Section 301.
-9. `coverage_share.py`, `copper_split.py`: coverage and copper.
+3. `measure/adcvd_stacked.py` (about 40 minutes): measurement panels with hindsight comparison groups and the stacked estimates; `measure/adcvd_stacked_qty.py`, `data/analysis_panel.py` (writes `panel/analysis.parquet`), `report1/adcvd_analysis.py`.
+4. `events/itc_check.py`, `events/itc_audit.py`, `measure/itc_compare.py`: final ITC outcomes and the order against no-injury split.
+5. `measure/recovery_benchmark.py --fall 0.2` (also 0.1, 0.3), `measure/recovery_by_final_stage.py`: the four outcomes.
+6. `events/build_release_calendar.py` (Census release date of each data month, from ALFRED), `measure/build_decision_stacks.py`: decision-time panels (only rivals and products known by the first preliminary, exact dates).
+7. `forecast/prediction_test.py`, `forecast/prediction_stage2.py`, `forecast/prediction_landmark.py`, `forecast/calibrated_lookup.py`, `forecast/decision_value.py`, `forecast/review_queue.py`: the forecasts, their evaluation and the month-4 review queue; then the methodology study: `forecast/feature_ladder.py`, `forecast/review_queue_curves.py`, `forecast/model_explain.py`, `forecast/model_calibration.py`, `forecast/model_recalibration.py`. `frozen_forecast.py` made the frozen forecast on 2026-11-15 and must not be rerun over it; `frozen_forecast_check.py` scores it as outcomes arrive.
+8. `events/build_301_lists.py`, `section301/sec301_benchmark.py`, `section301/sec301_transfer_test.py`: Section 301.
+9. `measure/coverage_share.py`, `data/copper_split.py`: coverage and copper.
 10. `slides/fig_stacked.py`, `slides/fig_sankey.py`, `build_final_report.py`, `slides/build_deck2b.py`, `slides/build_deck_final.py`: figures, report PDF, decks.
 
 Checks: `python3 -m pytest tests -q` (47 tests: timing rules, headline and table numbers, the November 2026 fixes, critical-circumstances side notices, the review queue, the methodology study; the panel-based ones skip if the
@@ -66,7 +66,7 @@ Mattresses from Vietnam, the 2020 antidumping case (episode 258 in `adcvd_episod
 
 ## Walkthrough B: one held-out prediction
 
-The same case, product 9404.29.10 (mattresses, other), at the ITC vote (`prediction_stage2.py`).
+The same case, product 9404.29.10 (mattresses, other), at the ITC vote (`forecast/prediction_stage2.py`).
 
 1. **Decision date.** The order notice, May 14, 2021, k = 6. Census data through k = 4 (March
    2021) are published by then (`census_release_calendar.csv`); nothing later is used.
@@ -95,7 +95,7 @@ The same case, product 9404.29.10 (mattresses, other), at the ITC vote (`predict
   the end of the month before, while a trade month counts if it was released by the end of the
   decision month (usually around day 5): a convention, not an exact date.
 - Trade values are today's revised Census data, not the first-published figures.
-- Critical-circumstances-only notices (30, `CC_ONLY` in `adcvd_stacked.py`; fixed 2026-11-09) never
+- Critical-circumstances-only notices (30, `CC_ONLY` in `measure/adcvd_stacked.py`; fixed 2026-11-09) never
   define an episode or its k = 0. They are kept as dated information in `events/cc_side_notices.csv`
   (one row per notice and country, affirmative or not, read from each summary), attached to the
   same country's episode for the same product, and a forecast reads one only once it is published.
