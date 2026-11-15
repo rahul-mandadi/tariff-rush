@@ -96,12 +96,13 @@ The core and the rules above change only if a test of them fails: a data error, 
 in from the future, or a rule that cannot be computed. A better-sounding idea is not a reason. Any
 change is written here, dated and agreed by both of us, with its reason.
 
-This contract, including the two changes below, was agreed by Rahul and Raunak on November 10, 2026.
+This contract, including the first two changes below, was agreed by Rahul and Raunak on November 10, 2026. The third needs Raunak's agreement.
 
 | date | change | reason | agreed by |
 |---|---|---|---|
 | 2026-11-09 | the domain problem names the user as a company buying many duty-hit products, and says the forecast is for the supplier country | challenge questions 3 (who has a review list) and 1 (country or own supplier); option 1 in `SCOPE_ANSWERS.md`, chosen because the project's evidence is about importers and the importer story is the one people connect a tariff to | Rahul, Raunak (2026-11-10) |
 | 2026-11-09 (study plan, not the core) | methodology item 1 gains steps (d) other countries' pickup and (e) whether they already face a duty; new item 6, months 6 and 8 as a secondary check | an outside review of data sources found these signals in data we already have; the mattress cases show buyers moving to countries hit in the next round | Rahul, Raunak (2026-11-10) |
+| 2026-11-15 (study plan, not the core) | the study is run by Rahul, not Raunak, and the data is not shared; two items added: recalibrating the month-4 probabilities on earlier years (item 7) and a frozen forecast of open relationships (item 8) | the data stays on Rahul's machine, so Raunak could not run the study; item 3 found the probabilities too low, which item 7 addresses; item 8 is the only test on outcomes nobody had seen | Rahul (2026-11-15); Raunak: |
 
 ## 5. Methodology study (inside the core)
 
@@ -116,6 +117,8 @@ the latest published share, where does any gain come from, and where does it go 
 | 4 | Show the main measure at every capacity from 5 to 50 percent, not just 20 | whether the result depends on the assumed 20 percent | 1 figure |
 | 5 (optional) | One extra model: the same boosting model, forced to never predict a lower chance of coming back when the latest share is higher | whether building in common sense helps on a small sample | one row in item 1's table |
 | 6 | Repeat the main measure at months 6 and 8, on the same rules, as a secondary check; month 4 stays the main decision point | how much a team gains by waiting two or four more months | 1 small table |
+| 7 (added 2026-11-15) | Recalibrate the month-4 probabilities using earlier years only, and report them next to the raw model | whether the too-low probabilities found in item 3 can be fixed without touching the test years | 1 figure, 1 table |
+| 8 (added 2026-11-15) | A frozen forecast: rank the relationships whose outcome is not yet known, commit the ranking, and score it as the outcomes arrive, by the main measure | whether the ranking holds on cases nobody had seen, the one test not run on years already looked at | 1 file, scored from December 2026 to 2027 |
 
 The ITC vote is not one of the steps in item 1 because it is never public by month 4 (for none of
 the 936 held-out relationships); the model still uses it at later months.
@@ -127,7 +130,15 @@ the 936 held-out relationships); the model still uses it at later months.
   capacity, who is ranked and how a model wins do not change after seeing results.
 - The no-peeking and testing rules in section 2 do not change.
 - Steps (d) and (e) and item 6 were added before any of them was run (2026-11-09).
-- Proposed owner: Raunak (items 1 to 4 and 6), which also settles the statement of who did what.
+- Items 7 and 8 were added on 2026-11-15, after items 1 to 4 and 6 had run. Item 8's scoring rules
+  were written before any of its outcomes existed, and queues whose outcome month was already
+  public when it was frozen are left out of its test.
+- Status (2026-11-15): items 1, 2, 3, 4, 6, 7 and 8 done, run by Rahul; item 5 not run. Scripts:
+  `feature_ladder.py` (1), `model_explain.py` (2), `model_calibration.py` (3),
+  `review_queue_curves.py` (4 and 6), `model_recalibration.py` (7), `frozen_forecast.py` and
+  `frozen_forecast_check.py` (8).
+- Raunak's part of the remaining work, and the statement of who did what, are still to be agreed
+  between us.
 
 ## 6. Related work to add (each checked to exist and to say this)
 
@@ -151,20 +162,22 @@ people who make these decisions.
 ## 7. Plan
 
 The final presentation is December 11, 2026 according to our own decks; the report deadline and the
-page and time limits are not confirmed. Confirm both on Canvas before agreeing to this.
+page and time limits are still to be confirmed on Canvas.
 
 | week | work |
 |---|---|
-| Nov 10 to 16 | agreed on November 10; Rahul shares the data files below; Raunak reruns `prediction_landmark.py` and `review_queue.py` and gets the numbers in section 2 |
-| Nov 17 to 23 | items 1, 4 and 6 |
-| Nov 24 to 30 | items 2 and 3 (Thanksgiving week) |
-| Dec 1 to 7 | add to the report and final deck; related-work paragraph |
+| Nov 10 | contract agreed |
+| Nov 10 to 15 | done: methodology items 1, 2, 3, 4, 6, 7 and 8 |
+| Nov 16 to 30 | agree Raunak's part and the statement of who did what; confirm the deadlines and limits on Canvas; item 5 if wanted |
+| Dec 1 to 7 | add the study to the report and final deck, with the related-work paragraph and the planned editing pass |
 | Dec 8 to 11 | rehearse and submit |
+| from early Dec | score the frozen forecast as Census publishes new months (the first scored queue needs October 2026 data, due in early December; the last in 2027) |
 
-**Data Raunak needs.** These files are too large for GitHub, about 800 MB in all: `panel/hs8/`
-(264 MB, the import records), `events/raw/` (515 MB, the text of every notice and ITC page),
-`panel/adcvd_stacks_decision.parquet` (12 MB) and `events/adcvd_index.json` (13 MB). Rebuilding
-them instead needs a Census API key and several hours.
+**Data.** The data stays on Rahul's machine and is not shared. Four files the month-4 model needs
+are too large for GitHub, about 800 MB in all: `panel/hs8/` (264 MB, the import records),
+`events/raw/` (515 MB, the text of every notice and ITC page), `panel/adcvd_stacks_decision.parquet`
+(12 MB) and `events/adcvd_index.json` (13 MB). Anyone reproducing the work rebuilds them from public
+sources with the repository's own scripts: a free Census API key and several hours.
 
 ## 8. How this was checked (2026-11-09)
 
