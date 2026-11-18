@@ -126,3 +126,17 @@ def test_frozen_forecast_is_intact_and_untouched_by_training():
         assert g.rank_forecast.min() == 1 and g.rank_forecast.max() <= len(g)
     H = pd.read_csv("prediction_landmark_heldout.csv", dtype={"hs8": str})
     assert not set(zip(F.sid, F.hs8.str.zfill(8))) & set(zip(H.sid, H.hs8.str.zfill(8)))
+
+
+def test_model_family_check_matches_the_review_queue():
+    """The four-family check (forecast/model_family_check.py) scores boosting and the latest share exactly
+    as review_queue.py does, and by the rule fixed before it ran boosting stays the reported ranking:
+    no new family beats it at 20 percent with a 90 percent interval above zero."""
+    T = pd.read_csv("model_family_check.csv").set_index(["model", "capacity"])
+    E = pd.read_csv("review_queue_eval.csv")
+    E = E[(E.weighting == "relationship") & (E.measure == "precision")].set_index(["ranking", "capacity"]).value
+    for cap in [0.1, 0.2, 0.3]:
+        assert abs(T.loc[("boosting", cap), "precision"] - E[("forecast (boosting)", cap)]) < 1e-9
+        assert abs(T.loc[("latest share", cap), "precision"] - E[("latest share", cap)]) < 1e-9
+    for name in ["elastic net", "random forest"]:
+        assert not T.loc[(name, 0.2), "minus_boosting_lo"] > 0, name

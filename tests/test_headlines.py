@@ -4,6 +4,7 @@ Run from the repository root:  python3 -m pytest tests -q
 """
 import os
 
+import numpy as np
 import pandas as pd
 import pytest
 
@@ -53,6 +54,19 @@ def test_table3_rows(docs):
             f"{m.gain_vs_history:.3f} [{m.lo_vs_history:.3f}, {m.hi_vs_history:.3f}] | {m.auc:.3f} |")
     assert rowi in t, rowi
 
+
+
+def test_table3_day_one_improvement(docs):
+    """Table 3's day-one improvement and both ends of its 90 percent interval, and the sentence that
+    quotes them, derived from the CSVs: the improvement is the historical rate's Brier score minus the
+    model's, and the interval is the 5th and 95th percentile of the group bootstrap."""
+    d0 = pd.read_csv("prediction_test.csv").set_index("year").loc["pooled"]
+    gain = d0.brier_benchmark - d0.brier_model
+    lo, hi = np.quantile(pd.read_csv("prediction_test_bootstrap.csv").brier_improvement, [0.05, 0.95])
+    cell = f"| logistic, {d0.brier_model:.3f} | {gain:.3f} [{lo:.3f}, {hi:.3f}] | {d0.auc_model:.3f} |"
+    assert cell in docs["report"], cell
+    assert f"a gain of {gain:.3f} whose 90 percent interval includes zero ({lo:.3f} to {hi:.3f})" in docs["report"]
+    assert lo < 0 < hi, "the text says the interval includes zero"
 
 def test_monthly_forecast_claims(docs):
     lm = pd.read_csv("prediction_landmark.csv").set_index("L")

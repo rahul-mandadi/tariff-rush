@@ -256,8 +256,11 @@ axes[0].set_ylabel("net benefit per product")
 for lab, c, yy in [("model", RED, 0.72), ("historical rate", INK, 0.64), ("always qualify", GREY, 0.56)]:
     axes[0].text(0.52, yy, lab, color=c, fontsize=12, fontweight="600")
 axes[2].text(0.52, 0.72, "latest share alone", color=GREY, fontsize=12, fontweight="600")
-fig.suptitle("Shaded: thresholds where the model is ahead of every baseline at once "
-             "(simultaneous 90% bound above zero)", x=0.01, ha="left", fontweight="600", fontsize=13)
+title = ("Shaded: thresholds where the model is ahead of every baseline at once "
+         "(simultaneous 90% bound above zero)" if DV.supported.any() else
+         "No threshold where the model is ahead of every baseline at once "
+         "(simultaneous 90% bound above zero)")
+fig.suptitle(title, x=0.01, ha="left", fontweight="600", fontsize=13)
 fig.tight_layout()
 fig.savefig("slides/fig/18_decision_value.png")
 plt.close(fig)
@@ -275,7 +278,7 @@ ax.annotate("model", (last, LM.auc_boosting.iloc[-1]), xytext=(8, 0), textcoords
 ax.annotate("latest share model", (last, LM["auc_share only"].iloc[-1]), xytext=(8, 0),
             textcoords="offset points", va="center", color=GREY, fontweight="600", fontsize=13)
 r4 = LM[LM.L == 4].iloc[0]
-ax.annotate(f"month 4: {100 * r4.auc_boosting:.0f}%", (4, r4.auc_boosting), xytext=(0, 14),
+ax.annotate(f"month 4: AUC {r4.auc_boosting:.3f}", (4, r4.auc_boosting), xytext=(0, 14),
             textcoords="offset points", ha="center", color=RED, fontsize=12, fontweight="600")
 ax.set_ylim(0.45, 0.95)
 ax.set_xlim(2.5, last + 2.2)

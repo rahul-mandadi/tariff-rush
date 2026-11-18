@@ -20,7 +20,7 @@ Section 301) are unchanged.
 
 | claim | before | after |
 |---|---|---|
-| day-one forecast against the historical rate | gain 0.010, 90% interval 0.0005 to 0.018 | gain 0.006, interval -0.001 to 0.014: includes zero |
+| day-one forecast against the historical rate | gain 0.010, 90% interval 0.0005 to 0.018 | gain 0.007, interval -0.001 to 0.013: includes zero |
 | month-4 boosting AUC | 0.7952 (80%) | 0.7950 (79%) |
 | month-4 logistic AUC | 0.750 | 0.753 |
 | review queue at 20%, forecast still down | 81.8% | 82.3% |
@@ -53,7 +53,7 @@ Section 301) are unchanged.
 | outcomes, fake date: 3% | `recovery_benchmark_fall20.csv` line 13 (sample = placebo; measure = exited) | value 0.033 |
 | outcomes cover 380 cases | `recovery_pairs_real_fall20.csv`, cases with a category other than censored | 380 cases |
 | day one: Brier 0.242 against 0.248, AUC 0.63 | `prediction_test.csv` line 8 (year = pooled) | brier_model 0.242, brier_benchmark 0.248, auc_model 0.633, test_episodes 241.000 |
-| day one: gain 0.006, 90% interval -0.001 to 0.014 (includes zero) | `prediction_test_bootstrap.csv`, all 2,000 rows (90% interval) | 5th and 95th percentiles -0.0007, 0.0135 |
+| day one: gain 0.007, 90% interval -0.001 to 0.013 (includes zero) | `prediction_test_bootstrap.csv`, all 2,000 rows (90% interval) | 5th and 95th percentiles -0.0007, 0.0135 |
 | month 4: AUC 0.795 boosting (rounds to 79%), 0.75 logistic, latest share alone 0.68 | `prediction_landmark.csv` line 3 (L = 4) | auc_boosting 0.795, auc_logistic 0.753, auc_share only 0.677, products 936.000, cases 198.000 |
 | month 4: gain over the historical rate 0.039 [0.026, 0.052]; latest share alone 0.028 | `prediction_landmark.csv` line 3 (L = 4) | gain_boosting 0.039, lo_boosting 0.026, hi_boosting 0.052, gain_share only 0.028 |
 | month 4, all years: 1,376 relationships, 315 cases, 122 groups | `prediction_landmark_counts.csv` line 3 (L = 4) | products 1376, cases 315, groups 122 |

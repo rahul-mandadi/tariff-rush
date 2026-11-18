@@ -83,8 +83,9 @@ information, and its benefit to an importer is a proposed use not yet validated 
 - **The model carries over to China's 2018 Section 301 tariffs** (6,844 listed products): trained on
   antidumping cases, it ranks Section 301 products correctly 67 percent of the time, against 73 for a
   model trained on Section 301 itself. There, products whose China share ran more than a quarter
-  above normal just before the tariff came back 60 percent of the time, against about 30, as
-  borrowed trade would.
+  above normal just before the tariff came back 60 percent of the time, against about 30. That is
+  an observed association: a temporary spike can reverse on its own, and the split has no fake-date
+  check.
 
 All forecasts use only trade data Census had published by the decision (about five weeks after a
 month ends), notices published by that date (critical-circumstances side notices included, each
@@ -107,11 +108,11 @@ It does not fetch data and does not touch the frozen forecast. The full order, f
 | final outcomes | `events/itc_check.py`, `events/itc_audit.py`, `measure/itc_compare.py` | ITC verdicts, the no-injury audit, order against no-injury |
 | outcome rates | `measure/recovery_benchmark.py --fall 0.2` (also 0.1, 0.3), `measure/recovery_by_final_stage.py` | the four outcome shares, Kaplan-Meier recovery |
 | forecasts | `events/build_release_calendar.py`, `measure/build_decision_stacks.py`, `forecast/prediction_test.py`, `forecast/prediction_stage2.py`, `forecast/prediction_landmark.py`, `forecast/calibrated_lookup.py`, `forecast/decision_value.py`, `forecast/review_queue.py` | decision-time panels; day-one, at-the-fall, ITC-vote and monthly forecasts; the lookup; decision value; the month-4 review queue |
-| methodology study (`docs/SCOPE.md` section 5) | `forecast/feature_ladder.py`, `forecast/review_queue_curves.py`, `forecast/model_explain.py`, `forecast/model_calibration.py`, `forecast/model_recalibration.py` | where the forecast's information comes from; the capacity curve and months 6 and 8; what drives it; calibration and errors; recalibration on earlier years (exploratory) |
+| methodology study (`docs/SCOPE.md` section 5) | `forecast/feature_ladder.py`, `forecast/review_queue_curves.py`, `forecast/model_explain.py`, `forecast/model_calibration.py`, `forecast/model_recalibration.py`, `forecast/model_family_check.py` | where the forecast's information comes from; the capacity curve and months 6 and 8; what drives it; calibration and errors; recalibration on earlier years (exploratory); elastic net and random forest as a check |
 | frozen forecast | `frozen_forecast.py` (made 2026-11-15, do not rerun), `frozen_forecast_check.py` (run as outcomes arrive) | a ranking of 197 relationships whose outcome was unknown when committed, and its scoring: the one test not run on years already looked at |
 | Section 301 | `events/build_301_lists.py`, `section301/sec301_benchmark.py`, `section301/sec301_transfer_test.py` | product lists, outcomes, transfer tests |
 | coverage | `measure/coverage_share.py`, `data/copper_split.py` | how much of a category a list names; copper |
-| outputs | `slides/fig_stacked.py`, `slides/fig_sankey.py`, `slides/fig_funnel.py` (notices to cases), `build_final_report.py`, `slides/build_deck2b.py`, `slides/build_deck_final.py` | figures, report PDF, decks |
+| outputs | `slides/fig_stacked.py`, `slides/fig_sankey.py`, `slides/fig_funnel.py` (notices to cases), `slides/fig_taiwan_example.py` (the report's opening example), `build_final_report.py`, `slides/build_deck2b.py`, `slides/build_deck_final.py` | figures, report PDF, decks |
 | category level (appendix) | `data/eda_summary.py`, `data/chapter_quantity.py` (chapter tables in `eda/`, from the HS8 panel), `slides/fig_units.py`, `data/pharma_mix.py`, `data/deflation_check.py` | the dollars-against-quantity comparison; the import-price check (BLS series kept in `eda/bls_import_prices.csv`) |
 | broad tariff actions (Report 1, not reported in the final) | `data/harvest.py`, `data/assemble.py` (HS2 panel), `events/harvest_fr.py`, `events/fetch_text.py`, `events/build_event_table.py`, `events/fix_effective_dates.py`, `coverage/*.py`, `report1/build_treatment.py`, `report1/within_product_test.py`, `report1/event_study.py` | the tariff-action table and the rush analysis whose source documents the final audit found wrong |
 | earlier decks and Report 1 | `report1/adcvd_event_study.py`, `slides/fig_event.py`, `slides/gen_figures.py`, `slides/fig_copper_split.py`, `slides/build_deck.py`, `slides/build_deck2.py`, `report1/build_report.py` | Presentation 1, Presentation 2 as submitted, Report 1's PDF |

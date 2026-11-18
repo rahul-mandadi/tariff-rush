@@ -9,6 +9,7 @@ Run:    python3 slides/fig_funnel.py      (after measure/adcvd_stacked.py)
 import ast
 import glob
 import json
+import textwrap
 
 import matplotlib
 matplotlib.use("Agg")
@@ -75,9 +76,8 @@ steps = [
     ("Notices that start a new duty", n(kept),
      f"{len(kept)} country decisions; companion notices merged into one case per country and investigation"),
     ("Cases", len(ep),
-     f"{ep.cluster.nunique()} investigation groups, {ep.cty.nunique()} countries; "
-     f"dropped {len(ep) - len(compared)}: "
-     f"under 18 months of data before the case, or no trade or no rival before it"),
+     f"{ep.cluster.nunique()} groups, {ep.cty.nunique()} countries; dropped {len(ep) - len(compared)}: "
+     f"under 18 months of data before the case, or no prior trade or rival"),
     ("Cases that can be compared with rivals", len(compared),
      f"dropped {len(compared) - len(full)}: under 18 months of data after the duty so far"),
     ("Cases with all 18 months of data", len(full), ""),
@@ -87,22 +87,24 @@ plt.rcParams.update({
     "font.family": "Avenir Next", "font.size": 15, "text.color": "#14161A",
     "axes.edgecolor": "#6E737C", "figure.dpi": 200, "savefig.bbox": "tight", "savefig.facecolor": "white"})
 RED, GREY, INK = "#C8102E", "#6E737C", "#14161A"
-fig, ax = plt.subplots(figsize=(13, 9))
+fig, ax = plt.subplots(figsize=(10, 10.5))
+STEP = 2.6
 top = len(listed)
 for i, (label, count, note) in enumerate(steps):
-    y = -2 * i
+    y = -STEP * i
     ax.barh(y, count, height=0.95, color=RED if label.startswith("Cases") else "#3A4150")
-    ax.text(-0.01 * top, y, label, ha="right", va="center", fontsize=15)
-    ax.text(count + 0.008 * top, y, f"{count:,}", ha="left", va="center", fontsize=16, fontweight="600")
+    ax.text(-0.01 * top, y, label, ha="right", va="center", fontsize=16)
+    ax.text(count + 0.008 * top, y, f"{count:,}", ha="left", va="center", fontsize=17, fontweight="600")
     if note:
-        ax.text(0, y - 1.0, note, ha="left", va="center", fontsize=12.5, color=GREY)
+        ax.text(0, y - 0.65, textwrap.fill(note, 62), ha="left", va="top", fontsize=14.5, color=GREY,
+                linespacing=1.15)
 ax.set_xlim(0, top * 1.08)
-ax.set_ylim(-2 * len(steps) + 1, 1)
+ax.set_ylim(-STEP * len(steps) + 1.4, 0.8)
 ax.axis("off")
 ax.set_title(f"From {top:,} notices to {len(ep)} cases\n"
              f"product codes: {len(named & in_panel)} of the {len(named)} named by the kept notices "
-             f"appear in the Census import data",
-             loc="left", x=-0.43, fontsize=16, fontweight="600", color=INK)
+             f"appear in the Census data",
+             loc="left", x=-0.55, fontsize=17, fontweight="600", color=INK)
 fig.savefig("slides/fig/25_matching_funnel.png")
 print(f"wrote slides/fig/25_matching_funnel.png; {len(full)} cases with all 18 months "
       f"(panel ends {last_month // 12}-{last_month % 12 + 1:02d})")

@@ -1,7 +1,7 @@
 """Rerun the analysis in order, from the stacked panels to the figures, stopping at the first failure.
 
 Reads:  the fetched data under panel/ and events/ (see the README for how to get it)
-Writes: the result CSVs at the repo root, slides/fig/09 and 12 to 25, and one log per step in
+Writes: the result CSVs at the repo root, slides/fig/09 and 12 to 26, and one log per step in
         logs/run_all/ (run.log lists each step as it finishes)
 Run:    python3 run_all.py                       (the whole chain, about an hour)
         python3 run_all.py --list                (print the steps and stop)
@@ -39,11 +39,13 @@ STEPS = [
     "forecast/model_explain.py",
     "forecast/model_calibration.py",
     "forecast/model_recalibration.py",
+    "forecast/model_family_check.py",
     "section301/sec301_benchmark.py",
     "section301/sec301_transfer_test.py",
     "slides/fig_stacked.py",
     "slides/fig_sankey.py",
     "slides/fig_funnel.py",
+    "slides/fig_taiwan_example.py",
 ]
 LOGS = "logs/run_all"
 

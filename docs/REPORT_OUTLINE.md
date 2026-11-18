@@ -91,8 +91,8 @@ Check on Canvas first: page or word limit, due date, required sections. The curr
      months 13 to 18.
    - Fake date: 50 / 29 / 17 / 3.
 4. **Forecast** (Figure 5, `slides/fig/19_monthly_forecast.png`; `prediction_landmark.csv`):
-   - On day one, case facts add nothing measurable: gain 0.006 over the historical rate, 90% interval
-     -0.001 to 0.014 (`prediction_test.csv`, `prediction_test_bootstrap.csv`).
+   - On day one, case facts add nothing measurable: gain 0.007 over the historical rate, 90% interval
+     -0.001 to 0.013 (`prediction_test.csv`, `prediction_test_bootstrap.csv`).
    - At month 4: AUC 0.795 for boosting (79.5%), 0.75 for logistic.
    - A model with the latest share only: AUC 0.68, and about 70% of the boosting model's Brier
      gain over the historical rate (0.028 of 0.039).
@@ -117,7 +117,9 @@ Check on Canvas first: page or word limit, due date, required sections. The curr
 8. **Section 301 check** (`sec301_transfer_test.csv`):
    - Trained on antidumping cases, the model ranks China 2018 products right 67% of the time,
      against 73% for a model trained on them.
-   - Products with a rush came back 60% of the time, against about 30% otherwise.
+   - Products with a rush came back 60% of the time, against about 30% otherwise (3,128 products
+     scored at the fall). An observed association, not a payback: a spike can reverse on its own,
+     these products were smaller, and there is no fake-date check.
 9. **Frozen forecast:**
    - 197 open relationships (54 cases, 29 groups), ranked on 2026-11-15 and locked with a
      fingerprint before the outcomes exist.

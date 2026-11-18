@@ -54,7 +54,7 @@ src = open(SRC).read()
 src = re.sub(r"\[\[FIG:([A-Z]?\d+)\|([^|]+)\|([^|\]]+)(?:\|(\d+))?\]\]", fig, src)
 body = markdown.markdown(src, extensions=["tables"])
 # every table caption is styled, and kept on the same page as its table
-body = re.sub(r"<p><strong>(Table \d+\.)</strong>(.*?)</p>\s*(<table>.*?</table>)",
+body = re.sub(r"<p><strong>(Table [A-Z]?\d+\.)</strong>(.*?)</p>\s*(<table>.*?</table>)",
               r'<div class="tblwrap"><p class="tblcap"><strong>\1</strong>\2</p>\3</div>', body,
               flags=re.S)
 body = body.replace("<h2>6. References</h2>", '<h2 class="excluded">6. References</h2>')
