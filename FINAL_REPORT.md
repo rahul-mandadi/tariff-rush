@@ -167,6 +167,8 @@ one unit, months with trade show quantity falling 0.313 log points and value 0.3
 intervals include zero); with no-trade months kept as zeros, quantity falls 0.54 (SE 0.17) and value 0.19
 (SE 0.12). Either way, the quantity estimate is at least as negative as the value estimate.
 
+Moving the cases two years earlier gives a small positive estimate, +0.06 log points (SE 0.03), or about 6 percent, in Table 2. The comparison therefore picks up some movement even before the actual duty. It does not reproduce the large decline for cases that became orders, but it cautions against attributing the whole observed decline to the duty. The fake-date estimate also covers fewer cases because it requires a longer trade history.
+
 **Table 2.** Targeted country against rivals in the same product, relative to months 18 to 13 before;
 log points, standard errors over investigation groups.
 
@@ -286,6 +288,8 @@ list's effect.
 
 ## 4. Discussion
 
+Earlier studies give us a reason to expect both a decline and a slow recovery. Prusa [11] found that antidumping duties reduced imports from the countries named in a case by roughly 30 to 50 percent. Our estimate of a 31 percent decline against rival countries for cases that became orders is similar in size, although the samples and comparisons differ. Besedeš and Prusa [12] found that antidumping actions increased the rate at which trade relationships ended. Staiger and Wolak [13] also showed that the investigation process itself could restrict trade before a final duty. These findings make the timing important. Our contribution is to test what someone following a case could predict from the information already public, and whether that forecast helps identify lasting declines better than the latest published share alone.
+
 For an analyst watching these markets, the answer to the title is closer to real than borrowed: after an
 antidumping or countervailing duty, more than half of targeted products (57 percent) fall without
 coming back within 18 months, 16 percent fall and have no imports a year on, and there is no average
@@ -349,6 +353,12 @@ prediction models. *Medical Decision Making* 26(6), 565-574.
 
 [10] Furniture Today (November 23, 2020), "Report: mattress importers moving to Taiwan, Bangladesh
 and India"; Home News Now (August 16, 2022), import data on global mattress sourcing.
+
+[11] Prusa, T. J. (2001). On the spread and impact of anti-dumping. *Canadian Journal of Economics*, 34(3), 591-611. Working-paper version available at https://www.nber.org/papers/w7404.
+
+[12] Besedeš, T. and Prusa, T. J. (2017). The Hazardous Effects of Antidumping. *Economic Inquiry*, 55(1), 9-30. https://doi.org/10.1111/ecin.12345.
+
+[13] Staiger, R. W. and Wolak, F. A. (1994). Measuring Industry-Specific Protection: Antidumping in the United States. *Brookings Papers on Economic Activity: Microeconomics*, 51-118. https://www.brookings.edu/articles/measuring-industry-specific-protection-antidumping-in-the-united-states/.
 
 **Data sources.** United States Census Bureau international trade API; Federal Register API;
 United States International Trade Commission Harmonized Tariff Schedule, chapter 99; United States
