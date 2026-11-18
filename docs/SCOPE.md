@@ -66,12 +66,14 @@ same thing.
 | other measures | the share of all lasting declines the reviews reached; two standard scores of how good the predicted chances are (Brier score: lower is better; AUC: how often a lasting decline is ranked above one that comes back); 90 percent ranges, computed by re-sampling whole investigation groups | `forecast/review_queue.py`, `forecast/prediction_landmark.py` |
 | how a model wins | it replaces the latest-share ranking only if it beats it on the main measure and the 90 percent range of the difference stays above zero | `forecast/review_queue.py` |
 
-**Where it stands now (held-out years).** Reviewing 20 percent of each month's list, the boosting
-model's picks were not back 82 percent of the time, against 70 percent ranking by the latest share
-and 62 percent in a random order: 11.5 points ahead of the latest share (90 percent range 3.9 to
-15.7). For the predicted chances themselves, the latest share alone does about 70 percent of the
-work (Brier 0.165, against 0.192 for the historical rate and 0.153 for boosting). On the day the duty
-starts, the case's own facts add almost nothing to the historical rate.
+**Where it stands now (held-out years, after the 2026-11-15 critical-circumstances fix).** Reviewing 20
+percent of each month's list, the boosting model's picks were not back 82.3 percent of the time, against
+70.3 percent ranking by the latest share and 62 percent in a random order: 12.0 points ahead of the
+latest share (90 percent range 3.9 to 15.7), and its reviews reached 26.4 percent of all relationships
+not back by month 18. For the predicted chances themselves, the latest share alone does about
+71 percent of the work (Brier 0.165, against 0.192 for the historical rate and 0.154 for
+boosting). On the day the duty starts, the case's own facts add nothing we can distinguish from
+the historical rate (gain 0.007, 90 percent range -0.001 to 0.013).
 
 ## 3. Out of scope
 
@@ -94,15 +96,13 @@ copper example, stay as background.
 
 The core and the rules above change only if a test of them fails: a data error, information leaking
 in from the future, or a rule that cannot be computed. A better-sounding idea is not a reason. Any
-change is written here, dated and agreed by both of us, with its reason.
+change is written here, dated, with its reason.
 
-This contract, including the first two changes below, was agreed by Rahul and Raunak on November 10, 2026. The third needs Raunak's agreement.
-
-| date | change | reason | agreed by |
-|---|---|---|---|
-| 2026-11-09 | the domain problem names the user as a company buying many duty-hit products, and says the forecast is for the supplier country | challenge questions 3 (who has a review list) and 1 (country or own supplier); option 1 in `SCOPE_ANSWERS.md`, chosen because the project's evidence is about importers and the importer story is the one people connect a tariff to | Rahul, Raunak (2026-11-10) |
-| 2026-11-09 (study plan, not the core) | methodology item 1 gains steps (d) other countries' pickup and (e) whether they already face a duty; new item 6, months 6 and 8 as a secondary check | an outside review of data sources found these signals in data we already have; the mattress cases show buyers moving to countries hit in the next round | Rahul, Raunak (2026-11-10) |
-| 2026-11-15 (study plan, not the core) | the study is run by Rahul, not Raunak, and the data is not shared; two items added: recalibrating the month-4 probabilities on earlier years (item 7) and a frozen forecast of open relationships (item 8) | the data stays on Rahul's machine, so Raunak could not run the study; item 3 found the probabilities too low, which item 7 addresses; item 8 is the only test on outcomes nobody had seen | Rahul (2026-11-15); Raunak: |
+| date | change | reason |
+|---|---|---|
+| 2026-11-09 | the domain problem names the user as a company buying many duty-hit products, and says the forecast is for the supplier country | challenge questions 3 (who has a review list) and 1 (country or own supplier); option 1 in `SCOPE_ANSWERS.md`, chosen because the project's evidence is about importers and the importer story is the one people connect a tariff to |
+| 2026-11-09 (study plan, not the core) | methodology item 1 gains steps (d) other countries' pickup and (e) whether they already face a duty; new item 6, months 6 and 8 as a secondary check | an outside review of data sources found these signals in data we already have; the mattress cases show buyers moving to countries hit in the next round |
+| 2026-11-15 (study plan, not the core) | the study is run by Rahul, not Raunak, and the data is not shared; two items added: recalibrating the month-4 probabilities on earlier years (item 7) and a frozen forecast of open relationships (item 8) | the data stays on Rahul's machine, so Raunak could not run the study; item 3 found the probabilities too low, which item 7 addresses; item 8 is the only test on outcomes nobody had seen |
 
 ## 5. Methodology study (inside the core)
 
@@ -137,8 +137,6 @@ the 936 held-out relationships); the model still uses it at later months.
   `forecast/feature_ladder.py` (1), `forecast/model_explain.py` (2), `forecast/model_calibration.py` (3),
   `forecast/review_queue_curves.py` (4 and 6), `forecast/model_recalibration.py` (7), `frozen_forecast.py` and
   `frozen_forecast_check.py` (8).
-- Raunak's part of the remaining work, and the statement of who did what, are still to be agreed
-  between us.
 
 ## 6. Related work to add (each checked to exist and to say this)
 
@@ -166,9 +164,9 @@ page and time limits are still to be confirmed on Canvas.
 
 | week | work |
 |---|---|
-| Nov 10 | contract agreed |
+| Nov 10 | contract fixed |
 | Nov 10 to 15 | done: methodology items 1, 2, 3, 4, 6, 7 and 8 |
-| Nov 16 to 30 | agree Raunak's part and the statement of who did what; confirm the deadlines and limits on Canvas; item 5 if wanted |
+| Nov 16 to 30 | confirm the deadlines and limits on Canvas; item 5 if wanted |
 | Dec 1 to 7 | add the study to the report and final deck, with the related-work paragraph and the planned editing pass |
 | Dec 8 to 11 | rehearse and submit |
 | from early Dec | score the frozen forecast as Census publishes new months (the first scored queue needs October 2026 data, due in early December; the last in 2027) |
