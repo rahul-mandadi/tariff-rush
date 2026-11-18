@@ -113,8 +113,8 @@ def add(headline, fig=None, caption=None, notes="", bullets=None, bullet_size=22
 
 
 # ================================================================ MAIN TALK (about ten minutes)
-# Rahul: slides 1 to 6 (the question, copper, the design, what happens after a duty, the analyst's decision).
-# Raunak: slides 7 to 11 (how the model ranks the list, Taiwan, the result, what it means).
+# Rahul: slides 1 to 7 (the project, copper, the design, what happens after a duty, the analyst's decision).
+# Raunak: slides 8 to 12 (how the model ranks the list, Taiwan, the result, what it means).
 
 # ---------------------------------------------------------------- M1 title
 s = prs.slides.add_slide(BLANK)
@@ -126,48 +126,66 @@ txt(s, "DS 5500 Data Science Capstone   |   Presentation 2   |   November 2026",
     X0, 4.70, CW, 0.5, 15, color=GREY)
 txt(s, "github.com/rahul-mandadi/tariff-rush", X0, Y_TAKE, CW, 0.4, 15, bold=True, color=RED)
 s.notes_slide.notes_text_frame.text = (
-    "TIMING: about ten minutes. Rahul, slides 1 to 6 (about 5 minutes). Raunak, slides 7 to 11 "
-    "(about 5 minutes). Backup slides follow slide 11 for questions.\n\n"
+    "TIMING: about ten minutes. Rahul, slides 1 to 7 (about 5 minutes). Raunak, slides 8 to 12 "
+    "(about 5 minutes). Backup slides follow slide 12 for questions.\n\n"
     "RAHUL: We're Rahul and Raunak. Our project asks a simple question: when the U.S. puts a duty "
     "on imports, does the business come back afterwards, or is it gone?")
+
+# ---------------------------------------------------------------- M1b what the project is about
+add("What this project is about.",
+    bullets=[
+        "**The problem:** after a U.S. duty, the named country's sales often fall. Will that "
+        "business come back, or is it gone?",
+        "**Who needs the answer:** an analyst at a U.S. importer who watches many duty-hit "
+        "markets and can investigate only some of the declines.",
+        "**The data science problem:** from public trade data, predict which declines will last, "
+        "and rank them so the analyst checks those first.",
+    ],
+    bullet_size=24, bullet_top=2.25, bullet_step=1.05,
+    notes="RAHUL: Here's the project in three lines.\n\n"
+          "The problem: when the U.S. puts a duty on a product from a country, that country's "
+          "sales here often fall. Does that business come back once things settle, or is it "
+          "gone for good?\n\n"
+          "Who needs to know: an analyst at a U.S. importer who keeps an eye on many product "
+          "markets hit by duties. They can't dig into every decline, so they need to know which "
+          "ones matter.\n\n"
+          "And the data science problem: using only public trade data, predict which declines "
+          "will last, and put them in order so the analyst checks those first.")
 
 # ---------------------------------------------------------------- M2 copper, the starting example
 add("Copper came back, but not the taxed part.", fig="t2_copper_split.png",
     caption="U.S. copper imports in tonnes, split by whether the 2025 duty taxed them. One example; "
             "next, 502 past duty cases.",
-    notes="RAHUL: When a tariff is announced, buyers often rush to import before it starts, and "
-          "then imports drop. Is that drop borrowed, meaning they bought early and will come back? "
-          "Or is it real, meaning the business has gone somewhere else?\n\n"
+    notes="RAHUL: Our title asks whether the drop is borrowed, meaning buyers bought early and "
+          "will come back, or real, meaning the business has gone elsewhere.\n\n"
           "Copper in 2025 started us on this. Total copper imports fell when the 50% duty started "
           "in August, then came back, so it looked borrowed. But split by what the duty taxed: "
           "wire, tubes and sheets fell to about half and stayed there, about 49 thousand tonnes a "
           "month before and 27 after. Refined copper wasn't taxed, and that's what came back.\n\n"
-          "So the total hid what happened to the taxed products, and we need to look at the "
-          "products a duty names. Copper is one material, though, with no untaxed country to "
-          "compare against. To test the question properly, we turn to hundreds of past duty "
-          "cases.")
+          "So the total hid what happened to the taxed products: we need to look at the products "
+          "a duty names. But copper is one material, with no untaxed country to compare against, "
+          "so we turn to hundreds of past duty cases.")
 
 # ---------------------------------------------------------------- M4 the design
 add("We follow one product from one country.",
     bullets=[
-        "**Some U.S. duties name one product from one country,** for example mattresses from "
-        "Vietnam.",
+        "**Antidumping and countervailing duties name one product from one country,** for "
+        "example mattresses from Vietnam.",
         "**Other countries keep selling that product,** so we compare the named country with them, "
         "month by month.",
         "**502 such cases since 2015,** matched to monthly U.S. Census import records.",
     ],
     bullet_size=24, bullet_top=2.25, bullet_step=1.05,
-    caption="Antidumping and countervailing duties, from Federal Register notices; Census trade "
-            "records 2015 to 2026.",
+    caption="Antidumping: sales below fair value. Countervailing: foreign government subsidies. "
+            "Cases from Federal Register notices; Census trade records 2015 to 2026.",
     take_rule=True,
-    notes="RAHUL: So we move from copper to the historical duty cases. Most tariffs in the news "
-          "tax almost every country at once, so there's nobody "
+    notes="RAHUL: Most tariffs in the news tax almost every country at once, so there's nobody "
           "untaxed to compare with. There's a narrower kind of duty, antidumping and "
           "countervailing duties, that names one product from one country: say, mattresses from "
           "Vietnam.\n\n"
-          "Other countries keep selling mattresses to U.S. buyers, so we can follow Vietnam's "
-          "share of those purchases month by month and compare it with its rivals. Anything that "
-          "hits the whole product, like inflation or demand, cancels out.\n\n"
+          "Other countries keep selling mattresses here, so we follow Vietnam's share month by "
+          "month against its rivals. Anything that hits the whole product, like inflation, "
+          "cancels out.\n\n"
           "We read every duty notice in the Federal Register since 2015 and matched them to Census "
           "trade data: 502 cases, 275 of them during Trump's two terms. As a check, we rerun "
           "everything on a fake date two years earlier, before any of these cases.\n\n"
@@ -209,16 +227,15 @@ add("More than half did not come back.", fig="t5_outcomes.png",
 # ---------------------------------------------------------------- M7 the analyst's decision
 add("Which declines should an analyst check first?",
     bullets=[
-        "**The analyst** works at a U.S. importer, watches many duty-hit products, and has time "
-        "to check only some of them.",
         "**Four months after the duty,** Census has published about two months of trade. Some "
         "countries have visibly fallen.",
+        "**The analyst can check only some of them,** so each month's list needs an order.",
         "**The obvious rule: check the biggest drops first.** Anyone can do that from Census data, "
         "so a model has to beat it.",
     ],
     bullet_size=24, bullet_top=2.20, bullet_step=1.10,
-    notes="RAUNAK: Picture an analyst at a U.S. importer. They watch many product markets hit by "
-          "duties, and they can't look into every decline. Their question is: which ones first?\n\n"
+    notes="RAHUL: Back to our analyst. They can't look into every decline, so their question "
+          "is: which ones first?\n\n"
           "On the day the duty starts, case details like the duty rate don't predict recovery "
           "better than past averages. We need some trade data first. Four months in, Census has "
           "usually published two months after the duty, and some declines are visible. Each "
@@ -370,7 +387,7 @@ add("Review these first: 82% stayed down.", fig="20_review_queue.png",
     caption="44 monthly lists, 2020 to 2025, about 187 review slots at 20%: forecast 12.0 points above the "
             "latest share (3.9 to 15.7), about 22 more lasting declines. Next: scoring a forecast frozen in November.",
     take_rule=True,
-    notes="Backup for slide 10. An analyst at an importer can review only some "
+    notes="Backup for slide 11. An analyst at an importer can review only some "
           "of the tariff-hit product-country relationships and wants to start with those whose "
           "decline is likely to persist, reading our ranking next to the company's own supplier "
           "information. We predict the supplier country's recovery in a product, not one "
@@ -530,8 +547,8 @@ add("Buyers respond to duties, but slowly.",
 # ---------------------------------------------------------------- copper total (from the main talk)
 add("Copper's total imports came back.", fig="t1_copper_total.png",
     caption="U.S. copper imports, dollars a month. The total fell when the 50% duty started, then came "
-            "back; the taxed products did not (slide 2).",
-    notes="Backup for slide 2: the total that made copper look borrowed.")
+            "back; the taxed products did not (slide 3).",
+    notes="Backup for slide 3: the total that made copper look borrowed.")
 
 # ---------------------------------------------------------------- 3 coverage (finding 1)
 add("But most copper was outside this duty.", fig="09_sankey.png",

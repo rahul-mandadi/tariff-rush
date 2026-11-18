@@ -13,8 +13,8 @@ import re
 from pptx import Presentation
 
 DECK = "slides/Mandadi_Khalsa_Presentation2_v3.pptx"
-MAIN = 11            # slides 1 to 11 are the talk; then the Backup divider and the backup slides
-RAHUL_LAST = 6
+MAIN = 12            # slides 1 to 12 are the talk; then the Backup divider and the backup slides
+RAHUL_LAST = 7
 SLOW, NORMAL = 130, 145  # words a minute
 
 # likely questions, and the backup slide (by its headline) that answers each

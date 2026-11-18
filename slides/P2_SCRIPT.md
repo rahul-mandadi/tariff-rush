@@ -3,8 +3,8 @@
 Generated from the speaker notes in `slides/Mandadi_Khalsa_Presentation2_v3.pptx`. Do not edit this
 file: change the notes in `slides/build_deck2c.py`, rebuild, then run `python3 slides/write_script2.py`.
 
-**1305 words.** At a careful 130 words a minute that is 10:02; at a normal 145, 9:00.
-Rahul, slides 1 to 6: 722 words, about 4:59. Raunak, slides 7 to 11: 583 words, about 4:01.
+**1356 words.** At a careful 130 words a minute that is 10:26; at a normal 145, 9:21.
+Rahul, slides 1 to 7: 773 words, about 5:20. Raunak, slides 8 to 12: 583 words, about 4:01.
 Per-slide times below are at the normal pace. Rehearse once with a clock.
 
 You do not have to say it word for word. Keep the numbers exact.
@@ -19,23 +19,35 @@ You do not have to say it word for word. Keep the numbers exact.
 
 We're Rahul and Raunak. Our project asks a simple question: when the U.S. puts a duty on imports, does the business come back afterwards, or is it gone?
 
-### Slide 2. Copper came back, but not the taxed part.
+### Slide 2. What this project is about.
 
-*about 1:02*
+*about 0:44*
 
-When a tariff is announced, buyers often rush to import before it starts, and then imports drop. Is that drop borrowed, meaning they bought early and will come back? Or is it real, meaning the business has gone somewhere else?
+Here's the project in three lines.
+
+The problem: when the U.S. puts a duty on a product from a country, that country's sales here often fall. Does that business come back once things settle, or is it gone for good?
+
+Who needs to know: an analyst at a U.S. importer who keeps an eye on many product markets hit by duties. They can't dig into every decline, so they need to know which ones matter.
+
+And the data science problem: using only public trade data, predict which declines will last, and put them in order so the analyst checks those first.
+
+### Slide 3. Copper came back, but not the taxed part.
+
+*about 0:53*
+
+Our title asks whether the drop is borrowed, meaning buyers bought early and will come back, or real, meaning the business has gone elsewhere.
 
 Copper in 2025 started us on this. Total copper imports fell when the 50% duty started in August, then came back, so it looked borrowed. But split by what the duty taxed: wire, tubes and sheets fell to about half and stayed there, about 49 thousand tonnes a month before and 27 after. Refined copper wasn't taxed, and that's what came back.
 
-So the total hid what happened to the taxed products, and we need to look at the products a duty names. Copper is one material, though, with no untaxed country to compare against. To test the question properly, we turn to hundreds of past duty cases.
+So the total hid what happened to the taxed products: we need to look at the products a duty names. But copper is one material, with no untaxed country to compare against, so we turn to hundreds of past duty cases.
 
-### Slide 3. We follow one product from one country.
+### Slide 4. We follow one product from one country.
 
-*about 0:57*
+*about 0:48*
 
-So we move from copper to the historical duty cases. Most tariffs in the news tax almost every country at once, so there's nobody untaxed to compare with. There's a narrower kind of duty, antidumping and countervailing duties, that names one product from one country: say, mattresses from Vietnam.
+Most tariffs in the news tax almost every country at once, so there's nobody untaxed to compare with. There's a narrower kind of duty, antidumping and countervailing duties, that names one product from one country: say, mattresses from Vietnam.
 
-Other countries keep selling mattresses to U.S. buyers, so we can follow Vietnam's share of those purchases month by month and compare it with its rivals. Anything that hits the whole product, like inflation or demand, cancels out.
+Other countries keep selling mattresses here, so we follow Vietnam's share month by month against its rivals. Anything that hits the whole product, like inflation, cancels out.
 
 We read every duty notice in the Federal Register since 2015 and matched them to Census trade data: 502 cases, 275 of them during Trump's two terms. As a check, we rerun everything on a fake date two years earlier, before any of these cases.
 
@@ -43,7 +55,7 @@ We read every duty notice in the Federal Register since 2015 and matched them to
 
 - antidumping duties answer sales below fair value; countervailing duties answer government subsidies.
 
-### Slide 4. Where duties stayed: 31% below rivals.
+### Slide 5. Where duties stayed: 31% below rivals.
 
 *about 1:08*
 
@@ -57,7 +69,7 @@ There's also no clear surge before the duty, so there's little buying ahead to p
 
 - minus 0.37 log points, standard error 0.065; fake date plus 0.06, standard error 0.03, on the 283 cases with enough earlier data.
 
-### Slide 5. More than half did not come back.
+### Slide 6. More than half did not come back.
 
 *about 0:52*
 
@@ -67,11 +79,11 @@ Across 380 cases: 26 percent never fell, 17 percent fell and came back, and 57 p
 
 So for these duties, the answer to our title is closer to real than borrowed. But that's the average. Someone watching these markets needs to know which declines will last.
 
-### Slide 6. Which declines should an analyst check first?
+### Slide 7. Which declines should an analyst check first?
 
-*about 0:48*
+*about 0:43*
 
-Picture an analyst at a U.S. importer. They watch many product markets hit by duties, and they can't look into every decline. Their question is: which ones first?
+Back to our analyst. They can't look into every decline, so their question is: which ones first?
 
 On the day the duty starts, case details like the duty rate don't predict recovery better than past averages. We need some trade data first. Four months in, Census has usually published two months after the duty, and some declines are visible. Each month's list is every relationship that has fallen and not yet recovered.
 
@@ -87,7 +99,7 @@ The simplest rule is to check the biggest drops first. That uses only public dat
 
 ## Raunak
 
-### Slide 7. How the model ranks each month's list.
+### Slide 8. How the model ranks each month's list.
 
 *about 0:55*
 
@@ -103,7 +115,7 @@ The testing is time-based. Each prediction used only earlier cases whose outcome
 
 - the most important input by far is the latest published share. Month 4 was chosen with the held-out accuracy in view, so months 6 and 8 are checks.
 
-### Slide 8. Taiwan, January 2025: what the analyst saw.
+### Slide 9. Taiwan, January 2025: what the analyst saw.
 
 *about 0:50*
 
@@ -119,7 +131,7 @@ At this point nobody knew how it would turn out. That's the next slide.
 
 - Don't guess why the model ranked it second, and don't say a buyer should have switched; we didn't test either.
 
-### Slide 9. Later: Taiwan had not recovered.
+### Slide 10. Later: Taiwan had not recovered.
 
 *about 0:29*
 
@@ -127,7 +139,7 @@ Here's what happened afterwards, which the analyst couldn't see in January. By m
 
 So in this case the model's order sent the analyst to a lasting decline that the biggest-drop rule would have skipped. But one case can't tell us which order is better. For that we need every month.
 
-### Slide 10. The model's picks: 82% did not recover.
+### Slide 11. The model's picks: 82% did not recover.
 
 *about 0:52*
 
@@ -141,7 +153,7 @@ So with the same 187 checks, the model finds about 22 more lasting declines than
 
 - it holds when the analyst checks 10 or 30 percent, at months 6 and 8 (88 against 76, 89 against 81), and without the largest case. A random forest and two linear models give 81 to 84 percent (backup).
 
-### Slide 11. What this means.
+### Slide 12. What this means.
 
 *about 0:55*
 
@@ -161,15 +173,15 @@ Next, on November 15 we froze a ranking of 197 relationships whose outcomes were
 
 | question | backup slide |
 | --- | --- |
-| Why gradient boosting and not another model? | 13. Other models give the same answer. |
-| What if the analyst can check more, or fewer? | 14. Review these first: 82% stayed down. |
-| How accurate is the model, and when does it start to work? | 15. By month 4, the forecast ranks them better. |
-| What happens when the trade commission lifts the duty? | 16. Losses persist in cases that become orders. |
-| How did you get from the notices to 502 cases? | 17. From 10,730 notices to 502 cases. |
-| How exactly is the comparison built? | 18. How we measure it, product by product. |
-| Do importers actually change suppliers? | 19. Buyers respond to duties, but slowly. |
-| Did copper's total really come back? | 20. Copper's total imports came back. |
-| How much of copper did the duty cover? | 21. But most copper was outside this duty. |
-| What about inflation, and the other data checks? | 22. What the checks confirmed. |
-| Presentation 1 feedback: the unusual-month score | 23. How we spot an unusual month. |
-| Presentation 1 feedback: dollars against quantity | 24. Dollars alone can fool you. |
+| Why gradient boosting and not another model? | 14. Other models give the same answer. |
+| What if the analyst can check more, or fewer? | 15. Review these first: 82% stayed down. |
+| How accurate is the model, and when does it start to work? | 16. By month 4, the forecast ranks them better. |
+| What happens when the trade commission lifts the duty? | 17. Losses persist in cases that become orders. |
+| How did you get from the notices to 502 cases? | 18. From 10,730 notices to 502 cases. |
+| How exactly is the comparison built? | 19. How we measure it, product by product. |
+| Do importers actually change suppliers? | 20. Buyers respond to duties, but slowly. |
+| Did copper's total really come back? | 21. Copper's total imports came back. |
+| How much of copper did the duty cover? | 22. But most copper was outside this duty. |
+| What about inflation, and the other data checks? | 23. What the checks confirmed. |
+| Presentation 1 feedback: the unusual-month score | 24. How we spot an unusual month. |
+| Presentation 1 feedback: dollars against quantity | 25. Dollars alone can fool you. |
