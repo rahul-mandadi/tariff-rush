@@ -80,7 +80,8 @@ swings and each country's usual level in it. Anything that moves the whole produ
 including general inflation and demand, cancels. The coefficient reads as a proportional change
 against rivals; we report it in log points, where minus 0.37 is about minus 31 percent. Uncertainty
 is computed over investigation groups, not individual product rows, because one petition's
-countries and products are not independent. The reference period is months 18 to 13 before the
+countries and products are not independent. Table 2 gives standard errors; Fig. 3, the
+positive-trade estimates in section 3.2 and Appendix J use 95 percent intervals, and all others are 90 percent. The reference period is months 18 to 13 before the
 duty, which precedes the investigation's opening for 501 of 502 episodes.
 
 Every estimate is repeated with the cases moved 24 months earlier, when nothing happened: the fake
@@ -93,7 +94,7 @@ describe what followed these duties; they do not isolate the duty's effect.
 
 ### 2.3 Recovery and evaluation
 
-We followed the targeted country’s share of U.S. imports of each product among the countries in the comparison. We averaged the share over three months to smooth out short swings. We recorded a **fall** if that share dropped below 80 percent of its pre-case level in months 0 through 6, counting the month the duty began as month 0. We recorded a **recovery** if the share then reached its pre-case level and stayed at or above it for three consecutive months by month 18.
+We followed the targeted country’s share of U.S. imports of each product among the countries in the comparison. We averaged the share over three months to smooth out short swings. We recorded a **fall** if that share dropped below 80 percent of its pre-case level in months 0 through 6, counting the month the duty began as month 0 (Table K3 repeats the outcomes with cutoffs of 90 and 70 percent). We recorded a **recovery** if the share then reached its pre-case level and stayed at or above it for three consecutive months by month 18.
 A pair **stopped trading** if it fell, never came back, and had no imports at all in months 13 to
 18. A month in which none of the panel's countries trades the product has no share and is left out,
 and a pair with no such share in months 0 to 6 is not classified. Each pair lands in exactly one category, each case counts once however many products it names, and only pairs with a
@@ -111,7 +112,7 @@ that have visibly fallen and are not yet back). Models see only trade data Censu
 published by that date, the products named by the first preliminary, and
 comparison panels that leave out only rivals whose own case was published by then (exact dates):
 regularized logistic regression throughout, plus
-shallow gradient boosting and a penalized Cox model at the later points. A monthly version
+shallow gradient boosting and a penalized Cox model at the later points (inputs, settings and tuning of the month-4 model in Appendix K). A monthly version
 re-scores every fallen, not-yet-back product at each month 3 to 14 from what is published by then;
 the eligible products change from month to month, so months are not compared on the same products.
 All are validated forward in time, training only on earlier cases whose outcomes were already
@@ -162,9 +163,9 @@ slightly above its pre-case level.
 The comparison between the two final outcomes is descriptive: the ITC's vote rests on the import
 record itself, and the no-injury group is small and dominated by the 2024 aluminum extrusions cases.
 Shared price movements, including inflation, cancel in the design. On the 2,486 pairs reported in
-one unit, months with trade show quantity falling 0.31 log points and value 0.30 (both 95 percent
+one unit, months with trade show quantity falling 0.313 log points and value 0.307 (both 95 percent
 intervals include zero); with no-trade months kept as zeros, quantity falls 0.54 (SE 0.17) and value 0.19
-(SE 0.12). Either way volume fell at least as much as value.
+(SE 0.12). Either way, the quantity estimate is at least as negative as the value estimate.
 
 **Table 2.** Targeted country against rivals in the same product, relative to months 18 to 13 before;
 log points, standard errors over investigation groups.
@@ -192,6 +193,7 @@ month of the fall, 25 percent of products that fall are back within 18 months of
 58 percent on the fake date.
 
 **Table 3.** Outcome within 18 months of a preliminary duty; 90 percent intervals as in Table 4.
+Rows are rounded separately; unrounded, the last two rows of the real column sum to 57.3 percent.
 
 | outcome | real (380) | fake date | order | no injury |
 | --- | --- | --- | --- | --- |
@@ -229,7 +231,7 @@ at both, a choice made after seeing those years. Table C1 (Appendix C) turns the
 
 [[FIG:4|slides/fig/19_monthly_forecast.png|Pairwise ranking accuracy (AUC), held-out products already fallen and not yet back; eligible products differ by month. Boosting against a latest-share model. 16,781 product-months from 1,712 products, 349 cases, 136 groups; held out 1,157 products, 219 cases.|82]]
 
-**Table 4.** Held-out Brier scores (lower is better), best pre-specified model; cases eligible (scored); intervals over groups.
+**Table 4.** Held-out Brier scores (lower is better), best pre-specified model; cases eligible (scored); intervals over groups. Improvements are computed from unrounded scores.
 
 | decision point | cases (scored) | history | best model | improvement | AUC |
 | --- | --- | --- | --- | --- | --- |
@@ -252,7 +254,7 @@ weighting each case once (90 against 81 percent), without the largest investigat
 aluminum extrusions, 14 countries and nearly half the relationships; 89 against 77 percent, a check
 added after the first results), and at the month-6 and month-8 checkpoints (88.2 against 75.7
 percent and 89.2 against 81.1; differences 12.5 points [7.1, 17.3] and 8.1 [4.6, 12.5]). The
-forecast is therefore the ranking (Table D1, Appendix D, shows one month's list).
+forecast is therefore the ranking (Table D1, Appendix D, shows one month's list). Appendix K gives further checks.
 
 **Table 5.** Month-4 review lists, held out 2020 to 2025: share of reviewed relationships that had
 not recovered by month 18 (share of all such relationships reviewed); last column, forecast minus
@@ -481,8 +483,17 @@ All code is in the repository. The panel: `data/harvest_hs10.py`, `data/build_pa
 Section 3.5: `events/build_301_lists.py`, `section301/sec301_benchmark.py`, `section301/sec301_transfer_test.py`,
 `recovery_lib.py`. Appendix G, dollars and quantity: `data/eda_summary.py`, `data/chapter_quantity.py`,
 `slides/fig_units.py`, `data/pharma_mix.py`, `data/deflation_check.py`. Section 3.1: `measure/coverage_share.py`,
-`data/copper_split.py`. Figures: `slides/fig_sankey.py`, `slides/fig_stacked.py`. Each script writes
-the CSV its numbers come from.
+`data/copper_split.py`. Appendix J: `research/rush_2018/evaluate_rush.py`. Appendix K:
+`forecast/model_family_check.py`, `forecast/feature_ladder.py`, `forecast/model_explain.py`,
+`forecast/model_calibration.py`, `forecast/model_recalibration.py`, `forecast/review_queue_curves.py`.
+Figures: `slides/fig_sankey.py`, `slides/fig_stacked.py`, `slides/fig_funnel.py`,
+`slides/fig_taiwan_example.py`. The analysis scripts write the CSVs the report's numbers come from; the
+figure scripts write the figures, and Appendix J's script prints its results (recorded in
+`research/rush_2018/results.txt`). `python3 run_all.py --list` shows the steps it reruns in order,
+from the event study to the figures, including Appendix K. Data acquisition, the release calendar,
+section 3.1, Appendix G, Appendix J and the report build run separately (README, Reproducing).
+`python3 -m pytest tests -q` checks the timing rules and the report's tables and headline numbers
+against the saved CSVs.
 
 ### Appendix J. The rush, revisited with the 2018 proposals
 
@@ -523,3 +534,108 @@ cannot tell a tariff rush from ordinary momentum, or say how much trade was pull
 would need more independent policy episodes, broader comparison groups, or shipment data from
 inside the reporting gap. Trade values are Census's current revised figures, not those first
 published.
+
+### Appendix K. Model inputs, settings and checks
+
+The month-4 forecast is one gradient boosting model per test year, fit on every eligible
+checkpoint from month 3 to month 14 with the checkpoint month as an input; section 3.4 scores it
+at month 4. At each checkpoint the model sees trade through the last month Census had published by
+the end of that month, and never later than two months before the checkpoint. The pre-case level
+is the country's average share in months 18 to 13 before the duty. The 23 inputs:
+
+- **Before the case** (months 18 to 7 before the duty): the country's share of the product's
+  imports, the linear trend in its monthly share, its import value (log), market concentration
+  (Herfindahl index of country shares) and the number of other countries selling the product
+  (log).
+- **The case**, from notices published by the decision date: the preliminary duty rate (log of
+  one plus the summed rates), a flag for a missing rate, an affirmative or mixed finding of
+  retroactive duties (critical circumstances), both kinds of duty, and China.
+- **The fall so far**: the latest published share and the lowest share since the duty, each
+  against the pre-case level (three-month averages); the month of the fall and the months since
+  it; the change in share from three months before the latest published month to that month,
+  against the pre-case level; the share of months since the duty with no imports from the
+  country; the average monthly share in the six months before the duty, against the pre-case
+  level (the pre-case rush); and the change in the country's log price per unit since before the
+  case minus its rivals' change, clipped at plus or minus 3, with a flag when it is missing.
+- **Context**: the case's final outcome (order issued, no injury found, or not yet known),
+  counted only if its notice was published by the decision date, and the checkpoint month.
+
+Gradient boosting (scikit-learn `HistGradientBoostingClassifier`) uses trees of depth 2, learning
+rate 0.05, L2 penalty 1.0 and at least 40 rows per leaf; the number of boosting iterations is
+chosen from 50, 100, 200 and 400. Logistic regression is L2-penalized on standardized inputs, with
+the inverse penalty strength C chosen from 0.03, 0.1, 0.3 and 1.0. Each setting is the one with
+the lowest mean Brier score over 5-fold cross-validation inside the training rows, with each
+investigation group kept in one fold. For test year Y (the year the duty began), the training
+cases are those whose month 18, plus a fixed two months for Census to publish it, came before
+January of Y; there is one fit per test year, 2020 to 2025. In training and in Brier and AUC
+scoring, each case has a total weight of one at each checkpoint, shared by its eligible products.
+The review results in Tables 5, K1 and K2 count each relationship once.
+
+**Table K1.** Other model families on the same month-4 relationships, each ranking its own
+monthly lists at 20 percent capacity: share of reviewed relationships that had not recovered by
+month 18, and paired differences in points with 90 percent intervals (1,000 resamples of
+investigation groups, fitted models held fixed). Every family gets the same inputs, training years
+and grouped tuning. Elastic net: L1 share 0.25, 0.5 or 0.75 with the logistic values of C. Random
+forest: 300 trees, with (maximum depth, minimum rows per leaf) of (6, 40), (10, 40), (unlimited,
+40) or (unlimited, 80). The rule was fixed before the check ran: boosting stays the reported
+ranking whatever the result, and a family that beat it with an interval above zero would be
+reported under Limitations.
+
+| model | not recovered, reviewed | minus latest share | minus boosting | Brier | AUC |
+| --- | --- | --- | --- | --- | --- |
+| boosting (reported) | 82.3% | +12.0 [3.9, 15.7] |  | 0.154 | 0.795 |
+| random forest | 83.8% | +13.4 [5.3, 17.6] | +1.4 [-1.7, 4.9] | 0.153 | 0.791 |
+| logistic | 81.6% | +11.3 [2.9, 14.5] | -0.7 [-6.5, 3.9] | 0.160 | 0.753 |
+| elastic net | 80.9% | +10.6 [1.6, 14.1] | -1.4 [-7.4, 2.9] | 0.160 | 0.751 |
+| latest share | 70.3% |  | -12.0 [-15.7, -3.9] |  |  |
+
+All four families beat the latest share with intervals above zero, and all three intervals
+against boosting include zero. Logistic regression chose C = 1.0, the weakest regularization
+tried, in all six test years; elastic net chose C = 1.0 in five years and the largest L1 share,
+0.75, in all six, so the linear models sit at the edge of their grid. These checks reuse the
+held-out years examined when month 4 was chosen, and their intervals are pointwise.
+
+**Table K2.** Which inputs carry the forecast: boosting refit with one group of inputs added at a
+time, each ranking its own lists at 20 percent capacity on the same month-4 relationships. The
+input count leaves out the four context inputs, which are in every step. Other countries' pickup
+is rival and total import growth since the duty against the same months a year earlier; rivals
+already under a duty is the share of rivals' pre-case imports from countries with a published
+preliminary on the product by the decision date. Last column: change in the reviewed share from
+the step before, in points, with a 90 percent interval.
+
+| inputs | inputs, without context | not recovered, reviewed | Brier | AUC | change from step before |
+| --- | --- | --- | --- | --- | --- |
+| the case and before the case | 10 | 70.5% | 0.182 | 0.651 |  |
+| plus the latest share | 11 | 82.8% | 0.152 | 0.790 | +12.3 [5.1, 15.1] |
+| plus the fall so far (reported) | 19 | 82.3% | 0.154 | 0.795 | -0.5 [-7.1, 3.0] |
+| plus other countries' pickup | 21 | 82.7% | 0.153 | 0.791 | +0.4 [-1.5, 2.3] |
+| plus rivals already under a duty | 22 | 82.5% | 0.155 | 0.772 | -0.3 [-4.4, 1.3] |
+
+Shuffling one input at a time points the same way. In each held-out year, each input was shuffled
+20 times across the month-4 rows: the case-weighted Brier score rises 0.042 [0.033, 0.051] without
+the latest share. The next largest rises are 0.008 for the pre-case rush (0.001 to 0.015), 0.005
+for the pre-case import value and 0.005 for market concentration.
+
+**Calibration.** Weighting each case once, the forecast gave held-out relationships a 19.1 percent
+chance of recovering by month 18 on average, and 25.6 percent recovered: it understates recovery
+by 6.5 points (90 percent interval 2.9 to 10.2), so its chances of not recovering, as in Table D1,
+run high. Recalibrating each test year on out-of-fold month-4 predictions from its own training years
+(Platt scaling) cuts the gap about in half, to 3.4 points (-0.1 to 7.0), and improves the Brier
+score by 0.004 (0.001 to 0.007). The correction keeps the order and ties within every month-4
+review list, so the month-4 review results in section 3.4 are the same with or without it; months
+6 and 8 were not checked. The gap is largest for the smallest third of suppliers by pre-case
+imports: 11.8 points raw and 8.3 after recalibration.
+
+**Table K3.** The fall threshold. A fall is a share below 80 percent of its pre-case level in
+months 0 to 6; the checks use 90 and 70 percent. Fell and not back combines still down and no
+imports in months 13 to 18; these shares weight each case once and use pairs with all 18 months.
+Back within 18 months of falling is the Kaplan-Meier estimate, which starts at the fall, uses the
+pairs that fell and keeps pairs still being followed. Fake-date columns use the cases the fake
+date covers. Only the fall cutoff changes; the review lists were not rerun under the other
+cutoffs.
+
+| fall threshold | fell and not back | fake date | back within 18 months of falling | fake date |
+| --- | --- | --- | --- | --- |
+| below 90 percent | 60% | 23% | 27% | 60% |
+| below 80 percent (reported) | 57% | 21% | 25% | 58% |
+| below 70 percent | 54% | 18% | 24% | 57% |

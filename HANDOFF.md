@@ -40,7 +40,7 @@ From the repository root. Raw caches are git-ignored and rebuilt by the first st
 9. `measure/coverage_share.py`, `data/copper_split.py`: coverage and copper.
 10. `slides/fig_stacked.py`, `slides/fig_sankey.py`, `build_final_report.py`, `slides/build_deck2b.py`, `slides/build_deck_final.py`: figures, report PDF, decks.
 
-Checks: `python3 -m pytest tests -q` (47 tests: timing rules, headline and table numbers, the November 2026 fixes, critical-circumstances side notices, the review queue, the methodology study; the panel-based ones skip if the
+Checks: `python3 -m pytest tests -q` (74 tests: timing rules, headline and table numbers, the November 2026 fixes, critical-circumstances side notices and findings, the review queue, the methodology study, the report's Appendix K; the panel-based ones skip if the
 ignored parquet files are absent). One of them was confirmed to fail on the hindsight panels, so it
 does detect the leak it guards against.
 

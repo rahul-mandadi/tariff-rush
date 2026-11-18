@@ -7,7 +7,7 @@ held-out month-4 lists. The script first refits logistic and boosting and stops 
 reproduce prediction_landmark_heldout.csv, so all four models see exactly the same data.
 
 Reads:  panel/landmark_features.parquet, prediction_landmark_heldout.csv
-Writes: model_family_check.csv, model_family_check_heldout.csv
+Writes: model_family_check.csv, model_family_check_heldout.csv, model_family_check_settings.csv
 Run:    python3 forecast/model_family_check.py      (after forecast/prediction_landmark.py)
 """
 import ast
@@ -50,7 +50,8 @@ def elastic_net(features):
     def make(setting, tr):
         C, l1_ratio = setting
         m = make_pipeline(StandardScaler(), LogisticRegression(penalty="elasticnet", solver="saga", C=C,
-                                                               l1_ratio=l1_ratio, max_iter=5000, tol=1e-4))
+                                                               l1_ratio=l1_ratio, max_iter=5000, tol=1e-4,
+                                                               random_state=0))  # saga shuffles rows
         m.fit(tr[features], tr.y, logisticregression__sample_weight=tr.w)
         return lambda te: m.predict_proba(te[features])[:, 1]
     return make
@@ -159,5 +160,6 @@ pd.set_option("display.width", 250)
 print(f"\nmonth 4, held out: {len(G)} relationships, {G.sid.nunique()} cases, {G.cluster.nunique()} groups")
 print(T.round(3).to_string(index=False))
 print("\nchosen settings by test year:")
+pd.DataFrame(chosen).to_csv("model_family_check_settings.csv", index=False)
 print(pd.DataFrame(chosen).pivot(index="year", columns="model", values="setting").to_string())
-print("wrote model_family_check.csv, model_family_check_heldout.csv")
+print("wrote model_family_check.csv, model_family_check_heldout.csv, model_family_check_settings.csv")
