@@ -25,7 +25,7 @@ We started with three questions. Could we see a rush coming, and how big would i
 
 [[FIG:1|slides/fig/26_taiwan_example.png|Taiwan epoxy resins (3907.30.00), as an analyst could see it in January 2025. Left: Taiwan's share of the product's U.S. imports from the 43 countries compared, as a percent of its average share 18 to 13 months before the duty (3-month averages); solid, published by January 2025; dashed, published later. Right: the same January 2025 list of 36 relationships ordered by the latest share and by the model; the shaded band is what a review of 20 percent of the list covers.|92]]
 
-Buying ahead of an announced tariff has been documented elsewhere [5]. Could we recognize it with the information available at the time? Late in the project we went back to that first question with three Trump tariff proposals on Chinese goods in 2018. We used the product lists buyers saw on announcement day and only the trade months Census had published by then. A simple rule flagged products whose imports were already growing quickly. It picked out later jumps about as well in 2017, a year before any proposal, as it did in 2018. So published data could flag growing imports, but it could not separate a rush from ordinary momentum or say how much trade buyers pulled forward (draft Appendix J). That is why the rest of this report studies what happens after the duty starts.
+Buying ahead of an announced tariff has been documented elsewhere [5]. Could we recognize it with the information available at the time? Late in the project we went back to that first question with three Trump tariff proposals on Chinese goods in 2018. We used the product lists buyers saw on announcement day and only the trade months Census had published by then. A simple rule flagged products whose imports were already growing quickly. It picked out later jumps about as well in 2017, a year before any proposal, as it did in 2018. So published data could flag growing imports, but it could not separate a rush from ordinary momentum or say how much trade buyers pulled forward (Appendix J). That is why the rest of this report studies what happens after the duty starts.
 
 The second question gave us a more direct comparison. Take mattresses from Vietnam. When the United States imposes a duty on Vietnamese mattresses, other countries still sell mattresses to U.S. buyers. We can follow Vietnam's share of those purchases month by month. If that share falls, does it return to its earlier level within 18 months? We studied duties that name particular products and countries: antidumping duties address goods sold below fair value, and countervailing duties address government subsidies. Importers begin paying deposits after an affirmative preliminary decision. The U.S. International Trade Commission (ITC) later decides whether the imports injure U.S. producers.
 
@@ -304,7 +304,7 @@ a monthly forecast that orders review of products already falling. Whether there
 answered for these duties (no clear surge before collection) and in part for Section 301, where
 products with a rush before the tariff more often came back (an association: a spike can reverse
 on its own). For the 2018 Section 301 proposals, published data flagged growing imports
-but did not separate a rush from ordinary momentum (draft Appendix J); Report 1's analysis of the
+but did not separate a rush from ordinary momentum (Appendix J); Report 1's analysis of the
 broader 2018 to 2026 actions is withdrawn (Appendix F). Where the lost trade goes is not estimable. Limitations are listed in Appendix I.
 
 ## 5. Statement of contributions
@@ -484,10 +484,9 @@ Section 3.5: `events/build_301_lists.py`, `section301/sec301_benchmark.py`, `sec
 `data/copper_split.py`. Figures: `slides/fig_sankey.py`, `slides/fig_stacked.py`. Each script writes
 the CSV its numbers come from.
 
-### Appendix J (draft). The rush, revisited with the 2018 proposals
+### Appendix J. The rush, revisited with the 2018 proposals
 
-*Draft, pending the scope amendment in `docs/SCOPE_AMENDMENT_DRAFT.md`. Code and the recorded run
-are in `research/rush_2018/`.*
+*Code and the recorded run are in `research/rush_2018/`.*
 
 We replayed the April 3, June 15 and July 10, 2018 Section 301 proposals on Chinese goods. Each
 replay used that proposal's own product list (1,333, 284 and 6,031 lines) and only the trade months

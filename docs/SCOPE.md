@@ -31,10 +31,11 @@ the 2025 tariffs, are a different kind and are not what this project studies (se
 ## 1. The core (fixed)
 
 **Domain problem.** When the United States puts one of these duties on a product from one country,
-the sourcing team of a company that buys many such products (a retailer or distributor) has to
-decide where to commit to new suppliers and where to hold on, and needs to know which declines will
-last. The forecast is for the supplier country's position in the product, a stand-in for the
-company's own supplier.
+an analyst at a U.S. importer who monitors several product markets hit by duties has more visible
+declines than time to look into them, and decides which to investigate first. The forecast is for
+the supplier country's position in the product, not the company's own supplier. The project
+measures how well the analyst's review list is ordered; it does not measure changed orders or
+savings.
 
 **Analytical problem.** After such a duty, is the targeted country's lost trade temporary (borrowed:
 it comes back) or permanent (real: it does not), and how early can anyone tell?
@@ -80,6 +81,11 @@ the historical rate (gain 0.007, 90 percent range -0.001 to 0.013).
 - Whether importers rush to buy before broad, president-set tariffs (on steel, on all Chinese goods,
   on whole countries in 2025): too few such tariffs to learn from, several of the source documents
   were wrong, and when every country is taxed there is no untaxed supplier to compare with.
+- Exception: one appendix revisits the original rush question with the April, June and July 2018
+  Section 301 proposals, using each proposal's own product list and only the trade months published
+  by the proposal date (`research/rush_2018/`). It is reported as a limit, led by the same rule's
+  result a year earlier. It is not a core result, no headline number comes from it, and the proposal
+  lists (`research/rush_2018/proposal_codes.csv`) are its only new data.
 - Where the lost trade goes, and which backup country gets hit next.
 - Ports and shipping companies as the user; dashboards or live tools.
 - New data, a new definition of "back", a different unit than the relationship, or a different
@@ -103,6 +109,8 @@ change is written here, dated, with its reason.
 | 2026-11-09 | the domain problem names the user as a company buying many duty-hit products, and says the forecast is for the supplier country | challenge questions 3 (who has a review list) and 1 (country or own supplier); option 1 in `SCOPE_ANSWERS.md`, chosen because the project's evidence is about importers and the importer story is the one people connect a tariff to |
 | 2026-11-09 (study plan, not the core) | methodology item 1 gains steps (d) other countries' pickup and (e) whether they already face a duty; new item 6, months 6 and 8 as a secondary check | an outside review of data sources found these signals in data we already have; the mattress cases show buyers moving to countries hit in the next round |
 | 2026-11-15 (study plan, not the core) | the study is run by Rahul, not Raunak, and the data is not shared; two items added: recalibrating the month-4 probabilities on earlier years (item 7) and a frozen forecast of open relationships (item 8) | the data stays on Rahul's machine, so Raunak could not run the study; item 3 found the probabilities too low, which item 7 addresses; item 8 is the only test on outcomes nobody had seen |
+| 2026-11-18 | the domain problem names an analyst at a U.S. importer who decides which declines to investigate first; no claim of changed orders or savings | the evidence supports ordering a review list, not a sourcing decision (`evidence/USE_EVIDENCE.md`, section D); an exception to the change rule, since no test failed |
+| 2026-11-18 | one appendix on the 2018 Section 301 proposals is allowed as an exploratory limit, not a core result | the report should say what happened to the original rush question, and the check shows why the project studies the aftermath; an exception to the change rule, since no test failed |
 | 2026-11-18 (check, not the core) | a robustness check of the month-4 ranking with two more model families, elastic-net logistic regression and a random forest: same inputs, training years and grouped tuning as the current models, scored the same way (`forecast/model_family_check.py`). Rule fixed before running: boosting stays the reported ranking whatever the result; the new models appear only as a check; a new model whose precision at 20 percent beats boosting with a 90 percent interval above zero is reported under Limitations as signal the preset models leave unused, not as a replacement | a reader will ask why only two model families; the feature study suggests the limit is the information, and two more families test that |
 
 ## 5. Methodology study (inside the core)
