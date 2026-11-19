@@ -1,0 +1,59 @@
+sample,measure,value,lo,hi,n
+"Section 301, real",no fall,0.34576485461441214,0.31902406532690963,0.3716695434726682,4746.0
+"Section 301, real",recovered,0.24209860935524652,0.22293736832455818,0.2630488576005396,4746.0
+"Section 301, real",not recovered,0.35693215339233036,0.3338347207984498,0.37612783004618944,4746.0
+"Section 301, real",exited,0.05520438263801096,0.04226574893730673,0.07208420777666522,4746.0
+"Section 301, real, List 1",no fall,0.2750373692077728,,,669.0
+"Section 301, real, List 1",recovered,0.23766816143497757,,,669.0
+"Section 301, real, List 1",not recovered,0.4633781763826607,,,669.0
+"Section 301, real, List 1",exited,0.02391629297458894,,,669.0
+"Section 301, real, List 2",no fall,0.2818181818181818,,,220.0
+"Section 301, real, List 2",recovered,0.1590909090909091,,,220.0
+"Section 301, real, List 2",not recovered,0.5272727272727272,,,220.0
+"Section 301, real, List 2",exited,0.031818181818181815,,,220.0
+"Section 301, real, List 3",no fall,0.3616800622245268,,,3857.0
+"Section 301, real, List 3",recovered,0.2476017630282603,,,3857.0
+"Section 301, real, List 3",not recovered,0.32875291677469537,,,3857.0
+"Section 301, real, List 3",exited,0.0619652579725175,,,3857.0
+"Section 301, real",China share before,0.149170372505294,,,
+"Section 301, real",China share late,0.1044481670044195,,,
+"Section 301, placebo",no fall,0.41934036347318826,0.38159029534821753,0.45451744111331455,4457.0
+"Section 301, placebo",recovered,0.3105227731658066,0.2857455851344228,0.33693675773019927,4457.0
+"Section 301, placebo",not recovered,0.2355844738613417,0.2254131329224266,0.24806601049109428,4457.0
+"Section 301, placebo",exited,0.03455238949966345,0.026812734331790034,0.04429755565149106,4457.0
+"Section 301, placebo, List 1",no fall,0.44333333333333336,,,600.0
+"Section 301, placebo, List 1",recovered,0.305,,,600.0
+"Section 301, placebo, List 1",not recovered,0.24,,,600.0
+"Section 301, placebo, List 1",exited,0.011666666666666667,,,600.0
+"Section 301, placebo, List 2",no fall,0.5141509433962265,,,212.0
+"Section 301, placebo, List 2",recovered,0.2358490566037736,,,212.0
+"Section 301, placebo, List 2",not recovered,0.24528301886792453,,,212.0
+"Section 301, placebo, List 2",exited,0.0047169811320754715,,,212.0
+"Section 301, placebo, List 3",no fall,0.40987654320987654,,,3645.0
+"Section 301, placebo, List 3",recovered,0.3157750342935528,,,3645.0
+"Section 301, placebo, List 3",not recovered,0.23429355281207134,,,3645.0
+"Section 301, placebo, List 3",exited,0.04005486968449931,,,3645.0
+"Section 301, placebo",China share before,0.18716760974216565,,,
+"Section 301, placebo",China share late,0.19841818970187677,,,
+"Section 301, real, strict",no fall,0.34608150470219434,0.3192419219046784,0.3700456412120019,4785.0
+"Section 301, real, strict",recovered,0.24158829676071056,0.2217028762782597,0.26425275651217106,4785.0
+"Section 301, real, strict",not recovered,0.35778474399164056,0.3337152530647811,0.37697904820884987,4785.0
+"Section 301, real, strict",exited,0.05454545454545454,0.042115539537415946,0.07198359958061142,4785.0
+"Section 301, real, strict, List 1",no fall,0.2746268656716418,,,670.0
+"Section 301, real, strict, List 1",recovered,0.2373134328358209,,,670.0
+"Section 301, real, strict, List 1",not recovered,0.46417910447761196,,,670.0
+"Section 301, real, strict, List 1",exited,0.023880597014925373,,,670.0
+"Section 301, real, strict, List 2",no fall,0.2818181818181818,,,220.0
+"Section 301, real, strict, List 2",recovered,0.1590909090909091,,,220.0
+"Section 301, real, strict, List 2",not recovered,0.5272727272727272,,,220.0
+"Section 301, real, strict, List 2",exited,0.031818181818181815,,,220.0
+"Section 301, real, strict, List 3",no fall,0.362002567394095,,,3895.0
+"Section 301, real, strict, List 3",recovered,0.24698331193838255,,,3895.0
+"Section 301, real, strict, List 3",not recovered,0.3299101412066752,,,3895.0
+"Section 301, real, strict, List 3",exited,0.06110397946084724,,,3895.0
+"Section 301, real, strict",China share before,0.1536736530771667,,,
+"Section 301, real, strict",China share late,0.10636948163685607,,,
+"AD/CVD, same horizon",no fall,0.25632179222968937,0.2215399175906998,0.2962727025257972,2647.0
+"AD/CVD, same horizon",recovered,0.16408921506243515,0.14337372136053778,0.18564190069529796,2647.0
+"AD/CVD, same horizon",not recovered,0.42472571613093235,0.3869150790211029,0.4621397446059425,2647.0
+"AD/CVD, same horizon",exited,0.1548632765769431,0.10950136471844418,0.19861701986565714,2647.0
