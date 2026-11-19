@@ -1,0 +1,5 @@
+universe,chapters,index,top10_kept,rank_corr
+all product chapters,96,EIUIR,8,0.9663456321215409
+all product chapters,96,EIUIREXFUELS,9,0.9944655453065654
+chapters with quantity data,63,EIUIR,7,0.9714381720430109
+chapters with quantity data,63,EIUIREXFUELS,8,0.9946236559139786

@@ -1,0 +1,25 @@
+year,model,setting
+2020,logistic,1.0
+2020,boosting,200
+2020,elastic net,"(1.0, 0.75)"
+2020,random forest,"(None, 40)"
+2021,logistic,1.0
+2021,boosting,50
+2021,elastic net,"(1.0, 0.75)"
+2021,random forest,"(None, 40)"
+2022,logistic,1.0
+2022,boosting,100
+2022,elastic net,"(0.3, 0.75)"
+2022,random forest,"(10, 40)"
+2023,logistic,1.0
+2023,boosting,100
+2023,elastic net,"(1.0, 0.75)"
+2023,random forest,"(10, 40)"
+2024,logistic,1.0
+2024,boosting,100
+2024,elastic net,"(1.0, 0.75)"
+2024,random forest,"(10, 40)"
+2025,logistic,1.0
+2025,boosting,100
+2025,elastic net,"(1.0, 0.75)"
+2025,random forest,"(None, 40)"

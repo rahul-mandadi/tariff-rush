@@ -1,0 +1,198 @@
+decision_month,product,hs8,country,sid,queue_size,rank_frozen,rank_corrected,p_not_back_frozen,p_not_back_corrected,reviewed_at_20_frozen,reviewed_at_20_corrected,own_crit_input_changed
+2025-07,Thermoformed Molded Fiber Products,48237000,China,399,13,1,1,0.972025,0.975482,1.000000,1.000000,False
+2025-07,Hard Empty Capsules,96020010,Brazil,52,13,2,3,0.887579,0.890864,1.000000,0.600000,False
+2025-07,Hexamethylenetetramine,29336950,China,398,13,3,2,0.839579,0.892732,0.600000,1.000000,False
+2025-07,Hard Empty Capsules,21069099,China,400,13,4,4,0.803935,0.805607,0.000000,0.000000,False
+2025-07,Hard Empty Capsules,96020050,Vietnam,274,13,5,5,0.791642,0.797975,0.000000,0.000000,False
+2025-07,Hard Empty Capsules,96020050,Brazil,52,13,6,6,0.732032,0.739304,0.000000,0.000000,False
+2025-07,Hard Empty Capsules,35030055,China,400,13,7,8,0.674187,0.667450,0.000000,0.000000,False
+2025-07,Hard Empty Capsules,96020010,China,400,13,8,7,0.670445,0.692786,0.000000,0.000000,False
+2025-07,Hard Empty Capsules,39239000,Brazil,52,13,9,9,0.654219,0.654148,0.000000,0.000000,False
+2025-07,Hard Empty Capsules,19059090,China,400,13,10,10,0.563598,0.562657,0.000000,0.000000,False
+2025-07,Hard Empty Capsules,21069099,India,225,13,11,11,0.485286,0.485553,0.000000,0.000000,False
+2025-07,Hard Empty Capsules,21069099,Vietnam,274,13,12,12,0.456289,0.463424,0.000000,0.000000,False
+2025-07,Hard Empty Capsules,19059090,Brazil,52,13,13,13,0.304744,0.320758,0.000000,0.000000,False
+2025-08,Corrosion-Resistant Steel Products,72179010,United Arab Emirates,182,37,1,1,0.959665,0.954386,1.000000,1.000000,False
+2025-08,Overhead Door Counterbalance Torsion Springs,73089095,India,226,37,2,2,0.917184,0.913810,1.000000,1.000000,False
+2025-08,Corrosion-Resistant Steel Products,72106100,Turkey,171,37,3,3,0.900693,0.904378,1.000000,1.000000,False
+2025-08,Corrosion-Resistant Steel Products,72104900,South Africa,501,37,4,5,0.900024,0.896009,1.000000,1.000000,True
+2025-08,Corrosion-Resistant Steel Products,72123010,Turkey,171,37,5,4,0.898350,0.897889,1.000000,1.000000,False
+2025-08,Corrosion-Resistant Steel Products,72107060,Australia,484,37,6,6,0.890339,0.893892,1.000000,1.000000,False
+2025-08,Corrosion-Resistant Steel Products,72123050,United Arab Emirates,182,37,7,10,0.880831,0.867869,1.000000,0.000000,False
+2025-08,Corrosion-Resistant Steel Products,72104900,Turkey,171,37,8,7,0.876012,0.876683,0.400000,1.000000,False
+2025-08,Corrosion-Resistant Steel Products,72106100,Australia,484,37,9,8,0.865653,0.873246,0.000000,0.400000,False
+2025-08,Corrosion-Resistant Steel Products,72123010,United Arab Emirates,182,37,10,12,0.862491,0.857746,0.000000,0.000000,False
+2025-08,Corrosion-Resistant Steel Products,72123010,Netherlands,70,37,11,11,0.858661,0.860474,0.000000,0.000000,False
+2025-08,Overhead Door Counterbalance Torsion Springs,84128010,China,401,37,12,14,0.857192,0.846817,0.000000,0.000000,False
+2025-08,Corrosion-Resistant Steel Products,72123050,Taiwan,469,37,13,13,0.851409,0.855747,0.000000,0.000000,False
+2025-08,Slag Pots,84542000,China,404,37,14,9,0.849745,0.872449,0.000000,0.000000,False
+2025-08,Corrosion-Resistant Steel Products,72104900,United Arab Emirates,182,37,15,19,0.834178,0.828542,0.000000,0.000000,False
+2025-08,Corrosion-Resistant Steel Products,72107060,Turkey,171,37,16,15,0.834112,0.844825,0.000000,0.000000,False
+2025-08,Corrosion-Resistant Steel Products,72179010,Netherlands,70,37,17,16,0.830588,0.841269,0.000000,0.000000,False
+2025-08,Corrosion-Resistant Steel Products,72109010,Australia,484,37,18,18,0.828065,0.832868,0.000000,0.000000,False
+2025-08,Corrosion-Resistant Steel Products,72124010,Taiwan,469,37,19,17,0.824748,0.840759,0.000000,0.000000,False
+2025-08,Corrosion-Resistant Steel Products,72125000,Netherlands,70,37,20,20,0.796958,0.807065,0.000000,0.000000,False
+2025-08,Corrosion-Resistant Steel Products,72123050,Turkey,171,37,21,21,0.776753,0.790007,0.000000,0.000000,False
+2025-08,Corrosion-Resistant Steel Products,72123010,Australia,484,37,22,23,0.755776,0.752396,0.000000,0.000000,False
+2025-08,Slag Pots,73160000,China,404,37,23,22,0.752702,0.759160,0.000000,0.000000,False
+2025-08,Corrosion-Resistant Steel Products,72106100,United Arab Emirates,182,37,24,24,0.752669,0.742318,0.000000,0.000000,False
+2025-08,Corrosion-Resistant Steel Products,72122000,Taiwan,469,37,25,25,0.691815,0.707650,0.000000,0.000000,False
+2025-08,Slag Pots,73259910,China,404,37,26,26,0.680753,0.672944,0.000000,0.000000,False
+2025-08,Corrosion-Resistant Steel Products,72123050,Netherlands,70,37,27,27,0.646662,0.670649,0.000000,0.000000,False
+2025-08,Corrosion-Resistant Steel Products,72104900,Netherlands,70,37,28,28,0.645932,0.653591,0.000000,0.000000,False
+2025-08,Corrosion-Resistant Steel Products,72124010,Turkey,171,37,29,30,0.609740,0.618337,0.000000,0.000000,False
+2025-08,Corrosion-Resistant Steel Products,72104900,Australia,484,37,30,31,0.587080,0.559658,0.000000,0.000000,False
+2025-08,Corrosion-Resistant Steel Products,72173015,Taiwan,469,37,31,29,0.530536,0.622156,0.000000,0.000000,False
+2025-08,Corrosion-Resistant Steel Products,72179010,Taiwan,469,37,32,32,0.430935,0.451133,0.000000,0.000000,False
+2025-08,Corrosion-Resistant Steel Products,72107060,United Arab Emirates,182,37,33,33,0.373760,0.376690,0.000000,0.000000,False
+2025-08,Corrosion-Resistant Steel Products,72107060,Netherlands,70,37,34,34,0.345743,0.349002,0.000000,0.000000,False
+2025-08,Corrosion-Resistant Steel Products,72123010,Taiwan,469,37,35,35,0.297086,0.303004,0.000000,0.000000,False
+2025-08,Corrosion-Resistant Steel Products,72179050,Taiwan,469,37,36,37,0.051506,0.048644,0.000000,0.000000,False
+2025-08,Corrosion-Resistant Steel Products,72103000,Taiwan,469,37,37,36,0.044395,0.050723,0.000000,0.000000,False
+2025-09,Active Anode Material,25041010,China,406,31,1,2,0.976163,0.963386,1.000000,1.000000,True
+2025-09,Active Anode Material,38011050,China,406,31,2,1,0.969312,0.965911,1.000000,1.000000,True
+2025-09,Float Glass Products,70071900,China,405,31,3,3,0.948831,0.956215,1.000000,1.000000,False
+2025-09,Float Glass Products,70060040,China,405,31,4,5,0.944413,0.943726,1.000000,1.000000,False
+2025-09,Paper File Folders,48203000,Sri Lanka,236,31,5,6,0.941892,0.943140,1.000000,1.000000,True
+2025-09,Float Glass Products,70099150,China,405,31,6,8,0.939980,0.938737,1.000000,0.000000,False
+2025-09,Active Anode Material,25041050,China,406,31,7,9,0.939512,0.931530,0.200000,0.000000,True
+2025-09,Sol Gel Alumina-Based Ceramic Abrasive Grains,68042210,China,403,31,8,4,0.937996,0.944555,0.000000,1.000000,False
+2025-09,Float Glass Products,70051080,China,405,31,9,7,0.931491,0.940390,0.000000,0.200000,False
+2025-09,Float Glass Products,70051080,Malaysia,295,31,10,10,0.927294,0.921560,0.000000,0.000000,False
+2025-09,Float Glass Products,70052120,China,405,31,11,11,0.898320,0.909911,0.000000,0.000000,False
+2025-09,Sol Gel Alumina-Based Ceramic Abrasive Grains,82041200,China,403,31,12,13,0.886159,0.891791,0.000000,0.000000,False
+2025-09,Float Glass Products,70052918,China,405,31,13,14,0.880407,0.891146,0.000000,0.000000,False
+2025-09,Float Glass Products,70072900,China,405,31,14,12,0.879698,0.898092,0.000000,0.000000,False
+2025-09,Sol Gel Alumina-Based Ceramic Abrasive Grains,68042240,China,403,31,15,15,0.852956,0.868121,0.000000,0.000000,False
+2025-09,Sol Gel Alumina-Based Ceramic Abrasive Grains,68051000,China,403,31,16,16,0.851739,0.866929,0.000000,0.000000,False
+2025-09,Active Anode Material,38019000,China,406,31,17,22,0.822876,0.787515,0.000000,0.000000,True
+2025-09,Erythritol,21069099,China,402,31,18,19,0.817488,0.819119,0.000000,0.000000,False
+2025-09,Float Glass Products,70072900,Malaysia,295,31,19,20,0.817218,0.809698,0.000000,0.000000,False
+2025-09,Float Glass Products,70080000,China,405,31,20,17,0.814317,0.834403,0.000000,0.000000,False
+2025-09,Sol Gel Alumina-Based Ceramic Abrasive Grains,68052000,China,403,31,21,18,0.811230,0.824405,0.000000,0.000000,False
+2025-09,Float Glass Products,70099250,China,405,31,22,21,0.790472,0.803779,0.000000,0.000000,False
+2025-09,Float Glass Products,70052925,China,405,31,23,23,0.719512,0.775808,0.000000,0.000000,False
+2025-09,Float Glass Products,70052925,Malaysia,295,31,24,24,0.688024,0.687503,0.000000,0.000000,False
+2025-09,Float Glass Products,70052918,Malaysia,295,31,25,25,0.623806,0.607431,0.000000,0.000000,False
+2025-09,Sol Gel Alumina-Based Ceramic Abrasive Grains,28182000,China,403,31,26,26,0.469612,0.476544,0.000000,0.000000,False
+2025-09,Sol Gel Alumina-Based Ceramic Abrasive Grains,38249919,China,403,31,27,27,0.429022,0.459760,0.000000,0.000000,False
+2025-09,Float Glass Products,70052110,Malaysia,295,31,28,29,0.349787,0.348514,0.000000,0.000000,False
+2025-09,Float Glass Products,70052110,China,405,31,29,28,0.319714,0.375049,0.000000,0.000000,False
+2025-09,Erythritol,29054940,China,402,31,30,30,0.144319,0.163278,0.000000,0.000000,False
+2025-09,Hexamethylenetetramine,29336950,Saudi Arabia,176,31,31,31,0.121664,0.133897,0.000000,0.000000,False
+2025-10,Temporary Steel Fencing,73239990,China,407,1,1,1,0.797767,0.766434,0.200000,0.200000,False
+2025-12,Chassis and Subassemblies Thereof,87163900,Thailand,253,9,1,1,0.930429,0.937534,1.000000,1.000000,False
+2025-12,Monomers and Oligomers,39073000,Taiwan,470,9,2,3,0.902674,0.885838,0.800000,0.000000,False
+2025-12,Polypropylene Corrugated Boxes,39231090,China,409,9,3,2,0.894517,0.901836,0.000000,0.800000,False
+2025-12,Fiberglass Door Panels,44182980,China,410,9,4,4,0.864428,0.874556,0.000000,0.000000,False
+2025-12,Fiberglass Door Panels,70199051,China,410,9,5,5,0.864252,0.874031,0.000000,0.000000,False
+2025-12,Fiberglass Door Panels,44182940,China,410,9,6,6,0.801290,0.811751,0.000000,0.000000,False
+2025-12,Chassis and Subassemblies Thereof,87169050,Mexico,26,9,7,7,0.742915,0.762737,0.000000,0.000000,False
+2025-12,Fiberglass Door Panels,39252000,China,410,9,8,8,0.707848,0.720107,0.000000,0.000000,False
+2025-12,Monomers and Oligomers,29161210,Taiwan,470,9,9,9,0.701626,0.540812,0.000000,0.000000,False
+2026-01,Methylene Diphenyl Diisocyanate,39095020,China,408,15,1,1,0.974478,0.972591,1.000000,1.000000,True
+2026-01,Methylene Diphenyl Diisocyanate,38249929,China,408,15,2,2,0.968884,0.966008,1.000000,1.000000,True
+2026-01,Methylene Diphenyl Diisocyanate,39119045,China,408,15,3,3,0.964857,0.963072,1.000000,1.000000,True
+2026-01,Methylene Diphenyl Diisocyanate,39095050,China,408,15,4,4,0.955993,0.951289,0.000000,0.000000,True
+2026-01,Methylene Diphenyl Diisocyanate,39211350,China,408,15,5,5,0.941489,0.929919,0.000000,0.000000,True
+2026-01,Methylene Diphenyl Diisocyanate,39093100,China,408,15,6,7,0.920238,0.916305,0.000000,0.000000,True
+2026-01,Silicon Metal,28046910,Australia,485,15,7,6,0.919867,0.923233,0.000000,0.000000,False
+2026-01,Silicon Metal,28046910,Angola,493,15,8,8,0.916071,0.905204,0.000000,0.000000,True
+2026-01,Silicon Metal,28046950,Angola,493,15,9,9,0.866579,0.854526,0.000000,0.000000,True
+2026-01,Methylene Diphenyl Diisocyanate,38249926,China,408,15,10,10,0.847920,0.792687,0.000000,0.000000,True
+2026-01,Methylene Diphenyl Diisocyanate,35069150,China,408,15,11,11,0.805916,0.788116,0.000000,0.000000,True
+2026-01,Methylene Diphenyl Diisocyanate,39095010,China,408,15,12,12,0.729555,0.722645,0.000000,0.000000,True
+2026-01,Silicon Metal,28046100,Norway,61,15,13,13,0.684244,0.707650,0.000000,0.000000,False
+2026-01,Silicon Metal,28046950,Australia,485,15,14,14,0.649905,0.648771,0.000000,0.000000,False
+2026-01,Chassis and Subassemblies Thereof,87163900,Vietnam,275,15,15,15,0.606255,0.615430,0.000000,0.000000,False
+2026-04,Steel Concrete Reinforcing Bar,72142000,Algeria,487,1,1,1,0.980549,0.977544,0.200000,0.200000,True
+2026-05,Hardwood and Decorative Plywood,44123326,China,411,64,1,3,0.966186,0.959100,1.000000,1.000000,False
+2026-05,Hardwood and Decorative Plywood,44123950,China,411,64,2,2,0.964535,0.963916,1.000000,1.000000,False
+2026-05,Steel Concrete Reinforcing Bar,72142000,Vietnam,278,64,3,1,0.957621,0.966745,1.000000,1.000000,False
+2026-05,Hardwood and Decorative Plywood,44123457,China,411,64,4,6,0.952502,0.943511,1.000000,1.000000,False
+2026-05,Steel Concrete Reinforcing Bar,72131000,Egypt,492,64,5,5,0.948653,0.949190,1.000000,1.000000,False
+2026-05,Steel Concrete Reinforcing Bar,72142000,Egypt,492,64,6,4,0.948012,0.952233,1.000000,1.000000,False
+2026-05,Hardwood and Decorative Plywood,44123192,Vietnam,277,64,7,7,0.947647,0.940019,1.000000,1.000000,True
+2026-05,Hardwood and Decorative Plywood,44123332,China,411,64,8,8,0.946307,0.938938,1.000000,1.000000,False
+2026-05,Hardwood and Decorative Plywood,44121005,China,411,64,9,14,0.944845,0.926489,1.000000,0.000000,False
+2026-05,Hardwood and Decorative Plywood,44123148,Vietnam,277,64,10,11,0.944476,0.928571,1.000000,1.000000,True
+2026-05,Hardwood and Decorative Plywood,44129207,Vietnam,277,64,11,15,0.943420,0.922141,1.000000,0.000000,True
+2026-05,Hardwood and Decorative Plywood,44125231,Vietnam,277,64,12,13,0.940309,0.926678,1.000000,0.800000,True
+2026-05,Hardwood and Decorative Plywood,44123940,Vietnam,277,64,13,10,0.935666,0.929479,0.800000,1.000000,True
+2026-05,Hardwood and Decorative Plywood,44129106,Vietnam,277,64,14,20,0.933157,0.903623,0.000000,0.000000,True
+2026-05,Hardwood and Decorative Plywood,44123950,Vietnam,277,64,15,17,0.930158,0.916907,0.000000,0.000000,True
+2026-05,Hardwood and Decorative Plywood,44123940,China,411,64,16,16,0.929975,0.920661,0.000000,0.000000,False
+2026-05,L-Lysine,29224100,China,412,64,17,9,0.929605,0.938630,0.000000,1.000000,False
+2026-05,Hardwood and Decorative Plywood,44123106,Indonesia,309,64,18,12,0.925880,0.927493,0.000000,1.000000,False
+2026-05,Hardwood and Decorative Plywood,44123161,China,411,64,19,19,0.923931,0.904703,0.000000,0.000000,False
+2026-05,Hardwood and Decorative Plywood,44129110,Vietnam,277,64,20,29,0.920752,0.871623,0.000000,0.000000,True
+2026-05,Hardwood and Decorative Plywood,44123106,China,411,64,21,22,0.916655,0.902935,0.000000,0.000000,False
+2026-05,Monomers and Oligomers,29161250,"Korea, South",452,64,22,18,0.907910,0.906665,0.000000,0.000000,False
+2026-05,Hardwood and Decorative Plywood,44123152,Vietnam,277,64,23,25,0.905039,0.877323,0.000000,0.000000,True
+2026-05,Hardwood and Decorative Plywood,44125110,Vietnam,277,64,24,39,0.895655,0.834428,0.000000,0.000000,True
+2026-05,Hardwood and Decorative Plywood,44123152,Indonesia,309,64,25,21,0.895155,0.903053,0.000000,0.000000,False
+2026-05,Hardwood and Decorative Plywood,44123357,China,411,64,26,26,0.886823,0.876573,0.000000,0.000000,False
+2026-05,Hardwood and Decorative Plywood,44123326,Vietnam,277,64,27,23,0.884356,0.885876,0.000000,0.000000,True
+2026-05,Hardwood and Decorative Plywood,44123192,China,411,64,28,28,0.881538,0.872182,0.000000,0.000000,False
+2026-05,Hardwood and Decorative Plywood,44123432,China,411,64,29,35,0.875077,0.844740,0.000000,0.000000,False
+2026-05,Hardwood and Decorative Plywood,44123148,China,411,64,30,36,0.870631,0.841937,0.000000,0.000000,False
+2026-05,Hardwood and Decorative Plywood,44129231,China,411,64,30,36,0.870631,0.841937,0.000000,0.000000,False
+2026-05,Hardwood and Decorative Plywood,44125131,China,411,64,32,42,0.869313,0.815459,0.000000,0.000000,False
+2026-05,Hardwood and Decorative Plywood,44125210,China,411,64,32,43,0.869313,0.811123,0.000000,0.000000,False
+2026-05,L-Lysine,23099095,China,412,64,34,30,0.868272,0.869407,0.000000,0.000000,False
+2026-05,Hardwood and Decorative Plywood,44123161,Indonesia,309,64,35,33,0.866125,0.861987,0.000000,0.000000,False
+2026-05,Hardwood and Decorative Plywood,44123332,Indonesia,309,64,36,32,0.865149,0.863792,0.000000,0.000000,False
+2026-05,Hardwood and Decorative Plywood,44123306,Indonesia,309,64,37,31,0.858978,0.865550,0.000000,0.000000,False
+2026-05,Hardwood and Decorative Plywood,44124200,Vietnam,277,64,38,40,0.856745,0.825217,0.000000,0.000000,True
+2026-05,Monomers and Oligomers,38249993,"Korea, South",452,64,39,34,0.855821,0.849766,0.000000,0.000000,False
+2026-05,Steel Concrete Reinforcing Bar,72223000,Vietnam,278,64,40,24,0.854971,0.879609,0.000000,0.000000,False
+2026-05,Hardwood and Decorative Plywood,44129211,China,411,64,41,46,0.852068,0.792901,0.000000,0.000000,False
+2026-05,Hardwood and Decorative Plywood,44123192,Indonesia,309,64,42,27,0.850797,0.872751,0.000000,0.000000,False
+2026-05,Monomers and Oligomers,39072900,"Korea, South",452,64,43,38,0.848234,0.836691,0.000000,0.000000,False
+2026-05,Hardwood and Decorative Plywood,44123306,Vietnam,277,64,44,45,0.817700,0.801720,0.000000,0.000000,True
+2026-05,Hardwood and Decorative Plywood,44125210,Vietnam,277,64,45,48,0.807076,0.739172,0.000000,0.000000,True
+2026-05,Steel Concrete Reinforcing Bar,72286060,Vietnam,278,64,46,41,0.799569,0.821577,0.000000,0.000000,False
+2026-05,Hardwood and Decorative Plywood,44129207,Indonesia,309,64,47,44,0.796958,0.810569,0.000000,0.000000,False
+2026-05,Hardwood and Decorative Plywood,44123106,Vietnam,277,64,48,47,0.792070,0.741660,0.000000,0.000000,True
+2026-05,Hardwood and Decorative Plywood,44129131,Vietnam,277,64,49,55,0.750000,0.650335,0.000000,0.000000,True
+2026-05,Hardwood and Decorative Plywood,44121090,China,411,64,50,54,0.732482,0.670128,0.000000,0.000000,False
+2026-05,Hardwood and Decorative Plywood,44123457,Indonesia,309,64,51,49,0.725343,0.733700,0.000000,0.000000,False
+2026-05,Hardwood and Decorative Plywood,44123148,Indonesia,309,64,52,50,0.715514,0.715512,0.000000,0.000000,False
+2026-05,Hardwood and Decorative Plywood,44125110,China,411,64,53,58,0.703812,0.571473,0.000000,0.000000,False
+2026-05,Hardwood and Decorative Plywood,44123432,Indonesia,309,64,54,51,0.703003,0.715025,0.000000,0.000000,False
+2026-05,Hardwood and Decorative Plywood,44129242,China,411,64,55,57,0.697074,0.574582,0.000000,0.000000,False
+2026-05,Hardwood and Decorative Plywood,44123152,China,411,64,56,56,0.681232,0.609852,0.000000,0.000000,False
+2026-05,Lattice Boom Crawler Cranes,84264900,Japan,479,64,57,53,0.674209,0.689024,0.000000,0.000000,False
+2026-05,Hardwood and Decorative Plywood,44123126,Indonesia,309,64,58,52,0.670745,0.712732,0.000000,0.000000,False
+2026-05,Lattice Boom Crawler Cranes,84251900,Japan,479,64,59,59,0.572545,0.566990,0.000000,0.000000,False
+2026-05,Hardwood and Decorative Plywood,44121090,Indonesia,309,64,60,60,0.510623,0.502946,0.000000,0.000000,False
+2026-05,Hardwood and Decorative Plywood,44123306,China,411,64,61,61,0.409038,0.367058,0.000000,0.000000,False
+2026-05,Hardwood and Decorative Plywood,44125231,China,411,64,62,62,0.075054,0.059116,0.000000,0.000000,False
+2026-05,Hardwood and Decorative Plywood,44129231,Vietnam,277,64,63,63,0.044521,0.035240,0.000000,0.000000,True
+2026-05,Hardwood and Decorative Plywood,44129207,China,411,64,64,64,0.038852,0.030775,0.000000,0.000000,False
+2026-06,"Crystalline Silicon Photovoltaic Cells, Whether or Not Assembled Into Modules",85414300,India,228,11,1,1,0.970918,0.968452,1.000000,1.000000,False
+2026-06,"Crystalline Silicon Photovoltaic Cells, Whether or Not Assembled Into Modules",85414200,India,228,11,2,2,0.946455,0.946381,1.000000,1.000000,False
+2026-06,Unwrought Palladium,71102100,Russia,108,11,3,3,0.943002,0.944885,0.200000,0.200000,False
+2026-06,"Crystalline Silicon Photovoltaic Cells, Whether or Not Assembled Into Modules",85072080,India,228,11,4,4,0.938109,0.937601,0.000000,0.000000,False
+2026-06,Oleoresin Paprika,13019091,India,227,11,5,5,0.936075,0.935761,0.000000,0.000000,False
+2026-06,"Crystalline Silicon Photovoltaic Cells, Whether or Not Assembled Into Modules",85017210,India,228,11,6,6,0.785217,0.731018,0.000000,0.000000,False
+2026-06,"Crystalline Silicon Photovoltaic Cells, Whether or Not Assembled Into Modules",85018010,Indonesia,310,11,7,7,0.676915,0.617898,0.000000,0.000000,False
+2026-06,Oleoresin Paprika,32050005,India,227,11,8,9,0.629385,0.553691,0.000000,0.000000,False
+2026-06,"Crystalline Silicon Photovoltaic Cells, Whether or Not Assembled Into Modules",85414300,Indonesia,310,11,9,8,0.599230,0.606238,0.000000,0.000000,False
+2026-06,"Crystalline Silicon Photovoltaic Cells, Whether or Not Assembled Into Modules",85072080,Indonesia,310,11,10,10,0.560326,0.535017,0.000000,0.000000,False
+2026-06,"Crystalline Silicon Photovoltaic Cells, Whether or Not Assembled Into Modules",85414200,Indonesia,310,11,11,11,0.467179,0.433580,0.000000,0.000000,False
+2026-07,Steel Concrete Reinforcing Bar,72142000,Bulgaria,152,2,1,1,0.976150,0.978088,0.400000,0.400000,False
+2026-07,High Purity Dissolving Pulp,47020000,Brazil,53,2,2,2,0.403069,0.485328,0.000000,0.000000,False
+2026-09,Freight Rail Couplers and Parts Thereof,86073010,Czech Republic,92,4,1,1,0.935433,0.942844,0.800000,0.800000,False
+2026-09,Freight Rail Couplers and Parts Thereof,73259950,India,229,4,2,2,0.716297,0.731214,0.000000,0.000000,False
+2026-09,High Purity Dissolving Pulp,47020000,Norway,62,4,3,3,0.699059,0.721294,0.000000,0.000000,False
+2026-09,Freight Rail Couplers and Parts Thereof,86073010,India,229,4,4,4,0.548238,0.585995,0.000000,0.000000,False
+2026-10,Citric Acid and Certain Citrate Salts,29181510,India,231,9,1,1,0.905995,0.910373,1.000000,1.000000,False
+2026-10,Van-Type Trailers and Subassemblies Thereof,87169050,Mexico,27,9,2,3,0.903207,0.907413,0.800000,0.000000,False
+2026-10,Van-Type Trailers and Subassemblies Thereof,87163900,China,413,9,3,2,0.899049,0.910295,0.000000,0.800000,False
+2026-10,Citric Acid and Certain Citrate Salts,29181550,India,231,9,4,4,0.890119,0.899398,0.000000,0.000000,False
+2026-10,Citric Acid and Certain Citrate Salts,38249993,India,231,9,5,5,0.866047,0.877703,0.000000,0.000000,False
+2026-10,Van-Type Trailers and Subassemblies Thereof,73269086,China,413,9,6,6,0.761547,0.760419,0.000000,0.000000,False
+2026-10,Van-Type Trailers and Subassemblies Thereof,73083050,China,413,9,7,7,0.706497,0.720594,0.000000,0.000000,False
+2026-10,Citric Acid and Certain Citrate Salts,29181400,India,231,9,8,8,0.675856,0.695210,0.000000,0.000000,False
+2026-10,Van-Type Trailers and Subassemblies Thereof,87082915,China,413,9,9,9,0.512307,0.488777,0.000000,0.000000,False
