@@ -3,8 +3,8 @@
 Generated from the speaker notes in `slides/Mandadi_Khalsa_Presentation2_v3.pptx`. Do not edit this
 file: change the notes in `slides/build_deck2c.py`, rebuild, then run `python3 slides/write_script2.py`.
 
-**1466 words.** At a careful 130 words a minute that is 11:17; at a normal 145, 10:07.
-Rahul, slides 1 to 8: 839 words, about 5:47. Raunak, slides 9 to 13: 627 words, about 4:19.
+**1472 words.** At a careful 130 words a minute that is 11:19; at a normal 145, 10:09.
+Rahul, slides 1 to 8: 841 words, about 5:48. Raunak, slides 9 to 13: 631 words, about 4:21.
 Per-slide times below are at the normal pace. Rehearse once with a clock.
 
 You do not have to say it word for word. Keep the numbers exact.
@@ -21,100 +21,118 @@ We're Rahul and Raunak. Our project asks a simple question: when the U.S. puts a
 
 ### Slide 2. What this project is about.
 
-*about 0:44*
+*about 0:39*
 
-Here's the project in three lines.
+Here's the project in three parts.
 
-The problem: when the U.S. puts a duty on a product from a country, that country's sales here often fall. Does that business come back once things settle, or is it gone for good?
+The problem. When the U.S. puts a duty on a product from one country, imports from that country often fall. We want to know if they come back.
 
-Who needs to know: an analyst at a U.S. importer who keeps an eye on many product markets hit by duties. They can't dig into every decline, so they need to know which ones matter.
+Who cares. Picture an analyst at a U.S. company that imports goods. They track many products hit by duties. They can't look into every decline, so they need to know which ones matter.
 
-And the data science problem: using only public trade data, predict which declines will last, and put them in order so the analyst checks those first.
+The data science problem. Using only public trade data, we predict which declines will last. Then we put those first on the list.
 
 **If asked:**
 
-- If asked what changed since Presentation 1: we asked three questions then: can we see a rush coming, what happens after the duty, and how long it lasts. Published data could not separate a rush from ordinary growth, so we focused on the last two, using antidumping cases, and added the forecast.
+- If asked what changed since Presentation 1: last time we asked three questions. Can we see a rush coming? What happens after the duty? How long does it last? Public data couldn't tell a rush apart from normal growth. So we focused on the last two, using antidumping cases, and added the forecast.
 
 ### Slide 3. Copper came back, but not the taxed part.
 
-*about 0:53*
+*about 0:58*
 
-Our title asks whether the drop is borrowed, meaning buyers bought early and will come back, or real, meaning the business has gone elsewhere.
+Our title asks if the drop is borrowed or real. Borrowed means buyers bought early and will come back. Real means the business has moved somewhere else.
 
-Copper in 2025 started us on this. Total copper imports fell when the 50% duty started in August, then came back, so it looked borrowed. But split by what the duty taxed: wire, tubes and sheets fell to about half and stayed there, about 49 thousand tonnes a month before and 27 after. Refined copper wasn't taxed, and that's what came back.
+Copper got us started. In August 2025 the U.S. put a 50% duty on some copper products. Total copper imports fell, then came back. So it looked borrowed.
 
-So the total hid what happened to the taxed products: we need to look at the products a duty names. But copper is one material, with no untaxed country to compare against, so we turn to hundreds of past duty cases.
+But look at what the duty actually taxed. Wire, tubes and sheets fell from about 49 thousand tonnes a month to 27, and stayed there. Refined copper wasn't taxed, and that's what came back.
+
+So the total hid the real story. We have to look at the exact products a duty names. But copper is one example, and every country paid the duty, so there's no one to compare with. That's why we turned to hundreds of past duty cases.
 
 **If asked:**
 
-- If asked why copper, when the method uses antidumping cases: the 2025 copper duty taxed every country, so there is no untaxed supplier to compare with. Copper shows why we look at the products a duty names. The same reason keeps the 2025 tariffs out of the method.
+- If asked why copper, when the method uses antidumping cases: copper shows why we look at the exact products. Its duty taxed every country, so there's no untaxed country to compare with. That's also why the 2025 tariffs are not in the method.
 
 ### Slide 4. What we did, in four steps.
 
-*about 0:41*
+*about 0:46*
 
-Here's everything we did, in four steps; the marker at the top of each slide shows where we are.
+Here's what we did, in four steps. The marker at the top of each slide shows which step we're on.
 
-One, collect: we read every duty notice since 2015 and matched 502 cases to monthly Census import data. Two, measure: what happened to each named country against its rivals. Three, predict: four months after a duty, rank the declines by how likely they are to last. Four, test: score that ranking on 44 past monthly lists.
+One, collect. We read every duty notice since 2015, found 502 cases, and matched them to monthly import data.
 
-All four are done. One test is still running: a forecast we froze on November 15, which gets scored as Census publishes the data.
+Two, measure. For each case, we compared the named country with other countries selling the same product.
+
+Three, predict. Four months after a duty, we rank the declines by how likely they are to last.
+
+Four, test. We checked that ranking on 44 past months.
+
+All four are done. One test is still running: a forecast we froze on November 15. We'll score it as new data comes out.
 
 ### Slide 5. We follow one product from one country.
 
-*about 0:44*
+*about 0:43*
 
-Most tariffs in the news tax almost every country at once, so there's nobody untaxed to compare with. There's a narrower kind of duty, antidumping and countervailing duties, that names one product from one country: say, mattresses from Vietnam.
+Most tariffs in the news tax almost every country at once. That leaves nobody untaxed to compare with.
 
-Other countries keep selling mattresses here, so we follow Vietnam's share month by month against its rivals. Anything that hits the whole product, like inflation, cancels out.
+There's a narrower kind of duty, called antidumping and countervailing duties. Each one names one product from one country. For example, mattresses from Vietnam.
 
-We read every duty notice in the Federal Register since 2015 and matched them to Census trade data: 502 cases. As a check, we rerun everything on a fake date two years earlier, before any of these cases.
+Other countries keep selling mattresses here. So we follow Vietnam's share, month by month, next to theirs. Anything that hits all mattresses, like inflation, hits them all and cancels out.
+
+We read every duty notice since 2015 and matched them to import data: 502 cases. As a check, we also run everything on a fake date, two years before each case.
 
 **If asked:**
 
-- antidumping duties answer sales below fair value; countervailing duties answer government subsidies.
+- antidumping duties answer goods sold below fair value. Countervailing duties answer government subsidies.
 
 ### Slide 6. Where duties stayed: 31% below rivals.
 
-*about 1:08*
+*about 1:02*
 
-Here's what happens after the duty. Zero is the named country's usual position against its rivals before the case. Where the duty became permanent, the country fell about 31 percent against its rivals on average over the 18 months after, and it was still falling at the end, about 37 percent down in months 13 to 18.
+Here's what happens after the duty. Zero is where the country stood against its rivals before the case.
 
-The grey line is the fake date: same cases, same method, moved two years earlier, before any case. It doesn't show the drop; if anything it drifts up, about 6 percent. So the decline isn't something the method produces by itself. It still doesn't prove the duty alone caused it: which suppliers face a petition, and other changes at the same time, could matter too.
+The red line is the 326 cases where the trade commission kept the duty, so it became permanent. On average, the country fell about 31 percent against its rivals over the next 18 months. It was still falling at the end: about 37 percent down in months 13 to 18.
 
-There's also no clear surge before the duty, so there's little buying ahead to pay back. And where the trade commission found no injury and lifted the duty, there's no lasting fall (backup slide).
+The grey line is the fake date. Same cases, same method, two years earlier. It shows no drop. If anything, it drifts up about 6 percent. So the drop isn't something our method creates.
+
+That still doesn't prove the duty alone caused it. Other things could matter, like which companies get named in a case.
+
+Two more things. There's no clear rush of buying before the duty. And where the duty was lifted, there's no lasting fall (backup).
 
 **If asked:**
 
-- minus 0.37 log points, standard error 0.065; fake date plus 0.06, standard error 0.03, on the 283 cases with enough earlier data.
-- If asked whether the country fell or its rivals grew: we measure its share against rivals, not its imports on their own. What we can add: the chance the product is traded at all falls 9 points, and quantity falls about as much as dollars. Where the trade went instead is a question we have not measured.
-- If asked about goods rerouted through a third country: Census records the declared country of origin, so relabelled goods would count as the third country's. We can't separate that; it's a limit.
+- If asked for the exact numbers: minus 0.37 log points, standard error 0.065. The fake date is plus 0.06, standard error 0.03, on the 283 cases with enough earlier data.
+- If asked whether the country fell or its rivals grew: we measure its share against its rivals, not its imports alone. Two things we can add. The chance the product is traded at all falls 9 points. And quantity falls about as much as dollars. Where the trade went instead, we have not measured.
+- If asked about goods rerouted through another country: Census records the declared country of origin. Relabelled goods would count as the other country's. We can't separate that. It's a limit.
 
 ### Slide 7. More than half did not come back.
 
-*about 0:52*
+*about 0:50*
 
-Now case by case. Here's what we mean by recovery. A country fell if its share dropped at least a fifth below where it was before the case. It came back if its share got back to that level and stayed there three months in a row, within 18 months.
+Now case by case. First, what we mean by recovery.
 
-Across 380 cases: 26 percent never fell, 17 percent fell and came back, and 57 percent fell and did not come back. 16 percent had no imports at all a year later. On the fake date, only 21 percent fell without coming back.
+A country fell if its share dropped at least a fifth below its level before the case. It came back if its share returned to that level and stayed there three months in a row, within 18 months.
 
-So for these duties, the answer to our title is closer to real than borrowed. But that's the average. Someone watching these markets needs to know which declines will last.
+Across 380 cases, 26 percent never fell. 17 percent fell and came back. 57 percent fell and did not come back. That includes 16 percent where the country had stopped selling the product completely a year later.
+
+On the fake date, only 21 percent fell without coming back.
+
+So for these duties, the answer is closer to real than borrowed. But that's an average. An analyst needs to know which declines will last.
 
 ### Slide 8. Which declines should an analyst check first?
 
-*about 0:32*
+*about 0:36*
 
-Back to our analyst. They can't look into every decline, so their question is: which ones first?
+Back to our analyst. They can't look into every decline. So the question is: which ones first?
 
-Four months in, Census has usually published two months after the duty, and some declines are visible. Each month's list is every relationship that has fallen and not yet recovered.
+Four months after a duty, Census has usually published two months of data since it started. By then, some declines are visible. Each month's list holds every product from a country that has fallen and not yet recovered.
 
-The simplest rule is to check the biggest drops first. That uses only public data and needs no model, so it's the bar our model has to clear.
+The simplest rule is to check the biggest drops first. It needs no model, and anyone can do it with public data. That's the bar our model has to clear.
 
-*Handoff:* Raunak will show how our model ranks that list, and whether it beats the biggest drops.
+*Handoff:* Raunak will show how our model orders that list, and whether it beats the biggest drops.
 
 **If asked:**
 
-- If asked what checking means: looking into that relationship with the company's own supplier information. What the analyst does next is not something we tested.
-- month 4 is a checkpoint we studied, not a business deadline. On the day the duty starts, case details like the duty rate don't predict recovery better than past averages, so we wait for some trade data.
+- If asked what checking means: looking into that decline with the company's own supplier information. What the analyst does next, we did not test.
+- If asked why month 4: it's a checkpoint we studied, not a business deadline. On the day a duty starts, facts like the duty rate don't predict recovery any better than past averages. So we wait for some trade data.
 
 ---
 
@@ -122,76 +140,89 @@ The simplest rule is to check the biggest drops first. That uses only public dat
 
 ### Slide 9. How the model ranks each month's list.
 
-*about 0:58*
+*about 1:01*
 
-Thanks, Rahul. Here's how we get a ranking.
+Thanks, Rahul. Here's how the model orders the list.
 
-For each relationship on the list, the model sees 23 inputs, all public on the decision date: the latest share Census has published, how the fall has gone so far, facts about the case like the duty rate, and what the market looked like before the case.
+For each decline, the model looks at 23 inputs that were public on the decision date. The latest share Census has published. How the fall has gone so far. Facts about the case, like the duty rate. And what the market looked like before.
 
-The model is gradient boosting: many small decision trees, each correcting the ones before. It gives each relationship a chance of not recovering by month 18, and the list is sorted by that chance. Each prediction used only earlier cases whose outcomes were already public, the way an analyst would have had to do it.
+The model is gradient boosting. It's many small decision trees, each fixing the mistakes of the ones before. It gives each decline a chance of not recovering by month 18. The list is sorted by that chance.
 
-The chart shows what it leans on. Scramble one input and see how much worse the forecast gets. The latest share matters most, about five times the next input.
+We tested it the way an analyst would have used it. Each prediction only used older cases whose outcomes were already known.
+
+The chart shows what the model relies on. We scramble one input and see how much worse the forecast gets. The latest share matters most, about five times more than the next one.
 
 **If asked:**
 
-- settings were tuned inside the earlier cases, keeping each investigation together. Month 4 was chosen with the held-out accuracy in view, so months 6 and 8 are checks. Share just before the duty is the share in the six months before it, against the pre-duty level; the report calls it the pre-case rush.
+- If asked how it was tuned: the settings were tuned on the older cases only, keeping each investigation together.
+- If asked why month 4: we chose it after seeing the test accuracy, so months 6 and 8 are our checks.
+- If asked what share just before the duty means: the share in the six months before the duty, compared with its earlier level. The report calls it the pre-case rush.
 
 ### Slide 10. What the model hands the analyst.
 
-*about 0:46*
+*about 0:44*
 
-So what does the model actually give the analyst? This is its real output for January 2025. Thirty-six declines were on the list. The model sorts them by its chance that each one stays down, and the analyst checks the top seven.
+So what does the model actually give the analyst? This is its real output for January 2025.
 
-Each row is a product from a country: how far its share has fallen, and the model's chance it stays down. The last column is where the biggest-drop rule would put it. Five of the model's top seven are 20th or lower on that rule, so the model isn't just picking the deepest falls.
+That month, 36 declines were on the list. The model sorted them, and the analyst checks the top seven.
+
+Each row is one product from one country. You see how far its share has fallen, and the model's chance it stays down. The last column is where the biggest-drop rule would put it.
+
+Five of the model's top seven are 20th or lower on that rule. So the model isn't just picking the deepest falls.
 
 Row two is epoxy resins from Taiwan. Let's follow it.
 
 **If asked:**
 
-- the chances run about 6 points high on average (report Appendix K), so the analyst uses the order, not the number. Brazil's ferrosilicon appears twice because it is two eight-digit product codes. Ten relationships had no imports at all, so they tie for first on the biggest drop.
-- If asked why those 0% rows aren't all at the top: below about 60 percent of the pre-duty share, the model's chance of coming back is roughly flat, so other inputs set the order (backup).
+- If asked about the chances: they run about 6 points high on average (report Appendix K). So the analyst uses the order, not the exact number.
+- If asked why Brazil's ferrosilicon appears twice: it is listed under two product codes.
+- If asked why the 0% rows aren't all at the top: ten declines had no imports at all, so they tie for first on biggest drop. But below about 60 percent of the old share, the model treats them all about the same. Other inputs decide the order (backup).
 
 ### Slide 11. Later: Taiwan had not recovered.
 
 *about 0:44*
 
-Row two: epoxy resins from Taiwan, under a duty from September 2024. In red is what the analyst could see in January: Taiwan's share was down to 42 percent of its own pre-duty share. The biggest-drop rule had it 20th, so it wouldn't be checked; the model had it 2nd.
+This is row two, epoxy resins from Taiwan. The duty started in September 2024.
 
-In grey is what came later. By month 18, March 2026, Taiwan's share was 26 percent of its earlier level. It never recovered. Of the model's top seven that month, six had not recovered.
+The red line is what the analyst could see in January. Taiwan's share had dropped to 42 percent of where it was before the duty. The biggest-drop rule ranked it 20th, so it wouldn't get checked. The model ranked it 2nd.
 
-But one month can't tell us which order is better. For that we need every month.
+The grey line is what happened next. By month 18, March 2026, Taiwan was at 26 percent. It never recovered. And of the model's top seven that month, six never recovered.
+
+But one month doesn't prove the model is better. For that, we need every month.
 
 **If asked:**
 
-- 42 percent is 4.4 percent of these imports, against 10.3 percent before; it is 42 percent of Taiwan's earlier share, not of U.S. imports.
+- If asked what 42 percent means: Taiwan went from 10.3 percent of these imports to 4.4 percent. That's 42 percent of its old share, not 42 percent of all U.S. imports.
 
 ### Slide 12. The model's picks: 82% did not recover.
 
-*about 0:52*
+*about 0:54*
 
-Now across all 44 monthly lists from 2020 to 2025. Every prediction used only earlier cases whose outcomes were already public. Each month the analyst checks a fifth of the list, about 187 checks in all. Then we look at month 18: had each checked relationship recovered or not?
+Now every month, not just one. We ran this on 44 monthly lists, from 2020 to 2025. Each prediction only used older cases whose outcomes were already known.
 
-In the model's order, 82 percent of the checks went to relationships that had not recovered. With the biggest drop first, 70 percent. In random order, 62 percent, which is just the share of all relationships that didn't recover.
+Each month, the analyst checks the top fifth of the list. That's about 187 checks in total. Then we wait until month 18 and ask: did each checked decline recover?
 
-So with the same 187 checks, the model finds about 22 more lasting declines than the biggest-drop rule. The difference is 12 points, with a 90 percent interval of 3.9 to 15.7.
+With the model's order, 82 percent of the checks found declines that never recovered. With biggest drop first, 70 percent. With a random order, 62 percent, which is just the overall rate.
+
+So with the same 187 checks, the model finds about 22 more lasting declines. The gap is 12 points. Our 90 percent range for it runs from 3.9 to 15.7, so it is clearly above zero.
 
 **If asked:**
 
-- it holds when the analyst checks 10 or 30 percent, at months 6 and 8 (88 against 76, 89 against 81), and without the largest case. A random forest and two linear models give 81 to 84 percent (backup).
+- If asked whether it holds up: yes, if the analyst checks 10 or 30 percent instead. Yes at months 6 and 8: 88 against 76, and 89 against 81. Yes without the biggest case. And three other models score 81 to 84 percent (backup).
 
 ### Slide 13. What this means.
 
-*about 0:59*
+*about 0:58*
 
 Three things to take away.
 
-First, after these duties, the drop is mostly real. More than half of named countries fell and hadn't come back 18 months later.
+First, after these duties, the drop is mostly real. More than half of the named countries fell and still hadn't come back 18 months later.
 
-Second, if you're watching these markets, at month 4 the model's list finds more lasting declines than simply checking the biggest drops.
+Second, at month 4, the model's list finds more lasting declines than just checking the biggest drops.
 
-Third, the limits. We haven't tested this with working analysts, and how many they can check is our assumption. The model predicts a country's recovery in a product, not whether one supplier survives.
+Third, the limits. We haven't tested this with real analysts. How many they can check is our assumption. And we predict a country's recovery in a product, not whether one company survives.
 
-Next, on November 15 we froze a ranking of 197 relationships whose outcomes weren't known yet. One month's list, 13 relationships, already had its outcome month public, so the other 184 are the real test, scored as Census releases the data: the first list in December, the last in early 2028. Thank you.
+What's next. On November 15 we froze a forecast of 197 declines whose outcomes aren't known yet. For one month's list, 13 declines, the outcome was already public. So the other 184 are the real test. We'll score them as Census publishes the data, starting in December and finishing in early 2028. Thank you.
 
 ---
 
