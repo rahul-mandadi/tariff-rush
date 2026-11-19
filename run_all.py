@@ -1,7 +1,7 @@
 """Rerun the analysis in order, from the stacked panels to the figures, stopping at the first failure.
 
 Reads:  the fetched data under panel/ and events/ (see the README for how to get it)
-Writes: the result CSVs in results/, slides/fig/09, 12 to 26 and t1 to t7, and one log per step in
+Writes: the result CSVs in results/, slides/fig/09, 12 to 26 and t1 to t9, and one log per step in
         logs/run_all/ (run.log lists each step as it finishes)
 Run:    python3 run_all.py                       (the whole chain, about an hour)
         python3 run_all.py --list                (print the steps and stop)

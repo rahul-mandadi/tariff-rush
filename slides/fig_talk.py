@@ -7,7 +7,7 @@ direct labels instead of legends. The report figures are unchanged.
 Reads:  eda/chapter_month.csv, panel/hs8/, results/itc_compare_paths.csv, results/adcvd_stacked_paths.csv,
         results/recovery_benchmark_fall20.csv, panel/adcvd_stacks_decision.parquet,
         recovery_pairs_decision_fall20.csv, results/review_queue_watchlist.csv, results/review_queue_eval.csv
-Writes: slides/fig/t1_copper_total.png to slides/fig/t7_review_result.png
+Writes: slides/fig/t1_copper_total.png to slides/fig/t9_two_orders.png
 Run:    python3 slides/fig_talk.py      (from the repo root, after the analysis)
 """
 import glob
@@ -170,7 +170,7 @@ assert pd.isna(pr.rec_at) and round(rel[SEEN]) == 42 and round(rel[18]) == 26
 def taiwan(later, name):
     fig, ax = plt.subplots(figsize=(7.6, 4.6) if not later else SIZE)
     ax.axhline(100, color=GREY, lw=1.4, ls=":")
-    ax.text(3, 104, "pre-duty level", color=GREY, fontsize=18)
+    ax.text(3, 104, "earlier level", color=GREY, fontsize=18)
     ax.axvline(0, color=INK, ls="--", lw=1.6)
     ax.text(-0.4, 136, "duty starts", ha="right", va="top", fontsize=18, fontweight="600")
     ax.plot(rel.loc[:SEEN].index, rel.loc[:SEEN], color=RED, lw=3.4)
@@ -181,7 +181,7 @@ def taiwan(later, name):
         ax.annotate(f"Jan 2025, what the\nanalyst saw: {rel[SEEN]:.0f}%", (SEEN, rel[SEEN]), xytext=(-17.5, 30),
                     textcoords="data", color=RED, fontweight="600", fontsize=18,
                     arrowprops=dict(arrowstyle="-", color=RED, lw=1))
-        ax.annotate(f"month 18, March 2026:\n{rel[18]:.0f}%, not recovered", (18, rel[18]), xytext=(-20, 40),
+        ax.annotate(f"month 18, March 2026:\n{rel[18]:.0f}%, not back", (18, rel[18]), xytext=(-20, 40),
                     textcoords="offset points", ha="right", va="bottom", fontweight="600", fontsize=18,
                     arrowprops=dict(arrowstyle="-", color=INK, lw=1))
         ax.text(10, 126, "published later", color=GREY, ha="center", fontsize=18, fontweight="600")
@@ -196,7 +196,7 @@ def taiwan(later, name):
     ax.set_ylim(0, 140)
     ax.set_xticks([-18, -12, -6, 0, 6, 12, 18])
     ax.set_xlabel("months from the duty (0 = Sep 2024)")
-    ax.set_ylabel("Taiwan's share, % of\nits pre-duty share")
+    ax.set_ylabel("Taiwan's share, % of\nits earlier level")
     grid(ax)
     save(fig, name)
 
@@ -220,6 +220,60 @@ ax.set_xticks(range(3))
 ax.set_xticklabels([b_[1] for b_ in bars], fontsize=21)
 ax.set_ylim(0, 100)
 ax.set_yticks([0, 25, 50, 75, 100])
-ax.set_ylabel("checked declines\nnot recovered by month 18, %", fontsize=19)
+ax.set_ylabel("checked declines that did\nnot come back by month 18, %", fontsize=19)
 grid(ax)
 save(fig, "t7_review_result")
+
+# ---------------------------------------------------------------- t8, t9: January 2025's list as dots
+jl = w[w.decision_month == MONTH].reset_index(drop=True)
+jl["now"] = 100 * jl.latest_vs_pre
+jl["taiwan"] = (jl.sid == SID) & (jl.hs8 == HS8)
+assert len(jl) == 36 and (jl.now == 0).sum() == 10 and (jl.now > 120).sum() == 1
+CAP = 112
+
+
+def swarm(xs, step=4.0):
+    """Stack dots that fall in the same 4-point bin, so ties are visible."""
+    b = np.floor(np.minimum(xs, CAP) / step)
+    return pd.Series(b).groupby(b).cumcount().to_numpy()
+
+
+fig, ax = plt.subplots(figsize=(6.6, 4.4))
+yy = swarm(jl.now.to_numpy())
+xx = np.minimum(jl.now, CAP)
+ax.scatter(xx[~jl.taiwan], yy[~jl.taiwan], s=150, color=GREY, zorder=3)
+ax.scatter(xx[jl.taiwan], yy[jl.taiwan], s=190, color=RED, zorder=4)
+t_ = jl[jl.taiwan].index[0]
+ax.annotate("Taiwan, epoxy resins:\n42%, 20th biggest drop", (xx[t_], yy[t_]), xytext=(38, 6.2), color=RED,
+            fontsize=15, fontweight="600", ha="center", arrowprops=dict(arrowstyle="-", color=RED, lw=1))
+ax.annotate("biggest drop first\nstarts here", (0, 9.6), xytext=(22, 11.4), fontsize=15, fontweight="600",
+            ha="left", va="center", arrowprops=dict(arrowstyle="->", color=INK, lw=1.4))
+ax.text(CAP, 1.1, "one at\n279%", fontsize=12, color=GREY, ha="center", va="bottom")
+ax.set_xlim(-6, 118)
+ax.set_ylim(-0.8, 12.5)
+ax.set_yticks([])
+ax.spines["left"].set_visible(False)
+ax.set_xticks([0, 25, 50, 75, 100])
+ax.set_xlabel("share now, % of its earlier level\n(100 = no change)", fontsize=17)
+ax.tick_params(axis="x", labelsize=16)
+save(fig, "t8_january_list")
+
+fig, ax = plt.subplots(figsize=(11, 4.7))
+top7 = jl["rank"] <= 7
+down = jl.remained_down == 1
+for m_, face in [(down, INK), (~down, "white")]:
+    ax.scatter(xx[m_], 100 * jl.p_not_recovered[m_], s=140, facecolor=face, edgecolor=INK, lw=1.6, zorder=3)
+ax.scatter(xx[top7], 100 * jl.p_not_recovered[top7], s=420, facecolor="none", edgecolor=RED, lw=2.4, zorder=4)
+ax.axvspan(-4, 4, color=GREY, alpha=0.12, lw=0)
+ax.text(64, 99, "red rings: the model's top 7", color=RED, fontsize=16, fontweight="600", va="top")
+ax.text(CAP, 100 * jl.p_not_recovered[jl.now > 120].iloc[0] + 4, "279%", color=GREY, fontsize=12, ha="center")
+ax.text(5.5, 4, "biggest drop first\npicks from here", color=GREY, fontsize=15, fontweight="600", va="bottom")
+ax.annotate("Taiwan", (xx[t_], 100 * jl.p_not_recovered[t_]), xytext=(52, 70), color=RED, fontsize=16,
+            fontweight="600", arrowprops=dict(arrowstyle="-", color=RED, lw=1))
+ax.set_xlim(-6, 118)
+ax.set_ylim(0, 101)
+ax.set_xticks([0, 25, 50, 75, 100])
+ax.set_xlabel("share now, % of its earlier level (100 = no change)")
+ax.set_ylabel("model's chance it\nstays down, %")
+grid(ax)
+save(fig, "t9_two_orders")

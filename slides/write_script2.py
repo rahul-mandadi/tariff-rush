@@ -24,6 +24,7 @@ QUESTIONS = [
     ("What could the analyst see in January, before the outcome?", "Taiwan, January 2025: what the analyst saw."),
     ("Why a fifth? What if the fall cutoff moves?", "A different cutoff, the same answer."),
     ("Why aren't the no-import rows at the top of the list?", "Below 60%, how far it fell matters little."),
+    ("How do the model's picks differ from the biggest drops?", "Two ways to pick 7 of 36."),
     ("What if the analyst can check more, or fewer?", "Review these first: 82% stayed down."),
     ("How accurate is the model, and when does it start to work?", "By month 4, the forecast ranks them better."),
     ("What happens when the trade commission lifts the duty?", "Losses persist in cases that become orders."),

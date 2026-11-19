@@ -131,6 +131,27 @@ def add(headline, fig=None, caption=None, notes="", bullets=None, bullet_size=22
     return s
 
 
+def side(headline, fig, bullets, notes, step=None, caption=None, size=19, tops=(2.1, 3.4, 4.7), fig_w=5.3):
+    """Bullets on the left, a figure on the right."""
+    s = prs.slides.add_slide(BLANK)
+    chrome(s, step=step)
+    txt(s, headline, X0, Y_HEAD, CW, 0.80, 38, bold=True)
+    for y, b in zip(tops, bullets):
+        txt(s, b, X0 + 0.15, y, CW - fig_w - 0.55, 1.3, size, color=GREY, spacing=1.12)
+    p = f"{FIG}/{fig}"
+    iw, ih = Image.open(p).size
+    maxh = (Y_TAKE - 0.30 if caption else H - 0.55) - 2.0
+    wid = min(fig_w, maxh * iw / ih)
+    s.shapes.add_picture(p, Inches(X0 + CW - wid), Inches(2.0), width=Inches(wid), height=Inches(wid * ih / iw))
+    if caption:
+        r = s.shapes.add_connector(1, Inches(X0), Inches(Y_TAKE - 0.14), Inches(X0 + CW), Inches(Y_TAKE - 0.14))
+        r.line.color.rgb = GREY
+        r.line.width = Pt(0.75)
+        txt(s, caption, X0, Y_TAKE, CW, 0.75, 17, color=GREY, spacing=1.12)
+    s.notes_slide.notes_text_frame.text = notes
+    return s
+
+
 # ================================================================ MAIN TALK (about ten minutes)
 # Rahul: slides 1 to 8 (the project, copper, the four steps, the design, what happens after a duty,
 #        the analyst's decision).
@@ -155,20 +176,21 @@ s.notes_slide.notes_text_frame.text = (
 # ---------------------------------------------------------------- M1b what the project is about
 add("What this project is about.",
     bullets=[
-        "**The problem:** after a U.S. duty, imports from the named country often fall. Do they "
-        "come back?",
-        "**Who needs the answer:** an analyst at a U.S. importer. They watch many products hit by "
-        "duties, but can only look into a few.",
+        "**The problem:** after a U.S. duty, imports from the country it names often fall. Do they "
+        "come back (borrowed) or not (real)?",
+        "**Who needs the answer:** an analyst at a U.S. importer. A drop that passes can wait; one "
+        "that lasts may mean finding another supplier. They can only look into a few.",
         "**The data science problem:** use public trade data to predict which declines will last, "
         "and put those first on the list.",
     ],
-    bullet_size=24, bullet_top=2.25, bullet_step=1.05,
+    bullet_size=24, bullet_top=2.15, bullet_step=1.30,
     notes="RAHUL: Here's the project in three parts.\n\n"
           "The problem. When the U.S. puts a duty on a product from one country, imports from that "
           "country often fall. We want to know if they come back.\n\n"
           "Who cares. Picture an analyst at a U.S. company that imports goods. They track many "
-          "products hit by duties. They can't look into every decline, so they need to know which "
-          "ones matter.\n\n"
+          "products hit by duties. If a drop will pass, they can wait. If it lasts, they may need "
+          "another supplier. They can't look into every decline, so they need to know which ones "
+          "matter.\n\n"
           "The data science problem. Using only public trade data, we predict which declines will "
           "last. Then we put those first on the list.\n\n"
           "If asked what changed since Presentation 1: last time we asked three questions. Can we "
@@ -187,8 +209,10 @@ add("Copper came back, but not the taxed part.", fig="t2_copper_split.png",
           "thousand tonnes a month to 27, and stayed there. Refined copper wasn't taxed, and that's "
           "what came back.\n\n"
           "So the total hid the real story. We have to look at the exact products a duty names. But "
-          "copper is one example, and every country paid the duty, so there's no one to compare "
-          "with. That's why we turned to hundreds of past duty cases.\n\n"
+          "copper is one example. So we turned to hundreds of past duty cases.\n\n"
+          "If asked about the jump in refined copper just before the duty: buyers brought copper in "
+          "ahead of the 2025 duty. That's a different kind of tariff. In antidumping cases we find no "
+          "clear rush.\n\n"
           "If asked why copper, when the method uses antidumping cases: copper shows why we look at "
           "the exact products. Its duty taxed every country, so there's no untaxed country to "
           "compare with. That's also why the 2025 tariffs are not in the method.")
@@ -200,7 +224,7 @@ txt(s, "What we did, in four steps.", X0, Y_HEAD, CW, 0.80, 38, bold=True)
 BOX = [("Collect", "Read 10,730 duty notices. Found 502 cases and matched them to monthly U.S. import data."),
        ("Measure", "Compared each named country with other countries selling the same product."),
        ("Predict", "Four months after a duty, ranked the declines by how likely they are to last."),
-       ("Test", "Checked the ranking on 44 past months against biggest drop first.")]
+       ("Test", "Checked the ranking on 44 monthly lists against biggest drop first.")]
 bw, gap, by, bh = 2.55, 0.543, 2.15, 3.45
 for n, (name, body) in enumerate(BOX):
     bx = X0 + n * (bw + gap)
@@ -217,8 +241,7 @@ for n, (name, body) in enumerate(BOX):
 r = s.shapes.add_connector(1, Inches(X0), Inches(Y_TAKE - 0.14), Inches(X0 + CW), Inches(Y_TAKE - 0.14))
 r.line.color.rgb = GREY
 r.line.width = Pt(0.75)
-txt(s, "**Done:** all four steps.   **Still running:** a forecast we froze on November 15, scored as new "
-       "data comes out.", X0, Y_TAKE, CW, 0.75, 17, color=GREY, spacing=1.12)
+txt(s, "**Done:** all four steps, on cases from 2015 to 2026.", X0, Y_TAKE, CW, 0.75, 17, color=GREY, spacing=1.12)
 s.notes_slide.notes_text_frame.text = (
     "RAHUL: Here's what we did, in four steps. The marker at the top of each slide shows which step "
     "we're on.\n\n"
@@ -228,9 +251,8 @@ s.notes_slide.notes_text_frame.text = (
     "same product.\n\n"
     "Three, predict. Four months after a duty, we rank the declines by how likely they are to "
     "last.\n\n"
-    "Four, test. We checked that ranking on 44 past months.\n\n"
-    "All four are done. One test is still running: a forecast we froze on November 15. We'll score "
-    "it as new data comes out.")
+    "Four, test. We checked that ranking on 44 monthly lists from the past.\n\n"
+    "All four are done.")
 
 # ---------------------------------------------------------------- M4 the design
 add("We follow one product from one country.",
@@ -239,7 +261,7 @@ add("We follow one product from one country.",
         "mattresses from Vietnam.",
         "**Other countries keep selling it.** So we compare Vietnam's share of U.S. mattress "
         "imports with theirs, month by month.",
-        "**502 cases since 2015,** matched to monthly U.S. import data.",
+        "**A check:** we rerun everything on a fake date, two years before each case.",
     ],
     bullet_size=24, bullet_top=2.25, bullet_step=1.05,
     caption="Antidumping: a duty on goods sold below fair value. Countervailing: a duty on goods "
@@ -252,28 +274,27 @@ add("We follow one product from one country.",
           "Other countries keep selling mattresses here. So we follow Vietnam's share, month by "
           "month, next to theirs. Anything that hits all mattresses, like inflation, hits them all "
           "and cancels out.\n\n"
-          "We read every duty notice since 2015 and matched them to import data: 502 cases. As a "
-          "check, we also run everything on a fake date, two years before each case.\n\n"
+          "As a check, we also run everything on a fake date, two years before each case. If the "
+          "drop shows up there too, it comes from our method, not the duty.\n\n"
           "If asked: antidumping duties answer goods sold below fair value. Countervailing duties "
           "answer government subsidies.")
 
 # ---------------------------------------------------------------- M5 the aftermath
 add("Where duties stayed: 31% below rivals.", fig="t4_aftermath.png", step=2,
-    caption="Red: the 326 cases where the duty became permanent. Grey: the same cases on a fake date, "
-            "two years earlier.",
+    caption="Red: the 326 cases where the duty became permanent; shading is its 95% range. Grey: the "
+            "same cases on a fake date, two years earlier.",
     notes="RAHUL: Here's what happens after the duty. Zero is where the country stood against its "
-          "rivals before the case.\n\n"
+          "rivals a year and a half before the duty.\n\n"
           "The red line is the 326 cases where the trade commission kept the duty, so it became "
-          "permanent. On average, the country fell about 31 percent against its rivals over the "
-          "next 18 months. It was still falling at the end: about 37 percent down in months 13 to "
-          "18.\n\n"
+          "permanent. Averaged over the 18 months after, the country was about 31 percent below its "
+          "rivals. By the last six months it was about 37 percent below, and still falling.\n\n"
           "The grey line is the fake date. Same cases, same method, two years earlier. It shows no "
           "drop. If anything, it drifts up about 6 percent. So the drop isn't something our method "
           "creates.\n\n"
           "That still doesn't prove the duty alone caused it. Other things could matter, like "
           "which companies get named in a case.\n\n"
-          "Two more things. There's no clear rush of buying before the duty. And where the duty "
-          "was lifted, there's no lasting fall (backup).\n\n"
+          "Two more things. The line sits a little above zero before the duty, but there's no clear "
+          "rush of buying. And where the duty was lifted, there's no lasting fall.\n\n"
           "If asked for the exact numbers: minus 0.37 log points, standard error 0.065. The fake "
           "date is plus 0.06, standard error 0.03, on the 283 cases with enough earlier data.\n\n"
           "If asked whether the country fell or its rivals grew: we measure its share against its "
@@ -286,36 +307,44 @@ add("Where duties stayed: 31% below rivals.", fig="t4_aftermath.png", step=2,
 
 # ---------------------------------------------------------------- M6 outcomes and the meaning of recovery
 add("More than half did not come back.", fig="t5_outcomes.png", step=2,
-    caption="Fell: share dropped at least a fifth within 6 months. Came back: back to its old level "
-            "for 3 months in a row by month 18. 380 cases.",
+    caption="Fell: within 6 months, share at least a fifth below its level a year and a half before the "
+            "duty. Came back: back to that level 3 months in a row by month 18. 380 cases.",
     notes="RAHUL: Now case by case. First, what we mean by recovery.\n\n"
           "A country fell if its share dropped at least a fifth below its level before the case. It "
           "came back if its share returned to that level and stayed there three months in a row, "
           "within 18 months.\n\n"
-          "Across 380 cases, 26 percent never fell. 17 percent fell and came back. 57 percent fell "
+          "These are the 380 cases with a full 18 months of data so far. 26 percent did not fall in "
+          "the first six months. 17 percent fell and came back. 57 percent fell "
           "and did not come back. That includes 16 percent where the country had stopped selling "
           "the product completely a year later.\n\n"
           "On the fake date, only 21 percent fell without coming back.\n\n"
           "So for these duties, the answer is closer to real than borrowed. But that's an average. "
-          "An analyst needs to know which declines will last.")
+          "An analyst needs to know which declines will last.\n\n"
+          "If asked why 42 and 16 make 58: rounding. Unrounded, it's 57.3 percent.")
 
 # ---------------------------------------------------------------- M7 the analyst's decision
-add("Which declines should an analyst check first?",
+side("Which declines should an analyst check first?", "t8_january_list.png", step=3,
     bullets=[
-        "**Four months after the duty,** Census has published about two months of new trade data. "
-        "Some countries have clearly fallen.",
+        "**Four months after the duty,** Census has published its first three months of trade. It "
+        "runs about two months behind.",
         "**The analyst can only check some of them.** So each month's list needs an order.",
         "**The obvious rule: biggest drop first.** Anyone can do that with public data. Our model "
         "has to beat it.",
     ],
-    bullet_size=24, bullet_top=2.20, bullet_step=1.10, step=3,
+    caption="January 2025's list: 36 declines, one dot each, placed by how far the share has fallen.",
     notes="RAHUL: Back to our analyst. They can't look into every decline. So the question is: "
           "which ones first?\n\n"
-          "Four months after a duty, Census has usually published two months of data since it "
-          "started. By then, some declines are visible. Each month's list holds every product from "
-          "a country that has fallen and not yet recovered.\n\n"
+          "Four months after a duty, Census has published its first three months of trade. Census "
+          "runs about two months behind. By then, some declines are visible. Each month's list holds "
+          "every product from a country whose duty started four months earlier, and whose share has "
+          "fallen and not come back.\n\n"
+          "Here's a real list, January 2025: 36 declines, one dot each. Ten had no imports in the latest three months. "
+          "Taiwan, in red, is 20th by size of drop.\n\n"
           "The simplest rule is to check the biggest drops first. It needs no model, and anyone can "
           "do it with public data. That's the bar our model has to clear.\n\n"
+          "If asked about the dot far to the right: its latest months jumped well above its earlier "
+          "level, but it hasn't stayed there three months in a row, so it still counts as not "
+          "back.\n\n"
           "If asked what checking means: looking into that decline with the company's own supplier "
           "information. What the analyst does next, we did not test.\n\n"
           "If asked why month 4: it's a checkpoint we studied, not a business deadline. On the day "
@@ -328,11 +357,11 @@ add("Which declines should an analyst check first?",
 s = prs.slides.add_slide(BLANK)
 chrome(s, step=3)
 txt(s, "How the model ranks each month's list.", X0, Y_HEAD, CW, 0.80, 38, bold=True)
-for y, b_ in [(2.05, "**What it sees:** 23 inputs, all public on the decision date: the latest share, "
-                     "how the fall has gone, the case itself and the market before."),
+for y, b_ in [(2.05, "**What it sees:** 23 inputs, all public at the time: the latest share, how fast "
+                     "it is falling, facts about the case and the market before."),
               (3.40, "**The model:** gradient boosting, many small decision trees that each fix the "
-                     "mistakes of the ones before. It gives each decline a chance of not recovering "
-                     "by month 18."),
+                     "mistakes of the ones before. It gives each decline a chance of not coming "
+                     "back by month 18."),
               (4.90, "**How we tested it:** each prediction only used older cases whose outcomes "
                      "were already known.")]:
     txt(s, b_, X0 + 0.15, y, 6.05, 1.3, 18, color=GREY, spacing=1.12)
@@ -340,8 +369,8 @@ for y, b_ in [(2.05, "**What it sees:** 23 inputs, all public on the decision da
 # indexed so the latest share is 100
 imp = pd.read_csv("results/model_importance.csv").set_index("feature").brier_increase
 TOP = [("latest", "latest share"), ("rush", "share just before the duty"),
-       ("log_pre_value", "imports before the case"), ("hhi", "market concentration"),
-       ("log_rate", "duty rate"), ("slope", "recent direction")]
+       ("log_pre_value", "imports before the case"), ("hhi", "how few countries supply it"),
+       ("log_rate", "duty rate"), ("slope", "last three months' trend")]
 assert list(imp.sort_values(ascending=False).index[:6]) == [k for k, _ in TOP]
 rel_ = [round(100 * imp[k] / imp["latest"]) for k, _ in TOP]
 assert rel_ == [100, 19, 13, 11, 7, 5], rel_
@@ -375,14 +404,14 @@ ch.category_axis.has_major_gridlines = False
 r = s.shapes.add_connector(1, Inches(X0), Inches(Y_TAKE - 0.14), Inches(X0 + CW), Inches(Y_TAKE - 0.14))
 r.line.color.rgb = GREY
 r.line.width = Pt(0.75)
-txt(s, "We also tried three other models. They gave the same result (backup).", X0, Y_TAKE, CW, 0.75, 17, color=GREY, spacing=1.12)
+txt(s, "We also tried three other models. They gave the same result.", X0, Y_TAKE, CW, 0.75, 17, color=GREY, spacing=1.12)
 s.notes_slide.notes_text_frame.text = (
     "RAUNAK: Thanks, Rahul. Here's how the model orders the list.\n\n"
-    "For each decline, the model looks at 23 inputs that were public on the decision date. The "
-    "latest share Census has published. How the fall has gone so far. Facts about the case, like "
-    "the duty rate. And what the market looked like before.\n\n"
+    "For each decline, the model looks at 23 inputs that were public at the time. The latest share "
+    "Census has published. How fast it is falling. Facts about the case, like the duty rate. And "
+    "what the market looked like before.\n\n"
     "The model is gradient boosting. It's many small decision trees, each fixing the mistakes of "
-    "the ones before. It gives each decline a chance of not recovering by month 18. The list is "
+    "the ones before. It gives each decline a chance of not coming back by month 18. The list is "
     "sorted by that chance.\n\n"
     "We tested it the way an analyst would have used it. Each prediction only used older cases "
     "whose outcomes were already known.\n\n"
@@ -410,8 +439,8 @@ chrome(s, step=3)
 txt(s, "What the model hands the analyst.", X0, Y_HEAD, CW, 0.80, 38, bold=True)
 txt(s, "January 2025: 36 declines, sorted by the model. The analyst checks the top 7.",
     X0, 1.85, CW, 0.5, 20, color=GREY)
-HEAD = ["Model's\nrank", "Product", "Country", "Share now, % of\nits pre-duty share",
-        "Model's chance it\nstays down", "Rank by\nbiggest drop"]
+HEAD = ["Model's\nrank", "Product", "Country", "Share now, % of\nits earlier level",
+        "Model's chance it\ndoesn't come back", "Rank by\nbiggest drop"]
 CWID = [1.25, 3.10, 1.95, 2.10, 2.03, 1.40]
 tb = s.shapes.add_table(len(top) + 1, len(HEAD), Inches(X0), Inches(2.45), Inches(sum(CWID)),
                         Inches(0.62 + 0.42 * len(top))).table
@@ -446,66 +475,69 @@ for i_, row in enumerate(rows):
 r = s.shapes.add_connector(1, Inches(X0), Inches(Y_TAKE - 0.14), Inches(X0 + CW), Inches(Y_TAKE - 0.14))
 r.line.color.rgb = GREY
 r.line.width = Pt(0.75)
-txt(s, "Share now: the last three months Census has published, compared with before the duty. The "
-       "model's chances run a bit high; the order is what counts.", X0, Y_TAKE, CW, 0.75, 17, color=GREY,
+txt(s, "Share now: the last three months Census has published, against the level a year and a half "
+       "before the duty. The model's chances run a bit high; the order is what counts.", X0, Y_TAKE, CW, 0.75, 17, color=GREY,
     spacing=1.12)
 s.notes_slide.notes_text_frame.text = (
     "RAUNAK: So what does the model actually give the analyst? This is its real output for January "
     "2025.\n\n"
     "That month, 36 declines were on the list. The model sorted them, and the analyst checks the "
-    "top seven.\n\n"
+    "top fifth, about seven.\n\n"
     "Each row is one product from one country. You see how far its share has fallen, and the "
-    "model's chance it stays down. The last column is where the biggest-drop rule would put it.\n\n"
-    "Five of the model's top seven are 20th or lower on that rule. So the model isn't just picking "
-    "the deepest falls.\n\n"
+    "model's chance it doesn't come back. The last column is where the biggest-drop rule would put "
+    "it. Brazil's ferrosilicon is on twice because it is two product codes.\n\n"
+    "Five of the model's top seven are 20th or lower on that rule. Why, if the latest share matters "
+    "most? Once a share is below about 60 percent of its earlier level, falling further barely "
+    "changes the model's answer. Then the case and the market decide the order.\n\n"
     "Row two is epoxy resins from Taiwan. Let's follow it.\n\n"
     "If asked about the chances: they run about 6 points high on average (report Appendix K). So "
     "the analyst uses the order, not the exact number.\n\n"
-    "If asked why Brazil's ferrosilicon appears twice: it is listed under two product codes.\n\n"
-    "If asked why the 0% rows aren't all at the top: ten declines had no imports at all, so they "
-    "tie for first on biggest drop. But below about 60 percent of the old share, the model treats "
-    "them all about the same. Other inputs decide the order (backup).")
+    "If asked about the 0% rows: ten declines had no imports in the latest three months, so they "
+    "tie for first on biggest drop.")
 
 # ---------------------------------------------------------------- M9 Taiwan: what happened later
-add("Later: Taiwan had not recovered.", fig="t6_taiwan_later.png", step=4,
-    caption="Epoxy resins from Taiwan. Red: what the analyst could see in January 2025. Grey: what "
-            "happened next.",
+add("Later: Taiwan had not come back.", fig="t6_taiwan_later.png", step=4,
+    caption="Epoxy resins from Taiwan. Red: what the analyst could see in January 2025, data through "
+            "November (month 2). Grey: what happened next.",
     notes="RAUNAK: This is row two, epoxy resins from Taiwan. The duty started in September "
           "2024.\n\n"
-          "The red line is what the analyst could see in January. Taiwan's share had dropped to 42 "
-          "percent of where it was before the duty. The biggest-drop rule ranked it 20th, so it "
-          "wouldn't get checked. The model ranked it 2nd.\n\n"
+          "The red line is what the analyst could see in January. Census runs two months behind, so "
+          "the data stops at month 2. Taiwan's share had been sliding even before the duty. By "
+          "then it was 42 percent of its level a year and a half before. The biggest-drop rule "
+          "ranked it 20th, so it wouldn't get checked. The model ranked it 2nd.\n\n"
           "The grey line is what happened next. By month 18, March 2026, Taiwan was at 26 percent. "
-          "It never recovered. And of the model's top seven that month, six never recovered.\n\n"
+          "It never came back. And of the model's top seven that month, six never came back.\n\n"
           "But one month doesn't prove the model is better. For that, we need every month.\n\n"
           "If asked what 42 percent means: Taiwan went from 10.3 percent of these imports to 4.4 "
           "percent. That's 42 percent of its old share, not 42 percent of all U.S. imports.")
 
 # ---------------------------------------------------------------- M10 the result
-add("The model's picks: 82% did not recover.", fig="t7_review_result.png", step=4,
-    caption="44 past months, 2020 to 2025. Each month the analyst checks the top fifth of the list. "
-            "We count how many had not recovered by month 18.",
+add("The model's picks: 82% did not come back.", fig="t7_review_result.png", step=4,
+    caption="44 monthly lists, 2020 to 2025. Each month the analyst checks the top fifth of the list. "
+            "We count how many had not come back by month 18.",
     notes="RAUNAK: Now every month, not just one. We ran this on 44 monthly lists, from 2020 to "
-          "2025. Each prediction only used older cases whose outcomes were already known.\n\n"
+          "2025.\n\n"
           "Each month, the analyst checks the top fifth of the list. That's about 187 checks in "
-          "total. Then we wait until month 18 and ask: did each checked decline recover?\n\n"
-          "With the model's order, 82 percent of the checks found declines that never recovered. "
-          "With biggest drop first, 70 percent. With a random order, 62 percent, which is just the "
-          "overall rate.\n\n"
+          "total. Then we wait until month 18 and ask: did each checked decline come back?\n\n"
+          "With the model's order, 82 percent of the checks found declines that never came back. "
+          "With biggest drop first, 70 percent. With a random order, 62 percent, the rate for all the "
+          "declines on these lists.\n\n"
           "So with the same 187 checks, the model finds about 22 more lasting declines. The gap is "
           "12 points. Our 90 percent range for it runs from 3.9 to 15.7, so it is clearly above "
           "zero.\n\n"
           "If asked whether it holds up: yes, if the analyst checks 10 or 30 percent instead. Yes at "
           "months 6 and 8: 88 against 76, and 89 against 81. Yes without the biggest case. And "
-          "three other models score 81 to 84 percent (backup).")
+          "three other models score 81 to 84 percent.\n\n"
+          "If asked why 62 here and 57 on slide 7: different groups. 57 is all 380 cases, including "
+          "ones that never fell. 62 is the declines on the 2020 to 2025 lists, counted one product "
+          "at a time.")
 
 # ---------------------------------------------------------------- M11 what it means
 add("What this means.",
     bullets=[
-        "**Mostly real, not borrowed:** after these duties, most declines were still there at "
-        "month 18.",
-        "**At month 4, use the model's list:** it found more lasting declines than biggest drop "
-        "first.",
+        "**Mostly real, not borrowed:** 57% of cases fell and had not come back by month 18.",
+        "**At month 4, use the model's list:** 82% of its picks did not come back, against 70% "
+        "for biggest drop first.",
         "**Not yet tested with real analysts:** checking 1 in 5 is our assumption.",
     ],
     bullet_size=24, bullet_top=2.25, bullet_step=1.05,
@@ -521,9 +553,10 @@ add("What this means.",
           "is our assumption. And we predict a country's recovery in a product, not whether one "
           "company survives.\n\n"
           "What's next. On November 15 we froze a forecast of 197 declines whose outcomes aren't "
-          "known yet. For one month's list, 13 declines, the outcome was already public. So the "
-          "other 184 are the real test. We'll score them as Census publishes the data, starting in "
-          "December and finishing in early 2028. Thank you.")
+          "known yet. We'll score it as Census publishes the data, from December to early 2028. "
+          "Thank you.\n\n"
+          "If asked how many get scored: 184. One month's list, 13 declines, already had its "
+          "outcome public when we froze it.")
 
 # ================================================================ BACKUP
 s = prs.slides.add_slide(BLANK)
@@ -671,6 +704,16 @@ s.notes_slide.notes_text_frame.text = (
     "deep matters little, and inputs like the share just before the duty and the size of the market "
     "set the order. This is from one model fit on all cases, for explanation; the test results use "
     "the held-out predictions.")
+
+# ---------------------------------------------------------------- two ways to pick 7 of 36
+add("Two ways to pick 7 of 36.", fig="t9_two_orders.png",
+    caption="January 2025, one dot per decline. Filled: had not recovered by month 18. Hollow: came back. "
+            "Biggest drop first picks from the left; the model picks from the top.",
+    notes="Backup for slides 10 and 11, if asked how the model's picks differ from the biggest drops. "
+          "Each dot is one decline on January 2025's list. Left to right is how far its share has "
+          "fallen. Up and down is the model's chance it stays down. Biggest drop first takes the "
+          "ten at 0% first. The model takes the top seven, ringed in red, and five of them are 20th "
+          "or lower by drop. Six of those seven had not recovered by month 18.")
 
 # ---------------------------------------------------------------- M8 Taiwan: what was known
 s = prs.slides.add_slide(BLANK)
