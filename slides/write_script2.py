@@ -13,13 +13,17 @@ import re
 from pptx import Presentation
 
 DECK = "slides/Mandadi_Khalsa_Presentation2_v3.pptx"
-MAIN = 12            # slides 1 to 12 are the talk; then the Backup divider and the backup slides
-RAHUL_LAST = 7
+MAIN = 13            # slides 1 to 13 are the talk; then the Backup divider and the backup slides
+RAHUL_LAST = 8
 SLOW, NORMAL = 130, 145  # words a minute
 
 # likely questions, and the backup slide (by its headline) that answers each
 QUESTIONS = [
+    ("What does a term mean?", "Terms we use."),
     ("Why gradient boosting and not another model?", "Other models give the same answer."),
+    ("What could the analyst see in January, before the outcome?", "Taiwan, January 2025: what the analyst saw."),
+    ("Why a fifth? What if the fall cutoff moves?", "A different cutoff, the same answer."),
+    ("Why aren't the no-import rows at the top of the list?", "Below 60%, how far it fell matters little."),
     ("What if the analyst can check more, or fewer?", "Review these first: 82% stayed down."),
     ("How accurate is the model, and when does it start to work?", "By month 4, the forecast ranks them better."),
     ("What happens when the trade commission lifts the duty?", "Losses persist in cases that become orders."),
