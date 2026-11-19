@@ -4,8 +4,8 @@ Compares the forecast with always qualifying a new supplier, never doing so, the
 and the latest-share model, at cost ratios 0.10 to 0.90, with bounds that hold for all of them at
 once.
 
-Reads:  prediction_test_heldout.csv, prediction_stage2_heldout.csv
-Writes: decision_value.csv, decision_value_joint.csv
+Reads:  results/prediction_test_heldout.csv, results/prediction_stage2_heldout.csv
+Writes: results/decision_value.csv, results/decision_value_joint.csv
 Run:    python3 forecast/decision_value.py
         (after forecast/prediction_test.py and forecast/prediction_stage2.py)
 """
@@ -16,8 +16,8 @@ B = 2000
 rng = np.random.default_rng(0)
 T = np.round(np.arange(0.10, 0.901, 0.05), 2)
 
-d0 = pd.read_csv("prediction_test_heldout.csv")
-s2 = pd.read_csv("prediction_stage2_heldout.csv")
+d0 = pd.read_csv("results/prediction_test_heldout.csv")
+s2 = pd.read_csv("results/prediction_stage2_heldout.csv")
 fall, itc = s2[s2.point == "fall"], s2[s2.point == "ITC"]
 points = {
     "duty starts": pd.DataFrame({"cluster": d0.cluster, "w": d0.w, "bad": d0.bad,
@@ -96,9 +96,9 @@ def main():
                         n_supported=len(supported)))
 
     R = pd.DataFrame(rows)
-    R.to_csv("decision_value.csv", index=False)
+    R.to_csv("results/decision_value.csv", index=False)
     S = pd.DataFrame(sim)
-    S.to_csv("decision_value_joint.csv", index=False)
+    S.to_csv("results/decision_value_joint.csv", index=False)
     pd.set_option("display.width", 220)
     for name in points:
         x = R[R.point == name]
@@ -109,7 +109,7 @@ def main():
     print("\nsimultaneous support (model ahead of every baseline, one-sided 90 percent, max-t over all "
           "baselines and thresholds):")
     print(S.round(3).to_string(index=False))
-    print("\nwrote decision_value.csv, decision_value_joint.csv")
+    print("\nwrote results/decision_value.csv, results/decision_value_joint.csv")
 
 
 if __name__ == "__main__":

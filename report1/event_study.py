@@ -1,7 +1,7 @@
 """Month-by-month imports around broad tariff actions, against untaxed countries (Report 1).
 
-Reads:  panel/analysis.parquet, events_resolved.csv, event_products.csv
-Writes: event_study_*.csv (one per group of actions and outcome)
+Reads:  panel/analysis.parquet, results/events_resolved.csv, results/event_products.csv
+Writes: results/event_study_*.csv (one per group of actions and outcome)
 Run:    python3 report1/event_study.py [--outcome lv|lq]
 
 Note: the source documents behind these events were later found unreliable (13 of 19 wrong), so
@@ -37,8 +37,8 @@ if DIFF:
 
 ymv = df.ym.values
 
-ev = pd.read_csv("events_resolved.csv", dtype={"cty": str})
-ep = pd.read_csv("event_products.csv", dtype={"hs8": str})
+ev = pd.read_csv("results/events_resolved.csv", dtype={"cty": str})
+ep = pd.read_csv("results/event_products.csv", dtype={"hs8": str})
 prods = {d: set(g.hs8) for d, g in ep.groupby("document_number")}
 ev = ev[(ev.window_days >= 7) & (~ev.action_kind.isin(REDUCING))].copy()
 ev["a"] = pd.to_datetime(ev.announcement_date).dt.to_period("M").dt.to_timestamp()
@@ -125,6 +125,6 @@ out = pd.DataFrame({"k": ks, "coef": beta, "se": se,
                     "sig": np.abs(beta/se) > 1.96})
 out["mechanism"] = MECH or "ALL"
 out["outcome"] = OUT
-fn = f"event_study_{(MECH or 'ALL').lower()}_{OUT}{'_diff' if DIFF else ''}.csv"
+fn = f"results/event_study_{(MECH or 'ALL').lower()}_{OUT}{'_diff' if DIFF else ''}.csv"
 out.to_csv(fn, index=False)
 print(f"wrote {fn}")

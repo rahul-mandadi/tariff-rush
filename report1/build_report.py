@@ -13,7 +13,7 @@ import subprocess
 
 import markdown
 
-SRC, HTML, PDF = "REPORT1.md", "report1.html", "Mandadi_Khalsa_Report1.pdf"
+SRC, HTML, PDF = "report1/REPORT1.md", "report1.html", "Mandadi_Khalsa_Report1.pdf"
 CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 
 CSS = """

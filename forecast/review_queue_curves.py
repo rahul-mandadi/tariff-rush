@@ -1,9 +1,9 @@
 """The review-list test at every capacity from 5 to 50 percent, and at months 6 and 8 (items 4 and 6).
 
-Reads:  prediction_landmark_heldout.csv, review_queue_eval.csv
-Writes: review_queue_capacity.csv, review_queue_checkpoints.csv, slides/fig/21_capacity_curve.png
+Reads:  results/prediction_landmark_heldout.csv, results/review_queue_eval.csv
+Writes: results/review_queue_capacity.csv, results/review_queue_checkpoints.csv, slides/fig/21_capacity_curve.png
 Run:    python3 forecast/review_queue_curves.py
-        (after forecast/review_queue.py; stops if it does not reproduce review_queue_eval.csv
+        (after forecast/review_queue.py; stops if it does not reproduce results/review_queue_eval.csv
         at 20 percent)
 """
 import sys
@@ -22,7 +22,7 @@ CAPS = [round(0.05 * i, 2) for i in range(1, 11)]
 CHECKPOINTS = [4, 6, 8]
 rng = np.random.default_rng(0)
 
-H = pd.read_csv("prediction_landmark_heldout.csv", dtype={"hs8": str})
+H = pd.read_csv("results/prediction_landmark_heldout.csv", dtype={"hs8": str})
 RANKS = {"forecast (boosting)": lambda g: 1 - g.boosting, "logistic": lambda g: 1 - g.logistic,
          "latest share": lambda g: -g.latest, "historical rate": lambda g: 1 - g.history}
 
@@ -70,17 +70,17 @@ def run(L, caps):
 
 # ---------------------------------------------------------------- item 4: capacity curve at month 4
 C4 = run(4, CAPS)
-ref = pd.read_csv("review_queue_eval.csv")
+ref = pd.read_csv("results/review_queue_eval.csv")
 ref = ref[(ref.weighting == "relationship") & (ref.capacity == 0.2) & (ref.measure == "precision")].set_index("ranking")
 for name in RANKS:
     got = C4[(C4.capacity == 0.2) & (C4.ranking == name)].precision.iloc[0]
     assert abs(got - ref.value[name]) < 1e-12, (name, got, ref.value[name])
-print("check passed: 20 percent at month 4 reproduces review_queue_eval.csv")
-C4.to_csv("review_queue_capacity.csv", index=False)
+print("check passed: 20 percent at month 4 reproduces results/review_queue_eval.csv")
+C4.to_csv("results/review_queue_capacity.csv", index=False)
 
 # ---------------------------------------------------------------- item 6: months 6 and 8 at 20 percent
 CK = pd.concat([run(L, [0.2]) for L in CHECKPOINTS], ignore_index=True)
-CK.to_csv("review_queue_checkpoints.csv", index=False)
+CK.to_csv("results/review_queue_checkpoints.csv", index=False)
 
 pd.set_option("display.width", 220)
 show = ["capacity", "ranking", "precision", "lo", "hi", "capture", "ceiling", "vs_latest", "vs_latest_lo", "vs_latest_hi"]
@@ -117,4 +117,4 @@ ax.set_ylabel("reviewed relationships that\nstayed down by month 18 (%)")
 ax.set_title("Month 4, held out 2020 to 2025: the forecast stays ahead at every capacity (90% ranges shaded)",
              loc="left", fontweight="600", fontsize=13)
 fig.savefig("slides/fig/21_capacity_curve.png")
-print("wrote review_queue_capacity.csv, review_queue_checkpoints.csv, slides/fig/21_capacity_curve.png")
+print("wrote results/review_queue_capacity.csv, results/review_queue_checkpoints.csv, slides/fig/21_capacity_curve.png")

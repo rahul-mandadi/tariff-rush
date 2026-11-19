@@ -29,9 +29,9 @@ INK, GREY, RED, LRED, LGREY = "#14161A", "#6E737C", "#C8102E", "#E8A0AB", "#C9CD
 pct = lambda b: 100 * (np.exp(b) - 1)
 
 # ---------------------------------------------------------------- 12: order vs negative
-p = pd.read_csv("itc_compare_paths.csv")
+p = pd.read_csv("results/itc_compare_paths.csv")
 p = p[p.outcome == "PPML value, zeros in"]
-q = pd.read_csv("adcvd_stacked_paths.csv")
+q = pd.read_csv("results/adcvd_stacked_paths.csv")
 q = q[(q.outcome == "PPML value, zeros in") & (q["sample"] == "placebo, 24 months earlier")]
 o = p[p["sample"] == "final stage: order"].set_index("k")
 n = p[p["sample"] == "final stage: negative"].set_index("k")
@@ -63,8 +63,8 @@ plt.close(fig)
 print("wrote slides/fig/12_order_vs_negative.png")
 
 # ---------------------------------------------------------------- 13: recovery curve
-real = pd.read_csv("recovery_pairs_real_fall20.csv", dtype={"hs8": str})
-plac = pd.read_csv("recovery_pairs_placebo_fall20.csv", dtype={"hs8": str})
+real = pd.read_csv("results/recovery_pairs_real_fall20.csv", dtype={"hs8": str})
+plac = pd.read_csv("results/recovery_pairs_placebo_fall20.csv", dtype={"hs8": str})
 kr, kp = R.km(real), R.km(plac)
 fig, ax = plt.subplots(figsize=(11, 4.6))
 ax.step(kp.index, 100 * kp.values, where="post", color=GREY, lw=2, ls="--")
@@ -84,7 +84,7 @@ plt.close(fig)
 print("wrote slides/fig/13_recovery_km.png")
 
 # ---------------------------------------------------------------- 14: outcome shares
-b = pd.read_csv("recovery_benchmark_fall20.csv")
+b = pd.read_csv("results/recovery_benchmark_fall20.csv")
 cats = ["no fall", "recovered", "not recovered", "exited"]
 labels = {"no fall": "did not fall", "recovered": "fell, came back",
           "not recovered": "fell, still down", "exited": "fell, then stopped"}
@@ -123,9 +123,9 @@ print("wrote slides/fig/14_outcomes.png")
 
 # ---------------------------------------------------------------- 15: decision points
 # improvement over the historical rate (held-out Brier, positive = better), 90 percent interval
-pt = pd.read_csv("prediction_test.csv").set_index("year").loc["pooled"]
-bs = pd.read_csv("prediction_test_bootstrap.csv").brier_improvement
-s2 = pd.read_csv("prediction_stage2.csv").set_index(["point", "model"])
+pt = pd.read_csv("results/prediction_test.csv").set_index("year").loc["pooled"]
+bs = pd.read_csv("results/prediction_test_bootstrap.csv").brier_improvement
+s2 = pd.read_csv("results/prediction_stage2.csv").set_index(["point", "model"])
 rows = [("on the day the duty starts", pt.brier_benchmark - pt.brier_model, *bs.quantile([.05, .95]),
          pt.auc_model, "logistic"),
         ("when the fall first shows", *s2.loc[("fall", "boosting"), ["gain_vs_history", "lo_vs_history",
@@ -157,7 +157,7 @@ print("wrote slides/fig/15_decision_points.png")
 # ---------------------------------------------------------------- 16: the lookup
 from matplotlib.colors import LinearSegmentedColormap, to_rgb  # noqa: E402
 
-L = pd.read_csv("calibrated_lookup.csv")
+L = pd.read_csv("results/calibrated_lookup.csv")
 # neutral ramp: in this deck red means losing ground, and here a darker cell means more came back
 ramp = LinearSegmentedColormap.from_list("grey", ["#FFFFFF", "#3A3F47"])
 panels = [("fall", "When the fall first shows", ["under $1M", "$1M to $10M", "over $10M"],
@@ -202,7 +202,7 @@ plt.close(fig)
 print("wrote slides/fig/16_lookup.png")
 
 # ---------------------------------------------------------------- 17: Section 301 outcomes
-B3 = pd.read_csv("s301_benchmark.csv")
+B3 = pd.read_csv("results/s301_benchmark.csv")
 rows3 = [("China, Section 301", "Section 301, real"), ("same products, fake date", "Section 301, placebo"),
          ("antidumping cases", "AD/CVD, same horizon")]
 fig, ax = plt.subplots(figsize=(11, 3.6))
@@ -236,7 +236,7 @@ plt.close(fig)
 print("wrote slides/fig/17_s301_outcomes.png")
 
 # ---------------------------------------------------------------- 18: decision value
-DV = pd.read_csv("decision_value.csv")
+DV = pd.read_csv("results/decision_value.csv")
 fig, axes = plt.subplots(1, 3, figsize=(12, 4.0), sharey=True)
 for ax, pt in zip(axes, ["duty starts", "fall first visible", "ITC final vote"]):
     x = DV[DV.point == pt]
@@ -267,7 +267,7 @@ plt.close(fig)
 print("wrote slides/fig/18_decision_value.png")
 
 # ---------------------------------------------------------------- 19: the monthly forecast
-LM = pd.read_csv("prediction_landmark.csv")
+LM = pd.read_csv("results/prediction_landmark.csv")
 fig, ax = plt.subplots(figsize=(11, 4.4))
 ax.axhline(0.5, color=GREY, lw=1, ls=":")
 ax.plot(LM.L, LM["auc_share only"], color=GREY, lw=2, ls="--", marker="o", ms=6)
@@ -292,7 +292,7 @@ plt.close(fig)
 print("wrote slides/fig/19_monthly_forecast.png")
 
 # ---------------------------------------------------------------- 20: the month-4 review queue
-Q = pd.read_csv("review_queue_eval.csv")
+Q = pd.read_csv("results/review_queue_eval.csv")
 Q = Q[(Q.weighting == "relationship") & (Q.measure == "precision")]
 order = [("forecast (boosting)", "forecast", RED), ("latest share", "latest share", GREY),
          ("historical rate", "random order (historical rate)", LGREY)]

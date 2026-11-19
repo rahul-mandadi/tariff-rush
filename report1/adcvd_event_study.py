@@ -3,7 +3,7 @@
 Its output draws figure 10 (slides/fig_event.py), used in Report 1 and Presentation 2.
 
 Reads:  panel/analysis.parquet, events/adcvd_events.csv, events/adcvd_products.csv
-Writes: adcvd_event_study.csv, adcvd_event_study_placebo.csv
+Writes: results/adcvd_event_study.csv, results/adcvd_event_study_placebo.csv
 Run:    python3 report1/adcvd_event_study.py
 """
 import sys
@@ -105,6 +105,6 @@ for k in real.k:
     star = "*" if abs(r.coef / r.se) > 1.96 else " "
     print(f"  {k:>4}{r.pct:>9.1f}%{star}{q.pct:>10.1f}%{r.pct - q.pct:>12.1f}")
 
-real.to_csv("adcvd_event_study.csv", index=False)
-plac.to_csv("adcvd_event_study_placebo.csv", index=False)
-print("\nwrote adcvd_event_study.csv and adcvd_event_study_placebo.csv")
+real.to_csv("results/adcvd_event_study.csv", index=False)
+plac.to_csv("results/adcvd_event_study_placebo.csv", index=False)
+print("\nwrote results/adcvd_event_study.csv and results/adcvd_event_study_placebo.csv")

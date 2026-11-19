@@ -1,7 +1,7 @@
 """The four outcomes after a duty (no fall, fell and came back, stayed down, stopped) and recovery times.
 
-Reads:  panel/adcvd_stacks_real.parquet, panel/adcvd_stacks_placebo.parquet, adcvd_episodes_collapsed.csv
-Writes: recovery_benchmark_fall20.csv, recovery_benchmark_eval_fall20.csv, recovery_pairs_*_fall20.csv
+Reads:  panel/adcvd_stacks_real.parquet, panel/adcvd_stacks_placebo.parquet, results/adcvd_episodes_collapsed.csv
+Writes: results/recovery_benchmark_fall20.csv, results/recovery_benchmark_eval_fall20.csv, results/recovery_pairs_*_fall20.csv
         (the suffix follows --fall)
 Run:    python3 measure/recovery_benchmark.py --fall 0.2
         (also 0.1 and 0.3; after measure/adcvd_stacked.py)
@@ -16,7 +16,7 @@ K_HI = 18
 LAG = 2  # months between the end of a data month and its release, rounded up
 B = 1000
 rng = np.random.default_rng(0)
-ep = pd.read_csv("adcvd_episodes_collapsed.csv", dtype={"cty": str})
+ep = pd.read_csv("results/adcvd_episodes_collapsed.csv", dtype={"cty": str})
 CATS = ["no fall", "recovered", "not recovered", "exited"]
 
 
@@ -187,9 +187,9 @@ if __name__ == "__main__":
           .to_string(index=False))
 
     tag = f"_fall{int(FALL * 100)}"
-    pd.DataFrame(res).to_csv(f"recovery_benchmark{tag}.csv", index=False)
-    E.to_csv(f"recovery_benchmark_eval{tag}.csv", index=False)
-    real.to_csv(f"recovery_pairs_real{tag}.csv", index=False)
-    plac.to_csv(f"recovery_pairs_placebo{tag}.csv", index=False)
-    print(f"\nwrote recovery_benchmark{tag}.csv, recovery_benchmark_eval{tag}.csv, "
-          f"recovery_pairs_*{tag}.csv")
+    pd.DataFrame(res).to_csv(f"results/recovery_benchmark{tag}.csv", index=False)
+    E.to_csv(f"results/recovery_benchmark_eval{tag}.csv", index=False)
+    real.to_csv(f"results/recovery_pairs_real{tag}.csv", index=False)
+    plac.to_csv(f"results/recovery_pairs_placebo{tag}.csv", index=False)
+    print(f"\nwrote results/recovery_benchmark{tag}.csv, results/recovery_benchmark_eval{tag}.csv, "
+          f"results/recovery_pairs_*{tag}.csv")

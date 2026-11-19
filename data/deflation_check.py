@@ -2,7 +2,7 @@
 
 Reads:  eda/chapter_month.csv, eda/chapter_month_qty.csv, eda/bls_import_prices.csv
         (fetched once from the public BLS API if missing)
-Writes: deflation_check.csv
+Writes: results/deflation_check.csv
 Run:    python3 data/deflation_check.py
 """
 import json
@@ -84,5 +84,5 @@ for label, path in [("all product chapters", "eda/chapter_month.csv"),
         print(f"  deflated by {lab} ({sid}): {kept} of the top 10 stay in the top 10; "
               f"rank correlation {rho:.2f}")
         out.append(dict(universe=label, chapters=len(R), index=sid, top10_kept=kept, rank_corr=rho))
-pd.DataFrame(out).to_csv("deflation_check.csv", index=False)
-print("wrote deflation_check.csv")
+pd.DataFrame(out).to_csv("results/deflation_check.csv", index=False)
+print("wrote results/deflation_check.csv")

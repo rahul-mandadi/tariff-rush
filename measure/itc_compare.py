@@ -1,7 +1,7 @@
 """The main measurement, split by how the case ended: permanent order or rejected by the ITC.
 
 Reads:  panel/adcvd_stacks_real.parquet, events/adcvd_events.csv, events/itc_check_by_country.csv
-Writes: itc_compare.csv, itc_compare_paths.csv
+Writes: results/itc_compare.csv, results/itc_compare_paths.csv
 Run:    python3 measure/itc_compare.py      (after events/itc_check.py)
 """
 import re
@@ -35,6 +35,6 @@ for v in ["order", "negative"]:
     d = real[real.sid.isin(ids)].reset_index(drop=True)
     S.report(d, f"final stage: {v}", rows, paths)
 out = pd.DataFrame(rows)
-out.to_csv("itc_compare.csv", index=False)
-pd.concat(paths).to_csv("itc_compare_paths.csv", index=False)
-print("wrote itc_compare.csv, itc_compare_paths.csv")
+out.to_csv("results/itc_compare.csv", index=False)
+pd.concat(paths).to_csv("results/itc_compare_paths.csv", index=False)
+print("wrote results/itc_compare.csv, results/itc_compare_paths.csv")

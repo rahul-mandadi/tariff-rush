@@ -5,10 +5,10 @@ historical rate and a model of the latest share alone. Inputs use only data rele
 decision date.
 
 Reads:  recovery_pairs_decision_fall20.csv, panel/adcvd_stacks_decision.parquet, panel/hs8/,
-        adcvd_episodes_collapsed.csv, events/adcvd_events.csv, events/adcvd_margins.csv,
+        results/adcvd_episodes_collapsed.csv, events/adcvd_events.csv, events/adcvd_margins.csv,
         census_release_calendar.csv
-Writes: prediction_landmark.csv, prediction_landmark_heldout.csv, prediction_landmark_coef.csv,
-        prediction_landmark_counts.csv, panel/landmark_features.parquet, panel/landmark_open.parquet
+Writes: results/prediction_landmark.csv, results/prediction_landmark_heldout.csv, results/prediction_landmark_coef.csv,
+        results/prediction_landmark_counts.csv, panel/landmark_features.parquet, panel/landmark_open.parquet
 Run:    python3 forecast/prediction_landmark.py
         (after measure/build_decision_stacks.py; about 80 seconds)
 """
@@ -28,7 +28,7 @@ import recovery_lib as RL  # noqa: E402
 K_HI, LAG, LANDMARKS = 18, 2, list(range(3, 15))
 REL = pd.read_csv("census_release_calendar.csv", parse_dates=["release"])
 rng = np.random.default_rng(0)
-ep = pd.read_csv("adcvd_episodes_collapsed.csv", dtype={"cty": str})
+ep = pd.read_csv("results/adcvd_episodes_collapsed.csv", dtype={"cty": str})
 BOTH = RL.both_programs_known(ep)
 fs = RL.final_stage(ep)
 ev = pd.read_csv("events/adcvd_events.csv", dtype={"cty": str}).drop_duplicates("document_number")
@@ -119,7 +119,7 @@ print(f"product-landmark rows {len(D):,}; products {D[['sid', 'hs8']].drop_dupli
 print("eligible products by landmark:", D.groupby("L").size().to_dict())
 # eligible counts over all years (products, cases, groups) by landmark, for the report tables
 D.groupby("L").agg(products=("hs8", "size"), cases=("sid", "nunique"), groups=("cluster", "nunique")) \
-    .to_csv("prediction_landmark_counts.csv")
+    .to_csv("results/prediction_landmark_counts.csv")
 
 
 # the benchmark: only the latest published share and the landmark month, what a team could read off
@@ -143,7 +143,7 @@ for Y in sorted(D.year.unique()):
     preds.append(p)
     print(f"  test {Y}: train cases {tr.sid.nunique()}, test cases {te.sid.nunique()}, rows {len(te):,}")
 P = pd.concat(preds, ignore_index=True)
-P.to_csv("prediction_landmark_heldout.csv", index=False)
+P.to_csv("results/prediction_landmark_heldout.csv", index=False)
 
 out = []
 for L, g in P.groupby("L"):
@@ -188,7 +188,7 @@ for m in ["boosting", "logistic"]:
     R[f"simlo_os_{m}"] = est - c90 * sd
     print(f"{m} over share-only, simultaneous over months {Ls[0]}-{Ls[-1]}: critical value {c90:.2f}; "
           f"months with bound above zero: {[L for L, v in zip(Ls, est - c90 * sd) if v > 0] or 'none'}")
-R.to_csv("prediction_landmark.csv", index=False)
+R.to_csv("results/prediction_landmark.csv", index=False)
 pd.set_option("display.width", 220)
 print("\nby landmark month (held-out):")
 print(R.round(3).to_string(index=False))
@@ -200,6 +200,6 @@ m.fit(D[FEAT], D.y, logisticregression__sample_weight=D.w)
 co = pd.Series(m[-1].coef_[0], index=FEAT).sort_values()
 print("\nfull-sample logistic coefficients (standardized; positive = more likely back):")
 print(co.round(3).to_string())
-co.to_csv("prediction_landmark_coef.csv")
-print("wrote prediction_landmark.csv, prediction_landmark_heldout.csv, prediction_landmark_coef.csv, "
-      "prediction_landmark_counts.csv")
+co.to_csv("results/prediction_landmark_coef.csv")
+print("wrote results/prediction_landmark.csv, results/prediction_landmark_heldout.csv, results/prediction_landmark_coef.csv, "
+      "results/prediction_landmark_counts.csv")

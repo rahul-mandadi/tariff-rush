@@ -1,6 +1,6 @@
 """Find how each case ended at the ITC: a permanent order, or rejected.
 
-Reads:  adcvd_episodes_collapsed.csv, events/adcvd_events.csv, events/raw/, panel/hs8/2018-01.parquet
+Reads:  results/adcvd_episodes_collapsed.csv, events/adcvd_events.csv, events/raw/, panel/hs8/2018-01.parquet
         (country names); downloads the ITC notices it needs once and keeps them in events/raw/itc_cache/
 Writes: events/itc_check.csv, events/itc_check_by_country.csv
 Run:    python3 events/itc_check.py      (after measure/adcvd_stacked.py)
@@ -64,7 +64,7 @@ allc = {d: {"-".join(m) for m in CASE.findall(open(f"events/raw/{d}.txt", errors
         for d in docs.document_number}
 order_cases = set().union(*[allc[d] for d in docs[docs.stage == "order"].document_number])
 
-ep = pd.read_csv("adcvd_episodes_collapsed.csv", dtype={"cty": str})
+ep = pd.read_csv("results/adcvd_episodes_collapsed.csv", dtype={"cty": str})
 ep["first_doc"] = ep.docs.str.split(";").str[0]
 title = docs.set_index("document_number").title
 ep["family"] = ep.first_doc.map(title).map(family)

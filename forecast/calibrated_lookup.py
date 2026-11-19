@@ -1,7 +1,7 @@
 """Turn the fall-time and vote-time forecasts into a lookup table (Table A1).
 
-Reads:  prediction_stage2_features.csv, prediction_stage2_heldout.csv, prediction_stage2_years.csv
-Writes: calibrated_lookup.csv, calibrated_lookup_eval.csv
+Reads:  results/prediction_stage2_features.csv, results/prediction_stage2_heldout.csv, results/prediction_stage2_years.csv
+Writes: results/calibrated_lookup.csv, results/calibrated_lookup_eval.csv
 Run:    python3 forecast/calibrated_lookup.py      (after forecast/prediction_stage2.py)
 """
 import numpy as np
@@ -9,9 +9,9 @@ import pandas as pd
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import brier_score_loss
 
-P = pd.read_csv("prediction_stage2_heldout.csv")
-D = pd.read_csv("prediction_stage2_features.csv", dtype={"hs8": str})
-yrs = pd.read_csv("prediction_stage2_years.csv")
+P = pd.read_csv("results/prediction_stage2_heldout.csv")
+D = pd.read_csv("results/prediction_stage2_features.csv", dtype={"hs8": str})
+yrs = pd.read_csv("results/prediction_stage2_years.csv")
 MODEL = {"fall": "boosting", "ITC": "logit, + vote"}
 K_HI, LAG = 18, 2
 logit = lambda p: np.log(np.clip(p, 1e-4, 1 - 1e-4) / (1 - np.clip(p, 1e-4, 1 - 1e-4)))  # noqa: E731
@@ -63,7 +63,7 @@ for pt in ["fall", "ITC"]:
                        mean_pred=np.average(c[name], weights=c.w), realized=np.average(c.y, weights=c.w),
                        max_tercile_gap=gap))
     # lookup cells, on every held-out product, with the model's own (uncalibrated) prediction:
-    # calibrating on earlier published years made the later years worse (calibrated_lookup_eval.csv)
+    # calibrating on earlier published years made the later years worse (results/calibrated_lookup_eval.csv)
     p["pred"] = p[col]
     if pt == "fall":
         val = np.expm1(p.log_pre_value)
@@ -93,6 +93,6 @@ for pt in ["fall", "ITC"]:
     order = {"fall": ["under $1M", "$1M to $10M", "over $10M"],
              "ITC": ["under half", "half to 4/5", "4/5 or more"]}[pt]
     print(tab.pivot(index="row", columns="col", values="cell").reindex(order).to_string())
-pd.DataFrame(ev).to_csv("calibrated_lookup_eval.csv", index=False)
-L.to_csv("calibrated_lookup.csv", index=False)
-print("\nwrote calibrated_lookup.csv, calibrated_lookup_eval.csv")
+pd.DataFrame(ev).to_csv("results/calibrated_lookup_eval.csv", index=False)
+L.to_csv("results/calibrated_lookup.csv", index=False)
+print("\nwrote results/calibrated_lookup.csv, results/calibrated_lookup_eval.csv")

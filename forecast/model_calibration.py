@@ -1,7 +1,7 @@
 """Check whether the month-4 forecast's chances match what happened, and where it errs (item 3).
 
-Reads:  prediction_landmark_heldout.csv, panel/landmark_features.parquet
-Writes: model_calibration.csv, model_errors.csv, slides/fig/23_reliability.png
+Reads:  results/prediction_landmark_heldout.csv, panel/landmark_features.parquet
+Writes: results/model_calibration.csv, results/model_errors.csv, slides/fig/23_reliability.png
 Run:    python3 forecast/model_calibration.py      (after forecast/prediction_landmark.py)
 """
 import matplotlib
@@ -14,7 +14,7 @@ from sklearn.metrics import brier_score_loss, roc_auc_score  # noqa: E402
 
 L_EVAL, B = 4, 1000
 rng = np.random.default_rng(0)
-H = pd.read_csv("prediction_landmark_heldout.csv", dtype={"hs8": str})
+H = pd.read_csv("results/prediction_landmark_heldout.csv", dtype={"hs8": str})
 F = pd.read_parquet("panel/landmark_features.parquet", columns=["sid", "hs8", "L", "log_pre_value"])
 F["hs8"] = F.hs8.astype(str).str.zfill(8)
 H["hs8"] = H.hs8.str.zfill(8)
@@ -70,7 +70,7 @@ for label, g in [("all", G), ("without the largest group", G[G.cluster != BIG])]
         rows.append(dict(sample=f"{label}: bin {b_ + 1} of 5", relationships=len(h), cases=h.sid.nunique(),
                          mean_pred=np.average(h.boosting, weights=h.w), realized=np.average(h.y, weights=h.w)))
 C = pd.DataFrame(rows)
-C.to_csv("model_calibration.csv", index=False)
+C.to_csv("results/model_calibration.csv", index=False)
 
 err = []
 for by in ["section", "size", "year"]:
@@ -83,7 +83,7 @@ for by in ["section", "size", "year"]:
                         largest_group_share=(g.cluster == BIG).mean(), **pt,
                         brier_gain=pt["brier_history"] - pt["brier"]))
 E = pd.DataFrame(err)
-E.to_csv("model_errors.csv", index=False)
+E.to_csv("results/model_errors.csv", index=False)
 
 pd.set_option("display.width", 220)
 print(f"month 4, held out: {len(G)} relationships, {G.sid.nunique()} cases, {G.cluster.nunique()} groups; "
@@ -112,4 +112,4 @@ ax.legend(frameon=False, loc="upper left")
 ax.set_title("Month 4, held out: predicted against actual\n(five bins of equal weight; dotted line = perfect)",
              loc="left", fontweight="600", fontsize=13)
 fig.savefig("slides/fig/23_reliability.png")
-print("wrote model_calibration.csv, model_errors.csv, slides/fig/23_reliability.png")
+print("wrote results/model_calibration.csv, results/model_errors.csv, slides/fig/23_reliability.png")

@@ -1,7 +1,7 @@
 """Imports before and after antidumping and countervailing duties, from the Report 1 analysis.
 
 Reads:  panel/analysis.parquet, events/adcvd_events.csv, events/adcvd_products.csv
-Writes: adcvd_episodes_real.csv, adcvd_episodes_placebo.csv
+Writes: results/adcvd_episodes_real.csv, results/adcvd_episodes_placebo.csv
 Run:    python3 report1/adcvd_analysis.py
 """
 import sys
@@ -84,8 +84,8 @@ def episodes(shift):
 
 
 real, plac = episodes(0), episodes(SHIFT)
-real.to_csv("adcvd_episodes_real.csv", index=False)
-plac.to_csv("adcvd_episodes_placebo.csv", index=False)
+real.to_csv("results/adcvd_episodes_real.csv", index=False)
+plac.to_csv("results/adcvd_episodes_placebo.csv", index=False)
 
 print(f"\n{'':22}{'real':>12}{'placebo':>12}")
 print(f"{'episodes':<22}{len(real):>12,}{len(plac):>12,}")

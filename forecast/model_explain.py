@@ -3,8 +3,8 @@
 Permutation importance on the held-out years, and partial dependence from one model fit on all
 cases.
 
-Reads:  panel/landmark_features.parquet, prediction_landmark_heldout.csv
-Writes: model_importance.csv, model_partial_dependence.csv, slides/fig/22_model_explain.png
+Reads:  panel/landmark_features.parquet, results/prediction_landmark_heldout.csv
+Writes: results/model_importance.csv, results/model_partial_dependence.csv, slides/fig/22_model_explain.png
 Run:    python3 forecast/model_explain.py      (after forecast/prediction_landmark.py)
 """
 import sys
@@ -44,7 +44,7 @@ def tuned(tr):
     return M.tune(tr, M.BOOSTING_GRID, M.boosting(FEAT))
 
 
-ref = pd.read_csv("prediction_landmark_heldout.csv", dtype={"hs8": str})
+ref = pd.read_csv("results/prediction_landmark_heldout.csv", dtype={"hs8": str})
 rows, base_all = [], []
 for Y in sorted(D.year.unique()):
     te = D[D.year == Y]
@@ -69,7 +69,7 @@ for Y in sorted(D.year.unique()):
         rows.append(pd.DataFrame(dict(feature=f, year=Y, cluster=te.cluster.to_numpy()[t4], w=w4,
                                       d=se / REPEATS - se_base)))
     print(f"  {Y}: {t4.sum()} month-4 rows scored")
-print("check passed: refit yearly models reproduce prediction_landmark_heldout.csv")
+print("check passed: refit yearly models reproduce results/prediction_landmark_heldout.csv")
 R = pd.concat(rows, ignore_index=True)
 
 out = []
@@ -84,7 +84,7 @@ for f, g in R.groupby("feature"):
         bs.append(np.average(g.d.values[ii], weights=g.w.values[ii]))
     out.append(dict(feature=f, label=LABEL[f], brier_increase=est, lo=np.quantile(bs, 0.05), hi=np.quantile(bs, 0.95)))
 I = pd.DataFrame(out).sort_values("brier_increase", ascending=False)
-I.to_csv("model_importance.csv", index=False)
+I.to_csv("results/model_importance.csv", index=False)
 print("\npermutation importance at month 4 (held out; Brier increase when shuffled):")
 print(I.round(4).to_string(index=False))
 
@@ -101,7 +101,7 @@ for f in show:
     for x, v in zip(pdp["grid_values"][0], pdp["average"][0]):
         pdrows.append(dict(feature=f, label=LABEL[f], x=x, chance_back=v))
 PD = pd.DataFrame(pdrows)
-PD.to_csv("model_partial_dependence.csv", index=False)
+PD.to_csv("results/model_partial_dependence.csv", index=False)
 
 plt.rcParams.update({
     "font.family": "Avenir Next", "font.size": 12, "axes.titlesize": 13, "axes.grid": True,
@@ -149,4 +149,4 @@ fig.suptitle("Month-4 forecast: what drives it (held out) and how the chance of 
              x=0.01, ha="left", fontweight="600", fontsize=14)
 fig.tight_layout()
 fig.savefig("slides/fig/22_model_explain.png")
-print("wrote model_importance.csv, model_partial_dependence.csv, slides/fig/22_model_explain.png")
+print("wrote results/model_importance.csv, results/model_partial_dependence.csv, slides/fig/22_model_explain.png")

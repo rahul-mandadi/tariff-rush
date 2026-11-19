@@ -8,18 +8,18 @@ read from the CSV named beside it.
 | claim | number | source |
 |---|---|---|
 | a tariff list names a small slice of its chapter | median 5.4 percent of import value | `coverage/coverage_share.csv` |
-| targeted country against rivals, cases that became orders | -0.37 log points (SE 0.065), 326 cases, 125 groups | `itc_compare.csv` |
-| same, pooled over 381 cases | -0.19 (SE 0.11); fake date +0.06 | `adcvd_stacked.csv` |
-| outcomes within 18 months, 380 cases (the historical benchmark) | 26 / 17 / 42 / 16 percent: did not fall / fell, came back / fell, still down / fell, never came back and no imports in months 13 to 18 (fake date 50 / 29 / 17 / 3) | `recovery_benchmark_fall20.csv` |
-| day-one forecast | Brier 0.242 vs 0.248 for the historical rate, gain 0.007 [-0.001, 0.013] (interval includes zero; it cleared zero only just before the November 2026 critical-circumstances fix), AUC 0.633; 381 eligible cases, 241 scored | `prediction_test.csv` |
-| monthly forecast, month 4 | boosting AUC 0.795 (logistic 0.753), gain over that month's historical rate 0.039 [0.026, 0.052]; the latest-share model alone gets about 70 percent of that gain (Brier 0.165 vs 0.192, boosting 0.154); 315 eligible cases, 198 scored | `prediction_landmark.csv`, `prediction_landmark_counts.csv` |
-| monthly forecast against the latest-share model | boosting ahead by 0.003 to 0.013 in every month 3 to 12 (pointwise intervals above zero in months 4 to 6 and 11); no month clears a joint test over all months (`simlo_os_boosting`) | `prediction_landmark.csv` |
-| ITC-vote forecast | logistic AUC 0.796, Brier 0.134 vs 0.174, 0.012 [0.003, 0.021] beyond the latest-share model (Brier 0.146); 329 eligible cases, 207 scored | `prediction_stage2.csv` |
-| month-4 review queue, 20 percent of each month's queue (assumed) | reviewed relationships that remained down: forecast 82 percent, latest share 70, random order (historical rate) 62; forecast minus latest share +12.0 points [3.9, 15.7]; 10 and 30 percent, case weights and leaving out the largest group agree; 936 relationships, 198 cases, 66 groups, 44 decision months | `review_queue_eval.csv`, `review_queue_watchlist.csv` |
-| decision value, simultaneous over 17 thresholds and all baselines | ITC vote: ahead of always/never qualifying and both historical rates at 0.45, 0.50 and 0.60 to 0.80, additional decision value over the latest-share model not established under the simultaneous test; at the fall and on day one none | `decision_value_joint.csv`, `decision_value.csv` |
-| Section 301 Lists 1 to 3 | 35 / 24 / 36 / 6 percent (16 months; fake date 42 / 31 / 24 / 3); antidumping-trained logistic AUC 0.67 on Section 301 (Section 301's own model 0.73), +0.017 [0.011, 0.023] over Section 301's own rate | `s301_benchmark.csv`, `sec301_transfer_test.csv` |
-| pooling Section 301 into training for later antidumping cases | logistic +0.005 [0.001, 0.010] | `sec301_pooling_gain.csv` |
-| outside check, 2020 mattresses | panel matches published figures within 3 million dollars; Vietnam, Thailand, Cambodia stayed down or stopped, Indonesia did not | `recovery_pairs_real_fall20.csv`, `evidence/USE_EVIDENCE.md` |
+| targeted country against rivals, cases that became orders | -0.37 log points (SE 0.065), 326 cases, 125 groups | `results/itc_compare.csv` |
+| same, pooled over 381 cases | -0.19 (SE 0.11); fake date +0.06 | `results/adcvd_stacked.csv` |
+| outcomes within 18 months, 380 cases (the historical benchmark) | 26 / 17 / 42 / 16 percent: did not fall / fell, came back / fell, still down / fell, never came back and no imports in months 13 to 18 (fake date 50 / 29 / 17 / 3) | `results/recovery_benchmark_fall20.csv` |
+| day-one forecast | Brier 0.242 vs 0.248 for the historical rate, gain 0.007 [-0.001, 0.013] (interval includes zero; it cleared zero only just before the November 2026 critical-circumstances fix), AUC 0.633; 381 eligible cases, 241 scored | `results/prediction_test.csv` |
+| monthly forecast, month 4 | boosting AUC 0.795 (logistic 0.753), gain over that month's historical rate 0.039 [0.026, 0.052]; the latest-share model alone gets about 70 percent of that gain (Brier 0.165 vs 0.192, boosting 0.154); 315 eligible cases, 198 scored | `results/prediction_landmark.csv`, `results/prediction_landmark_counts.csv` |
+| monthly forecast against the latest-share model | boosting ahead by 0.003 to 0.013 in every month 3 to 12 (pointwise intervals above zero in months 4 to 6 and 11); no month clears a joint test over all months (`simlo_os_boosting`) | `results/prediction_landmark.csv` |
+| ITC-vote forecast | logistic AUC 0.796, Brier 0.134 vs 0.174, 0.012 [0.003, 0.021] beyond the latest-share model (Brier 0.146); 329 eligible cases, 207 scored | `results/prediction_stage2.csv` |
+| month-4 review queue, 20 percent of each month's queue (assumed) | reviewed relationships that remained down: forecast 82 percent, latest share 70, random order (historical rate) 62; forecast minus latest share +12.0 points [3.9, 15.7]; 10 and 30 percent, case weights and leaving out the largest group agree; 936 relationships, 198 cases, 66 groups, 44 decision months | `results/review_queue_eval.csv`, `results/review_queue_watchlist.csv` |
+| decision value, simultaneous over 17 thresholds and all baselines | ITC vote: ahead of always/never qualifying and both historical rates at 0.45, 0.50 and 0.60 to 0.80, additional decision value over the latest-share model not established under the simultaneous test; at the fall and on day one none | `results/decision_value_joint.csv`, `results/decision_value.csv` |
+| Section 301 Lists 1 to 3 | 35 / 24 / 36 / 6 percent (16 months; fake date 42 / 31 / 24 / 3); antidumping-trained logistic AUC 0.67 on Section 301 (Section 301's own model 0.73), +0.017 [0.011, 0.023] over Section 301's own rate | `results/s301_benchmark.csv`, `results/sec301_transfer_test.csv` |
+| pooling Section 301 into training for later antidumping cases | logistic +0.005 [0.001, 0.010] | `results/sec301_pooling_gain.csv` |
+| outside check, 2020 mattresses | panel matches published figures within 3 million dollars; Vietnam, Thailand, Cambodia stayed down or stopped, Indonesia did not | `results/recovery_pairs_real_fall20.csv`, `evidence/USE_EVIDENCE.md` |
 
 Sample sizes to quote with any forecast: the monthly model has 16,781 product-month rows, but they
 come from 1,712 products in 349 cases and 136 investigation groups, and the groups are the
@@ -46,7 +46,7 @@ does detect the leak it guards against.
 
 ## Walkthrough A: one historical case
 
-Mattresses from Vietnam, the 2020 antidumping case (episode 258 in `adcvd_episodes_collapsed.csv`).
+Mattresses from Vietnam, the 2020 antidumping case (episode 258 in `results/adcvd_episodes_collapsed.csv`).
 
 1. **Source notice.** Commerce's preliminary determination, Federal Register document 2020-24300,
    published November 3, 2020 (case A-552-827), preliminary rate 989.9 percent
@@ -60,7 +60,7 @@ Mattresses from Vietnam, the 2020 antidumping case (episode 258 in `adcvd_episod
    countries, 3-month average, against its k -18 to -13 level. The three mattress lines fell below
    four-fifths of that level by month 1 (9404.21.00) or month 0 (9404.29.10, 9404.29.90) and never
    returned to it by month 18, while still trading: "fell, still down". The two seating lines never
-   fell (`recovery_pairs_real_fall20.csv`).
+   fell (`results/recovery_pairs_real_fall20.csv`).
 5. **Final stage.** The ITC confirmed injury and the order was published May 14, 2021, month 6
    (`recovery_lib.final_stage`).
 
@@ -72,10 +72,10 @@ The same case, product 9404.29.10 (mattresses, other), at the ITC vote (`forecas
    2021) are published by then (`census_release_calendar.csv`); nothing later is used.
 2. **Training data.** Only cases whose month-18 data were published before January 2020 (the test
    year is 2020, by the year of k = 0): 67 cases.
-3. **Information at the decision** (`prediction_stage2_features.csv`): fall visible from month 0;
+3. **Information at the decision** (`results/prediction_stage2_features.csv`): fall visible from month 0;
    latest smoothed share 0.000 of the pre-case level; duty confirmed (not lifted); preliminary rate
    989.9 percent; Vietnam's pre-case share 0.456.
-4. **Prediction** (`prediction_stage2_heldout.csv`): logistic model P(back by month 18) = 0.015, so
+4. **Prediction** (`results/prediction_stage2_heldout.csv`): logistic model P(back by month 18) = 0.015, so
    P(not back) = 0.985. Baselines: historical rate 0.210 back, rate for confirmed duties 0.172 back
    (P(not back) 0.828), latest-share model 0.094 back.
 5. **Assumed action threshold.** At t = 0.75 (qualifying assumed to cost three-quarters of the
@@ -86,7 +86,7 @@ The same case, product 9404.29.10 (mattresses, other), at the ITC vote (`forecas
 6. **Observed outcome.** The product did not come back by month 18 (y = 0), so acting was the
    right call at both thresholds. The monthly model scored the same product at month 4 at
    P(back) 0.048 (boosting) against 0.211 for that month's historical rate
-   (`prediction_landmark_heldout.csv`).
+   (`results/prediction_landmark_heldout.csv`).
 
 ## Limitations
 

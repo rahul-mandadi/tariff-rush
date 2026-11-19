@@ -1,9 +1,9 @@
 """The day-one forecast: can facts known when the duty starts beat the historical rate?
 
-Reads:  recovery_pairs_decision_fall20.csv, panel/hs8/, adcvd_episodes_collapsed.csv,
+Reads:  recovery_pairs_decision_fall20.csv, panel/hs8/, results/adcvd_episodes_collapsed.csv,
         events/adcvd_events.csv, events/adcvd_margins.csv
-Writes: prediction_test.csv, prediction_test_heldout.csv, prediction_test_bootstrap.csv,
-        prediction_test_calibration.csv, prediction_test_coef.csv
+Writes: results/prediction_test.csv, results/prediction_test_heldout.csv, results/prediction_test_bootstrap.csv,
+        results/prediction_test_calibration.csv, results/prediction_test_coef.csv
 Run:    python3 forecast/prediction_test.py      (after measure/build_decision_stacks.py)
 """
 import glob
@@ -19,7 +19,7 @@ from sklearn.preprocessing import StandardScaler
 
 K_HI = 18
 LAG = 2  # months between the end of a data month and its release, rounded up
-ep = pd.read_csv("adcvd_episodes_collapsed.csv", dtype={"cty": str})
+ep = pd.read_csv("results/adcvd_episodes_collapsed.csv", dtype={"cty": str})
 sys.path.insert(0, ".")  # the shared modules are at the repo root
 import recovery_lib as RL  # noqa: E402
 # outcomes on the decision-time panels (build_decision_stacks.py): rivals left out only for cases
@@ -153,12 +153,12 @@ print("\nheld-out calibration by predicted tercile:")
 print(cal.round(3).to_string())
 passed = pool["brier_model"] < pool["brier_benchmark"]
 print(f"\nmodel beats the benchmark on pooled held-out Brier: {passed}")
-R.to_csv("prediction_test.csv", index=False)
-coef.to_csv("prediction_test_coef.csv")
-cal.to_csv("prediction_test_calibration.csv")
-P.to_csv("prediction_test_heldout.csv", index=False)
-print("wrote prediction_test.csv, prediction_test_coef.csv, prediction_test_calibration.csv, "
-      "prediction_test_heldout.csv")
+R.to_csv("results/prediction_test.csv", index=False)
+coef.to_csv("results/prediction_test_coef.csv")
+cal.to_csv("results/prediction_test_calibration.csv")
+P.to_csv("results/prediction_test_heldout.csv", index=False)
+print("wrote results/prediction_test.csv, results/prediction_test_coef.csv, results/prediction_test_calibration.csv, "
+      "results/prediction_test_heldout.csv")
 
 # uncertainty on the pooled improvement: bootstrap investigation groups of the held-out rows
 rng = np.random.default_rng(0)
@@ -177,4 +177,4 @@ alo, ahi = np.quantile(aucs, [0.05, 0.95])
 print(f"\nBrier improvement over the benchmark (benchmark minus model): {np.mean(diffs):+.4f}, "
       f"90% interval [{lo:+.4f}, {hi:+.4f}], share of draws > 0: {np.mean(np.array(diffs) > 0):.2f}")
 print(f"held-out AUC 90% interval [{alo:.3f}, {ahi:.3f}]  ({len(cl)} investigation groups)")
-pd.DataFrame({"brier_improvement": diffs}).to_csv("prediction_test_bootstrap.csv", index=False)
+pd.DataFrame({"brier_improvement": diffs}).to_csv("results/prediction_test_bootstrap.csv", index=False)

@@ -2,10 +2,10 @@
 
 Five tests, A to E, in both directions, plus pooling the two kinds of case.
 
-Reads:  panel/s301_stacks.parquet, panel/adcvd_stacks_decision.parquet, s301_adcvd_pairs_h16_decision.csv,
-        adcvd_episodes_collapsed.csv, events/ (notices and rates), census_release_calendar.csv
-Writes: sec301_transfer_test.csv, sec301_transfer_heldout_*.csv, sec301_transfer_coef.csv,
-        sec301_pooling_gain.csv, s301_pairs_real_strict.csv
+Reads:  panel/s301_stacks.parquet, panel/adcvd_stacks_decision.parquet, results/s301_adcvd_pairs_h16_decision.csv,
+        results/adcvd_episodes_collapsed.csv, events/ (notices and rates), census_release_calendar.csv
+Writes: results/sec301_transfer_test.csv, sec301_transfer_heldout_*.csv, results/sec301_transfer_coef.csv,
+        results/sec301_pooling_gain.csv, results/s301_pairs_real_strict.csv
 Run:    python3 section301/sec301_transfer_test.py
         (after section301/sec301_benchmark.py and measure/build_decision_stacks.py)
 """
@@ -27,7 +27,7 @@ H, LAG, CHINA = 16, 2, "5700"
 REL = pd.read_csv("census_release_calendar.csv", parse_dates=["release"])
 RELM = REL.set_index("m").release.to_dict()
 rng = np.random.default_rng(0)
-ep = pd.read_csv("adcvd_episodes_collapsed.csv", dtype={"cty": str})
+ep = pd.read_csv("results/adcvd_episodes_collapsed.csv", dtype={"cty": str})
 ev = pd.read_csv("events/adcvd_events.csv", dtype={"cty": str}).drop_duplicates("document_number")
 pubd = pd.to_datetime(ev.set_index("document_number").publication_date)
 mg = pd.read_csv("events/adcvd_margins.csv").set_index("document_number").rate
@@ -75,7 +75,7 @@ def build(pairs, stacks, b_of, tc_of, rate_of, group_of):
 
 
 # ---------------------------------------------------------------- AD/CVD side
-ad_pairs = pd.read_csv("s301_adcvd_pairs_h16_decision.csv", dtype={"hs8": str})
+ad_pairs = pd.read_csv("results/s301_adcvd_pairs_h16_decision.csv", dtype={"hs8": str})
 ad_pairs["hs8"] = ad_pairs.hs8.str.zfill(8)
 ad_st = pd.read_parquet("panel/adcvd_stacks_decision.parquet")
 
@@ -93,7 +93,7 @@ print(f"AD/CVD fallen products {len(AD):,}, cases {AD.sid.nunique()}, groups {AD
       f"came back {np.average(AD.y, weights=AD.w):.3f}")
 
 # ---------------------------------------------------------------- Section 301 side
-info = pd.read_csv("s301_stacks_info.csv")
+info = pd.read_csv("results/s301_stacks_info.csv")
 b301 = info.set_index("sid").b.to_dict()
 list_of = info.set_index("sid").list.to_dict()
 RAISE = 2019 * 12 + 5  # June 2019: first decision month after the May 10 increase to 25 percent
@@ -105,7 +105,7 @@ def s301_rate(sid, dm):
 
 # every test uses the strict Section 301 population: rival exclusions only from cases already
 # started by the tariff date, so no test selects products or rivals on later cases
-s3_pairs = pd.read_csv("s301_pairs_real_strict.csv", dtype={"hs8": str})
+s3_pairs = pd.read_csv("results/s301_pairs_real_strict.csv", dtype={"hs8": str})
 s3_st = pd.read_parquet("panel/s301_stacks.parquet")
 s3_st = s3_st[s3_st["sample"] == "real, strict"]
 S3 = build(s3_pairs, s3_st, {k: v for k, v in b301.items() if k > 200}, {k: CHINA for k in b301},
@@ -159,7 +159,7 @@ def transfer(label, tr, te):
         preds[name] = make(par, tr)(te)
     s = score(te, preds, np.average(tr.y, weights=tr.w), np.average(te.y, weights=te.w))
     te.assign(**{f"pred_{k}": v for k, v in preds.items()}).to_csv(
-        f"sec301_transfer_heldout_{label[0]}.csv", index=False)
+        f"results/sec301_transfer_heldout_{label[0]}.csv", index=False)
     s.insert(0, "test", label)
     s.insert(1, "train_n", len(tr))
     s.insert(2, "test_n", len(te))
@@ -199,7 +199,7 @@ print("\n[ref: Section 301 in-domain, 5 folds by chapter]")
 print(s.drop(columns=["test", "train_n", "test_n"]).round(3).to_string(index=False))
 R.append(s)
 # paired check for pooling: same test rows, D's and E's predictions, resampling investigation groups
-dD = pd.read_csv("sec301_transfer_heldout_D.csv"); dE = pd.read_csv("sec301_transfer_heldout_E.csv")
+dD = pd.read_csv("results/sec301_transfer_heldout_D.csv"); dE = pd.read_csv("results/sec301_transfer_heldout_E.csv")
 assert (dD.sid.values == dE.sid.values).all() and (dD.hs8.astype(str).values == dE.hs8.astype(str).values).all()
 gk = dD.group.values
 cl_ = np.unique(gk)
@@ -215,8 +215,8 @@ for m in MODELS:
     lo, hi = np.quantile(dr, [0.05, 0.95])
     pool.append(dict(model=m, pooling_gain=g0, lo=lo, hi=hi))
     print(f"pooling gain (E better than D, Brier) {m}: {g0:+.4f} [{lo:+.4f}, {hi:+.4f}]")
-pd.DataFrame(pool).to_csv("sec301_pooling_gain.csv", index=False)
-pd.concat(R).to_csv("sec301_transfer_test.csv", index=False)
+pd.DataFrame(pool).to_csv("results/sec301_pooling_gain.csv", index=False)
+pd.concat(R).to_csv("results/sec301_transfer_test.csv", index=False)
 # coefficients in each domain, for the comparison of what predicts recovery
 co = {}
 for lab, d in [("AD/CVD", AD), ("Section 301", S3)]:
@@ -227,5 +227,5 @@ for lab, d in [("AD/CVD", AD), ("Section 301", S3)]:
 co = pd.DataFrame(co, index=FEAT)
 print("\nstandardized logistic coefficients by domain (positive = more likely back):")
 print(co.round(3).to_string())
-co.to_csv("sec301_transfer_coef.csv")
-print("wrote sec301_transfer_test.csv, sec301_transfer_coef.csv")
+co.to_csv("results/sec301_transfer_coef.csv")
+print("wrote results/sec301_transfer_test.csv, results/sec301_transfer_coef.csv")

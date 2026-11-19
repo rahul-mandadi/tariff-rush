@@ -4,7 +4,7 @@ Records the notice's investigation numbers, its date and the sentence with the v
 cases where that sentence is about retroactive duties or the case numbers do not match.
 
 Reads:  events/raw/itc_cache/, events/itc_check.csv, events/itc_check_by_country.csv,
-        adcvd_episodes_collapsed.csv, events/adcvd_events.csv, panel/adcvd_stacks_real.parquet
+        results/adcvd_episodes_collapsed.csv, events/adcvd_events.csv, panel/adcvd_stacks_real.parquet
 Writes: events/itc_negative_audit.csv
 Run:    python3 events/itc_audit.py      (after events/itc_check.py)
 """
@@ -34,7 +34,7 @@ def text(dn):
 pc = pd.read_csv("events/itc_check_by_country.csv", dtype={"cty": str})
 grp = pd.read_csv("events/itc_check.csv", dtype={"countries": str})
 ev = {(r.family, r.ini): str(r.evidence) for r in grp.itertuples()}
-ep = pd.read_csv("adcvd_episodes_collapsed.csv", dtype={"cty": str})
+ep = pd.read_csv("results/adcvd_episodes_collapsed.csv", dtype={"cty": str})
 ep["sid"] = ep.index
 # the verdict applies only to episodes with no linked order notice, as in itc_compare.py; a
 # second episode with the same country and initiation month can be a different case that did

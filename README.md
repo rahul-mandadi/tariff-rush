@@ -6,8 +6,8 @@ Rahul Reddy Mandadi, Raunaksingh Khalsa
 DS 5500 Data Science Capstone, Northeastern University, Fall 2026
 
 The write-up is [FINAL_REPORT.md](FINAL_REPORT.md) (built to `Mandadi_Khalsa_Final_Report.pdf` by
-`build_final_report.py`). The decks are `slides/Mandadi_Khalsa_Presentation2_v2.pptx` and
-`slides/Mandadi_Khalsa_Final_Presentation.pptx`.
+`build_final_report.py`). The decks are `slides/Mandadi_Khalsa_Presentation2_v3.pptx` (Presentation 2, with its spoken
+script in `slides/P2_SCRIPT.md`) and `slides/Mandadi_Khalsa_Final_Presentation.pptx`.
 
 ## Repository map
 
@@ -19,25 +19,24 @@ The write-up is [FINAL_REPORT.md](FINAL_REPORT.md) (built to `Mandadi_Khalsa_Fin
 | `measure/` | the main measurement: the comparison against rival countries, the four outcomes, the panels the forecasts use |
 | `forecast/` | the forecasts, the month-4 review queue and the methodology study |
 | `section301/` | the same outcome rules and forecast applied to China's 2018 Section 301 tariffs |
-| `report1/` | scripts from the Report 1 stage, kept because Report 1 and the early decks cite them |
-| repository root, other `*.py` | `modeling.py` and `recovery_lib.py` (code the scripts share), the frozen forecast and its check, `build_final_report.py` |
-| repository root, `*.csv` | the results; every script runs from the root and writes its CSVs there (`adcvd_stacked*`, `recovery_*`, `prediction_*`, `decision_value*`, `review_queue_*`, `sec301_*`, ...) |
+| `report1/` | Report 1 as submitted (`report1/REPORT1.md`, unchanged), its EDA notebook (`report1/explore_data.ipynb`) and the scripts from that stage, kept because Report 1 and the early decks cite them |
+| repository root | `modeling.py` and `recovery_lib.py` (code the scripts share), `build_final_report.py`, and the frozen forecast: `frozen_forecast.py`, its check, `frozen_forecast.csv`, its fingerprint and the check's result, plus the two inputs the check reads (`census_release_calendar.csv`, `recovery_pairs_decision_fall20.csv`), which stay at the root until the forecast is scored |
+| `results/` | the result CSVs; every script runs from the repository root and writes its CSVs here (`adcvd_stacked*`, `recovery_*`, `prediction_*`, `decision_value*`, `review_queue_*`, `sec301_*`, ...) |
 | `events/` | duty notices: Federal Register harvest and parsing, ITC outcomes, the Census release calendar, the critical-circumstances side notices |
 | `coverage/` | which products and countries each tariff list names (the coverage result) |
-| `eda/`, `explore_data.ipynb` | category-level exploration and the small tables the notebook runs on |
+| `eda/` | category-level exploration: the small tables the Report 1 notebook runs on |
 | `evidence/` | public records that importers make this decision (ITC purchaser surveys, filings, trade press) |
 | `slides/` | figure scripts (`fig/`), deck builders and decks |
 | `tests/` | `python3 -m pytest tests -q`: timing rules, report tables against the CSVs, the November 2026 fixes |
 | `archive/` | approaches tried and dropped, with why (`archive/README.md`); nothing in the final pipeline reads it |
 | `docs/SCOPE.md`, `docs/METHODS.md` | the agreed scope; the design notes behind each script, moved out of the script headers |
 | `docs/history/` | design notes, the phase-two results and the review log from earlier stages |
-| `REPORT1.md` | Report 1 as submitted (unchanged) |
 
 ## The question
 
 When the United States puts an antidumping or countervailing duty on one product from one country,
-a sourcing team has more tariff-hit product-country relationships than it can review at once. Which
-should it look at first? Is the fall in trade borrowed, coming back once the shock passes, or real,
+an analyst at a U.S. importer who monitors several product markets has more declines than they can
+investigate at once. Which should they look at first? Is the fall in trade borrowed, coming back once the shock passes, or real,
 and how early can anyone tell which? We predict the supplier country's recovery in a product, not
 one supplier's failure; the output is meant to be read alongside the company's own supplier
 information, and its benefit to an importer is a proposed use not yet validated with users.
@@ -93,8 +92,10 @@ once published), and comparison countries not yet named in another case.
 
 ## Reproducing
 
-Large raw caches are not tracked (`.gitignore`); the acquisition scripts rebuild them. Every script
-runs from the repository root, for example `python3 forecast/prediction_landmark.py`.
+Large raw caches are not tracked (`.gitignore`); the acquisition scripts rebuild them. Fetching needs a
+free Census API key in the `CK` environment variable, for example `CK=<key> python3 data/harvest_hs10.py`.
+Every script runs from the repository root, for example `python3 forecast/prediction_landmark.py`,
+and writes its result CSVs to `results/`.
 
 `python3 run_all.py` reruns the analysis from `measure/adcvd_stacked.py` to the figures, in order,
 and stops at the first failure (about an hour; `--list` shows the steps, `--from <step>` resumes).
@@ -109,16 +110,16 @@ It does not fetch data and does not touch the frozen forecast. The full order, f
 | outcome rates | `measure/recovery_benchmark.py --fall 0.2` (also 0.1, 0.3), `measure/recovery_by_final_stage.py` | the four outcome shares, Kaplan-Meier recovery |
 | forecasts | `events/build_release_calendar.py`, `measure/build_decision_stacks.py`, `forecast/prediction_test.py`, `forecast/prediction_stage2.py`, `forecast/prediction_landmark.py`, `forecast/calibrated_lookup.py`, `forecast/decision_value.py`, `forecast/review_queue.py` | decision-time panels; day-one, at-the-fall, ITC-vote and monthly forecasts; the lookup; decision value; the month-4 review queue |
 | methodology study (`docs/SCOPE.md` section 5) | `forecast/feature_ladder.py`, `forecast/review_queue_curves.py`, `forecast/model_explain.py`, `forecast/model_calibration.py`, `forecast/model_recalibration.py`, `forecast/model_family_check.py` | where the forecast's information comes from; the capacity curve and months 6 and 8; what drives it; calibration and errors; recalibration on earlier years (exploratory); elastic net and random forest as a check |
-| frozen forecast | `frozen_forecast.py` (made 2026-11-15, do not rerun), `frozen_forecast_check.py` (run as outcomes arrive) | a ranking of 197 relationships whose outcome was unknown when committed, and its scoring: the one test not run on years already looked at |
+| frozen forecast | `frozen_forecast.py` (made 2026-11-15, do not rerun), `frozen_forecast_check.py` (run as outcomes arrive) | a ranking of 197 relationships in 12 monthly lists whose outcomes were unknown when committed; the 184 in the 11 lists whose outcome months were still unpublished are scored: the one test not run on years already looked at |
 | Section 301 | `events/build_301_lists.py`, `section301/sec301_benchmark.py`, `section301/sec301_transfer_test.py` | product lists, outcomes, transfer tests |
 | coverage | `measure/coverage_share.py`, `data/copper_split.py` | how much of a category a list names; copper |
-| outputs | `slides/fig_stacked.py`, `slides/fig_sankey.py`, `slides/fig_funnel.py` (notices to cases), `slides/fig_taiwan_example.py` (the report's opening example), `build_final_report.py`, `slides/build_deck2b.py`, `slides/build_deck_final.py` | figures, report PDF, decks |
+| outputs | `slides/fig_stacked.py`, `slides/fig_sankey.py`, `slides/fig_funnel.py` (notices to cases), `slides/fig_taiwan_example.py` (the report's opening example), `slides/fig_talk.py` (Presentation 2 v3 figures), `build_final_report.py`, `slides/build_deck2c.py` with `slides/write_script2.py` (Presentation 2 v3 and its spoken script), `slides/build_deck_final.py` | figures, report PDF, decks |
 | category level (appendix) | `data/eda_summary.py`, `data/chapter_quantity.py` (chapter tables in `eda/`, from the HS8 panel), `slides/fig_units.py`, `data/pharma_mix.py`, `data/deflation_check.py` | the dollars-against-quantity comparison; the import-price check (BLS series kept in `eda/bls_import_prices.csv`) |
 | broad tariff actions (Report 1, not reported in the final) | `data/harvest.py`, `data/assemble.py` (HS2 panel), `events/harvest_fr.py`, `events/fetch_text.py`, `events/build_event_table.py`, `events/fix_effective_dates.py`, `coverage/*.py`, `report1/build_treatment.py`, `report1/within_product_test.py`, `report1/event_study.py` | the tariff-action table and the rush analysis whose source documents the final audit found wrong |
-| earlier decks and Report 1 | `report1/adcvd_event_study.py`, `slides/fig_event.py`, `slides/gen_figures.py`, `slides/fig_copper_split.py`, `slides/build_deck.py`, `slides/build_deck2.py`, `report1/build_report.py` | Presentation 1, Presentation 2 as submitted, Report 1's PDF |
-| notebook and speaking notes | `report1/build_nb.py` (writes `explore_data.ipynb`), `slides/speech.py`, `slides/write_script.py`, `slides/write_raunak.py`, `slides/dump_text.py`, `slides/render_preview.py` | the EDA notebook; the talk script; proofreading and previews |
+| earlier decks and Report 1 | `report1/adcvd_event_study.py`, `slides/fig_event.py`, `slides/gen_figures.py`, `slides/fig_copper_split.py`, `slides/build_deck.py`, `slides/build_deck2.py`, `slides/build_deck2b.py`, `report1/build_report.py` | Presentation 1, Presentation 2 as first submitted and its v2 resubmission, Report 1's PDF |
+| notebook and speaking notes | `report1/build_nb.py` (writes `report1/explore_data.ipynb`), `slides/speech.py`, `slides/write_script.py`, `slides/write_raunak.py`, `slides/dump_text.py`, `slides/render_preview.py` | the EDA notebook; the talk script; proofreading and previews |
 
-Each script writes the CSV its numbers come from. `python3 -m pytest tests -q` checks the timing
+Each script writes the CSV its numbers come from, in `results/`. `python3 -m pytest tests -q` checks the timing
 rules (exact-date rival exclusions, day-one product lists, monthly eligibility, training cutoffs,
 the net-benefit formula). `HANDOFF.md` traces one case and one held-out prediction end to end. `modeling.py` holds what the forecasting scripts share (the two models and their settings, tuning, the review rule, recalibration). `recovery_lib.py` holds the outcome rules shared
 by the Section 301 and forecasting scripts; `section301/sec301_benchmark.py` checks that it reproduces

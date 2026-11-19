@@ -1,6 +1,6 @@
 """Figure: one relationship, Taiwan epoxy resins (3907.30.00), as an analyst could see it in January 2025.
 
-Reads:  panel/adcvd_stacks_decision.parquet, recovery_pairs_decision_fall20.csv, review_queue_watchlist.csv
+Reads:  panel/adcvd_stacks_decision.parquet, recovery_pairs_decision_fall20.csv, results/review_queue_watchlist.csv
 Writes: slides/fig/26_taiwan_example.png
 Run:    python3 slides/fig_taiwan_example.py      (after forecast/review_queue.py)
 """
@@ -31,7 +31,7 @@ pre = pr.bench
 rel = 100 * avg3 / pre
 
 # the January 2025 list and the two orderings
-w = pd.read_csv("review_queue_watchlist.csv", dtype={"hs8": str})
+w = pd.read_csv("results/review_queue_watchlist.csv", dtype={"hs8": str})
 w["hs8"] = w.hs8.str.zfill(8)
 q = w[w.decision_month == MONTH].reset_index(drop=True)
 i = q.index[(q.sid == SID) & (q.hs8 == HS8)][0]

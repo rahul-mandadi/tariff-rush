@@ -1,6 +1,6 @@
 """Figure 10: imports from the targeted country around an antidumping duty (Report 1 version).
 
-Reads:  adcvd_event_study.csv, adcvd_event_study_placebo.csv
+Reads:  results/adcvd_event_study.csv, results/adcvd_event_study_placebo.csv
 Writes: slides/fig/10_event.png, or slides/fig/10_event_plain.png with --plain (deck wording)
 Run:    python3 slides/fig_event.py [--plain]
 """
@@ -20,8 +20,8 @@ plt.rcParams.update({
 })
 INK, GREY, RED, PALE = "#14161A", "#6E737C", "#C8102E", "#D4D8DC"
 
-d = pd.read_csv("adcvd_event_study.csv")
-q = pd.read_csv("adcvd_event_study_placebo.csv")
+d = pd.read_csv("results/adcvd_event_study.csv")
+q = pd.read_csv("results/adcvd_event_study_placebo.csv")
 
 import sys
 PLAIN = "--plain" in sys.argv     # the deck's wording; the report keeps "placebo"

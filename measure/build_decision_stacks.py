@@ -5,7 +5,7 @@ products count only if named by then.
 
 Reads:  everything measure/adcvd_stacked.py reads (it imports that script)
 Writes: panel/adcvd_stacks_decision.parquet, recovery_pairs_decision_fall20.csv,
-        s301_adcvd_pairs_h16_decision.csv
+        results/s301_adcvd_pairs_h16_decision.csv
 Run:    python3 measure/build_decision_stacks.py      (after measure/adcvd_stacked.py)
 """
 import sys
@@ -37,7 +37,7 @@ now = d[["sid", "hs8", "cty"]].drop_duplicates()
 print(f"decision-time panels: {now.sid.nunique()} episodes, {len(now):,} product-country cells "
       f"(hindsight panels: {ref.sid.nunique()}, {len(ref):,})")
 b_of, last = S.ep.b.to_dict(), int(d.m.max())
-for H, out in [(18, "recovery_pairs_decision_fall20.csv"), (16, "s301_adcvd_pairs_h16_decision.csv")]:
+for H, out in [(18, "recovery_pairs_decision_fall20.csv"), (16, "results/s301_adcvd_pairs_h16_decision.csv")]:
     p = RL.categorize(d, H, b_of, last)
     p["cluster"] = p.sid.map(S.ep.cluster)
     p["year"] = p.sid.map(S.ep.b) // 12
@@ -47,4 +47,4 @@ for H, out in [(18, "recovery_pairs_decision_fall20.csv"), (16, "s301_adcvd_pair
     print(f"H = {H}: complete pairs {len(c):,}, episodes {c.sid.nunique()}; shares "
           + ", ".join(f"{k} {v:.3f}" for k, v in (w.groupby(c.category).sum() / w.sum()).items()))
 print("wrote panel/adcvd_stacks_decision.parquet, recovery_pairs_decision_fall20.csv, "
-      "s301_adcvd_pairs_h16_decision.csv")
+      "results/s301_adcvd_pairs_h16_decision.csv")

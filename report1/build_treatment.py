@@ -1,7 +1,7 @@
 """Match each broad tariff action to the products and countries it covers (Report 1).
 
 Reads:  events/tariff_events.csv, events/tariff_events_dates.csv, coverage/product_lines.csv
-Writes: events_resolved.csv, event_products.csv
+Writes: results/events_resolved.csv, results/event_products.csv
 Run:    python3 report1/build_treatment.py
 """
 import re
@@ -110,8 +110,8 @@ def main():
 
     r = pd.DataFrame(res)
     p = pd.DataFrame(prods)
-    r.to_csv("events_resolved.csv", index=False)
-    p.to_csv("event_products.csv", index=False)
+    r.to_csv("results/events_resolved.csv", index=False)
+    p.to_csv("results/event_products.csv", index=False)
 
     print(f"events in table            {len(ev)}")
     print(f"events resolved to cells   {r.document_number.nunique()}")

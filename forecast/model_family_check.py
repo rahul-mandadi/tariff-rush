@@ -4,10 +4,10 @@ The rule was fixed before this ran (docs/SCOPE.md, change log, 2026-11-18): boos
 reported ranking whatever the result; these models are a check only. Each family gets the same
 inputs, training years and grouped tuning as the current models, and is scored on the same
 held-out month-4 lists. The script first refits logistic and boosting and stops unless they
-reproduce prediction_landmark_heldout.csv, so all four models see exactly the same data.
+reproduce results/prediction_landmark_heldout.csv, so all four models see exactly the same data.
 
-Reads:  panel/landmark_features.parquet, prediction_landmark_heldout.csv
-Writes: model_family_check.csv, model_family_check_heldout.csv, model_family_check_settings.csv
+Reads:  panel/landmark_features.parquet, results/prediction_landmark_heldout.csv
+Writes: results/model_family_check.csv, results/model_family_check_heldout.csv, results/model_family_check_settings.csv
 Run:    python3 forecast/model_family_check.py      (after forecast/prediction_landmark.py)
 """
 import ast
@@ -90,14 +90,14 @@ for Y in sorted(D.year.unique()):
     print(f"  test {Y}: {te.sid.nunique()} cases, {len(te):,} rows; chosen "
           + ", ".join(f"{c['model']} {c['setting']}" for c in chosen if c["year"] == Y), flush=True)
 P = pd.concat(preds, ignore_index=True)
-P.to_csv("model_family_check_heldout.csv", index=False)
+P.to_csv("results/model_family_check_heldout.csv", index=False)
 
-ref = pd.read_csv("prediction_landmark_heldout.csv", dtype={"hs8": str})
+ref = pd.read_csv("results/prediction_landmark_heldout.csv", dtype={"hs8": str})
 assert len(ref) == len(P)
 for name in ["logistic", "boosting"]:
     diff = np.abs(ref[name].to_numpy() - P[name].to_numpy()).max()
-    assert diff < 1e-9, f"{name} differs from prediction_landmark_heldout.csv by {diff}"
-print("check passed: logistic and boosting reproduce prediction_landmark_heldout.csv")
+    assert diff < 1e-9, f"{name} differs from results/prediction_landmark_heldout.csv by {diff}"
+print("check passed: logistic and boosting reproduce results/prediction_landmark_heldout.csv")
 
 # ---------------------------------------------------------------- month-4 scoring, as review_queue.py
 G = P[P.L == L_EVAL].reset_index(drop=True)
@@ -155,11 +155,11 @@ for name in ["boosting", "logistic", "elastic net", "random forest", "latest sha
             row["auc_lo"], row["auc_hi"] = r90(ba)
         rows.append(row)
 T = pd.DataFrame(rows)
-T.to_csv("model_family_check.csv", index=False)
+T.to_csv("results/model_family_check.csv", index=False)
 pd.set_option("display.width", 250)
 print(f"\nmonth 4, held out: {len(G)} relationships, {G.sid.nunique()} cases, {G.cluster.nunique()} groups")
 print(T.round(3).to_string(index=False))
 print("\nchosen settings by test year:")
-pd.DataFrame(chosen).to_csv("model_family_check_settings.csv", index=False)
+pd.DataFrame(chosen).to_csv("results/model_family_check_settings.csv", index=False)
 print(pd.DataFrame(chosen).pivot(index="year", columns="model", values="setting").to_string())
-print("wrote model_family_check.csv, model_family_check_heldout.csv, model_family_check_settings.csv")
+print("wrote results/model_family_check.csv, results/model_family_check_heldout.csv, results/model_family_check_settings.csv")

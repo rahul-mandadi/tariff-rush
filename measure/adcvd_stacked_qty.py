@@ -1,7 +1,7 @@
 """The main measurement again, on physical quantity instead of dollars.
 
 Reads:  panel/adcvd_stacks_real.parquet, panel/adcvd_stacks_placebo.parquet, panel/hs8/
-Writes: adcvd_stacked_qty.csv, adcvd_stacked_qty_paths.csv
+Writes: results/adcvd_stacked_qty.csv, results/adcvd_stacked_qty_paths.csv
 Run:    python3 measure/adcvd_stacked_qty.py      (after measure/adcvd_stacked.py)
 """
 import glob
@@ -59,6 +59,6 @@ if __name__ == "__main__":
     for t in (out, paths):
         q_rows = t["sample"].str.contains(r"\[qty\]")
         t.loc[q_rows, "outcome"] = t.loc[q_rows, "outcome"].str.replace("value", "quantity")
-    out.to_csv("adcvd_stacked_qty.csv", index=False)
-    paths.to_csv("adcvd_stacked_qty_paths.csv", index=False)
-    print("wrote adcvd_stacked_qty.csv, adcvd_stacked_qty_paths.csv")
+    out.to_csv("results/adcvd_stacked_qty.csv", index=False)
+    paths.to_csv("results/adcvd_stacked_qty_paths.csv", index=False)
+    print("wrote results/adcvd_stacked_qty.csv, results/adcvd_stacked_qty_paths.csv")

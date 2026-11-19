@@ -30,9 +30,9 @@ def test_capacity_is_exact_and_ties_share_it():
 
 
 def test_queues_rank_only_relationships_at_the_same_checkpoint():
-    P = pd.read_csv("prediction_landmark_heldout.csv")
+    P = pd.read_csv("results/prediction_landmark_heldout.csv")
     P = P[P.L == 4]
-    W = pd.read_csv("review_queue_watchlist.csv")
+    W = pd.read_csv("results/review_queue_watchlist.csv")
     assert len(W) == len(P)
     m = W.decision_month.str[:4].astype(int) * 12 + W.decision_month.str[5:].astype(int) - 1
     b = pd.Series(P.b.values + 4).sort_values().values
@@ -42,7 +42,7 @@ def test_queues_rank_only_relationships_at_the_same_checkpoint():
 
 
 def test_table4_matches_the_csv():
-    E = pd.read_csv("review_queue_eval.csv")
+    E = pd.read_csv("results/review_queue_eval.csv")
     E = E[E.weighting == "relationship"]
     for cap in [0.1, 0.2, 0.3]:
         g = E[E.capacity == cap].set_index(["ranking", "measure"]).value

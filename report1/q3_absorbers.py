@@ -2,7 +2,7 @@
 
 Reads:  panel/analysis.parquet, panel/hs8/2024-06.parquet (country names), events/adcvd_events.csv,
         events/adcvd_products.csv
-Writes: q3_absorbers.csv, q3_top_gainers.csv
+Writes: results/q3_absorbers.csv, results/q3_top_gainers.csv
 Run:    python3 report1/q3_absorbers.py
 """
 import sys
@@ -72,8 +72,8 @@ def run(shift):
 
 real, gains_real = run(0)
 plac, _ = run(SHIFT)
-real.to_csv("q3_absorbers.csv", index=False)
-gains_real.to_csv("q3_top_gainers.csv", index=False)
+real.to_csv("results/q3_absorbers.csv", index=False)
+gains_real.to_csv("results/q3_top_gainers.csv", index=False)
 
 print(f"\nepisodes where the treated origin lost >= {MIN_LOSS:.0%} share: "
       f"real {len(real)}, placebo {len(plac)}\n")

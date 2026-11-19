@@ -1,7 +1,7 @@
 """Figure: how 10,730 Federal Register notices become 502 cases (the data cleaning and matching steps).
 
 Reads:  events/adcvd_index.json, events/adcvd_events.csv, events/adcvd_products.csv, panel/hs8/,
-        adcvd_episodes_collapsed.csv, panel/adcvd_stacks_real.parquet, and the notice lists in
+        results/adcvd_episodes_collapsed.csv, panel/adcvd_stacks_real.parquet, and the notice lists in
         measure/adcvd_stacked.py
 Writes: slides/fig/25_matching_funnel.png
 Run:    python3 slides/fig_funnel.py      (after measure/adcvd_stacked.py)
@@ -50,7 +50,7 @@ last_month = max(int(f[-15:-11]) * 12 + int(f[-10:-8]) - 1 for f in files)
 named = set().union(*(prods[d] for d in kept.document_number.unique()))
 kept = kept[kept.document_number.map(lambda d: bool(prods[d] & in_panel))]
 
-ep = pd.read_csv("adcvd_episodes_collapsed.csv", dtype={"cty": str})
+ep = pd.read_csv("results/adcvd_episodes_collapsed.csv", dtype={"cty": str})
 stacked = set(pd.read_parquet("panel/adcvd_stacks_real.parquet", columns=["sid"]).sid)
 compared = ep[ep.index.isin(stacked)]
 full = compared[compared.b + K_HI <= last_month]

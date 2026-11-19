@@ -26,7 +26,7 @@ def docs():
 
 
 def test_outcome_shares(docs):
-    r = pd.read_csv("recovery_benchmark_fall20.csv").set_index(["sample", "measure"]).value
+    r = pd.read_csv("results/recovery_benchmark_fall20.csv").set_index(["sample", "measure"]).value
     real = [pct(r[("real", k)]) for k in ["no fall", "recovered", "not recovered", "exited"]]
     fake = [pct(r[("placebo", k)]) for k in ["no fall", "recovered", "not recovered", "exited"]]
     assert real == ["26", "17", "42", "16"] and fake == ["50", "29", "17", "3"]
@@ -38,17 +38,17 @@ def test_outcome_shares(docs):
 
 def test_table3_rows(docs):
     t = docs["report"]
-    d0 = pd.read_csv("prediction_test.csv").set_index("year").loc["pooled"]
+    d0 = pd.read_csv("results/prediction_test.csv").set_index("year").loc["pooled"]
     row0 = f"| duty starts | 381 ({int(d0.test_episodes)}) | {d0.brier_benchmark:.3f} | logistic, {d0.brier_model:.3f} |"
     assert row0 in t, row0
-    lm = pd.read_csv("prediction_landmark.csv").set_index("L").loc[4]
-    cnt = pd.read_csv("prediction_landmark_counts.csv").set_index("L").loc[4]
+    lm = pd.read_csv("results/prediction_landmark.csv").set_index("L").loc[4]
+    cnt = pd.read_csv("results/prediction_landmark_counts.csv").set_index("L").loc[4]
     row4 = (f"| month 4 | {cnt.cases} ({int(lm.cases)}) | {lm.brier_history:.3f} | boosting, {lm.brier_boosting:.3f} | "
             f"{lm.gain_boosting:.3f} [{lm.lo_boosting:.3f}, {lm.hi_boosting:.3f}] | {lm.auc_boosting:.3f} |")
     assert row4 in t, row4
-    s2 = pd.read_csv("prediction_stage2.csv").set_index(["point", "model"])
+    s2 = pd.read_csv("results/prediction_stage2.csv").set_index(["point", "model"])
     m, h = s2.loc[("ITC", "logit, + vote")], s2.loc[("ITC", "history")]
-    yrs = pd.read_csv("prediction_stage2_years.csv")
+    yrs = pd.read_csv("results/prediction_stage2_years.csv")
     scored = int(yrs[yrs.point == "ITC"].test_episodes.sum())
     rowi = (f"| ITC final vote | 329 ({scored}) | {h.brier:.3f} | logistic, {m.brier:.3f} | "
             f"{m.gain_vs_history:.3f} [{m.lo_vs_history:.3f}, {m.hi_vs_history:.3f}] | {m.auc:.3f} |")
@@ -60,16 +60,16 @@ def test_table3_day_one_improvement(docs):
     """Table 3's day-one improvement and both ends of its 90 percent interval, and the sentence that
     quotes them, derived from the CSVs: the improvement is the historical rate's Brier score minus the
     model's, and the interval is the 5th and 95th percentile of the group bootstrap."""
-    d0 = pd.read_csv("prediction_test.csv").set_index("year").loc["pooled"]
+    d0 = pd.read_csv("results/prediction_test.csv").set_index("year").loc["pooled"]
     gain = d0.brier_benchmark - d0.brier_model
-    lo, hi = np.quantile(pd.read_csv("prediction_test_bootstrap.csv").brier_improvement, [0.05, 0.95])
+    lo, hi = np.quantile(pd.read_csv("results/prediction_test_bootstrap.csv").brier_improvement, [0.05, 0.95])
     cell = f"| logistic, {d0.brier_model:.3f} | {gain:.3f} [{lo:.3f}, {hi:.3f}] | {d0.auc_model:.3f} |"
     assert cell in docs["report"], cell
     assert f"a gain of {gain:.3f} whose 90 percent interval includes zero ({lo:.3f} to {hi:.3f})" in docs["report"]
     assert lo < 0 < hi, "the text says the interval includes zero"
 
 def test_monthly_forecast_claims(docs):
-    lm = pd.read_csv("prediction_landmark.csv").set_index("L")
+    lm = pd.read_csv("results/prediction_landmark.csv").set_index("L")
     # three decimals: 0.795 is the stated value, so a change in the third decimal is not read as a full point
     assert f"{lm.loc[4, 'auc_boosting']:.3f}" == "0.795" and f"{lm.loc[4, 'auc_logistic']:.3f}" == "0.753"
     assert f"{lm.loc[5, 'auc_boosting']:.3f}" == "0.797"
@@ -83,7 +83,7 @@ def test_monthly_forecast_claims(docs):
 
 
 def test_decision_value_support(docs):
-    j = pd.read_csv("decision_value_joint.csv").set_index("point")
+    j = pd.read_csv("results/decision_value_joint.csv").set_index("point")
     assert j.loc["ITC final vote", "supported_thresholds"] == "none"
     assert j.loc["fall first visible", "supported_thresholds"] == "none"
     assert j.loc["duty starts", "supported_thresholds"] == "none"
@@ -94,13 +94,13 @@ def test_decision_value_support(docs):
 
 
 def test_section301_and_pooling(docs):
-    t = pd.read_csv("sec301_transfer_test.csv")
+    t = pd.read_csv("results/sec301_transfer_test.csv")
     a = t[t.test.str.startswith("A:") & (t.model == "logistic")].iloc[0]
     ref = t[t.test.str.startswith("ref:") & (t.model == "logistic")].iloc[0]
     assert pct(a.auc) == "67" and pct(ref.auc) == "73"
     assert f"{a.gain_vs_target_rate:.3f} ({a.lo_t:.3f} to {a.hi_t:.3f})" in docs["report"]
-    pg = pd.read_csv("sec301_pooling_gain.csv").set_index("model").loc["logistic"]
+    pg = pd.read_csv("results/sec301_pooling_gain.csv").set_index("model").loc["logistic"]
     assert f"{pg.pooling_gain:.3f}, {pg.lo:.3f} to {pg.hi:.3f}" in docs["report"]
-    b = pd.read_csv("s301_benchmark.csv").set_index(["sample", "measure"]).value
+    b = pd.read_csv("results/s301_benchmark.csv").set_index(["sample", "measure"]).value
     s301 = [pct(b[("Section 301, real", k)]) for k in ["no fall", "recovered", "not recovered", "exited"]]
     assert " / ".join(s301) in docs["handoff"]

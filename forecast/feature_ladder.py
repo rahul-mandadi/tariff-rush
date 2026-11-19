@@ -4,12 +4,12 @@ Steps: (a) facts about the case, (b) plus the latest share, (c) plus how the fal
 current model), (d) plus other countries' pickup, (e) plus rivals already under a duty. Each step
 is scored on the review list, Brier score and AUC, on the held-out years.
 
-Reads:  panel/landmark_features.parquet, panel/hs8/, adcvd_episodes_collapsed.csv,
-        prediction_landmark_heldout.csv
-Writes: feature_ladder.csv, feature_ladder_heldout.csv
+Reads:  panel/landmark_features.parquet, panel/hs8/, results/adcvd_episodes_collapsed.csv,
+        results/prediction_landmark_heldout.csv
+Writes: results/feature_ladder.csv, results/feature_ladder_heldout.csv
 Run:    python3 forecast/feature_ladder.py
         (after forecast/prediction_landmark.py; stops if step c does not reproduce
-        prediction_landmark_heldout.csv)
+        results/prediction_landmark_heldout.csv)
 """
 import re
 import sys
@@ -37,7 +37,7 @@ STEPS = {"a case facts": A, "b + latest share": A + BB, "c + how the fall has go
 
 D = pd.read_parquet("panel/landmark_features.parquet")
 D["hs8"] = D.hs8.astype(str).str.zfill(8)
-ep = pd.read_csv("adcvd_episodes_collapsed.csv", dtype={"cty": str, "P0": str}, parse_dates=["first_date"])
+ep = pd.read_csv("results/adcvd_episodes_collapsed.csv", dtype={"cty": str, "P0": str}, parse_dates=["first_date"])
 
 # ---------------------------------------------------------------- new inputs (steps d and e)
 q = RL.load_raw(set(D.hs8), int(D.b.min()) - 18, int(D.b.max()) + 16)
@@ -94,15 +94,15 @@ for Y in sorted(D.year.unique()):
     preds.append(p)
     print(f"  test {Y}: {te.sid.nunique()} cases, {len(te):,} rows")
 P = pd.concat(preds, ignore_index=True)
-P.to_csv("feature_ladder_heldout.csv", index=False)
+P.to_csv("results/feature_ladder_heldout.csv", index=False)
 
 # step c must be the current model, prediction for prediction
-ref = pd.read_csv("prediction_landmark_heldout.csv", dtype={"hs8": str})
+ref = pd.read_csv("results/prediction_landmark_heldout.csv", dtype={"hs8": str})
 assert len(ref) == len(P)
 for name in MODELS:
     diff = np.abs(ref[name].to_numpy() - P[f"c + how the fall has gone | {name}"].to_numpy()).max()
     assert diff < 1e-9, f"step c {name} differs from prediction_landmark by {diff}"
-print("check passed: step c reproduces prediction_landmark_heldout.csv")
+print("check passed: step c reproduces results/prediction_landmark_heldout.csv")
 
 
 # ---------------------------------------------------------------- scoring at month 4
@@ -162,9 +162,9 @@ for name in MODELS:
                        brier_gain_vs_prev=point[prev][2] - br, brier_gain_lo=rng90(dbr)[0], brier_gain_hi=rng90(dbr)[1])
         rows.append(row)
 T = pd.DataFrame(rows)
-T.to_csv("feature_ladder.csv", index=False)
+T.to_csv("results/feature_ladder.csv", index=False)
 pd.set_option("display.width", 250)
 print(f"\nmonth 4, held-out {len(G)} relationships, {G.sid.nunique()} cases, {G.cluster.nunique()} groups; "
       f"latest-share ranking at 20%: {point['latest share'][0]:.3f}; random: {1 - G.y.mean():.3f}")
 print(T.round(3).to_string(index=False))
-print("wrote feature_ladder.csv, feature_ladder_heldout.csv")
+print("wrote results/feature_ladder.csv, results/feature_ladder_heldout.csv")

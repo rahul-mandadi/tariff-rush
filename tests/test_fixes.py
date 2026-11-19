@@ -63,9 +63,9 @@ def test_release_calendar_is_complete_and_ordered():
 def test_itc_vote_uses_only_released_trade_months():
     if not os.path.isdir("events/raw"):
         pytest.skip("needs the git-ignored notice texts (events/harvest_adcvd.py)")
-    f = pd.read_csv("prediction_stage2_features.csv")
+    f = pd.read_csv("results/prediction_stage2_features.csv")
     f = f[f.point == "ITC"]
-    ep = pd.read_csv("adcvd_episodes_collapsed.csv", dtype={"cty": str})
+    ep = pd.read_csv("results/adcvd_episodes_collapsed.csv", dtype={"cty": str})
     fs = RL.final_stage(ep)
     rel = pd.read_csv("census_release_calendar.csv", parse_dates=["release"]).set_index("m").release
     seen = f.b + f.entry + 2  # last trade month used
@@ -75,11 +75,11 @@ def test_itc_vote_uses_only_released_trade_months():
 
 @pytest.mark.parametrize("point", ["ITC final vote", "fall first visible"])
 def test_decision_value_claims_match_the_bounds(point):
-    d = pd.read_csv("decision_value.csv")
+    d = pd.read_csv("results/decision_value.csv")
     x = d[d.point == point]
     cols = [c for c in x.columns if c.startswith("simlo_") and x[c].notna().all()]
     supported = x.threshold[(x[cols] > 0).all(axis=1)].round(2).tolist()
-    joint = pd.read_csv("decision_value_joint.csv").set_index("point").supported_thresholds[point]
+    joint = pd.read_csv("results/decision_value_joint.csv").set_index("point").supported_thresholds[point]
     assert joint == (", ".join(f"{t:.2f}" for t in supported) or "none")
     if point == "ITC final vote":
         other = [c for c in cols if c != "simlo_share only"]
@@ -89,7 +89,7 @@ def test_decision_value_claims_match_the_bounds(point):
 
 def test_deck_numbers_match_the_csv():
     pptx = pytest.importorskip("pptx")
-    r = pd.read_csv("recovery_benchmark_fall20.csv").set_index(["sample", "measure"])
+    r = pd.read_csv("results/recovery_benchmark_fall20.csv").set_index(["sample", "measure"])
     pct = lambda x: f"{100 * x:.0f}"  # noqa: E731
     want = (f"{pct(r.value[('real', 'no fall')])}% did not fall, {pct(r.value[('real', 'recovered')])}% fell and "
             f"recovered, {pct(r.value[('real', 'not recovered')])}% stayed down while trading, "
@@ -108,7 +108,7 @@ def test_deck_numbers_match_the_csv():
 
 
 def test_both_programs_flag_uses_only_investigations_open_by_the_decision():
-    ep = pd.read_csv("adcvd_episodes_collapsed.csv", dtype={"cty": str, "P": str})
+    ep = pd.read_csv("results/adcvd_episodes_collapsed.csv", dtype={"cty": str, "P": str})
     both = RL.both_programs_known(ep)
     e = pd.read_csv("events/adcvd_events.csv", dtype={"cty": str})
     pre = e[e.stage == "preliminary"].drop_duplicates("document_number").set_index("document_number")
@@ -127,7 +127,7 @@ def test_both_programs_flag_needs_both_programs_public_by_the_decision():
     # fixtures from a real episode (Canada, 2017): CVD preliminary 2017-04-28 (its first_date) and AD
     # preliminary 2017-06-30, both investigations initiated 2016-12-22. Country set to a code with no
     # initiation notices, so only the episode's own preliminaries can count.
-    ep = pd.read_csv("adcvd_episodes_collapsed.csv", dtype={"cty": str, "P": str})
+    ep = pd.read_csv("results/adcvd_episodes_collapsed.csv", dtype={"cty": str, "P": str})
     base = ep[ep.docs == "2017-08673;2017-13794"].iloc[0].copy()
     base["cty"] = "9999"
     cases = {

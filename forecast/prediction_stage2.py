@@ -1,9 +1,9 @@
 """Forecasts at two fixed points: the month a fall first shows, and the ITC's final vote.
 
 Reads:  recovery_pairs_decision_fall20.csv, panel/adcvd_stacks_decision.parquet, panel/hs8/,
-        adcvd_episodes_collapsed.csv, events/ (notices, rates, ITC outcomes), census_release_calendar.csv
-Writes: prediction_stage2.csv, prediction_stage2_heldout.csv, prediction_stage2_features.csv,
-        prediction_stage2_years.csv, prediction_stage2_coef_*.csv
+        results/adcvd_episodes_collapsed.csv, events/ (notices, rates, ITC outcomes), census_release_calendar.csv
+Writes: results/prediction_stage2.csv, results/prediction_stage2_heldout.csv, results/prediction_stage2_features.csv,
+        results/prediction_stage2_years.csv, results/prediction_stage2_coef_*.csv
 Run:    python3 forecast/prediction_stage2.py      (after measure/build_decision_stacks.py)
 """
 import glob
@@ -21,7 +21,7 @@ from sklearn.preprocessing import StandardScaler
 
 K_HI, LAG, MAX_K_FINAL = 18, 2, 12
 rng = np.random.default_rng(0)
-ep = pd.read_csv("adcvd_episodes_collapsed.csv", dtype={"cty": str})
+ep = pd.read_csv("results/adcvd_episodes_collapsed.csv", dtype={"cty": str})
 sys.path.insert(0, ".")  # the shared modules are at the repo root
 import modeling as M  # noqa: E402
 import recovery_lib as RL  # noqa: E402
@@ -361,11 +361,11 @@ if __name__ == "__main__":
         co = pd.Series(m[-1].coef_[0], index=feat).sort_values()
         print(f"\n[{pt}] full-sample logistic coefficients (standardized, C = {C}); positive = more likely back:")
         print(co.round(3).to_string())
-        co.rename("coef").to_frame().assign(point=pt).to_csv(f"prediction_stage2_coef_{pt}.csv")
-    pd.concat([S_f, S_i]).to_csv("prediction_stage2.csv", index=False)
-    D.to_csv("prediction_stage2_features.csv", index=False)
-    pd.concat([yrs_f, yrs_i]).to_csv("prediction_stage2_years.csv", index=False)
-    pd.concat([P_f.assign(point="fall"), P_i.assign(point="ITC")]).to_csv("prediction_stage2_heldout.csv",
+        co.rename("coef").to_frame().assign(point=pt).to_csv(f"results/prediction_stage2_coef_{pt}.csv")
+    pd.concat([S_f, S_i]).to_csv("results/prediction_stage2.csv", index=False)
+    D.to_csv("results/prediction_stage2_features.csv", index=False)
+    pd.concat([yrs_f, yrs_i]).to_csv("results/prediction_stage2_years.csv", index=False)
+    pd.concat([P_f.assign(point="fall"), P_i.assign(point="ITC")]).to_csv("results/prediction_stage2_heldout.csv",
                                                                           index=False)
-    print("wrote prediction_stage2.csv, prediction_stage2_years.csv, prediction_stage2_heldout.csv, "
-          "prediction_stage2_features.csv")
+    print("wrote results/prediction_stage2.csv, results/prediction_stage2_years.csv, results/prediction_stage2_heldout.csv, "
+          "results/prediction_stage2_features.csv")

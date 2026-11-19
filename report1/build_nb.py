@@ -5,7 +5,7 @@ The notebook's cells read the eda/, events/ and coverage/ files below when it is
 Reads:  nothing itself; the notebook reads eda/chapter_month.csv, eda/chapter_partner.csv,
         eda/featured_series.csv, events/tariff_events.csv, events/tariff_events_dates.csv,
         coverage/coverage_share.csv, coverage/product_lines.csv
-Writes: explore_data.ipynb
+Writes: report1/explore_data.ipynb
 Run:    python3 report1/build_nb.py
 """
 import json
@@ -304,5 +304,5 @@ That is what the rest of the project is built on.
 
 nb={"cells":C,"metadata":{"kernelspec":{"display_name":"Python 3","language":"python","name":"python3"},
     "language_info":{"name":"python","version":"3.12"}},"nbformat":4,"nbformat_minor":5}
-json.dump(nb, open("explore_data.ipynb","w"), indent=1)
-print(f"wrote explore_data.ipynb  {len(C)} cells, {sum(1 for c in C if c['cell_type']=='code')} code")
+json.dump(nb, open("report1/explore_data.ipynb","w"), indent=1)
+print(f"wrote report1/explore_data.ipynb  {len(C)} cells, {sum(1 for c in C if c['cell_type']=='code')} code")

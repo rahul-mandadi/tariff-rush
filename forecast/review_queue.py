@@ -4,9 +4,9 @@ Each calendar month's month-4 relationships form one list. A team reviews an ass
 (also 10 and 30). Measures: the share of reviewed relationships still not back at month 18, and
 the share of all of those it caught, for the forecast, the latest share and a random order.
 
-Reads:  prediction_landmark_heldout.csv, adcvd_episodes_collapsed.csv, events/adcvd_index.json,
+Reads:  results/prediction_landmark_heldout.csv, results/adcvd_episodes_collapsed.csv, events/adcvd_index.json,
         panel/hs8/2024-06.parquet (country names)
-Writes: review_queue_eval.csv, review_queue_watchlist.csv
+Writes: results/review_queue_eval.csv, results/review_queue_watchlist.csv
 Run:    python3 forecast/review_queue.py      (after forecast/prediction_landmark.py)
 """
 import json
@@ -22,7 +22,7 @@ import modeling as M  # noqa: E402
 L, CAPS, PRIMARY, B = 4, [0.2, 0.1, 0.3], 0.2, 1000
 rng = np.random.default_rng(0)
 
-P = pd.read_csv("prediction_landmark_heldout.csv", dtype={"hs8": str})
+P = pd.read_csv("results/prediction_landmark_heldout.csv", dtype={"hs8": str})
 P = P[P.L == L].reset_index(drop=True)
 P["hs8"] = P.hs8.str.zfill(8)
 P["down"] = 1 - P.y
@@ -85,7 +85,7 @@ for label, (D0, wc) in VARIANTS.items():
                         row[f"lo_vs_{base}"], row[f"hi_vs_{base}"] = np.quantile(dd, [0.05, 0.95])
                 rows.append(row)
 E = pd.DataFrame(rows)
-E.to_csv("review_queue_eval.csv", index=False)
+E.to_csv("results/review_queue_eval.csv", index=False)
 
 n_q = P.groupby("queue").size()
 print(f"month-4 queues: {len(n_q)} decision months, {len(P)} relationships, {P.sid.nunique()} cases, "
@@ -112,7 +112,7 @@ print(f"\nprimary test (20%, relationships): forecast minus latest share precisi
 
 # ---------------------------------------------------------------- the watchlist, ranked by the chosen method
 titles = {d["document_number"]: d.get("title") or "" for d in json.load(open("events/adcvd_index.json"))}
-ep = pd.read_csv("adcvd_episodes_collapsed.csv", dtype={"cty": str})
+ep = pd.read_csv("results/adcvd_episodes_collapsed.csv", dtype={"cty": str})
 names = pd.read_parquet("panel/hs8/2024-06.parquet", columns=["cty", "cty_name"]).drop_duplicates() \
     .set_index("cty").cty_name
 
@@ -135,5 +135,5 @@ W["queue_size"] = W.groupby("queue").sid.transform("size")
 W["remained_down"] = W.down
 W = W.sort_values(["queue", "rank", "hs8"])
 W[["decision_month", "queue_size", "rank", "product", "hs8", "country", "p_not_recovered", "latest_vs_pre",
-   "history_not_recovered", "remained_down", "sid", "cluster"]].to_csv("review_queue_watchlist.csv", index=False)
-print(f"wrote review_queue_eval.csv, review_queue_watchlist.csv (ranked by {method})")
+   "history_not_recovered", "remained_down", "sid", "cluster"]].to_csv("results/review_queue_watchlist.csv", index=False)
+print(f"wrote results/review_queue_eval.csv, results/review_queue_watchlist.csv (ranked by {method})")

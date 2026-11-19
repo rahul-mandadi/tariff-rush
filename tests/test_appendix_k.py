@@ -126,7 +126,7 @@ def test_the_rule_is_the_one_in_the_scope_contract():
 
 # ---------------------------------------------------------------- Table K1, model families
 def test_table_k1_model_families():
-    T = pd.read_csv("model_family_check.csv")
+    T = pd.read_csv("results/model_family_check.csv")
     T = T[T.capacity == 0.2].set_index("model")
     header, rows = table("Table K1")
     assert header == ["model", "not recovered, reviewed", "minus latest share", "minus boosting", "Brier", "AUC"]
@@ -145,7 +145,7 @@ def test_table_k1_model_families():
 
 
 def test_table_k1_paragraph():
-    T = pd.read_csv("model_family_check.csv")
+    T = pd.read_csv("results/model_family_check.csv")
     T = T[T.capacity == 0.2].set_index("model")
     text = paragraph(K, "All four families beat the latest share")
     models = ["boosting", "random forest", "logistic", "elastic net"]
@@ -154,7 +154,7 @@ def test_table_k1_paragraph():
     assert ((others.minus_boosting_lo < 0) & (others.minus_boosting_hi > 0)).all()
     assert "all three intervals against boosting include zero" in text
 
-    S = pd.read_csv("model_family_check_settings.csv")
+    S = pd.read_csv("results/model_family_check_settings.csv")
     S["setting"] = S.setting.map(ast.literal_eval)
     logit = S[S.model == "logistic"].setting
     enet = S[S.model == "elastic net"].setting
@@ -166,7 +166,7 @@ def test_table_k1_paragraph():
 
 # ---------------------------------------------------------------- Table K2 and permutation importance
 def test_table_k2_feature_ladder():
-    L = pd.read_csv("feature_ladder.csv")
+    L = pd.read_csv("results/feature_ladder.csv")
     L = L[L.model == "boosting"].reset_index(drop=True)
     header, rows = table("Table K2")
     assert header == ["inputs", "inputs, without context", "not recovered, reviewed", "Brier", "AUC",
@@ -182,7 +182,7 @@ def test_table_k2_feature_ladder():
 
 
 def test_permutation_paragraph():
-    I = pd.read_csv("model_importance.csv").set_index("feature").sort_values("brier_increase", ascending=False)
+    I = pd.read_csv("results/model_importance.csv").set_index("feature").sort_values("brier_increase", ascending=False)
     text = paragraph(K, "Shuffling one input at a time")
     assert "20 times" in text and constant("forecast/model_explain.py", "REPEATS") == 20
     top = I.iloc[0]
@@ -197,7 +197,7 @@ def test_permutation_paragraph():
 
 # ---------------------------------------------------------------- calibration
 def test_calibration_paragraph():
-    C = pd.read_csv("model_recalibration.csv")
+    C = pd.read_csv("results/model_recalibration.csv")
     A = C[C["sample"] == "all"].set_index("model")
     raw, cal = A.loc["raw"], A.loc["calibrated"]
     text = paragraph(K, "**Calibration.**")
@@ -217,7 +217,7 @@ def test_calibration_paragraph():
 
 def test_recalibration_keeps_every_month_4_review_list():
     """Same calendar-month queues, same reviewed shares at every capacity, raw against recalibrated."""
-    H = pd.read_csv("model_recalibration_heldout.csv")
+    H = pd.read_csv("results/model_recalibration_heldout.csv")
     H["queue"] = H.b + 4
     for cap in [0.1, 0.2, 0.3]:
         for _, g in H.groupby("queue"):
@@ -234,21 +234,21 @@ def test_table_k3_fall_threshold():
     shown = {"below 90 percent": 10, "below 80 percent (reported)": 20, "below 70 percent": 30}
     assert list(rows) == list(shown)
     for label, fall in shown.items():
-        r = pd.read_csv(f"recovery_benchmark_fall{fall}.csv").set_index(["sample", "measure"]).value
+        r = pd.read_csv(f"results/recovery_benchmark_fall{fall}.csv").set_index(["sample", "measure"]).value
         want = [f"{100 * (r[(s, 'not recovered')] + r[(s, 'exited')]):.0f}%" for s in ["real", "placebo"]]
         want += [f"{100 * r[(s, 'KM recovered by 18')]:.0f}%" for s in ["real", "placebo"]]
         assert rows[label] == [want[0], want[1], want[2], want[3]], (label, rows[label], want)
 
 
 def test_table_3_rounding_note():
-    r = pd.read_csv("recovery_benchmark_fall20.csv").set_index(["sample", "measure"]).value
+    r = pd.read_csv("results/recovery_benchmark_fall20.csv").set_index(["sample", "measure"]).value
     note = paragraph(RAW, "**Table 3.**")
     assert f"sum to {100 * (r[('real', 'not recovered')] + r[('real', 'exited')]):.1f} percent" in note
 
 
 # ---------------------------------------------------------------- notes outside the appendix
 def test_quantity_estimates_and_interval_note():
-    q = pd.read_csv("adcvd_stacked_qty.csv")
+    q = pd.read_csv("results/adcvd_stacked_qty.csv")
     q = q[(q.contrast == "after (0..18) vs reference (-18..-13)") & q["sample"].str.startswith("real, complete follow-up")]
     est = q.set_index("outcome").est
     qty, val = est["log quantity, positive only"], est["log value, positive only"]

@@ -1,8 +1,8 @@
 """What happened to China's share in each product of the 2018 Section 301 tariffs.
 
 Reads:  events/s301_products.csv, panel/hs8/, panel/adcvd_stacks_real.parquet,
-        adcvd_episodes_collapsed.csv, recovery_pairs_real_fall20.csv
-Writes: s301_benchmark.csv, s301_pairs_*.csv, s301_adcvd_pairs_h16.csv, s301_stacks_info.csv,
+        results/adcvd_episodes_collapsed.csv, results/recovery_pairs_real_fall20.csv
+Writes: results/s301_benchmark.csv, results/s301_pairs_*.csv, results/s301_adcvd_pairs_h16.csv, results/s301_stacks_info.csv,
         panel/s301_stacks.parquet
 Run:    python3 section301/sec301_benchmark.py
         (after events/build_301_lists.py and measure/recovery_benchmark.py)
@@ -19,12 +19,12 @@ H, SHIFT, CHINA, CAP = 16, 24, "5700", 2020 * 12 + 0
 B = 1000
 rng = np.random.default_rng(0)
 CATS = ["no fall", "recovered", "not recovered", "exited"]
-ep = pd.read_csv("adcvd_episodes_collapsed.csv", dtype={"cty": str})
+ep = pd.read_csv("results/adcvd_episodes_collapsed.csv", dtype={"cty": str})
 
 # ---------------------------------------------------------------- check against recovery_benchmark
 st = pd.read_parquet("panel/adcvd_stacks_real.parquet")
 chk = RL.categorize(st, 18, ep.b.to_dict(), int(st.m.max()))
-ref = pd.read_csv("recovery_pairs_real_fall20.csv", dtype={"hs8": str})
+ref = pd.read_csv("results/recovery_pairs_real_fall20.csv", dtype={"hs8": str})
 m = chk.merge(ref[["sid", "hs8", "category"]].assign(hs8=lambda x: x.hs8.str.zfill(8)),
               on=["sid", "hs8"], suffixes=("", "_ref"))
 same = lambda a, b: ((a == b) | (pd.isna(a) & pd.isna(b))).all()  # noqa: E731
@@ -117,7 +117,7 @@ for tag in ["real", "placebo", "real, strict"]:
     p = pd.concat(parts, ignore_index=True)
     p["list"] = p.sid.map(info.set_index("sid").list)
     p["chapter"] = p.hs8.str[:2]
-    p.to_csv(f"s301_pairs_{tag.replace(', ', '_')}.csv", index=False)
+    p.to_csv(f"results/s301_pairs_{tag.replace(', ', '_')}.csv", index=False)
     c = p[p.category != "censored"].reset_index(drop=True)
     w = pd.Series(1.0, index=c.index)
     sh, ci = shares(c, w), boot(c, w, c.chapter)
@@ -145,8 +145,8 @@ for k in CATS:
     print(f"  {k:<14} {ad_sh[k]:.3f}  [{ad_ci.loc[k, 0.05]:.3f}, {ad_ci.loc[k, 0.95]:.3f}]")
     res.append(dict(sample="AD/CVD, same horizon", measure=k, value=ad_sh[k], lo=ad_ci.loc[k, 0.05],
                     hi=ad_ci.loc[k, 0.95], n=len(ad)))
-ad.to_csv("s301_adcvd_pairs_h16.csv", index=False)
-pd.DataFrame(res).to_csv("s301_benchmark.csv", index=False)
-info.to_csv("s301_stacks_info.csv", index=False)
-print("wrote s301_benchmark.csv, s301_pairs_{real,placebo,real_strict}.csv, s301_adcvd_pairs_h16.csv, "
-      "s301_stacks_info.csv, panel/s301_stacks.parquet")
+ad.to_csv("results/s301_adcvd_pairs_h16.csv", index=False)
+pd.DataFrame(res).to_csv("results/s301_benchmark.csv", index=False)
+info.to_csv("results/s301_stacks_info.csv", index=False)
+print("wrote results/s301_benchmark.csv, results/s301_pairs_{real,placebo,real_strict}.csv, results/s301_adcvd_pairs_h16.csv, "
+      "results/s301_stacks_info.csv, panel/s301_stacks.parquet")

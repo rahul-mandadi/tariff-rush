@@ -40,7 +40,7 @@ def notices():
 
 @pytest.fixture(scope="module")
 def episodes(notices):
-    ep = pd.read_csv("adcvd_episodes_collapsed.csv", dtype={"cty": str})
+    ep = pd.read_csv("results/adcvd_episodes_collapsed.csv", dtype={"cty": str})
     date = notices.drop_duplicates("document_number").set_index("document_number").date
     P = notices.drop_duplicates("document_number").set_index("document_number").P
     first, p0 = [], []
@@ -84,7 +84,7 @@ def test_decision_panels_drop_rivals_only_for_cases_published_by_the_first_preli
 
 def test_section301_strict_sample_uses_exact_dates(notices):
     st = _load("panel/s301_stacks.parquet", columns=["sid", "hs8", "cty", "treated", "sample"])
-    info = pd.read_csv("s301_stacks_info.csv")
+    info = pd.read_csv("results/s301_stacks_info.csv")
     lists = pd.read_csv("events/s301_products.csv", dtype={"hs8": str})
     start = {r.list: pd.Timestamp(r.start) for r in lists.drop_duplicates("list").itertuples()}
     strict = st[st["sample"] == "real, strict"]
@@ -99,7 +99,7 @@ def test_section301_strict_sample_uses_exact_dates(notices):
 
 
 def test_monthly_forecast_rows_are_eligible_only_on_visible_data():
-    P = pd.read_csv("prediction_landmark_heldout.csv", dtype={"hs8": str})
+    P = pd.read_csv("results/prediction_landmark_heldout.csv", dtype={"hs8": str})
     pairs = pd.read_csv("recovery_pairs_decision_fall20.csv", dtype={"hs8": str})
     pairs["hs8"] = pairs.hs8.str.zfill(8)
     P["hs8"] = P.hs8.str.zfill(8)
@@ -107,7 +107,7 @@ def test_monthly_forecast_rows_are_eligible_only_on_visible_data():
     assert m.fell_at.notna().all()
     # visible data: through L - 2, or less if Census had not released it by the end of month L
     rel = pd.read_csv("census_release_calendar.csv", parse_dates=["release"])
-    b = m.sid.map(pd.read_csv("adcvd_episodes_collapsed.csv").b)
+    b = m.sid.map(pd.read_csv("results/adcvd_episodes_collapsed.csv").b)
     end = [pd.Timestamp(year=(x + 1) // 12, month=(x + 1) % 12 + 1, day=1) for x in b + m.L]
     seen = pd.Series([rel[rel.release < e].m.max() for e in end], index=m.index)
     kv = np.minimum(m.L - 2, seen - b)
@@ -118,9 +118,9 @@ def test_monthly_forecast_rows_are_eligible_only_on_visible_data():
 
 
 def test_training_labels_are_published_before_each_test_year():
-    ep = pd.read_csv("adcvd_episodes_collapsed.csv")
-    yrs = pd.read_csv("prediction_stage2_years.csv")
-    D = pd.read_csv("prediction_stage2_features.csv")
+    ep = pd.read_csv("results/adcvd_episodes_collapsed.csv")
+    yrs = pd.read_csv("results/prediction_stage2_years.csv")
+    D = pd.read_csv("results/prediction_stage2_features.csv")
     for r in yrs.itertuples():
         d = D[D.point == r.point]
         tr = d[(d.b + 18 + 2) < r.year * 12]
@@ -132,7 +132,7 @@ def test_training_labels_are_published_before_each_test_year():
     # test years actually scored (prediction_stage2/_test/_landmark; calibrated_lookup reuses them). A 2026
     # test year would fail here: October 2025 was released on January 8, 2026 (episode b = 24291)
     years = set()
-    for f in ["prediction_stage2_heldout.csv", "prediction_test_heldout.csv", "prediction_landmark_heldout.csv"]:
+    for f in ["results/prediction_stage2_heldout.csv", "results/prediction_test_heldout.csv", "results/prediction_landmark_heldout.csv"]:
         years |= set(pd.read_csv(f, usecols=["year"]).year)
     cutoffs = [(18, int(y) * 12) for y in sorted(years)]
     cutoffs += [(16, 2018 * 12 + 8), (16, 2020 * 12 + 3)]         # sec301_transfer_test.py tests B and D/E

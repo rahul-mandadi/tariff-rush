@@ -5,8 +5,8 @@ selling the same product in the same month, 18 months before and after the duty,
 no trade counted as zero. The same cases moved 24 months earlier give the fake-date check.
 
 Reads:  events/adcvd_events.csv, events/adcvd_products.csv, events/adcvd_index.json, panel/hs8/
-Writes: adcvd_episodes_collapsed.csv (the cases), adcvd_stacked.csv, adcvd_stacked_paths.csv,
-        adcvd_stacked_transitions.csv, events/cc_side_notices.csv, panel/adcvd_stacks_*.parquet
+Writes: results/adcvd_episodes_collapsed.csv (the cases), results/adcvd_stacked.csv, results/adcvd_stacked_paths.csv,
+        results/adcvd_stacked_transitions.csv, events/cc_side_notices.csv, panel/adcvd_stacks_*.parquet
 Run:    python3 measure/adcvd_stacked.py      (about 10 to 40 minutes)
 
 Note: EXCLUDE and CC_ONLY list notices that start no new duty; each was read by hand.
@@ -447,12 +447,12 @@ elif __name__ == "__main__":
     print("\ntrading status among pairs that traded in the pre-case window (k -12..-7)")
     print(T.round(3).to_string(index=False))
 
-    pd.DataFrame(rows).to_csv("adcvd_stacked.csv", index=False)
-    pd.concat(paths).to_csv("adcvd_stacked_paths.csv", index=False)
-    T.to_csv("adcvd_stacked_transitions.csv", index=False)
-    ep.assign(P=ep.P.map(lambda s: ";".join(sorted(s)))).to_csv("adcvd_episodes_collapsed.csv",
+    pd.DataFrame(rows).to_csv("results/adcvd_stacked.csv", index=False)
+    pd.concat(paths).to_csv("results/adcvd_stacked_paths.csv", index=False)
+    T.to_csv("results/adcvd_stacked_transitions.csv", index=False)
+    ep.assign(P=ep.P.map(lambda s: ";".join(sorted(s)))).to_csv("results/adcvd_episodes_collapsed.csv",
                                                                 index=False)
     real.to_parquet("panel/adcvd_stacks_real.parquet")
     plac.to_parquet("panel/adcvd_stacks_placebo.parquet")
-    print("\nwrote adcvd_stacked.csv, adcvd_stacked_paths.csv, adcvd_stacked_transitions.csv, "
-          "adcvd_episodes_collapsed.csv, panel/adcvd_stacks_*.parquet")
+    print("\nwrote results/adcvd_stacked.csv, results/adcvd_stacked_paths.csv, results/adcvd_stacked_transitions.csv, "
+          "results/adcvd_episodes_collapsed.csv, panel/adcvd_stacks_*.parquet")

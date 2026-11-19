@@ -47,14 +47,14 @@ def test_every_side_notice_title_is_in_cc_only():
 
 
 def test_no_side_notice_defines_or_joins_an_episode():
-    ep = pd.read_csv("adcvd_episodes_collapsed.csv", dtype={"cty": str})
+    ep = pd.read_csv("results/adcvd_episodes_collapsed.csv", dtype={"cty": str})
     cc = _literal("CC_ONLY")
     inside = [(s, d) for s, ds in ep.docs.items() for d in ds.split(";") if d in cc]
     assert inside == [], inside
 
 
 def test_side_notices_attach_to_their_own_country_and_case():
-    ep = pd.read_csv("adcvd_episodes_collapsed.csv", dtype={"cty": str})
+    ep = pd.read_csv("results/adcvd_episodes_collapsed.csv", dtype={"cty": str})
     side = pd.read_csv("events/cc_side_notices.csv", dtype={"cty": str, "sid": str}).fillna({"sid": ""})
     att = side[side.sid != ""]
     assert len(att) >= 25 and not att.sid.str.contains(";").any()
@@ -83,7 +83,7 @@ def test_side_notice_counts_only_once_published():
 
 
 def test_misdated_initiation_no_longer_merges_two_cases():
-    ep = pd.read_csv("adcvd_episodes_collapsed.csv", dtype={"cty": str})
+    ep = pd.read_csv("results/adcvd_episodes_collapsed.csv", dtype={"cty": str})
     epoxy = ep[ep.docs.str.contains("2024-20885")]
     mono = ep[ep.docs.str.contains("2025-16653")]
     assert "2025-16653" not in epoxy.docs.iloc[0]

@@ -3,8 +3,8 @@
 Each test year's model is recalibrated on its own training years (Platt scaling) and scored on
 the test year. The order within a year does not change, so the review list does not either.
 
-Reads:  panel/landmark_features.parquet, prediction_landmark_heldout.csv
-Writes: model_recalibration.csv, model_recalibration_heldout.csv, slides/fig/24_recalibration.png
+Reads:  panel/landmark_features.parquet, results/prediction_landmark_heldout.csv
+Writes: results/model_recalibration.csv, results/model_recalibration_heldout.csv, slides/fig/24_recalibration.png
 Run:    python3 forecast/model_recalibration.py      (after forecast/prediction_landmark.py)
 """
 import sys
@@ -33,7 +33,7 @@ def fit(n_trees, tr):
     return M.boosting_model(n_trees).fit(tr[FEAT], tr.y, sample_weight=tr.w)
 
 
-ref = pd.read_csv("prediction_landmark_heldout.csv")
+ref = pd.read_csv("results/prediction_landmark_heldout.csv")
 out = []
 for Y in sorted(D.year.unique()):
     te = D[D.year == Y]
@@ -57,9 +57,9 @@ for Y in sorted(D.year.unique()):
     out.append(p[p.L == L_EVAL])
     print(f"  {Y}: training out-of-fold at month 4 predicted {np.average(oof[t4], weights=tr.w[t4]):.3f}, "
           f"realized {np.average(tr.y[t4], weights=tr.w[t4]):.3f}")
-print("check passed: raw predictions reproduce prediction_landmark_heldout.csv")
+print("check passed: raw predictions reproduce results/prediction_landmark_heldout.csv")
 G = pd.concat(out, ignore_index=True)
-G.to_csv("model_recalibration_heldout.csv", index=False)
+G.to_csv("results/model_recalibration_heldout.csv", index=False)
 
 COLS = ["raw", "calibrated", "calibrated_all_checkpoints"]
 
@@ -101,7 +101,7 @@ for c in COLS:
         bins.append(dict(sample=f"bin {b_ + 1} of 5", model=c, relationships=len(h),
                          mean_pred=np.average(h[c], weights=h.w), realized=np.average(h.y, weights=h.w)))
 R = pd.concat([R, pd.DataFrame(bins)], ignore_index=True)
-R.to_csv("model_recalibration.csv", index=False)
+R.to_csv("results/model_recalibration.csv", index=False)
 pd.set_option("display.width", 220)
 print(R.round(3).to_string(index=False))
 
@@ -124,4 +124,4 @@ ax.legend(frameon=False, loc="upper left")
 ax.set_title("Month 4, held out: before and after recalibration\n(five bins of equal weight; dotted line = perfect)",
              loc="left", fontweight="600", fontsize=13)
 fig.savefig("slides/fig/24_recalibration.png")
-print("wrote model_recalibration.csv, model_recalibration_heldout.csv, slides/fig/24_recalibration.png")
+print("wrote results/model_recalibration.csv, results/model_recalibration_heldout.csv, slides/fig/24_recalibration.png")

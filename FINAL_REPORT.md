@@ -425,7 +425,7 @@ illustration, not evidence.
 | fell, still down | 36% [33, 38] | 24% [23, 25] | 42% [39, 46] |
 | fell, then no imports in months 11 to 16 | 6% [4, 7] | 3% [3, 4] | 15% [11, 20] |
 
-**Table E2.** Transfer tests, logistic model, the common model across tests (boosting in `sec301_transfer_test.csv`). Pooling (E against D, same test products): Brier better by 0.005 [0.001, 0.010].
+**Table E2.** Transfer tests, logistic model, the common model across tests (boosting in `results/sec301_transfer_test.csv`). Pooling (E against D, same test products): Brier better by 0.005 [0.001, 0.010].
 
 | trained on, scored on | products | AUC | Brier | gain over the target's own rate |
 | --- | --- | --- | --- | --- |

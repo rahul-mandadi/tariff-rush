@@ -29,7 +29,7 @@ Check on Canvas first: page or word limit, due date, required sections. The curr
   - Headline tariffs often hit every country, which leaves no untaxed comparison.
   - The U.S. has a second kind of tariff that names one product from one country, like mattresses
     from Vietnam: 502 cases since 2015, 275 of them in the Trump years (by first preliminary,
-    `adcvd_episodes_collapsed.csv`).
+    `results/adcvd_episodes_collapsed.csv`).
   - Never present a result as being about the 2025 tariffs. Copper illustrates; China 2018 is a
     check.
 - **The user and the decision:** a sourcing team at a company that buys many duty-hit products. It
@@ -78,43 +78,43 @@ Check on Canvas first: page or word limit, due date, required sections. The curr
 
 ## 4. Results (about 3 pages)
 
-1. **Loss** (Figure 3, `slides/fig/12_order_vs_negative.png`; `adcvd_stacked.csv`,
-   `itc_compare.csv`):
+1. **Loss** (Figure 3, `slides/fig/12_order_vs_negative.png`; `results/adcvd_stacked.csv`,
+   `results/itc_compare.csv`):
    - Permanent duty: -0.37 log points (about 31% lost against rivals; SE 0.065; 326 cases), still
      falling at month 18.
    - ITC finds no injury: no lasting fall.
    - All 381 cases pooled: -0.19 (SE 0.11).
 2. **Rush:** none before these duties (+0.02 overall, +0.07 for permanent duties), so the fall is
    from a normal level. This answers the peer reviewer's "surge or lasting loss?" question.
-3. **Recovery rates** (Figure 4, `slides/fig/14_outcomes.png`; `recovery_benchmark_fall20.csv`):
+3. **Recovery rates** (Figure 4, `slides/fig/14_outcomes.png`; `results/recovery_benchmark_fall20.csv`):
    - Real cases: 26% no fall, 17% fell and came back, 42% stayed down, 16% fell with no imports in
      months 13 to 18.
    - Fake date: 50 / 29 / 17 / 3.
-4. **Forecast** (Figure 5, `slides/fig/19_monthly_forecast.png`; `prediction_landmark.csv`):
+4. **Forecast** (Figure 5, `slides/fig/19_monthly_forecast.png`; `results/prediction_landmark.csv`):
    - On day one, case facts add nothing measurable: gain 0.007 over the historical rate, 90% interval
-     -0.001 to 0.013 (`prediction_test.csv`, `prediction_test_bootstrap.csv`).
+     -0.001 to 0.013 (`results/prediction_test.csv`, `results/prediction_test_bootstrap.csv`).
    - At month 4: AUC 0.795 for boosting (79.5%), 0.75 for logistic.
    - A model with the latest share only: AUC 0.68, and about 70% of the boosting model's Brier
      gain over the historical rate (0.028 of 0.039).
-5. **Review queue at 20%** (Figure 6, `slides/fig/21_capacity_curve.png`; `review_queue_eval.csv`,
-   `review_queue_capacity.csv`, `review_queue_checkpoints.csv`):
+5. **Review queue at 20%** (Figure 6, `slides/fig/21_capacity_curve.png`; `results/review_queue_eval.csv`,
+   `results/review_queue_capacity.csv`, `results/review_queue_checkpoints.csv`):
    - Reviewed relationships still down: 82.3% with the forecast, 70.3% with the latest share, 62% in
      random order.
    - Forecast minus latest share: +12.0 points (90% interval 3.9 to 15.7).
    - The forecast stays ahead at every capacity from 5% to 50%.
-   - Months 6 and 8: 88 against 76, and 89 against 81 (`review_queue_checkpoints.csv`).
-6. **Where the forecast's information comes from** (methodology study; `feature_ladder.csv`,
-   `model_importance.csv`, Figure 7 `slides/fig/22_model_explain.png`):
+   - Months 6 and 8: 88 against 76, and 89 against 81 (`results/review_queue_checkpoints.csv`).
+6. **Where the forecast's information comes from** (methodology study; `results/feature_ladder.csv`,
+   `results/model_importance.csv`, Figure 7 `slides/fig/22_model_explain.png`):
    - Case facts plus the latest share: an 11-input logistic matches the full model.
    - Other countries' pickup and rivals already under duty add nothing.
    - The latest share is by far the most important input; next come the pre-case rush, size and
      concentration.
-7. **Calibration** (`model_calibration.csv`, `model_recalibration.csv`, Figure 8
+7. **Calibration** (`results/model_calibration.csv`, `results/model_recalibration.csv`, Figure 8
    `slides/fig/23_reliability.png` or `24_recalibration.png`):
    - The model predicts 19% come back; 26% did.
    - Recalibrating on earlier years halves the gap. The rest is drift over time.
    - Weakest on small suppliers: AUC 0.69 for the smallest third against 0.83 for the largest.
-8. **Section 301 check** (`sec301_transfer_test.csv`):
+8. **Section 301 check** (`results/sec301_transfer_test.csv`):
    - Trained on antidumping cases, the model ranks China 2018 products right 67% of the time,
      against 73% for a model trained on them.
    - Products with a rush came back 60% of the time, against about 30% otherwise (3,128 products

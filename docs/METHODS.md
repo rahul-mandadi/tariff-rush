@@ -159,7 +159,7 @@ whether a product has fallen, the trade features and the outcome labels) is comp
 panels; the descriptive results keep adcvd_stacked.py's panels.
 
 Writes panel/adcvd_stacks_decision.parquet (ignored by git, rebuilt here) and the outcome files
-recovery_pairs_decision_fall20.csv (H = 18) and s301_adcvd_pairs_h16_decision.csv (H = 16), with
+recovery_pairs_decision_fall20.csv (H = 18) and results/s301_adcvd_pairs_h16_decision.csv (H = 16), with
 recovery_lib.categorize, the rule recovery_benchmark.py uses.
 
 Usage:  python3 build_decision_stacks.py      # from the repo root
@@ -206,8 +206,8 @@ Dates come from events/tariff_events_dates.csv, which corrected 17 impossible ef
 dates. The announcement-to-effective window is the period a rush could happen in.
 
 Outputs
-  events_resolved.csv   one row per event x partner, with mechanism and dates
-  event_products.csv    one row per enumerated event x HS8 line
+  results/events_resolved.csv   one row per event x partner, with mechanism and dates
+  results/event_products.csv    one row per enumerated event x HS8 line
 
 Usage:  python3 build_treatment.py
 ```
@@ -419,7 +419,7 @@ that also have quantity data.
 The two BLS series are fetched once from the public BLS API and kept in eda/bls_import_prices.csv,
 so later runs work offline.
 
-Writes deflation_check.csv.    Usage:  python3 deflation_check.py      # from the repo root
+Writes results/deflation_check.csv.    Usage:  python3 deflation_check.py      # from the repo root
 ```
 
 ## data/eda_summary.py
@@ -655,7 +655,7 @@ Steps (each adds to the one before)
   b  + the latest published share over its pre-case level
   c  + how the fall has gone: month of the fall, months since, depth, recent slope, share of months
      with no imports, pre-case rush, unit-value change and its missing flag.  This is the current
-     model; the script stops unless step c reproduces prediction_landmark_heldout.csv exactly.
+     model; the script stops unless step c reproduces results/prediction_landmark_heldout.csv exactly.
   d  + other countries' pickup, from all countries' imports of the product (including countries left
      out of the comparison group), comparing the visible months after the duty (0 to kv) with the
      same calendar months a year earlier (so seasons cancel):
@@ -676,7 +676,7 @@ Scoring at month 4 (held-out years 2020 to 2025)
   ranges   90 percent, from 1,000 resamples of investigation groups, fitted models held fixed;
            differences against the latest-share ranking and against the previous step
 
-Writes feature_ladder.csv and feature_ladder_heldout.csv (every step's held-out predictions at
+Writes results/feature_ladder.csv and results/feature_ladder_heldout.csv (every step's held-out predictions at
 every checkpoint, for items 3, 4 and 6).
 
 Limit: duties from before 2015 are not in the notice table, so step e misses rivals under older orders.
@@ -723,7 +723,7 @@ Usage:  python3 itc_compare.py      # from the repo root
 ```text
 When can the month-4 forecast be trusted? (docs/SCOPE.md, item 3)
 
-Held-out month-4 predictions of the forecast (boosting, prediction_landmark_heldout.csv), unchanged.
+Held-out month-4 predictions of the forecast (boosting, results/prediction_landmark_heldout.csv), unchanged.
 Fixed before running (2026-11-10); exploratory, because the held-out years have been looked at before.
 Every measure weights each case once, as prediction_landmark.py does.
 
@@ -737,7 +737,7 @@ Every measure weights each case once, as prediction_landmark.py does.
                 extrusions, nearly half the month-4 relationships)
   ranges        90 percent, from 1,000 resamples of investigation groups
 
-Writes model_calibration.csv, model_errors.csv and slides/fig/23_reliability.png.
+Writes results/model_calibration.csv, results/model_errors.csv and slides/fig/23_reliability.png.
 
 Usage:  python3 model_calibration.py      # after prediction_landmark.py
 ```
@@ -755,7 +755,7 @@ The forecast is the boosting model of prediction_landmark.py, unchanged. Fixed b
                 (20 shuffles); importance = how much worse the Brier score gets, pooled over years,
                 each case weighted once. 90 percent ranges from 1,000 resamples of investigation
                 groups of the per-relationship change. The refit models must reproduce
-                prediction_landmark_heldout.csv, or the script stops.
+                results/prediction_landmark_heldout.csv, or the script stops.
   dependence    partial dependence of the chance of coming back on the most important inputs and on
                 the duty rate, from one boosting model fitted on all cases (tuned the same way),
                 evaluated on the month-4 rows.
@@ -764,7 +764,7 @@ Inputs that move together (the latest share, the depth of the fall and the month
 credit under permutation, so a small importance for one of them does not mean the information is
 unused.
 
-Writes model_importance.csv, model_partial_dependence.csv and slides/fig/22_model_explain.png.
+Writes results/model_importance.csv, results/model_partial_dependence.csv and slides/fig/22_model_explain.png.
 
 Usage:  python3 model_explain.py      # after prediction_landmark.py
 ```
@@ -794,9 +794,9 @@ because the held-out years have been looked at before.
               year, and every review queue lies within one year, so the review ranking cannot change.
               AUC, which pools all years, can move slightly, because each year gets its own
               recalibration. (Corrected after the first run, which showed AUC 0.795 to 0.790.)
-  check       the raw predictions must reproduce prediction_landmark_heldout.csv, or the script stops.
+  check       the raw predictions must reproduce results/prediction_landmark_heldout.csv, or the script stops.
 
-Writes model_recalibration.csv, model_recalibration_heldout.csv and slides/fig/24_recalibration.png.
+Writes results/model_recalibration.csv, results/model_recalibration_heldout.csv and slides/fig/24_recalibration.png.
 
 Usage:  python3 model_recalibration.py      # after prediction_landmark.py
 ```
@@ -1030,7 +1030,7 @@ Section 301 lists go through exactly the same rules.
 categorize()   per targeted product: pre-case share, month of the fall, month of recovery, and the
                four outcome categories, for any horizon H (recovery_benchmark.py uses H = 18).
                Run on panel/adcvd_stacks_real.parquet with H = 18 it reproduces
-               recovery_pairs_real_fall20.csv (checked in sec301_benchmark.py).
+               results/recovery_pairs_real_fall20.csv (checked in sec301_benchmark.py).
 build_stack()  a stack in the format of adcvd_stacked.py for one targeted country and a product list
 fall_features() what the published data show when the fall first becomes visible (k_fall + 2),
                the same definitions as prediction_stage2.py
@@ -1058,7 +1058,7 @@ Rules, fixed before the results were seen (2026-11-09)
   queue        one queue per decision month (the calendar month k = 4): only relationships at their
                month-4 checkpoint in that same month are ranked against each other. No later case
                enters an earlier queue.
-  predictions  the held-out predictions in prediction_landmark_heldout.csv, unchanged: forward-chained
+  predictions  the held-out predictions in results/prediction_landmark_heldout.csv, unchanged: forward-chained
                by year of k = 0, each model trained only on cases whose month 18 was published before
                the test year, features limited to what was published by the decision date.
   target       remains down: not back at or above the pre-case share for three months running by
@@ -1091,7 +1091,7 @@ Rules, fixed before the results were seen (2026-11-09)
                its precision is higher with the 90 percent interval above zero. Otherwise the latest
                share is the ranking, and the historical rate is reported as the benchmark it is.
 
-Writes review_queue_eval.csv and review_queue_watchlist.csv (every held-out month-4 queue, ranked
+Writes results/review_queue_eval.csv and results/review_queue_watchlist.csv (every held-out month-4 queue, ranked
 by the chosen method; the report shows one month as an example).
 
 Usage:  python3 review_queue.py      # after prediction_landmark.py
@@ -1107,7 +1107,7 @@ percent in steps of 5. Item 6, later checkpoints. The same queue rule at months 
 secondary check; month 4 stays the main decision point.
 
 Fixed before running (2026-11-10), as in review_queue.py: held-out predictions from
-prediction_landmark_heldout.csv, unchanged; one queue per calendar month (the month of the
+results/prediction_landmark_heldout.csv, unchanged; one queue per calendar month (the month of the
 checkpoint), ranking only relationships at that checkpoint in that month; ties share reviews equally;
 each relationship counts once; rankings: the forecast (boosting, named in advance), logistic
 (reported, not used to choose), the latest published share (lowest first) and the historical rate (one
@@ -1117,7 +1117,7 @@ month 18; also the share of all persistent declines reviewed, and the most any o
 6 and 8 the eligible relationships are those still falling and not yet back at that month, so the
 three checkpoints are not compared on the same products.
 
-Writes review_queue_capacity.csv, review_queue_checkpoints.csv and slides/fig/21_capacity_curve.png.
+Writes results/review_queue_capacity.csv, results/review_queue_checkpoints.csv and slides/fig/21_capacity_curve.png.
 Results are exploratory: the held-out years have been looked at before.
 
 Usage:  python3 review_queue_curves.py      # after prediction_landmark.py and review_queue.py
@@ -1146,7 +1146,7 @@ Unit: one product. Each list is one tariff date, so there is no honest standard 
 list-level effect; the shares carry 90 percent intervals from resampling 2-digit chapters, which
 covers product heterogeneity but not the common shock of each list date.
 
-First, a check that recovery_lib.categorize reproduces recovery_pairs_real_fall20.csv on the AD/CVD
+First, a check that recovery_lib.categorize reproduces results/recovery_pairs_real_fall20.csv on the AD/CVD
 stacks at H = 18: same category, pre-case share, fall month, recovery month and follow-up for every
 pair. Both share the calendar-month rule, so this checks the shared code, not the rule itself.
 

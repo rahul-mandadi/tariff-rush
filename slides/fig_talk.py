@@ -4,9 +4,9 @@ Each chart is redrawn from the same CSVs as the report figures (slides/fig_stack
 slides/fig_copper_split.py, slides/fig_taiwan_example.py), with larger type, fewer lines and
 direct labels instead of legends. The report figures are unchanged.
 
-Reads:  eda/chapter_month.csv, panel/hs8/, itc_compare_paths.csv, adcvd_stacked_paths.csv,
-        recovery_benchmark_fall20.csv, panel/adcvd_stacks_decision.parquet,
-        recovery_pairs_decision_fall20.csv, review_queue_watchlist.csv, review_queue_eval.csv
+Reads:  eda/chapter_month.csv, panel/hs8/, results/itc_compare_paths.csv, results/adcvd_stacked_paths.csv,
+        results/recovery_benchmark_fall20.csv, panel/adcvd_stacks_decision.parquet,
+        recovery_pairs_decision_fall20.csv, results/review_queue_watchlist.csv, results/review_queue_eval.csv
 Writes: slides/fig/t1_copper_total.png to slides/fig/t7_review_result.png
 Run:    python3 slides/fig_talk.py      (from the repo root, after the analysis)
 """
@@ -89,9 +89,9 @@ grid(ax)
 save(fig, "t2_copper_split")
 
 # ---------------------------------------------------------------- t4: where the duty stayed
-p = pd.read_csv("itc_compare_paths.csv")
+p = pd.read_csv("results/itc_compare_paths.csv")
 o = p[(p.outcome == "PPML value, zeros in") & (p["sample"] == "final stage: order")].set_index("k")
-q = pd.read_csv("adcvd_stacked_paths.csv")
+q = pd.read_csv("results/adcvd_stacked_paths.csv")
 fk = q[(q.outcome == "PPML value, zeros in") & (q["sample"] == "placebo, 24 months earlier")].set_index("k")
 fig, ax = plt.subplots(figsize=SIZE)
 ax.axhline(0, color=GREY, lw=1.2)
@@ -114,7 +114,7 @@ grid(ax)
 save(fig, "t4_aftermath")
 
 # ---------------------------------------------------------------- t5: what happened within 18 months
-b = pd.read_csv("recovery_benchmark_fall20.csv").set_index(["sample", "measure"]).value
+b = pd.read_csv("results/recovery_benchmark_fall20.csv").set_index(["sample", "measure"]).value
 cats = [("no fall", "did not fall", LGREY, INK), ("recovered", "fell, came back", "#9BA1A9", INK),
         ("not recovered", "fell, still down", LRED, INK), ("exited", "fell, no imports\na year later", RED, "white")]
 fig, ax = plt.subplots(figsize=(12, 3.6))
@@ -157,7 +157,7 @@ pairs = pd.read_csv("recovery_pairs_decision_fall20.csv", dtype={"hs8": str})
 pairs["hs8"] = pairs.hs8.str.zfill(8)
 pr = pairs[(pairs.sid == SID) & (pairs.hs8 == HS8)].iloc[0]
 rel = 100 * avg3 / pr.bench
-w = pd.read_csv("review_queue_watchlist.csv", dtype={"hs8": str})
+w = pd.read_csv("results/review_queue_watchlist.csv", dtype={"hs8": str})
 w["hs8"] = w.hs8.str.zfill(8)
 ql = w[w.decision_month == MONTH].reset_index(drop=True)
 i = ql.index[(ql.sid == SID) & (ql.hs8 == HS8)][0]
@@ -205,7 +205,7 @@ taiwan(False, "t6_taiwan_known")
 taiwan(True, "t6_taiwan_later")
 
 # ---------------------------------------------------------------- t7: the review result, 20 percent
-E = pd.read_csv("review_queue_eval.csv")
+E = pd.read_csv("results/review_queue_eval.csv")
 E = E[(E.weighting == "relationship") & (E.measure == "precision") & (E.capacity == 0.2)].set_index("ranking").value
 bars = [("forecast (boosting)", "model's order", RED, "white"),
         ("latest share", "biggest drop first", GREY, "white"),

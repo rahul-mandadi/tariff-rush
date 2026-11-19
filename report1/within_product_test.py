@@ -1,6 +1,6 @@
 """Did taxed imports rise between a tariff's announcement and its start, against untaxed countries? (Report 1)
 
-Reads:  panel/analysis.parquet, events_resolved.csv, event_products.csv
+Reads:  panel/analysis.parquet, results/events_resolved.csv, results/event_products.csv
 Run:    python3 report1/within_product_test.py [--outcome lv|lq]
 """
 import sys
@@ -16,8 +16,8 @@ df = pd.read_parquet("panel/analysis.parquet",
 df = df[df[OUT].notna()].reset_index(drop=True)
 df["ym"] = pd.to_datetime(df.ym)
 
-ev = pd.read_csv("events_resolved.csv", dtype={"cty": str})
-ep = pd.read_csv("event_products.csv", dtype={"hs8": str})
+ev = pd.read_csv("results/events_resolved.csv", dtype={"cty": str})
+ep = pd.read_csv("results/event_products.csv", dtype={"hs8": str})
 prods = {d: set(g.hs8) for d, g in ep.groupby("document_number")}
 ev = ev[(ev.window_days >= MIN_WINDOW) & (~ev.action_kind.isin(REDUCING))].copy()
 ev["a"] = pd.to_datetime(ev.announcement_date).dt.to_period("M").dt.to_timestamp()
