@@ -281,8 +281,8 @@ add("We follow one product from one country.",
 
 # ---------------------------------------------------------------- M5 the aftermath
 add("Where duties stayed: 31% below rivals.", fig="t4_aftermath.png", step=2,
-    caption="Red: the 326 cases where the duty became permanent; shading is its 95% range. Grey: the "
-            "same cases on a fake date, two years earlier.",
+    caption="Red: the 326 cases where the trade commission kept the duty, so it became permanent. Shading: "
+            "where the true value likely falls (95% range). Grey: the same cases on a fake date.",
     notes="RAHUL: Here's what happens after the duty. Zero is where the country stood against its "
           "rivals a year and a half before the duty.\n\n"
           "The red line is the 326 cases where the trade commission kept the duty, so it became "
@@ -323,35 +323,70 @@ add("More than half did not come back.", fig="t5_outcomes.png", step=2,
           "If asked why 42 and 16 make 58: rounding. Unrounded, it's 57.3 percent.")
 
 # ---------------------------------------------------------------- M7 the analyst's decision
-side("Which declines should an analyst check first?", "t8_january_list.png", step=3,
-    bullets=[
-        "**Four months after the duty,** Census has published its first three months of trade. It "
-        "runs about two months behind.",
-        "**The analyst can only check some of them.** So each month's list needs an order.",
-        "**The obvious rule: biggest drop first.** Anyone can do that with public data. Our model "
-        "has to beat it.",
-    ],
-    caption="January 2025's list: 36 declines, one dot each, placed by how far the share has fallen.",
-    notes="RAHUL: Back to our analyst. They can't look into every decline. So the question is: "
-          "which ones first?\n\n"
-          "Four months after a duty, Census has published its first three months of trade. Census "
-          "runs about two months behind. By then, some declines are visible. Each month's list holds "
-          "every product from a country whose duty started four months earlier, and whose share has "
-          "fallen and not come back.\n\n"
-          "Here's a real list, January 2025: 36 declines, one dot each. Ten had no imports in the latest three months. "
-          "Taiwan, in red, is 20th by size of drop.\n\n"
-          "The simplest rule is to check the biggest drops first. It needs no model, and anyone can "
-          "do it with public data. That's the bar our model has to clear.\n\n"
-          "If asked about the dot far to the right: its latest months jumped well above its earlier "
-          "level, but it hasn't stayed there three months in a row, so it still counts as not "
-          "back.\n\n"
-          "If asked what checking means: looking into that decline with the company's own supplier "
-          "information. What the analyst does next, we did not test.\n\n"
-          "If asked why month 4: it's a checkpoint we studied, not a business deadline. On the day "
-          "a duty starts, facts like the duty rate don't predict recovery any better than past "
-          "averages. So we wait for some trade data.\n\n"
-          "HANDOFF: Raunak will show how our model orders that list, and whether it beats the "
-          "biggest drops.")
+s = prs.slides.add_slide(BLANK)
+chrome(s, step=3)
+txt(s, "Which declines should an analyst check first?", X0, Y_HEAD, CW, 0.80, 38, bold=True)
+# one real month, as a timeline: Taiwan's duty started September 2024, so January 2025 is its month 4.
+# How that list turned out (forecast/review_queue.py writes the watchlist; remained_down = not back by month 18)
+JAN = pd.read_csv("results/review_queue_watchlist.csv").query("decision_month == '2025-01'")
+assert len(JAN) == 36
+JAN_HIT = int(JAN.sort_values("rank").head(7).remained_down.sum())
+JAN_RAND = round(7 * JAN.remained_down.mean())
+ZERO = JAN[JAN.latest_vs_pre == 0]                     # biggest drops: tied at no imports at all
+assert (JAN_HIT, JAN_RAND, len(ZERO), int(ZERO.remained_down.sum())) == (6, 4, 10, 8)
+EVENTS = [("Sep 2024", "Duty starts", "New duties, including one on epoxy resins from Taiwan.", GREY),
+          ("Oct 2024 on", "Data arrives", "Census publishes each month's trade about two months late.", GREY),
+          ("Jan 2025 (month 4)", "The list", "36 declines have fallen and not come back. The analyst can check "
+                                           "about 7.", GREY),
+          ("Jan 2025", "Model ranks it", "The declines most likely to last go first. The analyst checks "
+                                             "the top 7.", RED),
+          ("Mar 2026 (month 18)", "The answer", f"{JAN_HIT} of the 7 picks had not come back. Picking 7 at "
+                                                f"random would find about {JAN_RAND}.", INK)]
+LINE_Y, SLOT = 3.35, CW / len(EVENTS)
+ln = s.shapes.add_connector(1, Inches(X0 + SLOT / 2), Inches(LINE_Y), Inches(X0 + CW - SLOT / 2), Inches(LINE_Y))
+ln.line.color.rgb = GREY
+ln.line.width = Pt(2)
+for i_, (date, title, body, col) in enumerate(EVENTS):
+    cx_ = X0 + (i_ + 0.5) * SLOT
+    d_ = 0.34 if col == RED else 0.26
+    dot = s.shapes.add_shape(9, Inches(cx_ - d_ / 2), Inches(LINE_Y - d_ / 2), Inches(d_), Inches(d_))
+    dot.fill.solid()
+    dot.fill.fore_color.rgb = col
+    dot.line.fill.background()
+    dot.shadow.inherit = False
+    txt(s, date, cx_ - SLOT / 2 + 0.02, LINE_Y - 0.70, SLOT - 0.04, 0.4, 14, bold=True,
+        color=RED if col == RED else GREY, align=PP_ALIGN.CENTER)
+    txt(s, title, cx_ - SLOT / 2 + 0.05, LINE_Y + 0.30, SLOT - 0.1, 0.4, 17, bold=True,
+        color=RED if col == RED else INK, align=PP_ALIGN.CENTER)
+    txt(s, body, cx_ - SLOT / 2 + 0.12, LINE_Y + 0.80, SLOT - 0.24, 1.6, 15, color=GREY,
+        align=PP_ALIGN.CENTER, spacing=1.1)
+r = s.shapes.add_connector(1, Inches(X0), Inches(Y_TAKE - 0.14), Inches(X0 + CW), Inches(Y_TAKE - 0.14))
+r.line.color.rgb = GREY
+r.line.width = Pt(0.75)
+txt(s, "**The obvious rule: check the biggest drops first.** Anyone can do that with public data. Our model "
+       "has to beat it.", X0, Y_TAKE, CW, 0.75, 17, color=GREY, spacing=1.12)
+s.notes_slide.notes_text_frame.text = (
+    "RAHUL: Back to our analyst. Here's how one month plays out, with a real list.\n\n"
+    "In September 2024, new duties start, including one on epoxy resins from Taiwan. Census "
+    "publishes trade data about two months late. So by January 2025, month 4, the analyst can see "
+    "the first three months after the duty.\n\n"
+    "That month, 36 declines have fallen and not come back. The analyst can check about seven. "
+    "Which ones?\n\n"
+    "That's where our model comes in. It ranks the list, and the analyst checks the top seven. "
+    "Eighteen months after the duty, in March 2026, we see which ones came back. Six of the "
+    "model's seven picks had not. Picking seven at random would have found about four.\n\n"
+    "The simplest rule is to check the biggest drops first. It needs no model, and anyone can do it "
+    "with public data. That's the bar our model has to clear.\n\n"
+    "If asked whether the biggest-drop rule did as well this month: about as well. Ten declines "
+    "were tied at no imports at all, and 8 of those 10 had not come back. The model's edge shows "
+    "across all 44 lists, which Raunak covers.\n\n"
+    "If asked what checking means: looking into that decline with the company's own supplier "
+    "information. What the analyst does next, we did not test.\n\n"
+    "If asked why month 4: it's a checkpoint we studied, not a business deadline. On the day a duty "
+    "starts, facts like the duty rate don't predict recovery any better than past averages. So we "
+    "wait for some trade data.\n\n"
+    "HANDOFF: Raunak will show how our model orders that list, and whether it beats the biggest "
+    "drops.")
 
 # ---------------------------------------------------------------- M7b how the model ranks the list
 s = prs.slides.add_slide(BLANK)
@@ -513,8 +548,8 @@ add("Later: Taiwan had not come back.", fig="t6_taiwan_later.png", step=4,
 
 # ---------------------------------------------------------------- M10 the result
 add("The model's picks: 82% did not come back.", fig="t7_review_result.png", step=4,
-    caption="44 monthly lists, 2020 to 2025. Each month the analyst checks the top fifth of the list. "
-            "We count how many had not come back by month 18.",
+    caption="44 monthly lists, 2020 to 2025. Whatever share of each list the analyst checks, the model's "
+            "picks come back less often. At every share, the likely range of the gap (90%) stays above zero.",
     notes="RAUNAK: Now every month, not just one. We ran this on 44 monthly lists, from 2020 to "
           "2025.\n\n"
           "Each month, the analyst checks the top fifth of the list. That's about 187 checks in "
@@ -522,10 +557,12 @@ add("The model's picks: 82% did not come back.", fig="t7_review_result.png", ste
           "With the model's order, 82 percent of the checks found declines that never came back. "
           "With biggest drop first, 70 percent. With a random order, 62 percent, the rate for all the "
           "declines on these lists.\n\n"
+          "The line shows the same at every share the analyst might check, from 5 percent of the "
+          "list to half of it.\n\n"
           "So with the same 187 checks, the model finds about 22 more lasting declines. The gap is "
           "12 points. Our 90 percent range for it runs from 3.9 to 15.7, so it is clearly above "
           "zero.\n\n"
-          "If asked whether it holds up: yes, if the analyst checks 10 or 30 percent instead. Yes at "
+          "If asked whether it holds up: yes at every share on the chart. Yes at "
           "months 6 and 8: 88 against 76, and 89 against 81. Yes without the biggest case. And "
           "three other models score 81 to 84 percent.\n\n"
           "If asked why 62 here and 57 on slide 7: different groups. 57 is all 380 cases, including "
@@ -538,7 +575,8 @@ add("What this means.",
         "**Mostly real, not borrowed:** 57% of cases fell and had not come back by month 18.",
         "**At month 4, use the model's list:** 82% of its picks did not come back, against 70% "
         "for biggest drop first.",
-        "**Not yet tested with real analysts:** checking 1 in 5 is our assumption.",
+        "**Not yet tested with real analysts:** checking 1 in 5 is our assumption, but the result "
+        "holds from 5% to 50%.",
     ],
     bullet_size=24, bullet_top=2.25, bullet_step=1.05,
     caption="Next: on November 15 we froze a forecast of 197 declines. We'll score it as new data "
@@ -550,7 +588,7 @@ add("What this means.",
           "Second, at month 4, the model's list finds more lasting declines than just checking the "
           "biggest drops.\n\n"
           "Third, the limits. We haven't tested this with real analysts. How many they can check "
-          "is our assumption. And we predict a country's recovery in a product, not whether one "
+          "is our assumption, though the result holds from 5 to 50 percent. And we predict a country's recovery in a product, not whether one "
           "company survives.\n\n"
           "What's next. On November 15 we froze a forecast of 197 declines whose outcomes aren't "
           "known yet. We'll score it as Census publishes the data, from December to early 2028. "

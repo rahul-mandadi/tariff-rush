@@ -6,8 +6,9 @@ direct labels instead of legends. The report figures are unchanged.
 
 Reads:  eda/chapter_month.csv, panel/hs8/, results/itc_compare_paths.csv, results/adcvd_stacked_paths.csv,
         results/recovery_benchmark_fall20.csv, panel/adcvd_stacks_decision.parquet,
-        recovery_pairs_decision_fall20.csv, results/review_queue_watchlist.csv, results/review_queue_eval.csv
-Writes: slides/fig/t1_copper_total.png to slides/fig/t9_two_orders.png
+        recovery_pairs_decision_fall20.csv, results/review_queue_watchlist.csv, results/review_queue_eval.csv,
+        results/review_queue_capacity.csv
+Writes: slides/fig/t1_copper_total.png to slides/fig/t7_review_result.png, slides/fig/t9_two_orders.png
 Run:    python3 slides/fig_talk.py      (from the repo root, after the analysis)
 """
 import glob
@@ -204,59 +205,44 @@ def taiwan(later, name):
 taiwan(False, "t6_taiwan_known")
 taiwan(True, "t6_taiwan_later")
 
-# ---------------------------------------------------------------- t7: the review result, 20 percent
+# ---------------------------------------------------------------- t7: the review result, at every checking share
 E = pd.read_csv("results/review_queue_eval.csv")
 E = E[(E.weighting == "relationship") & (E.measure == "precision") & (E.capacity == 0.2)].set_index("ranking").value
-bars = [("forecast (boosting)", "model's order", RED, "white"),
-        ("latest share", "biggest drop first", GREY, "white"),
-        ("historical rate", "random order", LGREY, INK)]
-fig, ax = plt.subplots(figsize=(10, 4.8))
-for j, (key, lab, col, tc) in enumerate(bars):
-    v = 100 * E[key]
-    ax.bar(j, v, width=0.62, color=col, zorder=2)
-    ax.text(j, v + 2, f"{v:.0f}%", ha="center", va="bottom", fontsize=26, fontweight="700",
-            color=RED if j == 0 else INK)
-ax.set_xticks(range(3))
-ax.set_xticklabels([b_[1] for b_ in bars], fontsize=21)
-ax.set_ylim(0, 100)
-ax.set_yticks([0, 25, 50, 75, 100])
-ax.set_ylabel("checked declines that did\nnot come back by month 18, %", fontsize=19)
+C = pd.read_csv("results/review_queue_capacity.csv")
+C = C[C.L == 4]
+cp = C.pivot(index="capacity", columns="ranking", values="precision")
+gap_lo = C[C.ranking == "forecast (boosting)"].set_index("capacity").vs_latest_lo
+assert (gap_lo > 0).all() and len(cp) == 10  # the gap over the latest share stays above zero at every share
+lines = [("forecast (boosting)", "model's order", RED, "-", 3.6),
+         ("latest share", "biggest drop first", GREY, "-", 3.0),
+         ("historical rate", "random order", LGREY, ":", 3.0)]
+fig, ax = plt.subplots(figsize=(11, 4.8))
+ax.axvline(20, color=INK, lw=1.2, ls="--", zorder=1)
+ax.text(20.8, 94.5, "1 in 5, the share we assume", fontsize=16, color=INK, va="top")
+for key, lab, col, ls, lw in lines:
+    x, y = 100 * cp.index.to_numpy(), 100 * cp[key].to_numpy()
+    assert round(100 * E[key]) == round(100 * cp.loc[0.2, key])
+    ax.plot(x, y, color=col, ls=ls, lw=lw, marker="o" if ls == "-" else None, ms=7, zorder=3)
+    ax.text(51.5, y[-1], lab, color=col if col != LGREY else GREY, fontsize=18, fontweight="600", va="center")
+    ax.text(19.2, 100 * cp.loc[0.2, key] + (1.6 if key != "historical rate" else 1.4), f"{100 * cp.loc[0.2, key]:.0f}%",
+            ha="right", va="bottom", fontsize=20, fontweight="700", color=RED if col == RED else INK)
+ax.set_xlim(3, 67)
+ax.set_ylim(55, 95)
+ax.set_xticks([5, 10, 20, 30, 40, 50])
+ax.set_xlabel("share of each month's list the analyst checks, %")
+ax.set_ylabel("checked declines that did\nnot come back by month 18, %", fontsize=18)
 grid(ax)
 save(fig, "t7_review_result")
 
-# ---------------------------------------------------------------- t8, t9: January 2025's list as dots
+# ---------------------------------------------------------------- t9: January 2025's list, two ways to pick 7
 jl = w[w.decision_month == MONTH].reset_index(drop=True)
 jl["now"] = 100 * jl.latest_vs_pre
 jl["taiwan"] = (jl.sid == SID) & (jl.hs8 == HS8)
 assert len(jl) == 36 and (jl.now == 0).sum() == 10 and (jl.now > 120).sum() == 1
 CAP = 112
 
-
-def swarm(xs, step=4.0):
-    """Stack dots that fall in the same 4-point bin, so ties are visible."""
-    b = np.floor(np.minimum(xs, CAP) / step)
-    return pd.Series(b).groupby(b).cumcount().to_numpy()
-
-
-fig, ax = plt.subplots(figsize=(6.6, 4.4))
-yy = swarm(jl.now.to_numpy())
 xx = np.minimum(jl.now, CAP)
-ax.scatter(xx[~jl.taiwan], yy[~jl.taiwan], s=150, color=GREY, zorder=3)
-ax.scatter(xx[jl.taiwan], yy[jl.taiwan], s=190, color=RED, zorder=4)
 t_ = jl[jl.taiwan].index[0]
-ax.annotate("Taiwan, epoxy resins:\n42%, 20th biggest drop", (xx[t_], yy[t_]), xytext=(38, 6.2), color=RED,
-            fontsize=15, fontweight="600", ha="center", arrowprops=dict(arrowstyle="-", color=RED, lw=1))
-ax.annotate("biggest drop first\nstarts here", (0, 9.6), xytext=(22, 11.4), fontsize=15, fontweight="600",
-            ha="left", va="center", arrowprops=dict(arrowstyle="->", color=INK, lw=1.4))
-ax.text(CAP, 1.1, "one at\n279%", fontsize=12, color=GREY, ha="center", va="bottom")
-ax.set_xlim(-6, 118)
-ax.set_ylim(-0.8, 12.5)
-ax.set_yticks([])
-ax.spines["left"].set_visible(False)
-ax.set_xticks([0, 25, 50, 75, 100])
-ax.set_xlabel("share now, % of its earlier level\n(100 = no change)", fontsize=17)
-ax.tick_params(axis="x", labelsize=16)
-save(fig, "t8_january_list")
 
 fig, ax = plt.subplots(figsize=(11, 4.7))
 top7 = jl["rank"] <= 7

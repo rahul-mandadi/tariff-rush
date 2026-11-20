@@ -3,8 +3,8 @@
 Generated from the speaker notes in `slides/Mandadi_Khalsa_Presentation2_v3.pptx`. Do not edit this
 file: change the notes in `slides/build_deck2c.py`, rebuild, then run `python3 slides/write_script2.py`.
 
-**1557 words.** At a careful 130 words a minute that is 11:59; at a normal 145, 10:44.
-Rahul, slides 1 to 8: 891 words, about 6:09. Raunak, slides 9 to 13: 666 words, about 4:36.
+**1610 words.** At a careful 130 words a minute that is 12:23; at a normal 145, 11:06.
+Rahul, slides 1 to 8: 913 words, about 6:18. Raunak, slides 9 to 13: 697 words, about 4:48.
 Per-slide times below are at the normal pace. Rehearse once with a clock.
 
 You do not have to say it word for word. Keep the numbers exact.
@@ -124,13 +124,15 @@ So for these duties, the answer is closer to real than borrowed. But that's an a
 
 ### Slide 8. Which declines should an analyst check first?
 
-*about 0:54*
+*about 1:03*
 
-Back to our analyst. They can't look into every decline. So the question is: which ones first?
+Back to our analyst. Here's how one month plays out, with a real list.
 
-Four months after a duty, Census has published its first three months of trade. Census runs about two months behind. By then, some declines are visible. Each month's list holds every product from a country whose duty started four months earlier, and whose share has fallen and not come back.
+In September 2024, new duties start, including one on epoxy resins from Taiwan. Census publishes trade data about two months late. So by January 2025, month 4, the analyst can see the first three months after the duty.
 
-Here's a real list, January 2025: 36 declines, one dot each. Ten had no imports in the latest three months. Taiwan, in red, is 20th by size of drop.
+That month, 36 declines have fallen and not come back. The analyst can check about seven. Which ones?
+
+That's where our model comes in. It ranks the list, and the analyst checks the top seven. Eighteen months after the duty, in March 2026, we see which ones came back. Six of the model's seven picks had not. Picking seven at random would have found about four.
 
 The simplest rule is to check the biggest drops first. It needs no model, and anyone can do it with public data. That's the bar our model has to clear.
 
@@ -138,7 +140,7 @@ The simplest rule is to check the biggest drops first. It needs no model, and an
 
 **If asked:**
 
-- If asked about the dot far to the right: its latest months jumped well above its earlier level, but it hasn't stayed there three months in a row, so it still counts as not back.
+- If asked whether the biggest-drop rule did as well this month: about as well. Ten declines were tied at no imports at all, and 8 of those 10 had not come back. The model's edge shows across all 44 lists, which Raunak covers.
 - If asked what checking means: looking into that decline with the company's own supplier information. What the analyst does next, we did not test.
 - If asked why month 4: it's a checkpoint we studied, not a business deadline. On the day a duty starts, facts like the duty rate don't predict recovery any better than past averages. So we wait for some trade data.
 
@@ -203,7 +205,7 @@ But one month doesn't prove the model is better. For that, we need every month.
 
 ### Slide 12. The model's picks: 82% did not come back.
 
-*about 0:51*
+*about 1:00*
 
 Now every month, not just one. We ran this on 44 monthly lists, from 2020 to 2025.
 
@@ -211,16 +213,18 @@ Each month, the analyst checks the top fifth of the list. That's about 187 check
 
 With the model's order, 82 percent of the checks found declines that never came back. With biggest drop first, 70 percent. With a random order, 62 percent, the rate for all the declines on these lists.
 
+The line shows the same at every share the analyst might check, from 5 percent of the list to half of it.
+
 So with the same 187 checks, the model finds about 22 more lasting declines. The gap is 12 points. Our 90 percent range for it runs from 3.9 to 15.7, so it is clearly above zero.
 
 **If asked:**
 
-- If asked whether it holds up: yes, if the analyst checks 10 or 30 percent instead. Yes at months 6 and 8: 88 against 76, and 89 against 81. Yes without the biggest case. And three other models score 81 to 84 percent.
+- If asked whether it holds up: yes at every share on the chart. Yes at months 6 and 8: 88 against 76, and 89 against 81. Yes without the biggest case. And three other models score 81 to 84 percent.
 - If asked why 62 here and 57 on slide 7: different groups. 57 is all 380 cases, including ones that never fell. 62 is the declines on the 2020 to 2025 lists, counted one product at a time.
 
 ### Slide 13. What this means.
 
-*about 0:49*
+*about 0:53*
 
 Three things to take away.
 
@@ -228,7 +232,7 @@ First, after these duties, the drop is mostly real. More than half of the named 
 
 Second, at month 4, the model's list finds more lasting declines than just checking the biggest drops.
 
-Third, the limits. We haven't tested this with real analysts. How many they can check is our assumption. And we predict a country's recovery in a product, not whether one company survives.
+Third, the limits. We haven't tested this with real analysts. How many they can check is our assumption, though the result holds from 5 to 50 percent. And we predict a country's recovery in a product, not whether one company survives.
 
 What's next. On November 15 we froze a forecast of 197 declines whose outcomes aren't known yet. We'll score it as Census publishes the data, from December to early 2028. Thank you.
 
