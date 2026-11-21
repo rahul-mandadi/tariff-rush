@@ -13,7 +13,7 @@ import re
 from pptx import Presentation
 
 DECK = "slides/Mandadi_Khalsa_Presentation2_v3.pptx"
-MAIN = 13            # slides 1 to 13 are the talk; then the Backup divider and the backup slides
+MAIN = 14            # slides 1 to 14 are the talk; then the Backup divider and the backup slides
 RAHUL_LAST = 8
 SLOW, NORMAL = 130, 145  # words a minute
 
@@ -52,12 +52,40 @@ def headline(slide):
     return best
 
 
+def norm(text):
+    """Lower case, letters and digits only, single spaces: for matching slide phrases to the script."""
+    return " ".join(re.findall(r"[a-z0-9]+", text.lower().replace("u.s.", "us")))
+
+
+MONTH_LIKE = re.compile(r"^(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)\b|^\d+$", re.I)
+
+
+def bold_phrases(slide, head):
+    """The bold text on a slide (labels, step names, timeline titles), minus the headline, the step
+    marker, the footer, dates and bare numbers. Tables and charts are left out: nobody reads them aloud."""
+    out = []
+    for sh in slide.shapes:
+        if not sh.has_text_frame:
+            continue
+        t_ = sh.text_frame.text.strip()
+        if not t_ or t_ == head or "COLLECT" in t_ or "RAHUL REDDY" in t_:
+            continue
+        for p in sh.text_frame.paragraphs:
+            run = "".join(r.text for r in p.runs if r.font.bold)
+            for piece in re.split(r"[:.]\s*$", run.strip()):
+                piece = piece.strip(" :.")
+                if piece and not MONTH_LIKE.match(piece):
+                    out.append(piece)
+    return out
+
+
 def words(text):
     return len(re.findall(r"\b\w+\b", text))
 
 
 def ms(seconds):
-    return f"{int(seconds // 60)}:{int(round(seconds % 60)):02d}"
+    m, s_ = divmod(int(round(seconds)), 60)
+    return f"{m}:{s_:02d}"
 
 
 slides = list(Presentation(DECK).slides)
@@ -76,7 +104,11 @@ for n, s in enumerate(slides[:MAIN], 1):
             para = "*Handoff:* " + para[len("HANDOFF: "):]
         say.append(para)
     w = sum(words(p) for p in say if not p.startswith("*Handoff"))
-    rows.append(dict(n=n, head=headline(s), who="Rahul" if n <= RAHUL_LAST else "Raunak", say=say, asked=asked, w=w))
+    head = headline(s)
+    spoken = norm(" ".join(say))
+    missing = [] if n == 1 else [b for b in bold_phrases(s, head) if norm(b) not in spoken]
+    rows.append(dict(n=n, head=head, who="Rahul" if n <= RAHUL_LAST else "Raunak", say=say, asked=asked, w=w,
+                     missing=missing))
 
 backup = {headline(s): n for n, s in enumerate(slides, 1) if n > MAIN}
 total = sum(r["w"] for r in rows)
@@ -107,3 +139,8 @@ L.append("")
 open("slides/P2_SCRIPT.md", "w").write("\n".join(L))
 print(f"wrote slides/P2_SCRIPT.md: {total} words, {ms(total / NORMAL * 60)} at {NORMAL} a minute; "
       f"Rahul {half['Rahul']}, Raunak {half['Raunak']}")
+# the professor's rule: the speaker says what the slide shows. Every bold phrase on a talk slide
+# should appear in the spoken part of its notes (the "If asked" lines don't count).
+gaps = [(r["n"], b) for r in rows for b in r["missing"]]
+print("phrase check: every bold phrase on the talk slides is spoken" if not gaps else
+      "phrase check, bold phrases not spoken:\n" + "\n".join(f"  slide {n}: {b!r}" for n, b in gaps))
