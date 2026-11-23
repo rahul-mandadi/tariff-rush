@@ -27,6 +27,7 @@ STEPS = [
     "measure/recovery_benchmark.py --fall 0.3",
     "measure/recovery_benchmark.py --fall 0.2",  # the main threshold; kept last as in earlier runs
     "measure/recovery_by_final_stage.py",
+    "measure/stakes_check.py",
     "measure/build_decision_stacks.py",
     "forecast/prediction_test.py",
     "forecast/prediction_stage2.py",
