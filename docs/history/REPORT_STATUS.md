@@ -6,7 +6,7 @@ placeholders, through Chrome headless; there is no pandoc on this machine).
 
 ## Status
 
-Complete and self-consistent. Not submitted. Main text plus the statement of contributions fits
+Complete and self-consistent. Not submitted. Main text fits
 five pages; the spec excludes only references and appendices, which an earlier version did not
 respect. Zero em dashes. All figure and table numbers resolve.
 
@@ -52,7 +52,7 @@ percent change, and that the repository's own critical-circumstances test contra
 retroactivity mechanism the report asserted. All fixed.
 
 **Third (Opus, as examiner).** Scored 18/25 on the earlier version. Found Table 1 unreferenced, Fig.
-1 rendering near 3pt, the statement of contributions pushing to page 6, panel attrition undisclosed,
+1 rendering near 3pt, the end of the main text pushing to page 6, panel attrition undisclosed,
 reference [6] uncited, and "action" carrying three referents. All fixed.
 
 **Fifth (outside code review, technical, on the rebuilt version).** Its output was recovered
@@ -112,7 +112,7 @@ extracted text, which is how the 3.3 heading defect survived. Rendering all seve
 looking at them found one more: page 1 ended with "2. Methods" and "2.1 Data" and no body text
 under them. Fixed in `build_report.py` with `page-break-after: avoid` on headings and
 `orphans/widows: 2` on paragraphs. Confirmed by eye: both figures legible at 60 percent, Figure 1
-labels separated, all headings intact, tables aligned, page 5 ends on the contributions.
+labels separated, all headings intact, tables aligned, page 5 ends the main text.
 
 ## After Report 1: Kylie's Presentation 1 notes, worked through (2026-11-05)
 

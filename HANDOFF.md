@@ -130,9 +130,6 @@ The same case, product 9404.29.10 (mattresses, other), at the ITC vote (`forecas
 
 ## What still needs you
 
-- **Statement of contributions** (`FINAL_REPORT.md` section 5) is the Report 1 text. The commits on
-  this branch are all under one author, which does not establish who did what; both authors need to
-  write this phase's responsibilities.
 - **Deck PDFs**: PowerPoint's and Keynote's scripted exports both stall on a dialog. Open
   `slides/Mandadi_Khalsa_Presentation2_v2.pptx` (14 slides) and
   `slides/Mandadi_Khalsa_Final_Presentation.pptx` (18 slides) and use File > Export > PDF.
