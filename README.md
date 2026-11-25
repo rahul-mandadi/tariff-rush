@@ -5,6 +5,10 @@
 Rahul Reddy Mandadi, Raunaksingh Khalsa
 DS 5500 Data Science Capstone, Northeastern University, Fall 2026
 
+## Abstract
+
+A U.S. importer sees shipments from one country slow after a new import tax takes effect. Should its analyst look into another supplier, or is this a dip that will pass? We studied 502 U.S. trade duty cases using monthly import records. In 57 percent of the cases we could classify, the country lost market share and still hadn’t regained it 18 months after the duty began. Four months into a duty, public records already offered clues about which declines would last. We tested two ways an analyst could choose what to investigate across 44 monthly lists. With time to check one in five entries, starting with the biggest drops would have found about 132 lasting declines. Our forecast would have found about 154 with the same time budget. These are results from past cases. Analysts have yet to try the list in their own work.
+
 The write-up is [FINAL_REPORT.md](FINAL_REPORT.md) (built to `Mandadi_Khalsa_Final_Report.pdf` by
 `build_final_report.py`). The decks are `slides/Mandadi_Khalsa_Presentation2_v3.pptx` (Presentation 2, with its spoken
 script in `slides/P2_SCRIPT.md`) and `slides/Mandadi_Khalsa_Final_Presentation.pptx`.

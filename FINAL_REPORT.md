@@ -313,15 +313,7 @@ on its own). For the 2018 Section 301 proposals, published data flagged growing 
 but did not separate a rush from ordinary momentum (Appendix J); Report 1's analysis of the
 broader 2018 to 2026 actions is withdrawn (Appendix F). Where the lost trade goes is not estimable. Limitations are listed in Appendix I.
 
-## 5. Statement of contributions
-
-Both authors contributed equally. Rahul Reddy Mandadi led data collection, the eight-digit panel,
-the duty-notice tables, the stacked event study, the recovery and forecasting tests, the Section 301
-test and the code repository. Raunaksingh Khalsa led exploratory analysis, anomaly detection (the
-dollars and quantity comparison in Appendix G) and the first presentation. Both set the research
-questions, chose the identification strategy, and wrote this report.
-
-## 6. References
+## 5. References
 
 [1] Fajgelbaum, P., Goldberg, P., Kennedy, P. and Khandelwal, A. (2020). The Return to
 Protectionism. *Quarterly Journal of Economics* 135(1), 1-55.
@@ -365,7 +357,7 @@ United States International Trade Commission Harmonized Tariff Schedule, chapter
 International Trade Administration antidumping and countervailing duty case index; ITC final
 determination notices in the Federal Register.
 
-## 7. Appendices
+## 6. Appendices
 
 ### Appendix A. Copper in 2025
 
